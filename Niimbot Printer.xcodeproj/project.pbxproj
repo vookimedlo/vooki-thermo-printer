@@ -11,7 +11,19 @@
 		8D58DC182C052197001EBD95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC172C052197001EBD95 /* ViewController.swift */; };
 		8D58DC1A2C052198001EBD95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC192C052198001EBD95 /* Assets.xcassets */; };
 		8D58DC1D2C052198001EBD95 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC1C2C052198001EBD95 /* Base */; };
+		8D58DC252C052317001EBD95 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC242C052317001EBD95 /* Packet.swift */; };
+		8D58DC2D2C05D460001EBD95 /* Niimbot_PrinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC2C2C05D460001EBD95 /* Niimbot_PrinterTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8D58DC2E2C05D460001EBD95 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D58DC0A2C052197001EBD95 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D58DC112C052197001EBD95;
+			remoteInfo = "Niimbot Printer";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		8D58DC122C052197001EBD95 /* Niimbot Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Niimbot Printer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -20,10 +32,20 @@
 		8D58DC192C052198001EBD95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D58DC1C2C052198001EBD95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D58DC1E2C052198001EBD95 /* Niimbot_Printer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Niimbot_Printer.entitlements; sourceTree = "<group>"; };
+		8D58DC242C052317001EBD95 /* Packet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
+		8D58DC2A2C05D460001EBD95 /* Niimbot PrinterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Niimbot PrinterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D58DC2C2C05D460001EBD95 /* Niimbot_PrinterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Niimbot_PrinterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8D58DC0F2C052197001EBD95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8D58DC272C05D460001EBD95 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -37,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				8D58DC142C052197001EBD95 /* Niimbot Printer */,
+				8D58DC2B2C05D460001EBD95 /* Niimbot PrinterTests */,
 				8D58DC132C052197001EBD95 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -45,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				8D58DC122C052197001EBD95 /* Niimbot Printer.app */,
+				8D58DC2A2C05D460001EBD95 /* Niimbot PrinterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -57,8 +81,17 @@
 				8D58DC192C052198001EBD95 /* Assets.xcassets */,
 				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
 				8D58DC1E2C052198001EBD95 /* Niimbot_Printer.entitlements */,
+				8D58DC242C052317001EBD95 /* Packet.swift */,
 			);
 			path = "Niimbot Printer";
+			sourceTree = "<group>";
+		};
+		8D58DC2B2C05D460001EBD95 /* Niimbot PrinterTests */ = {
+			isa = PBXGroup;
+			children = (
+				8D58DC2C2C05D460001EBD95 /* Niimbot_PrinterTests.swift */,
+			);
+			path = "Niimbot PrinterTests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -81,6 +114,24 @@
 			productReference = 8D58DC122C052197001EBD95 /* Niimbot Printer.app */;
 			productType = "com.apple.product-type.application";
 		};
+		8D58DC292C05D460001EBD95 /* Niimbot PrinterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D58DC302C05D460001EBD95 /* Build configuration list for PBXNativeTarget "Niimbot PrinterTests" */;
+			buildPhases = (
+				8D58DC262C05D460001EBD95 /* Sources */,
+				8D58DC272C05D460001EBD95 /* Frameworks */,
+				8D58DC282C05D460001EBD95 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D58DC2F2C05D460001EBD95 /* PBXTargetDependency */,
+			);
+			name = "Niimbot PrinterTests";
+			productName = "Niimbot PrinterTests";
+			productReference = 8D58DC2A2C05D460001EBD95 /* Niimbot PrinterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -93,6 +144,10 @@
 				TargetAttributes = {
 					8D58DC112C052197001EBD95 = {
 						CreatedOnToolsVersion = 15.4;
+					};
+					8D58DC292C05D460001EBD95 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 8D58DC112C052197001EBD95;
 					};
 				};
 			};
@@ -110,6 +165,7 @@
 			projectRoot = "";
 			targets = (
 				8D58DC112C052197001EBD95 /* Niimbot Printer */,
+				8D58DC292C05D460001EBD95 /* Niimbot PrinterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -124,6 +180,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D58DC282C05D460001EBD95 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -131,12 +194,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D58DC252C052317001EBD95 /* Packet.swift in Sources */,
 				8D58DC182C052197001EBD95 /* ViewController.swift in Sources */,
 				8D58DC162C052197001EBD95 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8D58DC262C05D460001EBD95 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D58DC2D2C05D460001EBD95 /* Niimbot_PrinterTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8D58DC2F2C05D460001EBD95 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D58DC112C052197001EBD95 /* Niimbot Printer */;
+			targetProxy = 8D58DC2E2C05D460001EBD95 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8D58DC1B2C052198001EBD95 /* Main.storyboard */ = {
@@ -322,6 +402,40 @@
 			};
 			name = Release;
 		};
+		8D58DC312C05D460001EBD95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.Niimbot.app.Niimbot-PrinterTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Niimbot Printer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Niimbot Printer";
+			};
+			name = Debug;
+		};
+		8D58DC322C05D460001EBD95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.Niimbot.app.Niimbot-PrinterTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Niimbot Printer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Niimbot Printer";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -339,6 +453,15 @@
 			buildConfigurations = (
 				8D58DC222C052198001EBD95 /* Debug */,
 				8D58DC232C052198001EBD95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8D58DC302C05D460001EBD95 /* Build configuration list for PBXNativeTarget "Niimbot PrinterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D58DC312C05D460001EBD95 /* Debug */,
+				8D58DC322C05D460001EBD95 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

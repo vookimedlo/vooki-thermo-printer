@@ -13,6 +13,11 @@
 		8D58DC1D2C052198001EBD95 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC1C2C052198001EBD95 /* Base */; };
 		8D58DC252C052317001EBD95 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC242C052317001EBD95 /* Packet.swift */; };
 		8D58DC2D2C05D460001EBD95 /* Niimbot_PrinterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC2C2C05D460001EBD95 /* Niimbot_PrinterTests.swift */; };
+		8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC332C064583001EBD95 /* PrinterDevice.swift */; };
+		8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
+		8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */; };
+		8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5342C08DA08005D7EEB /* IOProtocol.swift */; };
+		8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5362C08DA38005D7EEB /* IOError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +40,11 @@
 		8D58DC242C052317001EBD95 /* Packet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
 		8D58DC2A2C05D460001EBD95 /* Niimbot PrinterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Niimbot PrinterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC2C2C05D460001EBD95 /* Niimbot_PrinterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Niimbot_PrinterTests.swift; sourceTree = "<group>"; };
+		8D58DC332C064583001EBD95 /* PrinterDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDevice.swift; sourceTree = "<group>"; };
+		8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
+		8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIO.swift; sourceTree = "<group>"; };
+		8D76C5342C08DA08005D7EEB /* IOProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOProtocol.swift; sourceTree = "<group>"; };
+		8D76C5362C08DA38005D7EEB /* IOError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +87,16 @@
 			isa = PBXGroup;
 			children = (
 				8D58DC152C052197001EBD95 /* AppDelegate.swift */,
-				8D58DC172C052197001EBD95 /* ViewController.swift */,
+				8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */,
 				8D58DC192C052198001EBD95 /* Assets.xcassets */,
+				8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */,
+				8D76C5362C08DA38005D7EEB /* IOError.swift */,
+				8D76C5342C08DA08005D7EEB /* IOProtocol.swift */,
 				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
 				8D58DC1E2C052198001EBD95 /* Niimbot_Printer.entitlements */,
 				8D58DC242C052317001EBD95 /* Packet.swift */,
+				8D58DC332C064583001EBD95 /* PrinterDevice.swift */,
+				8D58DC172C052197001EBD95 /* ViewController.swift */,
 			);
 			path = "Niimbot Printer";
 			sourceTree = "<group>";
@@ -195,8 +210,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D58DC252C052317001EBD95 /* Packet.swift in Sources */,
+				8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */,
+				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
 				8D58DC182C052197001EBD95 /* ViewController.swift in Sources */,
+				8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */,
 				8D58DC162C052197001EBD95 /* AppDelegate.swift in Sources */,
+				8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */,
+				8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

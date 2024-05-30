@@ -7,6 +7,18 @@
 
 import Foundation
 
+public enum InfoCode: UInt8 {
+    case DENSITY = 1
+    case PRINT_SPEED = 2
+    case LABEL_TYPE = 3
+    case LANGUAGE_TYPE = 6
+    case AUTO_SHUTDOWN_TIME = 7
+    case DEVICE_TYPE = 8
+    case SOFTWARE_VERSION = 9
+    case BATTERY = 10
+    case DEVICE_SERIAL = 11
+    case HARDWARE_VERSION = 12
+}
 
 public enum RequestCode: UInt8 {
     case GET_INFO = 0x40
@@ -23,6 +35,13 @@ public enum RequestCode: UInt8 {
     case SET_QUANTITY = 0x15
     case GET_PRINT_STATUS = 0xA3
 }
+
+
+//public enum ResponseCode: UInt8 {
+//    case GET_INFO_SOFTWARE_VERSION = RequestCode.GET_INFO + InfoCode.SOFTWARE_VERSION
+//    case GET_INFO_HARDWARE_VERSION = RequestCode.GET_INFO + InfoCode.HARDWARE_VERSION
+//    case GET_INFO_DEVICE_SERIAL = RequestCode.GET_INFO + InfoCode.DEVICE_SERIAL
+//}
 
 
 public class Packet {

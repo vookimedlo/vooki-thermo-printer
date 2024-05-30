@@ -1,13 +1,19 @@
 //
-//  DataExtension.swift
+//  ArrayExtension.swift
 //  Niimbot Printer
 //
-//  Created by Michal Duda on 28.05.2024.
+//  Created by Michal Duda on 29.05.2024.
 //
 
 import Foundation
 
-extension Data {
+extension Array {
+    init(pointer: UnsafeMutablePointer<Element>, count: Int) {
+        self = Array(UnsafeBufferPointer<Element>(start: pointer, count: count))
+    }
+}
+
+extension Array<UInt8> {
     struct HexEncodingOptions: OptionSet {
         let rawValue: Int
         static let upperCase = HexEncodingOptions(rawValue: 1 << 0)

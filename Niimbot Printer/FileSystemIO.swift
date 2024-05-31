@@ -10,8 +10,10 @@ import Foundation
 public class FileSystemIO : IO {
     var fileDescriptor: Int32?
     let filepath: String
+    let fileSystemAccess: FileSystemAccess
     
-    public init(filepath: String) {
+    public init(fileSystemAccess: FileSystemAccess, filepath: String) {
+        self.fileSystemAccess = fileSystemAccess
         self.filepath = filepath
     }
     
@@ -20,7 +22,7 @@ public class FileSystemIO : IO {
             close()
         }
         
-        fileDescriptor = Darwin.open(self.filepath, O_RDWR | O_NOCTTY)
+        fileDescriptor = fileSystemAccess.open(self.filepath, O_RDWR | O_NOCTTY)
         if fileDescriptor == -1 { throw IOError.open }
     }
     
@@ -29,14 +31,14 @@ public class FileSystemIO : IO {
             return
         }
         
-        Darwin.close(fileDescriptor)
+        fileSystemAccess.close(fileDescriptor)
     }
     
     public func readBytes(into buffer: UnsafeMutablePointer<UInt8>, size: Int) throws -> Int {
         guard let fileDescriptor = fileDescriptor else {
             throw IOError.read
         }
-        let bytesRead = Darwin.read(fileDescriptor, buffer, size)
+        let bytesRead = fileSystemAccess.read(fileDescriptor, buffer, size)
         if bytesRead == -1 { throw IOError.read }
         return bytesRead
     }
@@ -45,10 +47,8 @@ public class FileSystemIO : IO {
         guard let fileDescriptor = fileDescriptor else {
             throw IOError.write
         }
-        let bytesWritten = Darwin.write(fileDescriptor, buffer, size)
+        let bytesWritten = fileSystemAccess.write(fileDescriptor, buffer, size)
         if bytesWritten == -1 { throw IOError.write }
         return bytesWritten
     }
-    
-    
 }

@@ -8,8 +8,14 @@
 import Foundation
 
 extension Array {
-    init(pointer: UnsafeMutablePointer<Element>, count: Int) {
+    init(pointer: UnsafePointer<Element>, count: Int) {
         self = Array(UnsafeBufferPointer<Element>(start: pointer, count: count))
+    }
+    
+    init(rawPointer: UnsafeRawPointer, count: Int) {
+        self = Array(UnsafeBufferPointer<Element>(start: rawPointer.bindMemory(to: Element.self,
+                                                                               capacity: count),
+                                                  count: count))
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  Niimbot_PrinterTests.swift
+//  PacketTests.swift
 //  Niimbot PrinterTests
 //
 //  Created by Michal Duda on 28.05.2024.
@@ -8,7 +8,7 @@
 import XCTest
 import Niimbot_Printer
 
-final class Niimbot_PrinterTests: XCTestCase {
+final class PacketTests: XCTestCase {
     
     static let validDownlinks: [[UInt8]] = [
         [0x55, 0x55, RequestCode.GET_INFO.rawValue, 0x03, 0x11, 0x22, 0x33, 0x43, 0xAA, 0xAA],
@@ -26,18 +26,18 @@ final class Niimbot_PrinterTests: XCTestCase {
     
     func testDownlinkConstructionFromPacket() {
         
-        for index in 0...Niimbot_PrinterTests.validPackets.count - 1 {
-            let packet = Packet(requestCode: Niimbot_PrinterTests.validPackets[index].0, data: Niimbot_PrinterTests.validPackets[index].1)
+        for index in 0...PacketTests.validPackets.count - 1 {
+            let packet = Packet(requestCode: PacketTests.validPackets[index].0, data: PacketTests.validPackets[index].1)
             let downlink = packet.downlink()
-            let expectedDownlink = Niimbot_PrinterTests.validDownlinks[index]
+            let expectedDownlink = PacketTests.validDownlinks[index]
             XCTAssertEqual(expectedDownlink, downlink)
         }
     }
     
     func testPacketConstructionFromUplink() throws {
-        for index in 0...Niimbot_PrinterTests.validUplinks.count - 1 {
-            let packet =  try XCTUnwrap(Packet.create(uplink: Niimbot_PrinterTests.validUplinks[index]))
-            let (expectedRequestCode, expectedPayload) = Niimbot_PrinterTests.validPackets[index]
+        for index in 0...PacketTests.validUplinks.count - 1 {
+            let packet =  try XCTUnwrap(Packet.create(uplink: PacketTests.validUplinks[index]))
+            let (expectedRequestCode, expectedPayload) = PacketTests.validPackets[index]
             XCTAssertEqual(expectedRequestCode, packet.requestCode)
             XCTAssertEqual(expectedPayload, packet.payload)
         }

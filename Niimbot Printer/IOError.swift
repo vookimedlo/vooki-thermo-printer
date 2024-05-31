@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum IOError: Error {
+public enum IOError: Error {
     case open
     case read
     case write

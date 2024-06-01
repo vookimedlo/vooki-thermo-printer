@@ -23,6 +23,13 @@
 		8D76C53F2C091162005D7EEB /* StubbedFileSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C53E2C091162005D7EEB /* StubbedFileSystem.swift */; };
 		8D76C5412C0912C4005D7EEB /* FileSystemIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */; };
 		8D76C5602C0A11BB005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
+		8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */; };
+		8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96391E2C0A8E8B00374894 /* DataExtension.swift */; };
+		8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96393E2C0B5E0600374894 /* Notifications.swift */; };
+		8D9639412C0B616D00374894 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639402C0B616D00374894 /* Notifier.swift */; };
+		8D9639432C0B927F00374894 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639422C0B927F00374894 /* Observable.swift */; };
+		8D9639452C0B984F00374894 /* ObservableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639442C0B984F00374894 /* ObservableExtension.swift */; };
+		8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639462C0B9C8B00374894 /* NotifierExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +61,13 @@
 		8D76C53C2C091062005D7EEB /* FileSystemAccessProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemAccessProtocol.swift; sourceTree = "<group>"; };
 		8D76C53E2C091162005D7EEB /* StubbedFileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbedFileSystem.swift; sourceTree = "<group>"; };
 		8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIOTests.swift; sourceTree = "<group>"; };
+		8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UplinkProcessor.swift; sourceTree = "<group>"; };
+		8D96391E2C0A8E8B00374894 /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
+		8D96393E2C0B5E0600374894 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
+		8D9639402C0B616D00374894 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		8D9639422C0B927F00374894 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		8D9639442C0B984F00374894 /* ObservableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableExtension.swift; sourceTree = "<group>"; };
+		8D9639462C0B9C8B00374894 /* NotifierExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifierExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,15 +112,22 @@
 				8D58DC152C052197001EBD95 /* AppDelegate.swift */,
 				8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */,
 				8D58DC192C052198001EBD95 /* Assets.xcassets */,
-				8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */,
+				8D96391E2C0A8E8B00374894 /* DataExtension.swift */,
 				8D76C53C2C091062005D7EEB /* FileSystemAccessProtocol.swift */,
+				8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */,
 				8D76C5362C08DA38005D7EEB /* IOError.swift */,
 				8D76C5342C08DA08005D7EEB /* IOProtocol.swift */,
 				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
 				8D58DC1E2C052198001EBD95 /* Niimbot_Printer.entitlements */,
+				8D96393E2C0B5E0600374894 /* Notifications.swift */,
+				8D9639402C0B616D00374894 /* Notifier.swift */,
+				8D9639462C0B9C8B00374894 /* NotifierExtension.swift */,
+				8D9639422C0B927F00374894 /* Observable.swift */,
+				8D9639442C0B984F00374894 /* ObservableExtension.swift */,
 				8D58DC242C052317001EBD95 /* Packet.swift */,
 				8D76C53A2C090B96005D7EEB /* PosixFileSystemAccess.swift */,
 				8D58DC332C064583001EBD95 /* PrinterDevice.swift */,
+				8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */,
 				8D58DC172C052197001EBD95 /* ViewController.swift */,
 			);
 			path = "Niimbot Printer";
@@ -223,14 +244,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D58DC252C052317001EBD95 /* Packet.swift in Sources */,
+				8D9639432C0B927F00374894 /* Observable.swift in Sources */,
+				8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */,
+				8D9639412C0B616D00374894 /* Notifier.swift in Sources */,
 				8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */,
 				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
+				8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */,
+				8D9639452C0B984F00374894 /* ObservableExtension.swift in Sources */,
 				8D58DC182C052197001EBD95 /* ViewController.swift in Sources */,
 				8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */,
 				8D58DC162C052197001EBD95 /* AppDelegate.swift in Sources */,
 				8D76C53D2C091062005D7EEB /* FileSystemAccessProtocol.swift in Sources */,
 				8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */,
+				8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */,
 				8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */,
+				8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */,
 				8D76C53B2C090B96005D7EEB /* PosixFileSystemAccess.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

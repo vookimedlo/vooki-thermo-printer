@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import os
 
 public enum InfoCode: UInt8 {
     case DENSITY = 1
@@ -21,36 +22,37 @@ public enum InfoCode: UInt8 {
 }
 
 public enum RequestCode: UInt8 {
-    case GET_INFO = 0x40
-    case GET_RFID = 0x1A
-    case HEARTBEAT = 0xDC
-    case SET_LABEL_TYPE = 0x23
-    case SET_LABEL_DENSITY = 0x21
-    case START_PRINT = 0x01
-    case END_PRINT = 0xF3
-    case START_PAGE_PRINT = 0x03
-    case END_PAGE_PRINT = 0xE3
-    case ALLOW_PRINT_CLEAR = 0x20
-    case SET_DIMENSION = 0x13
-    case SET_QUANTITY = 0x15
-    case GET_PRINT_STATUS = 0xA3
+    case REQUEST_GET_INFO = 0x40
+    case REQUEST_GET_RFID = 0x1A
+    case REQUEST_HEARTBEAT = 0xDC
+    case REQUEST_SET_LABEL_TYPE = 0x23
+    case REQUEST_SET_LABEL_DENSITY = 0x21
+    case REQUEST_START_PRINT = 0x01
+    case REQUEST_END_PRINT = 0xF3
+    case REQUEST_START_PAGE_PRINT = 0x03
+    case REQUEST_END_PAGE_PRINT = 0xE3
+    case REQUEST_ALLOW_PRINT_CLEAR = 0x20
+    case REQUEST_SET_DIMENSION = 0x13
+    case REQUEST_SET_QUANTITY = 0x15
+    case REQUEST_GET_PRINT_STATUS = 0xA3
+    
+    case RESPONSE_GET_INFO_SOFTWARE_VERSION = 0x49 // RequestCode.REQUEST_GET_INFO + InfoCode.SOFTWARE_VERSION
+    case RESPONSE_GET_INFO_DEVICE_SERIAL = 0x4B    // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_SERIAL
+    case RESPONSE_GET_INFO_HARDWARE_VERSION = 0x4C // RequestCode.REQUEST_GET_INFO + InfoCode.HARDWARE_VERSION
 }
 
-
-//public enum ResponseCode: UInt8 {
-//    case GET_INFO_SOFTWARE_VERSION = RequestCode.GET_INFO + InfoCode.SOFTWARE_VERSION
-//    case GET_INFO_HARDWARE_VERSION = RequestCode.GET_INFO + InfoCode.HARDWARE_VERSION
-//    case GET_INFO_DEVICE_SERIAL = RequestCode.GET_INFO + InfoCode.DEVICE_SERIAL
-//}
-
-
 public class Packet {
+    private static let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: Packet.self)
+    )
+    
     public private(set) var requestCode: RequestCode
     public private(set) var payload: [UInt8]
     
-    public init(requestCode: RequestCode, data: [UInt8]) {
+    public init(requestCode: RequestCode, data: ArraySlice<UInt8>) {
         self.requestCode = requestCode
-        self.payload = data
+        self.payload = [UInt8](data)
     }
     
     private static func checksum(requestCode: RequestCode, payload: ArraySlice<UInt8>) -> UInt8 {
@@ -70,11 +72,11 @@ public class Packet {
 }
 
 extension Packet {
-    public static func create(uplink: [UInt8]) -> Packet? {
+    public static func create(uplink: ArraySlice<UInt8>) -> Packet? {
         guard uplink.count > 6 else {
             return nil
         }
-        guard (uplink.prefix(2) == [UInt8](arrayLiteral: 0x55, 0x55)[...] && uplink.suffix(2) == [UInt8](arrayLiteral: 0xAA, 0xAA)[...]) else {
+        guard (uplink.starts(with: [0x55, 0x55]) && uplink.suffix(2) == [UInt8](arrayLiteral: 0xAA, 0xAA)[...]) else {
             return nil
         }
         
@@ -92,6 +94,30 @@ extension Packet {
             return nil
         }
 
-        return Packet(requestCode: requestCode, data: [UInt8](payload))
+        return Packet(requestCode: requestCode, data: payload)
+    }
+}
+
+extension Packet {
+    public static func create(fromStream data: inout Data) -> Packet? {
+        if data.count > 6 && data.starts(with: [UInt8](arrayLiteral: 0x55, 0x55)) {
+            let payloadSize = data[3]
+            if data.count >= 4 + payloadSize + 3 && data[4 + Int(payloadSize) + 1] == 0xAA && data[4 + Int(payloadSize) + 2] == 0xAA {
+                let packetSize = 4 + Int(payloadSize) + 3
+                var packetArray = Array<UInt8>(repeating: 0, count: packetSize)
+                _ = packetArray.withUnsafeMutableBytes { data.copyBytes(to: $0) }
+                defer {
+                    data.removeFirst(packetSize)
+                }
+                
+                if let packet = Self.create(uplink: packetArray[...]) {
+                    return packet
+                }
+                else {
+                    Self.logger.error("Internal error: cannot parse the uplinked packet")
+                }
+            }
+        }
+        return nil
     }
 }

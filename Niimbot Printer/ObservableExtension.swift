@@ -8,7 +8,7 @@
 import Foundation
 import Cocoa
 
-extension Observable where Self: NSViewController {
+extension Observable {
     func registerNotification(name: Notification.Name, selector: Selector) {
         NotificationCenter.default.addObserver(self, selector: selector, name: name, object: nil)
     }

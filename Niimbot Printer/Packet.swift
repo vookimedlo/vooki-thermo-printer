@@ -36,9 +36,12 @@ public enum RequestCode: UInt8 {
     case REQUEST_SET_QUANTITY = 0x15
     case REQUEST_GET_PRINT_STATUS = 0xA3
     
+    case RESPONSE_GET_INFO_DEVICE_TYPE = 0x48      // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_TYPE
     case RESPONSE_GET_INFO_SOFTWARE_VERSION = 0x49 // RequestCode.REQUEST_GET_INFO + InfoCode.SOFTWARE_VERSION
+    case RESPONSE_GET_INFO_BATTERY = 0x4A          // RequestCode.REQUEST_GET_INFO + InfoCode.BATTERY
     case RESPONSE_GET_INFO_DEVICE_SERIAL = 0x4B    // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_SERIAL
     case RESPONSE_GET_INFO_HARDWARE_VERSION = 0x4C // RequestCode.REQUEST_GET_INFO + InfoCode.HARDWARE_VERSION
+    case RESPONSE_GET_RFID = 0x1B                  // RequestCode.GET_RFID + 1
 }
 
 public class Packet {
@@ -101,8 +104,8 @@ extension Packet {
 extension Packet {
     public static func create(fromStream data: inout Data) -> Packet? {
         if data.count > 6 && data.starts(with: [UInt8](arrayLiteral: 0x55, 0x55)) {
-            let payloadSize = data[3]
-            if data.count >= 4 + payloadSize + 3 && data[4 + Int(payloadSize) + 1] == 0xAA && data[4 + Int(payloadSize) + 2] == 0xAA {
+            let payloadSize = data[data.startIndex + 3]
+            if data.count >= 4 + payloadSize + 3 && data[data.startIndex + 4 + Int(payloadSize) + 1] == 0xAA && data[data.startIndex + 4 + Int(payloadSize) + 2] == 0xAA {
                 let packetSize = 4 + Int(payloadSize) + 3
                 var packetArray = Array<UInt8>(repeating: 0, count: packetSize)
                 _ = packetArray.withUnsafeMutableBytes { data.copyBytes(to: $0) }

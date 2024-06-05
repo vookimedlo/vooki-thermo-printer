@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Notifier where Self: UplinkProcessor {
+extension Notifier {
     func notify(name: Notification.Name) {
         Dispatch.DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
             NotificationCenter.default.post(name: name, object: self)

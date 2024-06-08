@@ -36,6 +36,7 @@
 		8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */; };
 		8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */; };
 		8DEB85EE2C0E5E610028526B /* DataConsumerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */; };
+		8DEB860E2C1250BF0028526B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB860D2C1250BF0028526B /* Image.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSupport.swift; sourceTree = "<group>"; };
 		8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAccessProtocol.swift; sourceTree = "<group>"; };
 		8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConsumerProtocol.swift; sourceTree = "<group>"; };
+		8DEB860D2C1250BF0028526B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,9 +130,11 @@
 				8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */,
 				8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */,
 				8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */,
+				8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */,
 				8D96391E2C0A8E8B00374894 /* DataExtension.swift */,
 				8D76C53C2C091062005D7EEB /* FileSystemAccessProtocol.swift */,
 				8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */,
+				8DEB860D2C1250BF0028526B /* Image.swift */,
 				8D76C5362C08DA38005D7EEB /* IOError.swift */,
 				8D76C5342C08DA08005D7EEB /* IOProtocol.swift */,
 				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
@@ -148,7 +152,6 @@
 				8D58DC332C064583001EBD95 /* PrinterDevice.swift */,
 				8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */,
 				8D58DC172C052197001EBD95 /* ViewController.swift */,
-				8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */,
 			);
 			path = "Niimbot Printer";
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */,
+				8DEB860E2C1250BF0028526B /* Image.swift in Sources */,
 				8D58DC252C052317001EBD95 /* Packet.swift in Sources */,
 				8D9639432C0B927F00374894 /* Observable.swift in Sources */,
 				8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */,

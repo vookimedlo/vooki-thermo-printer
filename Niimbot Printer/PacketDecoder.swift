@@ -79,6 +79,51 @@ extension Data {
     }
 }
 
+class DensityPacketDecoder: PacketDecoding {
+    static let code = RequestCode.RESPONSE_GET_INFO_DENSITY
+    
+    func decode(packet: Packet) -> Bool {
+        guard Self.code == packet.requestCode else { return false }
+        guard packet.payload.count == 1 else { return false }
+        
+        print("density")
+        print(packet.payload.hexEncodedString(options: [.upperCase]))
+       
+        notify(name: Notifications.Names.density,
+               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, packet.payload[0])))
+        return true
+    }
+}
+
+class LabelTypePacketDecoder: PacketDecoding {
+    static let code = RequestCode.RESPONSE_GET_INFO_LABEL_TYPE
+    
+    func decode(packet: Packet) -> Bool {
+        guard Self.code == packet.requestCode else { return false }
+        guard packet.payload.count == 1 else { return false }
+        
+        print("label")
+        print(packet.payload.hexEncodedString(options: [.upperCase]))
+       
+        notify(name: Notifications.Names.labelType,
+               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, packet.payload[0])))
+        return true
+    }
+}
+
+class AutoShutdownTimePacketDecoder: PacketDecoding {
+    static let code = RequestCode.RESPONSE_GET_INFO_AUTO_SHUTDOWN_TIME
+    
+    func decode(packet: Packet) -> Bool {
+        guard Self.code == packet.requestCode else { return false }
+        guard packet.payload.count == 1 else { return false }
+       
+        notify(name: Notifications.Names.autoShutdownTime,
+               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, packet.payload[0])))
+        return true
+    }
+}
+
 class SoftwareVersionPacketDecoder: PacketDecoding {
     static let code = RequestCode.RESPONSE_GET_INFO_SOFTWARE_VERSION
     
@@ -213,4 +258,42 @@ struct RFIDData {
     let totalLength: UInt16
     let usedLength: UInt16
     let type: UInt8
+}
+
+class BoolBytePacketDecoder: PacketDecoding {
+    static let codes = [RequestCode.RESPONSE_START_PRINT,
+                        RequestCode.RESPONSE_END_PRINT,
+                        RequestCode.RESPONSE_START_PAGE_PRINT,
+                        RequestCode.RESPONSE_END_PAGE_PRINT,
+                        RequestCode.RESPONSE_ALLOW_PRINT_CLEAR]
+    
+    func decode(packet: Packet) -> Bool {
+        guard Self.codes.contains(packet.requestCode) else { return false }
+        guard packet.payload.count == 1 else { return false }
+        
+        guard let name = { (code: RequestCode) -> NSNotification.Name? in
+            switch packet.requestCode {
+            case RequestCode.RESPONSE_START_PRINT:
+                return Notifications.Names.startPrint
+            case RequestCode.RESPONSE_END_PRINT:
+                return Notifications.Names.endPrint
+            case RequestCode.RESPONSE_START_PAGE_PRINT:
+                return Notifications.Names.startPagePrint
+            case RequestCode.RESPONSE_END_PAGE_PRINT:
+                return Notifications.Names.endPagePrint
+            case RequestCode.RESPONSE_ALLOW_PRINT_CLEAR:
+                return Notifications.Names.allowPrintClear
+            default:
+                return nil
+            }
+        }(packet.requestCode) else {
+            return false
+        }
+        
+        let result = packet.payload[0] != 0
+
+        notify(name: name,
+               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, result)))
+        return true
+    }
 }

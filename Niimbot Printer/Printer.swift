@@ -19,7 +19,11 @@ class Printer {
                                                  HardwareVersionPacketDecoder(),
                                                  BatteryInformationPacketDecoder(),
                                                  DeviceTypePacketDecoder(),
-                                                 RFIDDataPacketDecoder()])
+                                                 RFIDDataPacketDecoder(),
+                                                 BoolBytePacketDecoder(),
+                                                 AutoShutdownTimePacketDecoder(),
+                                                 DensityPacketDecoder(),
+                                                 LabelTypePacketDecoder()])
     let printerDevice: PrinterDevice
     
     init(printerDevice: PrinterDevice) {
@@ -57,35 +61,59 @@ class Printer {
         send(packet: packet)
     }
     
+    public func getAutoShutdownTime() {
+        let packet = Packet(requestCode: RequestCode.REQUEST_GET_INFO, data: [InfoCode.AUTO_SHUTDOWN_TIME.rawValue])
+        send(packet: packet)
+    }
+    
+    public func getDensity() {
+        let packet = Packet(requestCode: RequestCode.REQUEST_GET_INFO, data: [InfoCode.DENSITY.rawValue])
+        send(packet: packet)
+    }
+    
+    public func getLabelType() {
+        let packet = Packet(requestCode: RequestCode.REQUEST_GET_INFO, data: [InfoCode.LABEL_TYPE.rawValue])
+        send(packet: packet)
+    }
+        
     public func getRFIDData() {
         let packet = Packet(requestCode: RequestCode.REQUEST_GET_RFID, data: [1])
         send(packet: packet)
     }
     
+    public func startPrint() {
+        let packet = Packet(requestCode: RequestCode.REQUEST_START_PRINT, data: [1])
+        send(packet: packet)
+    }
+    
+    public func endPrint() {
+        let packet = Packet(requestCode: RequestCode.REQUEST_END_PRINT, data: [1])
+        send(packet: packet)
+    }
+    
+    public func startPagePrint() {
+        let packet = Packet(requestCode: RequestCode.REQUEST_START_PAGE_PRINT, data: [1])
+        send(packet: packet)
+    }
+    
+    public func endPagePrint() {
+        let packet = Packet(requestCode: RequestCode.REQUEST_END_PAGE_PRINT, data: [1])
+        send(packet: packet)
+    }
+    
+    public func allowPrintClear() {
+        let packet = Packet(requestCode: RequestCode.REQUEST_ALLOW_PRINT_CLEAR, data: [1])
+        send(packet: packet)
+    }
 
-//case DENSITY = 1
-//case PRINT_SPEED = 2
-//case LABEL_TYPE = 3
-//case LANGUAGE_TYPE = 6
-//case AUTO_SHUTDOWN_TIME = 7
 
-//case REQUEST_GET_INFO = 0x40
 //case REQUEST_HEARTBEAT = 0xDC
 //case REQUEST_SET_LABEL_TYPE = 0x23
 //case REQUEST_SET_LABEL_DENSITY = 0x21
-//case REQUEST_START_PRINT = 0x01
-//case REQUEST_END_PRINT = 0xF3
-//case REQUEST_START_PAGE_PRINT = 0x03
-//case REQUEST_END_PAGE_PRINT = 0xE3
-//case REQUEST_ALLOW_PRINT_CLEAR = 0x20
+
 //case REQUEST_SET_DIMENSION = 0x13
 //case REQUEST_SET_QUANTITY = 0x15
 //case REQUEST_GET_PRINT_STATUS = 0xA3
-// 
-//    
-//    
-//case RESPONSE_GET_INFO_SOFTWARE_VERSION = 0x49 // RequestCode.REQUEST_GET_INFO + InfoCode.SOFTWARE_VERSION
-//case RESPONSE_GET_INFO_DEVICE_SERIAL = 0x4B    // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_SERIAL
-//case RESPONSE_GET_INFO_HARDWARE_VERSION = 0x4C // RequestCode.REQUEST_GET_INFO + InfoCode.HARDWARE_VERSION
+
     
 }

@@ -36,12 +36,20 @@ public enum RequestCode: UInt8 {
     case REQUEST_SET_QUANTITY = 0x15
     case REQUEST_GET_PRINT_STATUS = 0xA3
     
-    case RESPONSE_GET_INFO_DEVICE_TYPE = 0x48      // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_TYPE
-    case RESPONSE_GET_INFO_SOFTWARE_VERSION = 0x49 // RequestCode.REQUEST_GET_INFO + InfoCode.SOFTWARE_VERSION
-    case RESPONSE_GET_INFO_BATTERY = 0x4A          // RequestCode.REQUEST_GET_INFO + InfoCode.BATTERY
-    case RESPONSE_GET_INFO_DEVICE_SERIAL = 0x4B    // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_SERIAL
-    case RESPONSE_GET_INFO_HARDWARE_VERSION = 0x4C // RequestCode.REQUEST_GET_INFO + InfoCode.HARDWARE_VERSION
-    case RESPONSE_GET_RFID = 0x1B                  // RequestCode.GET_RFID + 1
+    case RESPONSE_GET_INFO_DENSITY = 0x41                 // RequestCode.REQUEST_GET_INFO + InfoCode.DENSITY
+    case RESPONSE_GET_INFO_LABEL_TYPE = 0x43              // RequestCode.REQUEST_GET_INFO + InfoCode.LABEL_TYPE
+    case RESPONSE_GET_INFO_AUTO_SHUTDOWN_TIME = 0x47      // RequestCode.REQUEST_GET_INFO + InfoCode.AUTO_SHUTDOWN_TIME
+    case RESPONSE_GET_INFO_DEVICE_TYPE = 0x48             // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_TYPE
+    case RESPONSE_GET_INFO_SOFTWARE_VERSION = 0x49        // RequestCode.REQUEST_GET_INFO + InfoCode.SOFTWARE_VERSION
+    case RESPONSE_GET_INFO_BATTERY = 0x4A                 // RequestCode.REQUEST_GET_INFO + InfoCode.BATTERY
+    case RESPONSE_GET_INFO_DEVICE_SERIAL = 0x4B           // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_SERIAL
+    case RESPONSE_GET_INFO_HARDWARE_VERSION = 0x4C        // RequestCode.REQUEST_GET_INFO + InfoCode.HARDWARE_VERSION
+    case RESPONSE_GET_RFID = 0x1B                         // RequestCode.GET_RFID + 1
+    case RESPONSE_START_PRINT = 0x02                      // RequestCode.REQUEST_START_PRINT + 1
+    case RESPONSE_END_PRINT = 0xF4                        // RequestCode.REQUEST_END_PAGE_PRINT + 1
+    case RESPONSE_START_PAGE_PRINT = 0x04                 // RequestCode.REQUEST_START_PAGE_PRINT + 1
+    case RESPONSE_END_PAGE_PRINT = 0xE4                   // RequestCode.REQUEST_END_PAGE_PRINT + 1
+    case RESPONSE_ALLOW_PRINT_CLEAR = 0x30                // RequestCode.REQUEST_ALLOW_PRINT_CLEAR + 16
 }
 
 public class Packet {

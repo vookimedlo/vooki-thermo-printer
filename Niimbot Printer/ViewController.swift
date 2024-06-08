@@ -5,14 +5,70 @@
 //  Created by Michal Duda on 27.05.2024.
 //
 
+import Foundation
 import Cocoa
+import os
 
-class ViewController: NSViewController {
-
+class ViewController: NSViewController, Observable, NSTextFieldDelegate {
+    private static let logger = Logger(
+        subsystem: Bundle.main.bundleIdentifier!,
+        category: String(describing: ViewController.self)
+    )
+    
+    
+    @IBOutlet weak var fontSizeStepper: NSStepper!
+    @IBOutlet weak var fontSizeTextEdit: NSTextField!
+    @IBOutlet weak var printTextEdit: NSTextField!
+    
+    @IBOutlet weak var deviceTypeLabel: NSTextFieldCell!
+    @IBOutlet weak var batteryLevelLabel: NSTextFieldCell!
+    @IBOutlet weak var batteryLevelIndicator: NSLevelIndicatorCell!
+    @IBOutlet weak var hardwareVersionLabel: NSTextFieldCell!
+    @IBOutlet weak var softwareVersionLabel: NSTextFieldCell!
+    @IBOutlet weak var serialNumberLabel: NSTextField!
+    
+    
+    @IBOutlet weak var paperInsertedLabel: NSTextField!
+    @IBOutlet weak var remainingLabel: NSTextField!
+    @IBOutlet weak var printedLabel: NSTextField!
+    @IBOutlet weak var serialLabel: NSTextField!
+    @IBOutlet weak var barcodeLabel: NSTextField!
+    @IBOutlet weak var typeLabel: NSTextField!
+    
+    @IBOutlet weak var previewImageCell: NSImageCell!
+    
+    @IBOutlet weak var bluetoothRadioButton: NSButton!
+    @IBOutlet weak var portRadioButton: NSButton!
+    
+    private var printer: Printer?
+    private var printerDevice: PrinterDevice?
+    private var uplinkProcessor: UplinkProcessor?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fontSizeStepper.target = self
+        fontSizeStepper.action = #selector(onStepperChange(_:))
 
-        // Do any additional setup after loading the view.
+        printTextEdit.delegate = self
+    
+        registerNotification(name: Notifications.Names.serialNumber,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.softwareVersion,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.hardwareVersion,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.batteryInformation,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.deviceType,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.rfidData,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.noPaper,
+                                   selector: #selector(receiveNotification))
+                
+        printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport()))
+        printer = Printer(printerDevice: self.printerDevice!)
     }
 
     override var representedObject: Any? {
@@ -20,7 +76,149 @@ class ViewController: NSViewController {
         // Update the view, if already loaded.
         }
     }
+    
+    @IBAction func connectionTypeRadioButton(_ sender: NSButton) {
+        if sender == bluetoothRadioButton {
+            printerDevice = PrinterDevice(io: FileSystemIO(fileSystemAccess: PosixFileSystemAccess(),
+                                                           filepath: "/dev/cu.D110-G318041009"))
+            
+        } else if sender == portRadioButton {
+            printerDevice = PrinterDevice(io: FileSystemIO(fileSystemAccess: PosixFileSystemAccess(),
+                                                           filepath: "/dev/cu.D110-G318041009"))
+        }
+        printer = Printer(printerDevice: printerDevice!)
+    }
 
+    @IBAction func connectButtonPressed(_ sender: NSButton) {
+        do {
+            if uplinkProcessor != nil {
+                uplinkProcessor?.cancel()
+            }
+            try printerDevice?.open()
+            Self.logger.info("Open")
+            self.uplinkProcessor = UplinkProcessor(printerDevice: self.printerDevice!)
+            self.uplinkProcessor?.startProcessing()
+            
+        } catch IOError.open {
+            Self.logger.error("Open failed")
+        } catch {
+            Self.logger.error("Open failed - unknown failure")
+        }
+    }
+    
+    @IBAction func disconnectButtonPressed(_ sender: NSButton) {
+        self.printerDevice?.close()
+        self.uplinkProcessor?.stopProcessing()
+    }
+    
+    
+    @IBAction func sendButtonPressed(_ sender: NSButton) {
+        printer?.getSerialNumber()
+        printer?.getSoftwareVersion()
+        printer?.getHardwareVersion()
+        printer?.getBatteryInformation()
+        printer?.getDeviceType()
+        printer?.getRFIDData()
+        printer?.getAutoShutdownTime()
+        printer?.getDensity()
+        printer?.getLabelType()
 
+    }
+    
+    private func showPreview() {
+        let image = Image(size: CGSize(width: 240, height: 120))
+        image.drawText(text: printTextEdit.stringValue, fontSize: Int(fontSizeTextEdit.intValue))
+        previewImageCell.image = image.image!
+    }
+        
+    public func controlTextDidChange(_ obj: Notification) {
+        if let textField = obj.object as? NSTextField, self.printTextEdit.identifier == textField.identifier {
+            showPreview()
+        }
+    }
+    
+    public func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        if commandSelector == #selector(moveUp) || commandSelector == #selector(moveDown) {
+            if control == fontSizeTextEdit {
+                return fontSizeStepper.sendAction(commandSelector, to: fontSizeStepper)
+            }
+        }
+        return true
+    }
+    
+    @IBAction func buttonPressed(_ sender: Any) {
+      //  let image = Image.createImage(size: CGSize(width: 240, height: 120), text: "Test")
+      //  previewImageCell.image = NSImage(cgImage: image, size: .zero)
+    }
+    
+    @objc func receiveNotification(_ notification: Notification) {
+        Self.logger.info("Notification \(notification.name.rawValue) received")
+        if Notifications.Names.serialNumber ==  notification.name {
+            let serial_number = notification.userInfo?[Notifications.Keys.value] as! String
+            Self.logger.info("Serial number: \(serial_number)")
+            DispatchQueue.main.async {
+                self.serialNumberLabel.stringValue = serial_number
+            }
+        }
+        else if Notifications.Names.softwareVersion ==  notification.name {
+            let software_version = notification.userInfo?[Notifications.Keys.value] as! Float
+            Self.logger.info("Software version: \(software_version)")
+            DispatchQueue.main.async {
+                self.softwareVersionLabel.stringValue = String(software_version)
+            }
+        }
+        else if Notifications.Names.hardwareVersion ==  notification.name {
+            let hardware_version = notification.userInfo?[Notifications.Keys.value] as! Float
+            Self.logger.info("Hardware version: \(hardware_version)")
+            DispatchQueue.main.async {
+                self.hardwareVersionLabel.stringValue = String(hardware_version)
+            }
+        }
+        else if Notifications.Names.batteryInformation ==  notification.name {
+            let battery_information = notification.userInfo?[Notifications.Keys.value] as! UInt8
+            Self.logger.info("Battery information: \(battery_information)")
+            DispatchQueue.main.async {
+                self.batteryLevelLabel.stringValue = String(battery_information)
+                self.batteryLevelIndicator.integerValue = Int(battery_information)
+            }
+        }
+        else if Notifications.Names.deviceType ==  notification.name {
+            let device_type = notification.userInfo?[Notifications.Keys.value] as! UInt16
+            Self.logger.info("Device type: \(device_type)")
+            DispatchQueue.main.async {
+                self.deviceTypeLabel.stringValue = String(device_type)
+            }
+        }
+        else if Notifications.Names.rfidData ==  notification.name {
+            let rfidData = notification.userInfo?[Notifications.Keys.value] as! RFIDData
+            Self.logger.info("RFID data - UDID: \(rfidData.uuid.hexEncodedString())")
+            Self.logger.info("RFID data - Barcode: \(rfidData.barcode)")
+            Self.logger.info("RFID data - Serial: \(rfidData.serial)")
+            Self.logger.info("RFID data - Total labels: \(rfidData.totalLength)")
+            Self.logger.info("RFID data - Used labels: \(rfidData.usedLength)")
+            Self.logger.info("RFID data - Type: \(rfidData.type)")
+
+            DispatchQueue.main.async {
+                self.paperInsertedLabel.stringValue = "Yes"
+
+                self.remainingLabel.stringValue = String(rfidData.totalLength - rfidData.usedLength)
+                self.printedLabel.stringValue = String(rfidData.usedLength)
+                self.barcodeLabel.stringValue = rfidData.barcode
+                self.serialLabel.stringValue = rfidData.serial
+                self.typeLabel.stringValue = String(rfidData.type)
+            }
+        }
+        else if Notifications.Names.noPaper ==  notification.name {
+            Self.logger.info("No paper")
+            DispatchQueue.main.async {
+                self.paperInsertedLabel.stringValue = "No"
+            }
+        }
+    }
+    
+    @objc func onStepperChange(_ sender: NSStepper) {
+        fontSizeTextEdit.stringValue = "\(sender.integerValue)"
+        showPreview()
+    }
+       
 }
-

@@ -9,11 +9,9 @@ import Foundation
 import AppKit
 
 public extension CGImage {
-    func rotate(to orientation: CGImagePropertyOrientation) -> CGImage? {
+    func rotatedContext(to orientation: CGImagePropertyOrientation) -> CGContext? {
         guard let colorSpace = self.colorSpace else { return nil }
-        
-        if orientation == .up { return self }
-        
+                
         let (radians, swapWidthHeight, mirrored) = { () -> (Double, Bool, Bool) in
             switch orientation {
             case .up:
@@ -43,28 +41,46 @@ public extension CGImage {
                 
         let bytesPerRow = (Int(width) * bitsPerPixel) / 8
         
-        guard let contextRef = CGContext(data: nil,
-                                         width: Int(width),
-                                         height: Int(height),
-                                         bitsPerComponent: self.bitsPerComponent,
-                                         bytesPerRow: bytesPerRow,
-                                         space: colorSpace,
-                                         bitmapInfo: self.bitmapInfo.rawValue) else { return nil }
+        guard let context = CGContext(data: nil,
+                                      width: Int(width),
+                                      height: Int(height),
+                                      bitsPerComponent: self.bitsPerComponent,
+                                      bytesPerRow: bytesPerRow,
+                                      space: colorSpace,
+                                      bitmapInfo: self.bitmapInfo.rawValue) else { return nil }
         
-        contextRef.translateBy(x: CGFloat(width) / 2.0, y: CGFloat(height) / 2.0)
+        context.translateBy(x: CGFloat(width) / 2.0, y: CGFloat(height) / 2.0)
         
-        if mirrored { contextRef.scaleBy(x: -1.0, y: 1.0) }
+        if mirrored { context.scaleBy(x: -1.0, y: 1.0) }
         
-        contextRef.rotate(by: radians)
+        context.rotate(by: radians)
         
         if swapWidthHeight {
-            contextRef.translateBy(x: -height / 2.0, y: -width / 2.0)
+            context.translateBy(x: -height / 2.0, y: -width / 2.0)
         } else {
-            contextRef.translateBy(x: -width / 2.0, y: -height / 2.0)
+            context.translateBy(x: -width / 2.0, y: -height / 2.0)
         }
         
-        contextRef.draw(self, in: CGRect(x: 0.0, y: 0.0, width: originalWidth, height: originalHeight))
-                
-        return contextRef.makeImage()
+        context.draw(self, in: CGRect(x: 0.0, y: 0.0, width: originalWidth, height: originalHeight))
+        
+        return context
+    }
+        
+    func rotate(to orientation: CGImagePropertyOrientation) -> CGImage? {
+        if orientation == .up { return self }
+        return rotatedContext(to: orientation)?.makeImage()
+    }
+    
+    func copyContext() -> CGContext? {
+        guard let colorSpace = self.colorSpace else { return nil }
+        guard let context = CGContext(data: nil,
+                                      width: self.width,
+                                      height: self.height,
+                                      bitsPerComponent: self.bitsPerComponent,
+                                      bytesPerRow: self.bytesPerRow,
+                                      space: colorSpace,
+                                      bitmapInfo: self.bitmapInfo.rawValue) else { return nil }
+        context.draw(self, in: CGRect(x: 0, y: 0, width: self.width, height: self.height))
+        return context
     }
 }

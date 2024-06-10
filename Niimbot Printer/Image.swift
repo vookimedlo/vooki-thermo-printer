@@ -6,69 +6,74 @@
 //
 
 import Foundation
+import AppKit
 import CoreGraphics
+import CoreImage
 import CoreText
 
-import CoreImage
-import AppKit
-
-import ImageIO
 
 
 class Image {
-    var context: CGContext?
+    private var context: CGContext!
     
-    var image: NSImage? {
-        guard let context = self.context else { return nil }
+    public var image: NSImage? {
         guard let image = context.makeImage() else { return nil }
         return NSImage(cgImage: image, size: .zero)
     }
     
-    public init (size: CGSize) {
-        context = createContext(size: size)
+    public var rotatedImage: NSImage? {
+        return generateRotatedImage(inverted: false)
     }
+    
+    public var rotatedImageInverted: NSImage? {
+        return generateRotatedImage(inverted: true)
+    }
+    
+    public var printerDataAndPreview: ([[UInt8]], NSImage?) {
+        guard let image = context.makeImage() else { return ([], nil) }
+        guard let rotatedImageContext = image.rotatedContext(to: .right) else { return ([], nil) }
+        guard Self.toBlackAndWhite(context: rotatedImageContext, inverted: true) else { return ([], nil) }
         
+        return (Self.toBytes(context: rotatedImageContext), NSImage(cgImage: image, size: .zero))
+    }
+
+    public init? (size: CGSize) {
+        guard let ctx = createContext(size: size) else { return nil }
+        context = ctx
+    }
+
     private func createContext(size: CGSize) -> CGContext? {
-        let pixelsWide = Int(size.width)
-        let pixelsHigh = Int(size.height)
-        let bitmapBytesPerRow = pixelsWide * 4
-        
-        let bufferLength = Int(size.width * size.height * 4)
-        
+        let width = Int(size.width)
+        let height = Int(size.height)
+        let bitmapBytesPerRow = width * 4
+        let bufferLength = size.width * size.height * 4
         let bitmapData: CFMutableData = CFDataCreateMutable(nil, 0)
         CFDataSetLength(bitmapData, CFIndex(bufferLength))
         let bitmap = CFDataGetMutableBytePtr(bitmapData)
-        
-        let colorSpace:CGColorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
         let context = CGContext(data: bitmap,
-                                width: pixelsWide,
-                                height: pixelsHigh,
+                                width: width,
+                                height: height,
                                 bitsPerComponent: 8,
                                 bytesPerRow: bitmapBytesPerRow,
-                                space: colorSpace,
-                                bitmapInfo: bitmapInfo.rawValue)
-        
-        context?.saveGState()
+                                space: CGColorSpaceCreateDeviceRGB(),
+                                bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipLast.rawValue).rawValue)
 
+        context?.saveGState()
         
-        context?.setFillColor (red: 1, green: 1, blue: 1, alpha: 1)
-        context?.fill(CGRectMake (0, 0, size.width, size.height ))
+        context?.setFillColor(red: 1, green: 1, blue: 1, alpha: 1)
+        context?.fill(CGRectMake(0, 0, size.width, size.height ))
         
         context?.restoreGState()
         
         return context
     }
     
-    public func drawText(text: String, fontSize: Int) {
-        guard let context = self.context else { return }
-        
+    public func drawText(text: String, fontName: String, fontSize: Int) {
         context.saveGState()
     
         let margin: CGFloat = 10
         let color = CGColor.black
-        let fontName = "Chalkboard" as CFString
-        let font = CTFontCreateWithName(fontName, CGFloat(fontSize), nil)
+        let font = CTFontCreateWithName(fontName as CFString, CGFloat(fontSize), nil)
 
         let attributes: [NSAttributedString.Key : Any] = [.font: font, .foregroundColor: color]
 
@@ -89,10 +94,81 @@ class Image {
         context.restoreGState()
     }
     
+    private static func toBlackAndWhite(context: CGContext, inverted: Bool = false) -> Bool {
+        guard let data = context.data else { return false }
+        let width = context.width
+        let height = context.height
+        let pixelBuffer = data.bindMemory(to: RGBA32.self, capacity: width * height)
+        
+        for offset in 0 ..< height * width {
+            if inverted ? !pixelBuffer[offset].isWhite() : pixelBuffer[offset].isWhite() {
+                pixelBuffer[offset] = RGBA32.white
+            } else {
+                pixelBuffer[offset] = RGBA32.black
+            }
+        }
+        return true
+    }
+    
+    private static func toBytes(context: CGContext) -> [[UInt8]] {
+        guard let data = context.data else { return [] }
+        let width = context.width
+        let height = context.height
+        let pixelBuffer = data.bindMemory(to: RGBA32.self, capacity: width * height)
+
+        var result: [[UInt8]] = Array<[UInt8]>(repeating: Array<UInt8>(repeating: 0,
+                                                                       count: width),
+                                               count: height)
+
+        for x in 0 ..< height {
+            for y in 0 ..< width {
+                let offset = x * width + y
+                result[x][y] = pixelBuffer[offset].isWhite() ? 1 : 0
+            }
+        }
+        return result
+    }
+
     public func writeToPNG(url: URL) throws {
-        guard let image = context?.makeImage() else { throw NSError() }
+        guard let image = context.makeImage() else { throw NSError() }
         let cicontext = CIContext()
         let ciimage = CIImage(cgImage: image)
         try cicontext.writePNGRepresentation(of: ciimage, to: url, format: .RGBA8, colorSpace: ciimage.colorSpace!)
+    }
+    
+    private func generateRotatedImage(inverted: Bool = false) -> NSImage? {
+        guard let image = context.makeImage() else { return nil }
+        guard let rotatedImageContext = image.rotatedContext(to: .right) else { return nil }
+        guard Self.toBlackAndWhite(context: rotatedImageContext, inverted: inverted) else { return nil }
+        guard let rotatedImage = rotatedImageContext.makeImage() else { return nil }
+
+        return NSImage(cgImage: rotatedImage, size: .zero)
+    }
+    
+    struct RGBA32: Equatable {
+        private var color: UInt32
+        
+        private init(color: UInt32) {
+            self.color = color
+        }
+
+        var red: UInt8 {
+            return UInt8((color >> 24) & 0xFF)
+        }
+
+        var green: UInt8 {
+            return UInt8((color >> 16) & 0xFF)
+        }
+
+        var blue: UInt8 {
+            return UInt8((color >> 8) & 0xFF)
+        }
+        
+        func isWhite() -> Bool {
+            return red == 0xFF && green == 0xFF && blue == 0xFF
+        }
+        
+        static let black = RGBA32(color: 0xFF000000)
+        static let white = RGBA32(color: 0xFFFFFFFF)
     }
 }

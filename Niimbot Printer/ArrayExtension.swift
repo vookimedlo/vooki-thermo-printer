@@ -44,3 +44,9 @@ extension Array<UInt8> {
         return self.map { String(format: format, $0) }.joined(separator: separator)
     }
 }
+
+extension ArraySlice<UInt8> {
+    func decEncodedString() -> String {
+        return self.map { String(format: "%u", $0) }.joined(separator: "")
+    }
+}

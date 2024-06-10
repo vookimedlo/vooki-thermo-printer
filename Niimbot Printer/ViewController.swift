@@ -9,13 +9,16 @@ import Foundation
 import Cocoa
 import os
 
-class ViewController: NSViewController, Observable, NSTextFieldDelegate {
+class ViewController: NSViewController, Observable, NSTextFieldDelegate, NSComboBoxDelegate {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: ViewController.self)
     )
     
+    @IBOutlet weak var fontComboBox: NSComboBox!
+    @IBOutlet var fontArrayController: NSArrayController!
     
+    @IBOutlet weak var fontSizeSlider: NSSlider!
     @IBOutlet weak var fontSizeStepper: NSStepper!
     @IBOutlet weak var fontSizeTextEdit: NSTextField!
     @IBOutlet weak var printTextEdit: NSTextField!
@@ -43,14 +46,24 @@ class ViewController: NSViewController, Observable, NSTextFieldDelegate {
     private var printer: Printer?
     private var printerDevice: PrinterDevice?
     private var uplinkProcessor: UplinkProcessor?
-        
+    
+    private var printerLabel: NSImage?
+    private var printerLabelData: [[UInt8]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fontSizeStepper.target = self
         fontSizeStepper.action = #selector(onStepperChange(_:))
+        fontSizeSlider.target = self
+        fontSizeSlider.action = #selector(onSliderChange(_:))
 
         printTextEdit.delegate = self
+        
+        fontArrayController.content = NSFontManager.shared.availableFonts
+        fontComboBox.reloadData()
+        fontComboBox.selectItem(withObjectValue: "Chalkboard")
+        
     
         registerNotification(name: Notifications.Names.serialNumber,
                                    selector: #selector(receiveNotification))
@@ -125,10 +138,21 @@ class ViewController: NSViewController, Observable, NSTextFieldDelegate {
 
     }
     
+    private func generatePrinterLabelData() {
+        guard let image = Image(size: CGSize(width: 240, height: 120)) else { return }
+        image.drawText(text: printTextEdit.stringValue, fontName: fontComboBox.objectValueOfSelectedItem as! String, fontSize: Int(fontSizeTextEdit.intValue))
+        (printerLabelData, printerLabel) = image.printerDataAndPreview
+    }
+    
     private func showPreview() {
-        let image = Image(size: CGSize(width: 240, height: 120))
-        image.drawText(text: printTextEdit.stringValue, fontSize: Int(fontSizeTextEdit.intValue))
-        previewImageCell.image = image.image!
+        generatePrinterLabelData()
+        previewImageCell.image = printerLabel
+    }
+    
+    func comboBoxSelectionDidChange(_ notification: Notification) {
+        if let fontComboBox = notification.object as? NSComboBox, self.fontComboBox.identifier == fontComboBox.identifier {
+            showPreview()
+        }
     }
         
     public func controlTextDidChange(_ obj: Notification) {
@@ -140,15 +164,41 @@ class ViewController: NSViewController, Observable, NSTextFieldDelegate {
     public func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
         if commandSelector == #selector(moveUp) || commandSelector == #selector(moveDown) {
             if control == fontSizeTextEdit {
-                return fontSizeStepper.sendAction(commandSelector, to: fontSizeStepper)
+                return fontSizeStepper.sendAction(commandSelector, to: fontSizeStepper) && fontSizeSlider.sendAction(commandSelector, to: fontSizeSlider)
             }
         }
-        return true
+        
+        if control == printTextEdit {
+            if commandSelector == #selector(insertNewline) {
+                return true
+            }
+            if commandSelector == #selector(insertTab) || commandSelector == #selector(insertBacktab) {
+                // TODO
+                return false
+            }
+        }
+
+        return false
     }
     
     @IBAction func buttonPressed(_ sender: Any) {
-      //  let image = Image.createImage(size: CGSize(width: 240, height: 120), text: "Test")
-      //  previewImageCell.image = NSImage(cgImage: image, size: .zero)
+        for rowBytes in printerLabelData {
+            let bitsPerByte = UInt8.bitWidth
+            let remainingBitCount = rowBytes.count % bitsPerByte
+            Self.logger.error("Cannot be byte aligned -  remaining bit count: \(remainingBitCount)")
+
+            let bytesCount = UInt16(rowBytes.count / bitsPerByte)
+            var resultingData: [UInt8] = bytesCount.bigEndian.bytes + [0, 0, 0, 1]
+            var offsetInRow = 0
+            
+            for index in 0 ..< bytesCount {
+                let bitsString = rowBytes[offsetInRow + 0 ..< offsetInRow + bitsPerByte].decEncodedString()
+                guard let byte = UInt8(bitsString, radix: 2) else { return } // TODO: throw
+                resultingData.append(byte)
+                offsetInRow += bitsPerByte
+            }
+            print(printerLabelData)
+        }
     }
     
     @objc func receiveNotification(_ notification: Notification) {
@@ -218,6 +268,13 @@ class ViewController: NSViewController, Observable, NSTextFieldDelegate {
     
     @objc func onStepperChange(_ sender: NSStepper) {
         fontSizeTextEdit.stringValue = "\(sender.integerValue)"
+        fontSizeSlider.intValue = Int32(sender.integerValue)
+        showPreview()
+    }
+    
+    @objc func onSliderChange(_ sender: NSSlider) {
+        fontSizeTextEdit.stringValue = "\(sender.integerValue)"
+        fontSizeStepper.intValue = Int32(sender.integerValue)
         showPreview()
     }
        

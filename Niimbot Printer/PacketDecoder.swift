@@ -265,7 +265,11 @@ class BoolBytePacketDecoder: PacketDecoding {
                         RequestCode.RESPONSE_END_PRINT,
                         RequestCode.RESPONSE_START_PAGE_PRINT,
                         RequestCode.RESPONSE_END_PAGE_PRINT,
-                        RequestCode.RESPONSE_ALLOW_PRINT_CLEAR]
+                        RequestCode.RESPONSE_ALLOW_PRINT_CLEAR,
+                        RequestCode.RESPONSE_SET_LABEL_DENSITY,
+                        RequestCode.RESPONSE_SET_LABEL_TYPE,
+                        // The RESPONSE_SET_DIMENSION raw value clashes with the REQUEST_SET_LABEL_TYPE.
+                        RequestCode.REQUEST_SET_LABEL_TYPE]
     
     func decode(packet: Packet) -> Bool {
         guard Self.codes.contains(packet.requestCode) else { return false }
@@ -283,6 +287,13 @@ class BoolBytePacketDecoder: PacketDecoding {
                 return Notifications.Names.endPagePrint
             case RequestCode.RESPONSE_ALLOW_PRINT_CLEAR:
                 return Notifications.Names.allowPrintClear
+            case RequestCode.RESPONSE_SET_LABEL_TYPE:
+                return Notifications.Names.setLabelType
+            case RequestCode.RESPONSE_SET_LABEL_DENSITY:
+                return Notifications.Names.setLabelDensity
+            // The RESPONSE_SET_DIMENSION raw value clashes with the REQUEST_SET_LABEL_TYPE.
+            case RequestCode.REQUEST_SET_LABEL_TYPE:
+                return Notifications.Names.setDimension
             default:
                 return nil
             }

@@ -105,15 +105,25 @@ class Printer {
         let packet = Packet(requestCode: RequestCode.REQUEST_ALLOW_PRINT_CLEAR, data: [1])
         send(packet: packet)
     }
-
+    
+    public func setLabelType(type: UInt8) {
+        let packet = Packet(requestCode: RequestCode.REQUEST_SET_LABEL_TYPE, data: [type])
+        send(packet: packet)
+    }
+    
+    public func setLabelDensity(type: UInt8) {
+        let packet = Packet(requestCode: RequestCode.REQUEST_SET_LABEL_DENSITY, data: [type])
+        send(packet: packet)
+    }
+    
+    public func setDimension(width: UInt16, height: UInt16) {
+        let packet = Packet(requestCode: RequestCode.REQUEST_SET_LABEL_DENSITY,
+                            data: width.bigEndian.bytes + height.bigEndian.bytes)
+        send(packet: packet)
+    }
 
 //case REQUEST_HEARTBEAT = 0xDC
-//case REQUEST_SET_LABEL_TYPE = 0x23
-//case REQUEST_SET_LABEL_DENSITY = 0x21
-
-//case REQUEST_SET_DIMENSION = 0x13
 //case REQUEST_SET_QUANTITY = 0x15
 //case REQUEST_GET_PRINT_STATUS = 0xA3
-
-    
+ 
 }

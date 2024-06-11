@@ -50,6 +50,9 @@ public enum RequestCode: UInt8 {
     case RESPONSE_START_PAGE_PRINT = 0x04                 // RequestCode.REQUEST_START_PAGE_PRINT + 1
     case RESPONSE_END_PAGE_PRINT = 0xE4                   // RequestCode.REQUEST_END_PAGE_PRINT + 1
     case RESPONSE_ALLOW_PRINT_CLEAR = 0x30                // RequestCode.REQUEST_ALLOW_PRINT_CLEAR + 16
+    case RESPONSE_SET_LABEL_TYPE = 0x33                   // RequestCode.REQUEST_SET_LABEL_TYPE + 16
+    case RESPONSE_SET_LABEL_DENSITY = 0x31                // RequestCode.REQUEST_SET_LABEL_DENSITY + 16
+    //case RESPONSE_SET_DIMENSION = 0x23                    // RequestCode.REQUEST_SET_DIMENSION + 16
 }
 
 public class Packet {
@@ -60,6 +63,12 @@ public class Packet {
     
     public private(set) var requestCode: RequestCode
     public private(set) var payload: [UInt8]
+    
+    
+    public init(requestCode: RequestCode, data: [UInt8]) {
+        self.requestCode = requestCode
+        self.payload = data
+    }
     
     public init(requestCode: RequestCode, data: ArraySlice<UInt8>) {
         self.requestCode = requestCode

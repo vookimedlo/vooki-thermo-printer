@@ -25,6 +25,9 @@ class Notifications {
         static public let startPagePrint = NSNotification.Name("notify-start-page-print")
         static public let endPagePrint = NSNotification.Name("notify-end-page-print")
         static public let allowPrintClear = NSNotification.Name("notify-allow-print-clear")
+        static public let setLabelType = NSNotification.Name("notify-set-label-type")
+        static public let setLabelDensity = NSNotification.Name("notify-set-label-density")
+        static public let setDimension = NSNotification.Name("notify-set-dimension")
     }
     
     class Keys {

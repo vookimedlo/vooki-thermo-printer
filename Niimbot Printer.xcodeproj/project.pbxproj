@@ -33,7 +33,7 @@
 		8D9639492C0B9EC600374894 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
 		8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
-		8DDC3CEA2C179A4A00296C72 /* NumericExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* NumericExtension.swift */; };
+		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
 		8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */; };
 		8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */; };
 		8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */; };
@@ -80,7 +80,7 @@
 		8D9639482C0B9EC600374894 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		8D96394A2C0BA60800374894 /* PacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoder.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
-		8DDC3CE92C179A4A00296C72 /* NumericExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericExtension.swift; sourceTree = "<group>"; };
+		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
 		8DEB85E62C0CBFD40028526B /* Niimbot-Printer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Niimbot-Printer-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothIO.swift; sourceTree = "<group>"; };
 		8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSupport.swift; sourceTree = "<group>"; };
@@ -148,7 +148,7 @@
 				8D96393E2C0B5E0600374894 /* Notifications.swift */,
 				8D9639402C0B616D00374894 /* Notifier.swift */,
 				8D9639462C0B9C8B00374894 /* NotifierExtension.swift */,
-				8DDC3CE92C179A4A00296C72 /* NumericExtension.swift */,
+				8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */,
 				8D9639422C0B927F00374894 /* Observable.swift */,
 				8D9639442C0B984F00374894 /* ObservableExtension.swift */,
 				8D58DC242C052317001EBD95 /* Packet.swift */,
@@ -279,7 +279,7 @@
 				8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */,
 				8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */,
 				8D9639412C0B616D00374894 /* Notifier.swift in Sources */,
-				8DDC3CEA2C179A4A00296C72 /* NumericExtension.swift in Sources */,
+				8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */,
 				8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */,
 				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
 				8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */,

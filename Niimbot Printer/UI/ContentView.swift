@@ -9,46 +9,67 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    
+    enum Views {
+        case printerView
+        case historicalView
+    }
+    
+    struct LitsItem : Identifiable {
+        let id: Views
+        let systemName: String
+        let description: String
+        
+        init(id: Views, systemName: String, description: String) {
+            self.id = id
+            self.systemName = systemName
+            self.description = description
+        }
+    }
+    
+    let printerView = PrinterView()
+    let historicalView = HistoryView()
 
+    @ViewBuilder
+    func getView(id: Views) -> some View {
+        switch id {
+        case .printerView: printerView
+        case .historicalView: historicalView
+        }
+    }
+    
+    let items: [LitsItem] = [LitsItem(id: .printerView, systemName: "printer", description: "D110 Printer"),
+                             LitsItem(id: .historicalView, systemName: "book.closed", description: "History")]
+    
+    @State var selectedItem: Views?
     var body: some View {
         NavigationSplitView {
-            List {
+            List(selection: $selectedItem) {
                 ForEach(items) { item in
                     NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        getView(id: item.id)
                     } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
+                        HStack {
+                            SwiftUI.Image(systemName: item.systemName)
+                                .resizable()
+                                .symbolRenderingMode(.monochrome)
+                                .symbolVariant(.fill)
+                                .fontWeight(.regular)
+                                .foregroundStyle(.green)
+                                .frame(width: 18, height: 18)
+                            VStack(alignment: .leading, spacing: 0) {
+                                Spacer()
+                                Text(item.description).padding(.bottom, 10)
+                                Divider()
+                            }
+                        }
+                    }.tag(item.id)
                 }
-                .onDelete(perform: deleteItems)
             }
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
+            .listRowSeparator(.hidden)
+            .onAppear { selectedItem = items.first?.id }
         } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+            Text("asdads at uytut")
         }
     }
 }

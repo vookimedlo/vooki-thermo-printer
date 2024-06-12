@@ -45,6 +45,8 @@
 		8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D1B2C19C77200296C72 /* BoolBytePacketDecoder.swift */; };
 		8DDC3D1E2C19C79000296C72 /* RFIDDataPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */; };
 		8DDC3D422C1A290800296C72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D412C1A290700296C72 /* ContentView.swift */; };
+		8DDC3D442C1A45A900296C72 /* PrinterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D432C1A45A900296C72 /* PrinterView.swift */; };
+		8DDC3D462C1A552800296C72 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D452C1A552800296C72 /* HistoryView.swift */; };
 		8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */; };
 		8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */; };
 		8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */; };
@@ -103,6 +105,8 @@
 		8DDC3D1B2C19C77200296C72 /* BoolBytePacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolBytePacketDecoder.swift; sourceTree = "<group>"; };
 		8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFIDDataPacketDecoder.swift; sourceTree = "<group>"; };
 		8DDC3D412C1A290700296C72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8DDC3D432C1A45A900296C72 /* PrinterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterView.swift; sourceTree = "<group>"; };
+		8DDC3D452C1A552800296C72 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		8DEB85E62C0CBFD40028526B /* Niimbot-Printer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Niimbot-Printer-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothIO.swift; sourceTree = "<group>"; };
 		8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSupport.swift; sourceTree = "<group>"; };
@@ -257,6 +261,8 @@
 				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
 				8D58DC172C052197001EBD95 /* ViewController.swift */,
 				8DDC3D412C1A290700296C72 /* ContentView.swift */,
+				8DDC3D432C1A45A900296C72 /* PrinterView.swift */,
+				8DDC3D452C1A552800296C72 /* HistoryView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -365,6 +371,7 @@
 				8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */,
 				8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */,
 				8DDC3D102C19C6BB00296C72 /* LabelTypePacketDecoder.swift in Sources */,
+				8DDC3D462C1A552800296C72 /* HistoryView.swift in Sources */,
 				8DEB860E2C1250BF0028526B /* Image.swift in Sources */,
 				8DDC3D0E2C19C69900296C72 /* DensityPacketDecoder.swift in Sources */,
 				8D58DC252C052317001EBD95 /* Packet.swift in Sources */,
@@ -382,6 +389,7 @@
 				8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */,
 				8D9639452C0B984F00374894 /* ObservableExtension.swift in Sources */,
 				8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */,
+				8DDC3D442C1A45A900296C72 /* PrinterView.swift in Sources */,
 				8D58DC182C052197001EBD95 /* ViewController.swift in Sources */,
 				8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */,
 				8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */,

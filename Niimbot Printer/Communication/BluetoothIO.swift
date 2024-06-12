@@ -80,5 +80,4 @@ class BluetoothIO : IO, DataConsumer {
         _ = incomingDataSemaphore.wait(timeout: .now())
         incomingDataSemaphore.signal()
     }
-    
 }

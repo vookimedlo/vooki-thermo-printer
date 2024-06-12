@@ -40,9 +40,6 @@ class ViewController: NSViewController, Observable, NSTextFieldDelegate, NSCombo
     
     @IBOutlet weak var previewImageCell: NSImageCell!
     
-    @IBOutlet weak var bluetoothRadioButton: NSButton!
-    @IBOutlet weak var portRadioButton: NSButton!
-    
     private var printer: Printer?
     private var printerDevice: PrinterDevice?
     private var uplinkProcessor: UplinkProcessor?
@@ -102,18 +99,6 @@ class ViewController: NSViewController, Observable, NSTextFieldDelegate, NSCombo
         didSet {
         // Update the view, if already loaded.
         }
-    }
-    
-    @IBAction func connectionTypeRadioButton(_ sender: NSButton) {
-        if sender == bluetoothRadioButton {
-            printerDevice = PrinterDevice(io: FileSystemIO(fileSystemAccess: PosixFileSystemAccess(),
-                                                           filepath: "/dev/cu.D110-G318041009"))
-            
-        } else if sender == portRadioButton {
-            printerDevice = PrinterDevice(io: FileSystemIO(fileSystemAccess: PosixFileSystemAccess(),
-                                                           filepath: "/dev/cu.D110-G318041009"))
-        }
-        printer = Printer(printerDevice: printerDevice!)
     }
 
     @IBAction func connectButtonPressed(_ sender: NSButton) {

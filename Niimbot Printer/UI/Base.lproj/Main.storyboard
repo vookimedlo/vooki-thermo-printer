@@ -947,28 +947,6 @@
                                     <action selector="sendButtonPressed:" target="XfG-lQ-9wD" id="CqU-7f-L2U"/>
                                 </connections>
                             </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BUy-Ua-ctb">
-                                <rect key="frame" x="137" y="500" width="85" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="Bluetooth" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="kJN-GN-SEj">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="connectionTypeRadioButton:" target="XfG-lQ-9wD" id="5vu-yE-7Wy"/>
-                                </connections>
-                            </button>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i7E-FG-OWn">
-                                <rect key="frame" x="137" y="476" width="52" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="radio" title="Port" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="n7w-Kr-tfm">
-                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="connectionTypeRadioButton:" target="XfG-lQ-9wD" id="V6H-kV-4vV"/>
-                                </connections>
-                            </button>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xlM-pz-f1P">
                                 <rect key="frame" x="706" y="215" width="38" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1085,7 +1063,6 @@
                         <outlet property="barcodeLabel" destination="pP8-BC-u6t" id="YjE-yA-F7s"/>
                         <outlet property="batteryLevelIndicator" destination="iLR-00-0cZ" id="ibS-9q-HE9"/>
                         <outlet property="batteryLevelLabel" destination="wR7-6Y-wWK" id="819-Aj-4sw"/>
-                        <outlet property="bluetoothRadioButton" destination="BUy-Ua-ctb" id="vK6-cG-NMK"/>
                         <outlet property="deviceTypeLabel" destination="nEF-zi-2GJ" id="ceX-7X-vuk"/>
                         <outlet property="fontArrayController" destination="Vul-t7-jbE" id="mva-GA-63U"/>
                         <outlet property="fontComboBox" destination="VNq-h2-OYW" id="lRu-m4-CA6"/>
@@ -1094,7 +1071,6 @@
                         <outlet property="fontSizeTextEdit" destination="odX-wE-75o" id="zCj-6d-f8J"/>
                         <outlet property="hardwareVersionLabel" destination="ZHv-WX-Igb" id="utm-L8-zsf"/>
                         <outlet property="paperInsertedLabel" destination="TCr-en-Fd5" id="bCw-sG-mnl"/>
-                        <outlet property="portRadioButton" destination="i7E-FG-OWn" id="dWy-U8-CHd"/>
                         <outlet property="previewImageCell" destination="vRb-FY-SsU" id="7Bc-A8-jWs"/>
                         <outlet property="printTextEdit" destination="NXU-KP-AWu" id="N7x-bG-MKm"/>
                         <outlet property="printedLabel" destination="c1I-4U-zBa" id="ko2-zy-GC6"/>

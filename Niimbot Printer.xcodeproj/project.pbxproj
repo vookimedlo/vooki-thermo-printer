@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D58DC162C052197001EBD95 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC152C052197001EBD95 /* AppDelegate.swift */; };
+		8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC152C052197001EBD95 /* PrinterAppD110.swift */; };
 		8D58DC182C052197001EBD95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC172C052197001EBD95 /* ViewController.swift */; };
 		8D58DC1A2C052198001EBD95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC192C052198001EBD95 /* Assets.xcassets */; };
 		8D58DC1D2C052198001EBD95 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC1C2C052198001EBD95 /* Base */; };
@@ -44,6 +44,7 @@
 		8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D192C19C74800296C72 /* DeviceTypePacketDecoder.swift */; };
 		8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D1B2C19C77200296C72 /* BoolBytePacketDecoder.swift */; };
 		8DDC3D1E2C19C79000296C72 /* RFIDDataPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */; };
+		8DDC3D422C1A290800296C72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D412C1A290700296C72 /* ContentView.swift */; };
 		8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */; };
 		8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */; };
 		8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */; };
@@ -63,7 +64,7 @@
 
 /* Begin PBXFileReference section */
 		8D58DC122C052197001EBD95 /* Niimbot Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Niimbot Printer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D58DC152C052197001EBD95 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8D58DC152C052197001EBD95 /* PrinterAppD110.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppD110.swift; sourceTree = "<group>"; };
 		8D58DC172C052197001EBD95 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8D58DC192C052198001EBD95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D58DC1C2C052198001EBD95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -101,6 +102,7 @@
 		8DDC3D192C19C74800296C72 /* DeviceTypePacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTypePacketDecoder.swift; sourceTree = "<group>"; };
 		8DDC3D1B2C19C77200296C72 /* BoolBytePacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolBytePacketDecoder.swift; sourceTree = "<group>"; };
 		8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFIDDataPacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D412C1A290700296C72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DEB85E62C0CBFD40028526B /* Niimbot-Printer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Niimbot-Printer-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothIO.swift; sourceTree = "<group>"; };
 		8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSupport.swift; sourceTree = "<group>"; };
@@ -148,7 +150,7 @@
 		8D58DC142C052197001EBD95 /* Niimbot Printer */ = {
 			isa = PBXGroup;
 			children = (
-				8D58DC152C052197001EBD95 /* AppDelegate.swift */,
+				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
 				8D58DC192C052198001EBD95 /* Assets.xcassets */,
 				8DDC3D212C19ECBE00296C72 /* Communication */,
 				8DDC3D1F2C19EBB800296C72 /* Extensions */,
@@ -254,6 +256,7 @@
 			children = (
 				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
 				8D58DC172C052197001EBD95 /* ViewController.swift */,
+				8DDC3D412C1A290700296C72 /* ContentView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 				8DDC3D182C19C72A00296C72 /* BatteryInformationPacketDecoder.swift in Sources */,
 				8D9639432C0B927F00374894 /* Observable.swift in Sources */,
 				8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */,
+				8DDC3D422C1A290800296C72 /* ContentView.swift in Sources */,
 				8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */,
 				8D9639412C0B616D00374894 /* Notifier.swift in Sources */,
 				8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */,
@@ -381,7 +385,7 @@
 				8D58DC182C052197001EBD95 /* ViewController.swift in Sources */,
 				8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */,
 				8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */,
-				8D58DC162C052197001EBD95 /* AppDelegate.swift in Sources */,
+				8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */,
 				8D76C53D2C091062005D7EEB /* FileSystemAccessProtocol.swift in Sources */,
 				8D9639492C0B9EC600374894 /* Printer.swift in Sources */,
 				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
@@ -561,10 +565,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Niimbot-Printer-Info.plist";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -590,10 +592,8 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Niimbot-Printer-Info.plist";
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

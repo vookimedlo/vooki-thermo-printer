@@ -79,6 +79,20 @@ class ViewController: NSViewController, Observable, NSTextFieldDelegate, NSCombo
                                    selector: #selector(receiveNotification))
         registerNotification(name: Notifications.Names.noPaper,
                                    selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.startPrint,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.startPagePrint,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.endPrint,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.endPagePrint,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.setDimension,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.setLabelType,
+                                   selector: #selector(receiveNotification))
+        registerNotification(name: Notifications.Names.setLabelDensity,
+                                   selector: #selector(receiveNotification))
                 
         printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport()))
         printer = Printer(printerDevice: self.printerDevice!)
@@ -182,23 +196,41 @@ class ViewController: NSViewController, Observable, NSTextFieldDelegate, NSCombo
     }
     
     @IBAction func buttonPressed(_ sender: Any) {
+        
+        printer?.setLabelDensity(density: 1)
+        printer?.setLabelType(type: 1)
+        printer?.startPrint()
+        printer?.startPagePrint()
+        printer?.setDimension(width: 240, height: 120)
+        sleep(1)
+        
+        var rowNumber: UInt16 = 0
         for rowBytes in printerLabelData {
             let bitsPerByte = UInt8.bitWidth
             let remainingBitCount = rowBytes.count % bitsPerByte
-            Self.logger.error("Cannot be byte aligned -  remaining bit count: \(remainingBitCount)")
+            guard remainingBitCount == 0 else {
+                Self.logger.error("Cannot be byte aligned -  remaining bit count: \(remainingBitCount)")
+                return // TODO: throw
+            }
 
             let bytesCount = UInt16(rowBytes.count / bitsPerByte)
-            var resultingData: [UInt8] = bytesCount.bigEndian.bytes + [0, 0, 0, 1]
+            var resultingData: [UInt8] = rowNumber.bigEndian.bytes + [0, 0, 0, 1]
             var offsetInRow = 0
             
-            for index in 0 ..< bytesCount {
+            for _ in 0 ..< bytesCount {
                 let bitsString = rowBytes[offsetInRow + 0 ..< offsetInRow + bitsPerByte].decEncodedString()
                 guard let byte = UInt8(bitsString, radix: 2) else { return } // TODO: throw
                 resultingData.append(byte)
                 offsetInRow += bitsPerByte
             }
-            print(printerLabelData)
+            rowNumber += 1
+            printer?.setPrinterData(data: resultingData)
         }
+        
+        sleep(3)
+        printer?.endPagePrint()
+        sleep(4)
+        printer?.endPrint()
     }
     
     @objc func receiveNotification(_ notification: Notification) {
@@ -263,6 +295,34 @@ class ViewController: NSViewController, Observable, NSTextFieldDelegate, NSCombo
             DispatchQueue.main.async {
                 self.paperInsertedLabel.stringValue = "No"
             }
+        }
+        else if Notifications.Names.startPrint ==  notification.name {
+            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+            Self.logger.info("StartPrint \(value)")
+        }
+        else if Notifications.Names.startPagePrint ==  notification.name {
+            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+            Self.logger.info("StartPagePrint \(value)")
+        }
+        else if Notifications.Names.endPrint ==  notification.name {
+            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+            Self.logger.info("EndPrint \(value)")
+        }
+        else if Notifications.Names.endPagePrint ==  notification.name {
+            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+            Self.logger.info("EndPagePrint \(value)")
+        }
+        else if Notifications.Names.setDimension ==  notification.name {
+            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+            Self.logger.info("SetDimension \(value)")
+        }
+        else if Notifications.Names.setLabelType ==  notification.name {
+            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+            Self.logger.info("SetLabelType \(value)")
+        }
+        else if Notifications.Names.setLabelDensity ==  notification.name {
+            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+            Self.logger.info("SetLabelDensity \(value)")
         }
     }
     

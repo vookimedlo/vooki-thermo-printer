@@ -148,6 +148,7 @@ class BluetoothSupport : NSObject, BluetoothAccess, CBCentralManagerDelegate, CB
         guard let peripheral = self.peripheral else { throw IOError.write }
         guard peripheral.state == .connected else { throw IOError.write }
         guard let characteristic = self.characteristic else { throw IOError.write }
+        usleep(100000)
         self.peripheral?.writeValue(Data(bytes: buffer, count: size),
                               for: characteristic,
                               type: CBCharacteristicWriteType.withoutResponse)

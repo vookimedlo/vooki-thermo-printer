@@ -720,6 +720,20 @@
                                     <action selector="buttonPressed:" target="XfG-lQ-9wD" id="mUO-Nd-mTO"/>
                                 </connections>
                             </button>
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kLX-hE-jEZ">
+                                <rect key="frame" x="858" y="430" width="31" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" id="wR7-6Y-wWK">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MhK-8x-WJ3">
+                                <rect key="frame" x="750" y="428" width="96" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <levelIndicatorCell key="cell" alignment="left" maxValue="3" warningValue="2" criticalValue="1" id="iLR-00-0cZ"/>
+                            </levelIndicator>
                             <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sGG-al-UMm">
                                 <rect key="frame" x="652" y="502" width="92" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1024,20 +1038,6 @@
                                             <connections>
                                                 <outlet property="delegate" destination="XfG-lQ-9wD" id="kPT-fN-AxI"/>
                                             </connections>
-                                        </textField>
-                                        <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MhK-8x-WJ3">
-                                            <rect key="frame" x="750" y="428" width="96" height="18"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <levelIndicatorCell key="cell" alignment="left" maxValue="3" warningValue="2" criticalValue="1" id="iLR-00-0cZ"/>
-                                        </levelIndicator>
-                                        <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kLX-hE-jEZ">
-                                            <rect key="frame" x="858" y="430" width="31" height="16"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <textFieldCell key="cell" lineBreakMode="clipping" id="wR7-6Y-wWK">
-                                                <font key="font" metaFont="system"/>
-                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                            </textFieldCell>
                                         </textField>
                                         <comboBox focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VNq-h2-OYW">
                                             <rect key="frame" x="91" y="247" width="352" height="23"/>

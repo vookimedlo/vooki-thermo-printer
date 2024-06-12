@@ -35,6 +35,7 @@ public enum RequestCode: UInt8 {
     case REQUEST_SET_DIMENSION = 0x13
     case REQUEST_SET_QUANTITY = 0x15
     case REQUEST_GET_PRINT_STATUS = 0xA3
+    case REQUEST_SET_PRINTER_DATA = 0x85
     
     case RESPONSE_GET_INFO_DENSITY = 0x41                 // RequestCode.REQUEST_GET_INFO + InfoCode.DENSITY
     case RESPONSE_GET_INFO_LABEL_TYPE = 0x43              // RequestCode.REQUEST_GET_INFO + InfoCode.LABEL_TYPE
@@ -52,7 +53,9 @@ public enum RequestCode: UInt8 {
     case RESPONSE_ALLOW_PRINT_CLEAR = 0x30                // RequestCode.REQUEST_ALLOW_PRINT_CLEAR + 16
     case RESPONSE_SET_LABEL_TYPE = 0x33                   // RequestCode.REQUEST_SET_LABEL_TYPE + 16
     case RESPONSE_SET_LABEL_DENSITY = 0x31                // RequestCode.REQUEST_SET_LABEL_DENSITY + 16
-    //case RESPONSE_SET_DIMENSION = 0x23                    // RequestCode.REQUEST_SET_DIMENSION + 16
+    case RESPONSE_SET_DIMENSION = 0x14                    // RequestCode.REQUEST_SET_DIMENSION + 1
+    
+    case RESPONSE_SOMETHING = 0xD3          //TODO: What this type stands for?
 }
 
 public class Packet {
@@ -134,7 +137,7 @@ extension Packet {
                     return packet
                 }
                 else {
-                    Self.logger.error("Internal error: cannot parse the uplinked packet")
+                    Self.logger.error("Internal error: cannot parse the uplinked packet \(packetArray.hexEncodedString(options: [.commaSeparator, .prefix, .upperCase]))")
                 }
             }
         }

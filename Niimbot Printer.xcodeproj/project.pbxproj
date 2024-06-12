@@ -34,6 +34,16 @@
 		8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
 		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
+		8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */; };
+		8DDC3D0E2C19C69900296C72 /* DensityPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D0D2C19C69900296C72 /* DensityPacketDecoder.swift */; };
+		8DDC3D102C19C6BB00296C72 /* LabelTypePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D0F2C19C6BB00296C72 /* LabelTypePacketDecoder.swift */; };
+		8DDC3D122C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D112C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift */; };
+		8DDC3D142C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D132C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift */; };
+		8DDC3D162C19C71000296C72 /* HardwareVersionPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D152C19C71000296C72 /* HardwareVersionPacketDecoder.swift */; };
+		8DDC3D182C19C72A00296C72 /* BatteryInformationPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D172C19C72A00296C72 /* BatteryInformationPacketDecoder.swift */; };
+		8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D192C19C74800296C72 /* DeviceTypePacketDecoder.swift */; };
+		8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D1B2C19C77200296C72 /* BoolBytePacketDecoder.swift */; };
+		8DDC3D1E2C19C79000296C72 /* RFIDDataPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */; };
 		8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */; };
 		8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */; };
 		8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */; };
@@ -81,6 +91,16 @@
 		8D96394A2C0BA60800374894 /* PacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoder.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
+		8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialNumberPacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D0D2C19C69900296C72 /* DensityPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DensityPacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D0F2C19C6BB00296C72 /* LabelTypePacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTypePacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D112C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoShutdownTimePacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D132C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareVersionPacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D152C19C71000296C72 /* HardwareVersionPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareVersionPacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D172C19C72A00296C72 /* BatteryInformationPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInformationPacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D192C19C74800296C72 /* DeviceTypePacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTypePacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D1B2C19C77200296C72 /* BoolBytePacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolBytePacketDecoder.swift; sourceTree = "<group>"; };
+		8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RFIDDataPacketDecoder.swift; sourceTree = "<group>"; };
 		8DEB85E62C0CBFD40028526B /* Niimbot-Printer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Niimbot-Printer-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothIO.swift; sourceTree = "<group>"; };
 		8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSupport.swift; sourceTree = "<group>"; };
@@ -129,35 +149,16 @@
 			isa = PBXGroup;
 			children = (
 				8D58DC152C052197001EBD95 /* AppDelegate.swift */,
-				8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */,
 				8D58DC192C052198001EBD95 /* Assets.xcassets */,
-				8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */,
-				8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */,
-				8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */,
-				8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */,
-				8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */,
-				8D96391E2C0A8E8B00374894 /* DataExtension.swift */,
-				8D76C53C2C091062005D7EEB /* FileSystemAccessProtocol.swift */,
-				8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */,
+				8DDC3D212C19ECBE00296C72 /* Communication */,
+				8DDC3D1F2C19EBB800296C72 /* Extensions */,
 				8DEB860D2C1250BF0028526B /* Image.swift */,
-				8D76C5362C08DA38005D7EEB /* IOError.swift */,
-				8D76C5342C08DA08005D7EEB /* IOProtocol.swift */,
-				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
 				8D58DC1E2C052198001EBD95 /* Niimbot_Printer.entitlements */,
 				8DEB85E62C0CBFD40028526B /* Niimbot-Printer-Info.plist */,
-				8D96393E2C0B5E0600374894 /* Notifications.swift */,
-				8D9639402C0B616D00374894 /* Notifier.swift */,
-				8D9639462C0B9C8B00374894 /* NotifierExtension.swift */,
-				8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */,
-				8D9639422C0B927F00374894 /* Observable.swift */,
-				8D9639442C0B984F00374894 /* ObservableExtension.swift */,
-				8D58DC242C052317001EBD95 /* Packet.swift */,
-				8D96394A2C0BA60800374894 /* PacketDecoder.swift */,
-				8D76C53A2C090B96005D7EEB /* PosixFileSystemAccess.swift */,
-				8D9639482C0B9EC600374894 /* Printer.swift */,
-				8D58DC332C064583001EBD95 /* PrinterDevice.swift */,
-				8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */,
-				8D58DC172C052197001EBD95 /* ViewController.swift */,
+				8DDC3D202C19EC8E00296C72 /* Notifications */,
+				8DDC3D092C19C62D00296C72 /* Packet */,
+				8DDC3D222C19EDFC00296C72 /* Printer */,
+				8DDC3D232C19EE6100296C72 /* UI */,
 			);
 			path = "Niimbot Printer";
 			sourceTree = "<group>";
@@ -170,6 +171,91 @@
 				8D76C53E2C091162005D7EEB /* StubbedFileSystem.swift */,
 			);
 			path = "Niimbot PrinterTests";
+			sourceTree = "<group>";
+		};
+		8DDC3D092C19C62D00296C72 /* Packet */ = {
+			isa = PBXGroup;
+			children = (
+				8DDC3D0A2C19C65400296C72 /* Decoders */,
+				8D58DC242C052317001EBD95 /* Packet.swift */,
+			);
+			path = Packet;
+			sourceTree = "<group>";
+		};
+		8DDC3D0A2C19C65400296C72 /* Decoders */ = {
+			isa = PBXGroup;
+			children = (
+				8DDC3D112C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift */,
+				8DDC3D172C19C72A00296C72 /* BatteryInformationPacketDecoder.swift */,
+				8DDC3D1B2C19C77200296C72 /* BoolBytePacketDecoder.swift */,
+				8DDC3D0D2C19C69900296C72 /* DensityPacketDecoder.swift */,
+				8DDC3D192C19C74800296C72 /* DeviceTypePacketDecoder.swift */,
+				8DDC3D152C19C71000296C72 /* HardwareVersionPacketDecoder.swift */,
+				8DDC3D0F2C19C6BB00296C72 /* LabelTypePacketDecoder.swift */,
+				8D96394A2C0BA60800374894 /* PacketDecoder.swift */,
+				8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */,
+				8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */,
+				8DDC3D132C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift */,
+			);
+			name = Decoders;
+			sourceTree = "<group>";
+		};
+		8DDC3D1F2C19EBB800296C72 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */,
+				8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */,
+				8D96391E2C0A8E8B00374894 /* DataExtension.swift */,
+				8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */,
+				8D9639442C0B984F00374894 /* ObservableExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		8DDC3D202C19EC8E00296C72 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				8D96393E2C0B5E0600374894 /* Notifications.swift */,
+				8D9639402C0B616D00374894 /* Notifier.swift */,
+				8D9639462C0B9C8B00374894 /* NotifierExtension.swift */,
+				8D9639422C0B927F00374894 /* Observable.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		8DDC3D212C19ECBE00296C72 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */,
+				8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */,
+				8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */,
+				8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */,
+				8D76C53C2C091062005D7EEB /* FileSystemAccessProtocol.swift */,
+				8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */,
+				8D76C5362C08DA38005D7EEB /* IOError.swift */,
+				8D76C5342C08DA08005D7EEB /* IOProtocol.swift */,
+				8D76C53A2C090B96005D7EEB /* PosixFileSystemAccess.swift */,
+			);
+			path = Communication;
+			sourceTree = "<group>";
+		};
+		8DDC3D222C19EDFC00296C72 /* Printer */ = {
+			isa = PBXGroup;
+			children = (
+				8D9639482C0B9EC600374894 /* Printer.swift */,
+				8D58DC332C064583001EBD95 /* PrinterDevice.swift */,
+				8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */,
+			);
+			path = Printer;
+			sourceTree = "<group>";
+		};
+		8DDC3D232C19EE6100296C72 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
+				8D58DC172C052197001EBD95 /* ViewController.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,9 +358,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DDC3D122C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift in Sources */,
+				8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */,
 				8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */,
+				8DDC3D102C19C6BB00296C72 /* LabelTypePacketDecoder.swift in Sources */,
 				8DEB860E2C1250BF0028526B /* Image.swift in Sources */,
+				8DDC3D0E2C19C69900296C72 /* DensityPacketDecoder.swift in Sources */,
 				8D58DC252C052317001EBD95 /* Packet.swift in Sources */,
+				8DDC3D1E2C19C79000296C72 /* RFIDDataPacketDecoder.swift in Sources */,
+				8DDC3D182C19C72A00296C72 /* BatteryInformationPacketDecoder.swift in Sources */,
 				8D9639432C0B927F00374894 /* Observable.swift in Sources */,
 				8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */,
 				8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */,
@@ -283,6 +375,7 @@
 				8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */,
 				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
 				8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */,
+				8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */,
 				8D9639452C0B984F00374894 /* ObservableExtension.swift in Sources */,
 				8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */,
 				8D58DC182C052197001EBD95 /* ViewController.swift in Sources */,
@@ -291,11 +384,14 @@
 				8D58DC162C052197001EBD95 /* AppDelegate.swift in Sources */,
 				8D76C53D2C091062005D7EEB /* FileSystemAccessProtocol.swift in Sources */,
 				8D9639492C0B9EC600374894 /* Printer.swift in Sources */,
+				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
 				8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */,
 				8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */,
 				8DEB85EE2C0E5E610028526B /* DataConsumerProtocol.swift in Sources */,
 				8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */,
+				8DDC3D162C19C71000296C72 /* HardwareVersionPacketDecoder.swift in Sources */,
 				8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */,
+				8DDC3D142C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift in Sources */,
 				8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */,
 				8D76C53B2C090B96005D7EEB /* PosixFileSystemAccess.swift in Sources */,
 			);

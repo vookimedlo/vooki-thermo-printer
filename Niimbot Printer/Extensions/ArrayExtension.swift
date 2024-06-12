@@ -1,13 +1,34 @@
 //
-//  DataExtension.swift
+//  ArrayExtension.swift
 //  Niimbot Printer
 //
-//  Created by Michal Duda on 01.06.2024.
+//  Created by Michal Duda on 29.05.2024.
 //
 
 import Foundation
 
-extension Data {
+extension Array {
+    init(pointer: UnsafePointer<Element>, count: Int) {
+        self = Array(UnsafeBufferPointer<Element>(start: pointer, count: count))
+    }
+    
+    init(rawPointer: UnsafeRawPointer, count: Int) {
+        self = Array(UnsafeBufferPointer<Element>(start: rawPointer.bindMemory(to: Element.self,
+                                                                               capacity: count),
+                                                  count: count))
+    }
+}
+
+extension Array<UInt8> {
+    func toUInt16(fromBigEndian: Bool = true) -> UInt16? {
+        guard self.count == 2 else {
+            return nil
+        }
+        return fromBigEndian ? ((UInt16(self[0]) << 8) + UInt16(self[1])) : ((UInt16(self[1]) << 8) + UInt16(self[0]))
+    }
+}
+
+extension Array<UInt8> {
     struct HexEncodingOptions: OptionSet {
         let rawValue: Int
         static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
@@ -32,3 +53,10 @@ extension Data {
         return self.map { String(format: format, $0) }.joined(separator: separator)
     }
 }
+
+extension ArraySlice<UInt8> {
+    func decEncodedString() -> String {
+        return self.map { String(format: "%u", $0) }.joined(separator: "")
+    }
+}
+

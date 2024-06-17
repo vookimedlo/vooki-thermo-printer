@@ -25,6 +25,7 @@
 		8D76C5412C0912C4005D7EEB /* FileSystemIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */; };
 		8D76C5602C0A11BB005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
 		8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */; };
+		8D84EF9A2C20F6090070BA8A /* FontSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84EF992C20F6090070BA8A /* FontSelectionView.swift */; };
 		8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96391E2C0A8E8B00374894 /* DataExtension.swift */; };
 		8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96393E2C0B5E0600374894 /* Notifications.swift */; };
 		8D9639412C0B616D00374894 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639402C0B616D00374894 /* Notifier.swift */; };
@@ -86,6 +87,7 @@
 		8D76C53E2C091162005D7EEB /* StubbedFileSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbedFileSystem.swift; sourceTree = "<group>"; };
 		8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIOTests.swift; sourceTree = "<group>"; };
 		8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UplinkProcessor.swift; sourceTree = "<group>"; };
+		8D84EF992C20F6090070BA8A /* FontSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectionView.swift; sourceTree = "<group>"; };
 		8D96391E2C0A8E8B00374894 /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 		8D96393E2C0B5E0600374894 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		8D9639402C0B616D00374894 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			children = (
 				8D1F59B92C20EAD7002A037F /* Components */,
 				8DDC3D412C1A290700296C72 /* ContentView.swift */,
+				8D84EF992C20F6090070BA8A /* FontSelectionView.swift */,
 				8DDC3D452C1A552800296C72 /* HistoryView.swift */,
 				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
 				8DDC3D432C1A45A900296C72 /* PrinterView.swift */,
@@ -418,6 +421,7 @@
 				8DDC3D142C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift in Sources */,
 				8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */,
 				8D76C53B2C090B96005D7EEB /* PosixFileSystemAccess.swift in Sources */,
+				8D84EF9A2C20F6090070BA8A /* FontSelectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

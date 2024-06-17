@@ -115,3 +115,21 @@ struct IndicatorValueSlider<Label> : View where Label : View  {
     }
 }
 
+struct IndicatorValueSliderPreview: PreviewProvider {
+    
+    struct ContainerView: View {
+        @State var value: Int = 20
+
+        var body: some View {
+            IndicatorValueSlider(value: $value, minValue: 0, maxValue: 100, label: { Text("Font size").font(.headline) } )
+        }
+    }
+    
+    static var previews: some View {
+        ContainerView()
+    }
+}
+
+#Preview {
+    IndicatorValueSliderPreview.previews
+}

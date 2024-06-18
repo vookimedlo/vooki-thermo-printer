@@ -26,6 +26,7 @@
 		8D76C5602C0A11BB005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
 		8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */; };
 		8D84EF9A2C20F6090070BA8A /* FontSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84EF992C20F6090070BA8A /* FontSelectionView.swift */; };
+		8D84EF9C2C20FA0D0070BA8A /* PrinterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84EF9B2C20FA0D0070BA8A /* PrinterDetailsView.swift */; };
 		8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96391E2C0A8E8B00374894 /* DataExtension.swift */; };
 		8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96393E2C0B5E0600374894 /* Notifications.swift */; };
 		8D9639412C0B616D00374894 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639402C0B616D00374894 /* Notifier.swift */; };
@@ -34,6 +35,7 @@
 		8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639462C0B9C8B00374894 /* NotifierExtension.swift */; };
 		8D9639492C0B9EC600374894 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
 		8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
+		8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
 		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
 		8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */; };
@@ -88,6 +90,7 @@
 		8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIOTests.swift; sourceTree = "<group>"; };
 		8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UplinkProcessor.swift; sourceTree = "<group>"; };
 		8D84EF992C20F6090070BA8A /* FontSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectionView.swift; sourceTree = "<group>"; };
+		8D84EF9B2C20FA0D0070BA8A /* PrinterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDetailsView.swift; sourceTree = "<group>"; };
 		8D96391E2C0A8E8B00374894 /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 		8D96393E2C0B5E0600374894 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		8D9639402C0B616D00374894 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
@@ -96,6 +99,7 @@
 		8D9639462C0B9C8B00374894 /* NotifierExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifierExtension.swift; sourceTree = "<group>"; };
 		8D9639482C0B9EC600374894 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		8D96394A2C0BA60800374894 /* PacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoder.swift; sourceTree = "<group>"; };
+		8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterLabelDetailView.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
 		8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialNumberPacketDecoder.swift; sourceTree = "<group>"; };
@@ -275,6 +279,8 @@
 				8D84EF992C20F6090070BA8A /* FontSelectionView.swift */,
 				8DDC3D452C1A552800296C72 /* HistoryView.swift */,
 				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
+				8D84EF9B2C20FA0D0070BA8A /* PrinterDetailsView.swift */,
+				8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */,
 				8DDC3D432C1A45A900296C72 /* PrinterView.swift */,
 				8D58DC172C052197001EBD95 /* ViewController.swift */,
 			);
@@ -412,8 +418,10 @@
 				8D76C53D2C091062005D7EEB /* FileSystemAccessProtocol.swift in Sources */,
 				8D9639492C0B9EC600374894 /* Printer.swift in Sources */,
 				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
+				8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */,
 				8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */,
 				8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */,
+				8D84EF9C2C20FA0D0070BA8A /* PrinterDetailsView.swift in Sources */,
 				8DEB85EE2C0E5E610028526B /* DataConsumerProtocol.swift in Sources */,
 				8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */,
 				8DDC3D162C19C71000296C72 /* HardwareVersionPacketDecoder.swift in Sources */,

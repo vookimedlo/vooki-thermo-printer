@@ -24,13 +24,11 @@ struct PrinterLabelDetailView: View {
     
     var body: some View {
         GroupBox {
-            Form {
-                add(title: "Number of remaining labels", value: $remainingCount).padding(.horizontal).padding(.bottom, 5)
-                add(title: "Number of printed labels", value: $printedCount).padding(.horizontal).padding(.bottom, 5)
-                add(title: "Serial number", value: $serialNumber).padding(.horizontal).padding(.bottom, 5)
-                add(title: "Barcode", value: $barcode).padding(.horizontal).padding(.bottom, 5)
-                add(title: "Type", value: $type).padding(.horizontal)
-            }
+            add(title: "Number of remaining labels", value: $remainingCount).padding(.horizontal).padding(.bottom, 5)
+            add(title: "Number of printed labels", value: $printedCount).padding(.horizontal).padding(.bottom, 5)
+            add(title: "Serial number", value: $serialNumber).padding(.horizontal).padding(.bottom, 5)
+            add(title: "Barcode", value: $barcode).padding(.horizontal).padding(.bottom, 5)
+            add(title: "Type", value: $type).padding(.horizontal)
         }
     }
     

@@ -23,12 +23,10 @@ struct PrinterDetailsView: View {
     
     var body: some View {
         GroupBox{
-            Form {
-                add(title: "Serial number", value: $serialNumber).padding(.horizontal).padding(.bottom, 5)
-                add(title: "Software version", value: $softwareVersion).padding(.horizontal).padding(.bottom, 5)
-                add(title: "Device type", value: $deviceType).padding(.horizontal).padding(.bottom, 5)
-                add(title: "Paper inserted", value: $isPaperInserted).padding(.horizontal)
-            }
+            add(title: "Serial number", value: $serialNumber).padding(.horizontal).padding(.bottom, 5)
+            add(title: "Software version", value: $softwareVersion).padding(.horizontal).padding(.bottom, 5)
+            add(title: "Device type", value: $deviceType).padding(.horizontal).padding(.bottom, 5)
+            add(title: "Paper inserted", value: $isPaperInserted).padding(.horizontal)
         }
     }
     

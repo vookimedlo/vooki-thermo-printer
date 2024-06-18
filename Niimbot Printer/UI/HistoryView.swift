@@ -9,7 +9,9 @@ import SwiftUI
 
 struct HistoryView: View {
     var body: some View {
-        Text("History View")
+        VStack {
+            Text("History View")
+        }.navigationTitle("History")
     }
 }
 

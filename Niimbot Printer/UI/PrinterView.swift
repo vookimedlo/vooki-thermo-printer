@@ -33,26 +33,27 @@ struct PrinterView: View {
                               familySelection: $familySelection,
                               fontSize: $fontSize)
             
-        }.inspector(isPresented: $showingInspector) {
-                VStack(alignment: .center) {
-                    Section("Printer properties") {
-                            PrinterDetailsView(serialNumber: $serialNumber,
-                                               softwareVersion: $softwareVersion,
-                                               deviceType: $deviceType,
-                                               isPaperInserted: $isPaperInserted)
+        }.navigationTitle("D110 Printer")
+        .inspector(isPresented: $showingInspector) {
+            VStack {
+                List {
+                    Section(header: Text("Printer")) {
+                        PrinterDetailsView(serialNumber: $serialNumber,
+                                           softwareVersion: $softwareVersion,
+                                           deviceType: $deviceType,
+                                           isPaperInserted: $isPaperInserted)
                     }
-                    
-                    Section("Printer properties") {
+
+                    Section(header: Text("Paper")) {
                         PrinterLabelDetailView(serialNumber: $paperSerialNumber,
                                                remainingCount: $remainingCount,
                                                printedCount: $printedCount,
                                                barcode: $barcode,
                                                type: $type)
                     }
-                    
-                    
-                    Text("test")
-                }
+                }.listStyle(.sidebar)
+                Spacer()
+            }
         }.toolbar {
             
             ToolbarItem() {

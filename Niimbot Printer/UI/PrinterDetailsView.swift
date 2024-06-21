@@ -22,19 +22,31 @@ struct PrinterDetailsView: View {
     }
     
     var body: some View {
-        GroupBox{
-            add(title: "Serial number", value: $serialNumber).padding(.horizontal).padding(.bottom, 5)
-            add(title: "Software version", value: $softwareVersion).padding(.horizontal).padding(.bottom, 5)
-            add(title: "Device type", value: $deviceType).padding(.horizontal).padding(.bottom, 5)
-            add(title: "Paper inserted", value: $isPaperInserted).padding(.horizontal)
+        GroupBox() {
+            VStack(alignment: .leading) {
+                add(title: "Serial number", value: $serialNumber)
+                Divider().padding(.horizontal)
+
+                add(title: "Software version", value: $softwareVersion)
+                Divider().padding(.horizontal)
+
+                add(title: "Device type", value: $deviceType)
+                Divider().padding(.horizontal)
+
+                add(title: "Paper inserted", value: $isPaperInserted)
+            }
         }
     }
     
     private func add(title: String, value: Binding<String>) -> some View {
-        return LabeledContent {
-            Text("\(value.wrappedValue)")
-        } label: {
-            Text(title).font(.headline)
+        return VStack(alignment: .leading) {
+            Text(title).font(.caption)
+            VStack(alignment: .trailing) {
+                HStack {
+                    Spacer()
+                    Text("\(value.wrappedValue)").font(.footnote)
+                }
+            }
         }
     }
 }

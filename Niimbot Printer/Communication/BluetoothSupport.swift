@@ -9,7 +9,7 @@ import Foundation
 import CoreBluetooth
 import os
 
-class BluetoothSupport : NSObject, BluetoothAccess, CBCentralManagerDelegate, CBPeripheralDelegate {
+class BluetoothSupport : NSObject, BluetoothAccess, Notifier, CBCentralManagerDelegate, CBPeripheralDelegate {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: BluetoothSupport.self)
@@ -22,6 +22,8 @@ class BluetoothSupport : NSObject, BluetoothAccess, CBCentralManagerDelegate, CB
     
     var peripheral: CBPeripheral?
     var characteristic: CBCharacteristic?
+    
+    var isConnectedPrinter: Bool = false
 
     static let centralManager = CBCentralManager(delegate: nil, queue: DispatchQueue(label: "CentralManager"))
     
@@ -33,13 +35,20 @@ class BluetoothSupport : NSObject, BluetoothAccess, CBCentralManagerDelegate, CB
         Self.centralManager.delegate = self
     }
     
+    init(peripheral: CBPeripheral) {
+        super.init()
+        Self.centralManager.delegate = self
+        self.peripheral = peripheral
+        self.peripheral?.delegate = self
+        Self.logger.info("Peripheral name: \(peripheral.name ?? " ")")
+    }
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
             case .poweredOff:
                 Self.logger.info("Bluetooth state: Powered off.")
             case .poweredOn:
                 Self.logger.info("Bluetooth state: Powered on.")
-                startScanning()
             case .unsupported:
                 Self.logger.info("Bluetooth state: Unsupported.")
             case .unauthorized:
@@ -57,16 +66,15 @@ class BluetoothSupport : NSObject, BluetoothAccess, CBCentralManagerDelegate, CB
         Self.centralManager.scanForPeripherals(withServices: nil)
     }
     
+    func stopScanning() -> Void {
+        Self.centralManager.stopScan()
+    }
+    
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
 
-        if peripheral.name == "D110-G318041009" {
-            central.stopScan()
-
-            Self.logger.info("Peripheral Discovered: \(peripheral) - Peripheral name: \(peripheral.name ?? " ") - Advertisement Data : \(advertisementData)")
-                
-            self.peripheral = peripheral
-            self.peripheral?.delegate = self
-        }
+        notify(name: Notifications.Names.bluetoothPeripheralDiscovered,
+               userInfo: [String : BluetoothPeripheral](dictionaryLiteral: (Notifications.Keys.peripheral,
+                                                                            BluetoothPeripheral(peripheral: peripheral))))
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: (any Error)?) {
@@ -96,6 +104,7 @@ class BluetoothSupport : NSObject, BluetoothAccess, CBCentralManagerDelegate, CB
                 return
             }
         }
+        connectSemaphore.signal()
     }
     
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: (any Error)?) {
@@ -110,6 +119,7 @@ class BluetoothSupport : NSObject, BluetoothAccess, CBCentralManagerDelegate, CB
             if characteristic.uuid == characteristicUUID {
                 self.characteristic = characteristic
                 self.peripheral?.setNotifyValue(true, for: characteristic)
+                isConnectedPrinter = true
                 return
             }
         }
@@ -128,9 +138,10 @@ class BluetoothSupport : NSObject, BluetoothAccess, CBCentralManagerDelegate, CB
         if peripheral.state == .connected {
             close()
         }
+        isConnectedPrinter = false
         Self.centralManager.connect(self.peripheral!)
         connectSemaphore.wait()
-        guard peripheral.state == .connected else {
+        guard isConnectedPrinter else {
             throw IOError.open
         }
     }

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8D1F59BB2C20EAF8002A037F /* IndicatorValueSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */; };
+		8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */; };
+		8D35E3382C23828A00E8E2A9 /* BluetoothPeripheralsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */; };
 		8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC152C052197001EBD95 /* PrinterAppD110.swift */; };
 		8D58DC182C052197001EBD95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC172C052197001EBD95 /* ViewController.swift */; };
 		8D58DC1A2C052198001EBD95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC192C052198001EBD95 /* Assets.xcassets */; };
@@ -30,7 +32,7 @@
 		8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96391E2C0A8E8B00374894 /* DataExtension.swift */; };
 		8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96393E2C0B5E0600374894 /* Notifications.swift */; };
 		8D9639412C0B616D00374894 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639402C0B616D00374894 /* Notifier.swift */; };
-		8D9639432C0B927F00374894 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639422C0B927F00374894 /* Observable.swift */; };
+		8D9639432C0B927F00374894 /* NotificationObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639422C0B927F00374894 /* NotificationObservable.swift */; };
 		8D9639452C0B984F00374894 /* ObservableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639442C0B984F00374894 /* ObservableExtension.swift */; };
 		8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639462C0B9C8B00374894 /* NotifierExtension.swift */; };
 		8D9639492C0B9EC600374894 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
@@ -70,6 +72,8 @@
 
 /* Begin PBXFileReference section */
 		8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorValueSlider.swift; sourceTree = "<group>"; };
+		8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheral.swift; sourceTree = "<group>"; };
+		8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralsView.swift; sourceTree = "<group>"; };
 		8D58DC122C052197001EBD95 /* Niimbot Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Niimbot Printer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC152C052197001EBD95 /* PrinterAppD110.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppD110.swift; sourceTree = "<group>"; };
 		8D58DC172C052197001EBD95 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +98,7 @@
 		8D96391E2C0A8E8B00374894 /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 		8D96393E2C0B5E0600374894 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		8D9639402C0B616D00374894 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
-		8D9639422C0B927F00374894 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		8D9639422C0B927F00374894 /* NotificationObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObservable.swift; sourceTree = "<group>"; };
 		8D9639442C0B984F00374894 /* ObservableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableExtension.swift; sourceTree = "<group>"; };
 		8D9639462C0B9C8B00374894 /* NotifierExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifierExtension.swift; sourceTree = "<group>"; };
 		8D9639482C0B9EC600374894 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
@@ -240,7 +244,7 @@
 				8D96393E2C0B5E0600374894 /* Notifications.swift */,
 				8D9639402C0B616D00374894 /* Notifier.swift */,
 				8D9639462C0B9C8B00374894 /* NotifierExtension.swift */,
-				8D9639422C0B927F00374894 /* Observable.swift */,
+				8D9639422C0B927F00374894 /* NotificationObservable.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -250,6 +254,7 @@
 			children = (
 				8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */,
 				8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */,
+				8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */,
 				8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */,
 				8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */,
 				8D76C53C2C091062005D7EEB /* FileSystemAccessProtocol.swift */,
@@ -275,6 +280,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1F59B92C20EAD7002A037F /* Components */,
+				8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */,
 				8DDC3D412C1A290700296C72 /* ContentView.swift */,
 				8D84EF992C20F6090070BA8A /* FontSelectionView.swift */,
 				8DDC3D452C1A552800296C72 /* HistoryView.swift */,
@@ -397,8 +403,9 @@
 				8D58DC252C052317001EBD95 /* Packet.swift in Sources */,
 				8DDC3D1E2C19C79000296C72 /* RFIDDataPacketDecoder.swift in Sources */,
 				8DDC3D182C19C72A00296C72 /* BatteryInformationPacketDecoder.swift in Sources */,
-				8D9639432C0B927F00374894 /* Observable.swift in Sources */,
+				8D9639432C0B927F00374894 /* NotificationObservable.swift in Sources */,
 				8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */,
+				8D35E3382C23828A00E8E2A9 /* BluetoothPeripheralsView.swift in Sources */,
 				8DDC3D422C1A290800296C72 /* ContentView.swift in Sources */,
 				8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */,
 				8D9639412C0B616D00374894 /* Notifier.swift in Sources */,
@@ -417,6 +424,7 @@
 				8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */,
 				8D76C53D2C091062005D7EEB /* FileSystemAccessProtocol.swift in Sources */,
 				8D9639492C0B9EC600374894 /* Printer.swift in Sources */,
+				8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */,
 				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
 				8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */,
 				8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */,

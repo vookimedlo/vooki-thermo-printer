@@ -9,6 +9,15 @@ import Foundation
 
 class Notifications {
     class Names {
+        static public let startPopulatingPeripherals = NSNotification.Name("notify-bt-start-pop")
+        static public let stopPopulatingPeripherals = NSNotification.Name("notify-bt-stop-pop")
+        static public let selectedPeripheral = NSNotification.Name("notify-bt-selected")
+
+        
+        static public let connectPeripheral = NSNotification.Name("notify-bt-connect")
+        static public let disconnectPeripheral = NSNotification.Name("notify-bt-disconnect")
+
+        static public let bluetoothPeripheralDiscovered = NSNotification.Name("notify-bt-perip")
         static public let uplinkedPacket = NSNotification.Name("notify-uplinked-packet")
         static public let density = NSNotification.Name("notify-density")
         static public let labelType = NSNotification.Name("notify-label-type")
@@ -33,5 +42,6 @@ class Notifications {
     class Keys {
         static public let packet = "key-packet"
         static public let value = "key-value"
+        static public let peripheral = "key-peripheral"
     }
 }

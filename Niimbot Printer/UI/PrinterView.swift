@@ -24,15 +24,19 @@ struct PrinterView: View {
     @State public var barcode: String = "N/A"
     @State public var type: String = "N/A"
     
+    @State public var textToPrint: String = ""
+    @State public var imagePreview: NSImage = NSImage(size: NSSize(width: 240, height: 120))
+    
     @State private var showingInspector: Bool = true
-
+    
     
     var body: some View {
         VStack {
+            TextField("Enter your text for printing ...", text: $textToPrint)
+            SwiftUI.Image(nsImage: imagePreview)
             FontSelectionView(fontSelection: $fontSelection,
                               familySelection: $familySelection,
                               fontSize: $fontSize)
-            
         }.navigationTitle("D110 Printer")
         .inspector(isPresented: $showingInspector) {
             VStack {
@@ -55,7 +59,6 @@ struct PrinterView: View {
                 Spacer()
             }
         }.toolbar {
-            
             ToolbarItem() {
                 Button {
                     withAnimation {

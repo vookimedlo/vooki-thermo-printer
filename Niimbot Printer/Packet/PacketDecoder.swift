@@ -12,7 +12,7 @@ protocol PacketDecoding: Notifier {
     func decode(packet: Packet) -> Bool
 }
 
-class PacketDecoder: PacketDecoding, Observable {
+class PacketDecoder: PacketDecoding, NotificationObservable {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: UplinkProcessor.self)

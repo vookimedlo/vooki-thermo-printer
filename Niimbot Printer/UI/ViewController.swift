@@ -9,7 +9,7 @@ import Foundation
 import Cocoa
 import os
 
-class ViewController: NSViewController, Observable, NSTextFieldDelegate, NSComboBoxDelegate {
+class ViewController: NSViewController, NotificationObservable, NSTextFieldDelegate, NSComboBoxDelegate {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: ViewController.self)

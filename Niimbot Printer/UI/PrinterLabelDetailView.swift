@@ -24,19 +24,33 @@ struct PrinterLabelDetailView: View {
     
     var body: some View {
         GroupBox {
-            add(title: "Number of remaining labels", value: $remainingCount).padding(.horizontal).padding(.bottom, 5)
-            add(title: "Number of printed labels", value: $printedCount).padding(.horizontal).padding(.bottom, 5)
-            add(title: "Serial number", value: $serialNumber).padding(.horizontal).padding(.bottom, 5)
-            add(title: "Barcode", value: $barcode).padding(.horizontal).padding(.bottom, 5)
-            add(title: "Type", value: $type).padding(.horizontal)
+            VStack(alignment: .leading) {
+                add(title: "Number of remaining labels", value: $remainingCount)
+                Divider().padding(.horizontal)
+
+                add(title: "Number of printed labels", value: $printedCount)
+                Divider().padding(.horizontal)
+
+                add(title: "Serial number", value: $serialNumber)
+                Divider().padding(.horizontal)
+
+                add(title: "Barcode", value: $barcode)
+                Divider().padding(.horizontal)
+
+                add(title: "Type", value: $type)
+            }
         }
     }
     
     private func add(title: String, value: Binding<String>) -> some View {
-        return LabeledContent {
-            Text("\(value.wrappedValue)")
-        } label: {
-            Text(title).font(.headline)
+        return VStack(alignment: .leading) {
+            Text(title).font(.caption)
+            VStack(alignment: .trailing) {
+                HStack {
+                    Spacer()
+                    Text("\(value.wrappedValue)").font(.footnote)
+                }
+            }
         }
     }
 }

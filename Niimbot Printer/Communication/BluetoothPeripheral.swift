@@ -1,0 +1,59 @@
+//
+//  BluetoothPeripheral.swift
+//  Niimbot Printer
+//
+//  Created by Michal Duda on 19.06.2024.
+//
+
+import Foundation
+import CoreBluetooth
+
+@Observable
+class BluetoothPeripheral : Identifiable {
+    var identifier: UUID
+    var name: String
+    var peripheral: CBPeripheral?
+    
+    init(peripheral: CBPeripheral) {
+        self.identifier = peripheral.identifier
+        self.name = peripheral.name ?? ""
+        self.peripheral = peripheral
+    }
+    
+    init(testing name: String) {
+        self.identifier = UUID()
+        self.name = name
+    }
+}
+
+@Observable
+class BluetoothPeripherals : ObservableObject {
+    private var _peripherals : [BluetoothPeripheral] = []
+    var peripherals : [BluetoothPeripheral] {
+            return _peripherals
+        }
+    
+    func add(peripheral: BluetoothPeripheral) {
+        guard !(_peripherals.contains { item in
+            return item.identifier == peripheral.identifier
+        }) else { return }
+        guard !peripheral.name.isEmpty else { return }
+        _peripherals.append(peripheral)
+    }
+    
+    func find(identifier: UUID) -> BluetoothPeripheral? {
+        return _peripherals.first { peripheral in
+            return identifier == peripheral.identifier
+        }
+    }
+    
+    func removeAll() {
+        _peripherals.removeAll()
+    }
+
+    var printersBasedOnName: [BluetoothPeripheral] {
+        peripherals.filter({ peripheral in
+            return peripheral.peripheral?.name?.starts(with: "D110-") ?? false }
+        )
+    }
+}

@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct ContentView: View, Notifier {
     
     enum Views {
         case printerView
@@ -42,6 +42,9 @@ struct ContentView: View {
                              LitsItem(id: .historicalView, systemName: "book.closed", description: "History")]
     
     @State var selectedItem: Views?
+    @State var showConnectionView: Bool = false
+    
+    
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedItem) {
@@ -70,6 +73,43 @@ struct ContentView: View {
             .onAppear { selectedItem = items.first?.id }
         } detail: {
             Text("asdads at uytut")
+        }.toolbar {
+            ToolbarItem(placement: .appBar) {
+                
+                Menu(content: {
+                    Button(action: {
+                        withAnimation {
+                            showConnectionView = !showConnectionView
+                        }
+                    }) {
+                        Text("Search printers")
+                    }
+                    Button(action: {
+                        // TODO
+                    }) {
+                        Text("Last printer")
+                    }
+                }, label: {
+                    SwiftUI.Image(systemName: "antenna.radiowaves.left.and.right")
+                        .symbolRenderingMode(.palette)
+                        .fontWeight(.regular)
+                        .foregroundStyle(.green)
+                    Text("Connect ...")
+                }).popover(isPresented: $showConnectionView) {
+                    BluetoothPeripheralsView(isPresented: $showConnectionView)
+                }
+            }
+            ToolbarItem(placement: .appBar) {
+                Button (action: {
+                    notify(name: Notifications.Names.disconnectPeripheral)
+                }, label: {
+                    SwiftUI.Image(systemName: "antenna.radiowaves.left.and.right")
+                        .symbolRenderingMode(.palette)
+                        .fontWeight(.regular)
+                        .foregroundStyle(.red)
+                    Text("Disconnect")
+                })
+            }
         }
     }
 }
@@ -77,4 +117,8 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: Item.self, inMemory: true)
+}
+
+extension ToolbarItemPlacement {
+    static let appBar = accessoryBar(id: UUID().uuidString)
 }

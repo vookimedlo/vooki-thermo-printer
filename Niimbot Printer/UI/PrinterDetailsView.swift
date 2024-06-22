@@ -8,43 +8,32 @@
 import SwiftUI
 
 struct PrinterDetailsView: View {
-    @Binding var serialNumber: String
-    @Binding var softwareVersion: String
-    @Binding var deviceType: String
-    @Binding var isPaperInserted: String
-
-    
-    init(serialNumber: Binding<String>, softwareVersion: Binding<String>, deviceType: Binding<String>, isPaperInserted: Binding<String>) {
-        self._serialNumber = serialNumber
-        self._softwareVersion = softwareVersion
-        self._deviceType = deviceType
-        self._isPaperInserted = isPaperInserted
-    }
+    @Environment(PrinterDetails.self) private var details
     
     var body: some View {
         GroupBox() {
             VStack(alignment: .leading) {
-                add(title: "Serial number", value: $serialNumber)
+                add(title: "Serial number", value: details.serialNumber)
                 Divider().padding(.horizontal)
 
-                add(title: "Software version", value: $softwareVersion)
+                add(title: "Software version", value: details.softwareVersion)
                 Divider().padding(.horizontal)
 
-                add(title: "Device type", value: $deviceType)
+                add(title: "Device type", value: details.deviceType)
                 Divider().padding(.horizontal)
 
-                add(title: "Paper inserted", value: $isPaperInserted)
+                add(title: "Paper inserted", value: details.isPaperInserted)
             }
         }
     }
     
-    private func add(title: String, value: Binding<String>) -> some View {
+    private func add(title: String, value: String) -> some View {
         return VStack(alignment: .leading) {
             Text(title).font(.caption)
             VStack(alignment: .trailing) {
                 HStack {
                     Spacer()
-                    Text("\(value.wrappedValue)").font(.footnote)
+                    Text("\(value)").font(.footnote)
                 }
             }
         }
@@ -54,16 +43,8 @@ struct PrinterDetailsView: View {
 struct PrinterDetailsPreview: PreviewProvider {
     
     struct ContainerView: View {
-        @State public var serialNumber: String = "N/A"
-        @State public var softwareVersion: String = "N/A"
-        @State public var deviceType: String = "N/A"
-        @State public var isPaperInserted: String = "No"
-        
         var body: some View {
-            PrinterDetailsView(serialNumber: $serialNumber,
-                               softwareVersion: $softwareVersion,
-                               deviceType: $deviceType,
-                               isPaperInserted: $isPaperInserted)
+            PrinterDetailsView()
         }
     }
     

@@ -8,47 +8,35 @@
 import SwiftUI
 
 struct PrinterLabelDetailView: View {
-    @Binding var serialNumber: String
-    @Binding var remainingCount: String
-    @Binding var printedCount: String
-    @Binding var barcode: String
-    @Binding var type: String
-    
-    init(serialNumber: Binding<String>, remainingCount: Binding<String>, printedCount: Binding<String>, barcode: Binding<String>, type: Binding<String>) {
-        self._serialNumber = serialNumber
-        self._remainingCount = remainingCount
-        self._printedCount = printedCount
-        self._barcode = barcode
-        self._type = type
-    }
-    
+    @Environment(PaperDetails.self) private var details
+
     var body: some View {
         GroupBox {
             VStack(alignment: .leading) {
-                add(title: "Number of remaining labels", value: $remainingCount)
+                add(title: "Number of remaining labels", value: details.remainingCount)
                 Divider().padding(.horizontal)
 
-                add(title: "Number of printed labels", value: $printedCount)
+                add(title: "Number of printed labels", value: details.printedCount)
                 Divider().padding(.horizontal)
 
-                add(title: "Serial number", value: $serialNumber)
+                add(title: "Serial number", value: details.serialNumber)
                 Divider().padding(.horizontal)
 
-                add(title: "Barcode", value: $barcode)
+                add(title: "Barcode", value: details.barcode)
                 Divider().padding(.horizontal)
 
-                add(title: "Type", value: $type)
+                add(title: "Type", value: details.type)
             }
         }
     }
     
-    private func add(title: String, value: Binding<String>) -> some View {
+    private func add(title: String, value: String) -> some View {
         return VStack(alignment: .leading) {
             Text(title).font(.caption)
             VStack(alignment: .trailing) {
                 HStack {
                     Spacer()
-                    Text("\(value.wrappedValue)").font(.footnote)
+                    Text("\(value)").font(.footnote)
                 }
             }
         }
@@ -57,19 +45,9 @@ struct PrinterLabelDetailView: View {
 
 struct PrinterLabelDetailPreview: PreviewProvider {
     
-    struct ContainerView: View {
-        @State public var serialNumber: String = "N/A"
-        @State public var remainingCount: String = "N/A"
-        @State public var printedCount: String = "N/A"
-        @State public var barcode: String = "N/A"
-        @State public var type: String = "N/A"
-        
+    struct ContainerView: View {        
         var body: some View {
-            PrinterLabelDetailView(serialNumber: $serialNumber,
-                                   remainingCount: $remainingCount,
-                                   printedCount: $printedCount,
-                                   barcode: $barcode,
-                                   type: $type)
+            PrinterLabelDetailView()
         }
     }
 

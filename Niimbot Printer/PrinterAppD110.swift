@@ -9,6 +9,23 @@ import SwiftUI
 import SwiftData
 import os
 
+@Observable
+class PrinterDetails: ObservableObject {
+    var serialNumber: String = "N/A"
+    var softwareVersion: String = "N/A"
+    var deviceType: String = "N/A"
+    var isPaperInserted: String = "No"
+}
+
+@Observable
+class PaperDetails: ObservableObject {
+    var serialNumber: String = "N/A"
+    var remainingCount: String = "N/A"
+    var printedCount: String = "N/A"
+    var barcode: String = "N/A"
+    var type: String = "N/A"
+}
+
 
 @main
 class testApp: App, NotificationObservable {
@@ -33,11 +50,11 @@ class testApp: App, NotificationObservable {
                                    selector: #selector(receiveBluetoothNotification))
         registerNotification(name: Notifications.Names.selectedPeripheral,
                                    selector: #selector(receiveBluetoothNotification))
-        
         registerNotification(name: Notifications.Names.disconnectPeripheral,
                                    selector: #selector(receiveBluetoothNotification))
         registerNotification(name: Notifications.Names.bluetoothPeripheralDiscovered,
                                    selector: #selector(receiveBluetoothNotification))
+        
         registerNotification(name: Notifications.Names.serialNumber,
                                    selector: #selector(receiveNotification))
         registerNotification(name: Notifications.Names.softwareVersion,
@@ -66,41 +83,14 @@ class testApp: App, NotificationObservable {
                                    selector: #selector(receiveNotification))
         registerNotification(name: Notifications.Names.setLabelDensity,
                                    selector: #selector(receiveNotification))
-        
-        
-//        DispatchQueue.global(qos: .userInitiated).async { [self] in
-//            sleep(5)
-//            printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport()))
-//            printer = Printer(printerDevice: self.printerDevice!)
-//        }
 
-        
-//        DispatchQueue.global(qos: .userInitiated).async { [self] in
-//            sleep(5)
-//            do {
-//                if uplinkProcessor != nil {
-//                    uplinkProcessor?.cancel()
-//                }
-//                try printerDevice?.open()
-//                Self.logger.info("Open")
-//                self.uplinkProcessor = UplinkProcessor(printerDevice: self.printerDevice!)
-//                self.uplinkProcessor?.startProcessing()
-//                
-//            } catch IOError.open {
-//                Self.logger.error("Open failed")
-//            } catch {
-//                Self.logger.error("Open failed - unknown failure")
-//            }
-//            printer?.getSerialNumber()
-//            printer?.getSoftwareVersion()
-//            printer?.getHardwareVersion()
+
 //            printer?.getBatteryInformation()
-//            printer?.getDeviceType()
 //            printer?.getRFIDData()
 //            printer?.getAutoShutdownTime()
 //            printer?.getDensity()
 //            printer?.getLabelType()
-//        }
+
     }
     
     var sharedModelContainer: ModelContainer = {
@@ -115,12 +105,18 @@ class testApp: App, NotificationObservable {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
 
     @State private var bluetoothPepripherals = BluetoothPeripherals()
+    @State private var paperDetails = PaperDetails()
+    @State private var printerDetails = PrinterDetails()
+
 
     var body: some Scene {
         WindowGroup {
             ContentView().environmentObject(bluetoothPepripherals)
+                .environmentObject(printerDetails)
+                .environmentObject(paperDetails)
         }
         .modelContainer(sharedModelContainer)
     }
@@ -165,22 +161,19 @@ class testApp: App, NotificationObservable {
             let serial_number = notification.userInfo?[Notifications.Keys.value] as! String
             Self.logger.info("Serial number: \(serial_number)")
             DispatchQueue.main.async {
-                //self.serialNumberLabel.stringValue = serial_number
+                self.printerDetails.serialNumber = serial_number
             }
         }
         else if Notifications.Names.softwareVersion ==  notification.name {
             let software_version = notification.userInfo?[Notifications.Keys.value] as! Float
             Self.logger.info("Software version: \(software_version)")
             DispatchQueue.main.async {
-                //self.softwareVersionLabel.stringValue = String(software_version)
+                self.printerDetails.softwareVersion = String(software_version)
             }
         }
         else if Notifications.Names.hardwareVersion ==  notification.name {
             let hardware_version = notification.userInfo?[Notifications.Keys.value] as! Float
             Self.logger.info("Hardware version: \(hardware_version)")
-            DispatchQueue.main.async {
-                //self.hardwareVersionLabel.stringValue = String(hardware_version)
-            }
         }
         else if Notifications.Names.batteryInformation ==  notification.name {
             let battery_information = notification.userInfo?[Notifications.Keys.value] as! UInt8
@@ -194,7 +187,7 @@ class testApp: App, NotificationObservable {
             let device_type = notification.userInfo?[Notifications.Keys.value] as! UInt16
             Self.logger.info("Device type: \(device_type)")
             DispatchQueue.main.async {
-                //self.deviceTypeLabel.stringValue = String(device_type)
+                self.printerDetails.deviceType = String(device_type)
             }
         }
         else if Notifications.Names.rfidData ==  notification.name {
@@ -207,13 +200,12 @@ class testApp: App, NotificationObservable {
             Self.logger.info("RFID data - Type: \(rfidData.type)")
 
             DispatchQueue.main.async {
-//                self.paperInsertedLabel.stringValue = "Yes"
-//
-//                self.remainingLabel.stringValue = String(rfidData.totalLength - rfidData.usedLength)
-//                self.printedLabel.stringValue = String(rfidData.usedLength)
-//                self.barcodeLabel.stringValue = rfidData.barcode
-//                self.serialLabel.stringValue = rfidData.serial
-//                self.typeLabel.stringValue = String(rfidData.type)
+                self.printerDetails.isPaperInserted = "Yes"
+                self.paperDetails.remainingCount = String(rfidData.totalLength - rfidData.usedLength)
+                self.paperDetails.printedCount = String(rfidData.usedLength)
+                self.paperDetails.barcode = rfidData.barcode
+                self.paperDetails.serialNumber = rfidData.serial
+                self.paperDetails.type = String(rfidData.type)
             }
         }
         else if Notifications.Names.noPaper ==  notification.name {
@@ -262,6 +254,11 @@ class testApp: App, NotificationObservable {
             Self.logger.info("Open")
             self.uplinkProcessor = UplinkProcessor(printerDevice: self.printerDevice!)
             self.uplinkProcessor?.startProcessing()
+            printer?.getSerialNumber()
+            printer?.getSoftwareVersion()
+            printer?.getHardwareVersion()
+            printer?.getDeviceType()
+            printer?.getRFIDData()
         } catch IOError.open {
             Self.logger.error("Open failed")
         } catch {

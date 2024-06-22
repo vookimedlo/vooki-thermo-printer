@@ -12,12 +12,7 @@ struct PrinterView: View {
     @State public var fontSelection: String = "Chalkboard"
     @State public var familySelection: String = "Chalkboard"
     @State public var fontSize: Int = 20
-    
-    @State public var serialNumber: String = "N/A"
-    @State public var softwareVersion: String = "N/A"
-    @State public var deviceType: String = "N/A"
-    @State public var isPaperInserted: String = "No"
-    
+        
     @State public var paperSerialNumber: String = "N/A"
     @State public var remainingCount: String = "N/A"
     @State public var printedCount: String = "N/A"
@@ -42,18 +37,11 @@ struct PrinterView: View {
             VStack {
                 List {
                     Section(header: Text("Printer")) {
-                        PrinterDetailsView(serialNumber: $serialNumber,
-                                           softwareVersion: $softwareVersion,
-                                           deviceType: $deviceType,
-                                           isPaperInserted: $isPaperInserted)
+                        PrinterDetailsView()
                     }
 
                     Section(header: Text("Paper")) {
-                        PrinterLabelDetailView(serialNumber: $paperSerialNumber,
-                                               remainingCount: $remainingCount,
-                                               printedCount: $printedCount,
-                                               barcode: $barcode,
-                                               type: $type)
+                        PrinterLabelDetailView()
                     }
                 }.listStyle(.sidebar)
                 Spacer()

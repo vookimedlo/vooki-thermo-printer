@@ -11,10 +11,7 @@ class Notifications {
     class Names {
         static public let startPopulatingPeripherals = NSNotification.Name("notify-bt-start-pop")
         static public let stopPopulatingPeripherals = NSNotification.Name("notify-bt-stop-pop")
-        static public let selectedPeripheral = NSNotification.Name("notify-bt-selected")
-
-        
-        static public let connectPeripheral = NSNotification.Name("notify-bt-connect")
+        static public let selectedPeripheral = NSNotification.Name("notify-bt-selected")        
         static public let disconnectPeripheral = NSNotification.Name("notify-bt-disconnect")
 
         static public let bluetoothPeripheralDiscovered = NSNotification.Name("notify-bt-perip")

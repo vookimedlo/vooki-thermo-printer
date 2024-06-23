@@ -26,53 +26,34 @@ class testApp: App, NotificationObservable {
     required init() {
         bluetoothSupport = BluetoothSupport()
 
+        for name in [Notifications.Names.startPopulatingPeripherals,
+                     Notifications.Names.stopPopulatingPeripherals,
+                     Notifications.Names.disconnectPeripheral,
+                     Notifications.Names.bluetoothPeripheralDiscovered] {
+            registerNotification(name: name,
+                                       selector: #selector(receiveBluetoothNotification))
+        }
         
-        registerNotification(name: Notifications.Names.startPopulatingPeripherals,
-                                   selector: #selector(receiveBluetoothNotification))
-        registerNotification(name: Notifications.Names.stopPopulatingPeripherals,
-                                   selector: #selector(receiveBluetoothNotification))
-        registerNotification(name: Notifications.Names.selectedPeripheral,
-                                   selector: #selector(receiveBluetoothNotification))
-        registerNotification(name: Notifications.Names.disconnectPeripheral,
-                                   selector: #selector(receiveBluetoothNotification))
-        registerNotification(name: Notifications.Names.bluetoothPeripheralDiscovered,
-                                   selector: #selector(receiveBluetoothNotification))
-        
-        registerNotification(name: Notifications.Names.serialNumber,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.softwareVersion,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.hardwareVersion,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.batteryInformation,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.deviceType,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.rfidData,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.noPaper,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.startPrint,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.startPagePrint,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.endPrint,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.endPagePrint,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.setDimension,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.setLabelType,
-                                   selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.setLabelDensity,
-                                   selector: #selector(receiveNotification))
-
-
-
+        for name in [Notifications.Names.serialNumber,
+                     Notifications.Names.softwareVersion,
+                     Notifications.Names.hardwareVersion,
+                     Notifications.Names.batteryInformation,
+                     Notifications.Names.deviceType,
+                     Notifications.Names.rfidData,
+                     Notifications.Names.noPaper,
+                     Notifications.Names.startPrint,
+                     Notifications.Names.startPagePrint,
+                     Notifications.Names.endPrint,
+                     Notifications.Names.endPagePrint,
+                     Notifications.Names.setDimension,
+                     Notifications.Names.setLabelType,
+                     Notifications.Names.setLabelDensity] {
+            registerNotification(name: name,
+                                       selector: #selector(receiveNotification))
+        }
 //            printer?.getAutoShutdownTime()
 //            printer?.getDensity()
 //            printer?.getLabelType()
-
     }
     
     var sharedModelContainer: ModelContainer = {

@@ -15,6 +15,7 @@ struct BluetoothPeripheralsView: View, Notifier {
     @State private var onlyD110: Bool = false
     @Binding var isPresented: Bool
     
+    @State private var rowHovered: UUID? = nil
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -28,13 +29,21 @@ struct BluetoothPeripheralsView: View, Notifier {
             List(onlyD110 ? peripherals.printersBasedOnName : peripherals.peripherals,
                  id: \.identifier,
                  selection: $selection) { peripheral in
-                Text(peripheral.name)
+                HStack {
+                    Text(peripheral.name)
+                    Spacer()
+                }.background(rowHovered == peripheral.identifier ? Color.accentColor : .clear).onHover(perform: { hovering in
+                    withAnimation {
+                        rowHovered = hovering ? peripheral.identifier : nil
+                    }
+                })
             }.frame(height: 300.0).onChange(of: selection) { oldValue, newValue in
                 guard oldValue != newValue else { return }
                 guard let value = newValue else { return }
                 isPresented = false
                 notify(name: Notification.Name.App.selectedPeripheral, userInfo: [String : UUID] (dictionaryLiteral: (Notification.Keys.value, value)))
-            }.padding(.all)
+            }
+            .padding(.all)
             
             Toggle("Filter D110 named devices", isOn: $onlyD110)
                 .toggleStyle(SwitchToggleStyle(tint: .accentColor)).padding(.horizontal).padding(.bottom)

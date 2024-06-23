@@ -9,23 +9,6 @@ import SwiftUI
 import SwiftData
 import os
 
-@Observable
-class PrinterDetails: ObservableObject {
-    var serialNumber: String = "N/A"
-    var softwareVersion: String = "N/A"
-    var deviceType: String = "N/A"
-    var isPaperInserted: String = "No"
-}
-
-@Observable
-class PaperDetails: ObservableObject {
-    var serialNumber: String = "N/A"
-    var remainingCount: String = "N/A"
-    var printedCount: String = "N/A"
-    var barcode: String = "N/A"
-    var type: String = "N/A"
-}
-
 
 @main
 class testApp: App, NotificationObservable {
@@ -85,8 +68,7 @@ class testApp: App, NotificationObservable {
                                    selector: #selector(receiveNotification))
 
 
-//            printer?.getBatteryInformation()
-//            printer?.getRFIDData()
+
 //            printer?.getAutoShutdownTime()
 //            printer?.getDensity()
 //            printer?.getLabelType()
@@ -179,8 +161,7 @@ class testApp: App, NotificationObservable {
             let battery_information = notification.userInfo?[Notifications.Keys.value] as! UInt8
             Self.logger.info("Battery information: \(battery_information)")
             DispatchQueue.main.async {
-                //self.batteryLevelLabel.stringValue = String(battery_information)
-                //self.batteryLevelIndicator.integerValue = Int(battery_information)
+                self.printerDetails.batteryLevel = Int(battery_information)
             }
         }
         else if Notifications.Names.deviceType ==  notification.name {
@@ -254,6 +235,7 @@ class testApp: App, NotificationObservable {
             Self.logger.info("Open")
             self.uplinkProcessor = UplinkProcessor(printerDevice: self.printerDevice!)
             self.uplinkProcessor?.startProcessing()
+            printer?.getBatteryInformation()
             printer?.getSerialNumber()
             printer?.getSoftwareVersion()
             printer?.getHardwareVersion()

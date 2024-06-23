@@ -117,6 +117,8 @@ struct ContentView: View, Notifier {
 #Preview {
     ContentView()
         .modelContainer(for: Item.self, inMemory: true)
+        .environmentObject(PrinterDetails())
+        .environmentObject(PaperDetails())
 }
 
 extension ToolbarItemPlacement {

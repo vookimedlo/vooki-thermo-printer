@@ -11,32 +11,33 @@ struct PrinterLabelDetailView: View {
     @Environment(PaperDetails.self) private var details
 
     var body: some View {
+        @Bindable var details = details
         GroupBox {
             VStack(alignment: .leading) {
-                add(title: "Number of remaining labels", value: details.remainingCount)
+                add(title: "Number of remaining labels", value: $details.remainingCount)
                 Divider().padding(.horizontal)
 
-                add(title: "Number of printed labels", value: details.printedCount)
+                add(title: "Number of printed labels", value: $details.printedCount)
                 Divider().padding(.horizontal)
 
-                add(title: "Serial number", value: details.serialNumber)
+                add(title: "Serial number", value: $details.serialNumber)
                 Divider().padding(.horizontal)
 
-                add(title: "Barcode", value: details.barcode)
+                add(title: "Barcode", value: $details.barcode)
                 Divider().padding(.horizontal)
 
-                add(title: "Type", value: details.type)
+                add(title: "Type", value: $details.type)
             }
         }
     }
     
-    private func add(title: String, value: String) -> some View {
+    private func add(title: String, value: Binding<String>) -> some View {
         return VStack(alignment: .leading) {
             Text(title).font(.caption)
             VStack(alignment: .trailing) {
                 HStack {
                     Spacer()
-                    Text("\(value)").font(.footnote)
+                    Text("\(value.wrappedValue)").font(.footnote)
                 }
             }
         }
@@ -44,15 +45,8 @@ struct PrinterLabelDetailView: View {
 }
 
 struct PrinterLabelDetailPreview: PreviewProvider {
-    
-    struct ContainerView: View {        
-        var body: some View {
-            PrinterLabelDetailView()
-        }
-    }
-
     static var previews: some View {
-        ContainerView()
+        PrinterLabelDetailView().environmentObject(PaperDetails())
     }
 }
 

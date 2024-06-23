@@ -31,7 +31,7 @@ struct PrinterDetailsView: View {
                     VStack(alignment: .trailing) {
                         HStack {
                             Spacer()
-                            LevelIndicator(segments: 3, level: $details.batteryLevel, warningRange: 2...2, errorRange:  1...1).containerRelativeFrame(.horizontal) { size, axis in
+                            LevelIndicator(segments: 4, level: $details.batteryLevel, warningRange: 2...2, errorRange:  1...1).containerRelativeFrame(.horizontal) { size, axis in
                                 if axis == .horizontal { return size * 0.25 }
                                 return size
                             }

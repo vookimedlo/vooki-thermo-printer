@@ -17,7 +17,7 @@ struct LevelIndicator : View {
     let segmentCount: Double
     let segmentCountInt: Int
 
-    let radius = 15.0
+    let radius = 3.0
     let thickness = 2.0
     
     init(segments: Int, level: Binding<Int>, warningRange: ClosedRange<Int> = 0...0, errorRange: ClosedRange<Int> = 0...0) {

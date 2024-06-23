@@ -26,28 +26,29 @@ class testApp: App, NotificationObservable {
     required init() {
         bluetoothSupport = BluetoothSupport()
 
-        for name in [Notifications.Names.startPopulatingPeripherals,
-                     Notifications.Names.stopPopulatingPeripherals,
-                     Notifications.Names.disconnectPeripheral,
-                     Notifications.Names.bluetoothPeripheralDiscovered] {
+        for name in [Notification.Name.App.startPopulatingPeripherals,
+                     Notification.Name.App.stopPopulatingPeripherals,
+                     Notification.Name.App.disconnectPeripheral,
+                     Notification.Name.App.selectedPeripheral,
+                     Notification.Name.App.bluetoothPeripheralDiscovered] {
             registerNotification(name: name,
                                        selector: #selector(receiveBluetoothNotification))
         }
         
-        for name in [Notifications.Names.serialNumber,
-                     Notifications.Names.softwareVersion,
-                     Notifications.Names.hardwareVersion,
-                     Notifications.Names.batteryInformation,
-                     Notifications.Names.deviceType,
-                     Notifications.Names.rfidData,
-                     Notifications.Names.noPaper,
-                     Notifications.Names.startPrint,
-                     Notifications.Names.startPagePrint,
-                     Notifications.Names.endPrint,
-                     Notifications.Names.endPagePrint,
-                     Notifications.Names.setDimension,
-                     Notifications.Names.setLabelType,
-                     Notifications.Names.setLabelDensity] {
+        for name in [Notification.Name.App.serialNumber,
+                     Notification.Name.App.softwareVersion,
+                     Notification.Name.App.hardwareVersion,
+                     Notification.Name.App.batteryInformation,
+                     Notification.Name.App.deviceType,
+                     Notification.Name.App.rfidData,
+                     Notification.Name.App.noPaper,
+                     Notification.Name.App.startPrint,
+                     Notification.Name.App.startPagePrint,
+                     Notification.Name.App.endPrint,
+                     Notification.Name.App.endPagePrint,
+                     Notification.Name.App.setDimension,
+                     Notification.Name.App.setLabelType,
+                     Notification.Name.App.setLabelDensity] {
             registerNotification(name: name,
                                        selector: #selector(receiveNotification))
         }
@@ -87,28 +88,28 @@ class testApp: App, NotificationObservable {
     @objc func receiveBluetoothNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
 
-        if Notifications.Names.bluetoothPeripheralDiscovered ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.peripheral] as! BluetoothPeripheral
+        if Notification.Name.App.bluetoothPeripheralDiscovered ==  notification.name {
+            let value = notification.userInfo?[Notification.Keys.peripheral] as! BluetoothPeripheral
             Self.logger.info("Bluetooth peripheral \(value.identifier)")
             DispatchQueue.main.async {
                 self.bluetoothPepripherals.add(peripheral: value)
             }
         }
-        else if Notifications.Names.disconnectPeripheral ==  notification.name {
+        else if Notification.Name.App.disconnectPeripheral ==  notification.name {
             Self.logger.info("Disconnecting peripheral")
             printerDevice?.close()
             uplinkProcessor?.stopProcessing()
         }
-        else if Notifications.Names.startPopulatingPeripherals == notification.name {
+        else if Notification.Name.App.startPopulatingPeripherals == notification.name {
             Self.logger.info("Populating peripherals")
             bluetoothSupport.startScanning()
         }
-        else if Notifications.Names.stopPopulatingPeripherals == notification.name {
+        else if Notification.Name.App.stopPopulatingPeripherals == notification.name {
             Self.logger.info("Stop populating peripherals")
             bluetoothSupport.stopScanning()
         }
-        else if Notifications.Names.selectedPeripheral == notification.name {
-            let uuid = notification.userInfo?[Notifications.Keys.value] as! UUID
+        else if Notification.Name.App.selectedPeripheral == notification.name {
+            let uuid = notification.userInfo?[Notification.Keys.value] as! UUID
             Self.logger.info("Selected peripheral \(uuid.uuidString)")
             guard let peripheral = bluetoothPepripherals.find(identifier: uuid)?.peripheral else { return }
             printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport(peripheral: peripheral)))
@@ -120,40 +121,40 @@ class testApp: App, NotificationObservable {
     @objc func receiveNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
         
-        if Notifications.Names.serialNumber ==  notification.name {
-            let serial_number = notification.userInfo?[Notifications.Keys.value] as! String
+        if Notification.Name.App.serialNumber ==  notification.name {
+            let serial_number = notification.userInfo?[Notification.Keys.value] as! String
             Self.logger.info("Serial number: \(serial_number)")
             DispatchQueue.main.async {
                 self.printerDetails.serialNumber = serial_number
             }
         }
-        else if Notifications.Names.softwareVersion ==  notification.name {
-            let software_version = notification.userInfo?[Notifications.Keys.value] as! Float
+        else if Notification.Name.App.softwareVersion ==  notification.name {
+            let software_version = notification.userInfo?[Notification.Keys.value] as! Float
             Self.logger.info("Software version: \(software_version)")
             DispatchQueue.main.async {
                 self.printerDetails.softwareVersion = String(software_version)
             }
         }
-        else if Notifications.Names.hardwareVersion ==  notification.name {
-            let hardware_version = notification.userInfo?[Notifications.Keys.value] as! Float
+        else if Notification.Name.App.hardwareVersion ==  notification.name {
+            let hardware_version = notification.userInfo?[Notification.Keys.value] as! Float
             Self.logger.info("Hardware version: \(hardware_version)")
         }
-        else if Notifications.Names.batteryInformation ==  notification.name {
-            let battery_information = notification.userInfo?[Notifications.Keys.value] as! UInt8
+        else if Notification.Name.App.batteryInformation ==  notification.name {
+            let battery_information = notification.userInfo?[Notification.Keys.value] as! UInt8
             Self.logger.info("Battery information: \(battery_information)")
             DispatchQueue.main.async {
                 self.printerDetails.batteryLevel = Int(battery_information)
             }
         }
-        else if Notifications.Names.deviceType ==  notification.name {
-            let device_type = notification.userInfo?[Notifications.Keys.value] as! UInt16
+        else if Notification.Name.App.deviceType ==  notification.name {
+            let device_type = notification.userInfo?[Notification.Keys.value] as! UInt16
             Self.logger.info("Device type: \(device_type)")
             DispatchQueue.main.async {
                 self.printerDetails.deviceType = String(device_type)
             }
         }
-        else if Notifications.Names.rfidData ==  notification.name {
-            let rfidData = notification.userInfo?[Notifications.Keys.value] as! RFIDData
+        else if Notification.Name.App.rfidData ==  notification.name {
+            let rfidData = notification.userInfo?[Notification.Keys.value] as! RFIDData
             Self.logger.info("RFID data - UDID: \(rfidData.uuid.hexEncodedString())")
             Self.logger.info("RFID data - Barcode: \(rfidData.barcode)")
             Self.logger.info("RFID data - Serial: \(rfidData.serial)")
@@ -170,42 +171,40 @@ class testApp: App, NotificationObservable {
                 self.paperDetails.type = String(rfidData.type)
             }
         }
-        else if Notifications.Names.noPaper ==  notification.name {
+        else if Notification.Name.App.noPaper ==  notification.name {
             Self.logger.info("No paper")
             DispatchQueue.main.async {
-//                self.paperInsertedLabel.stringValue = "No"
-            }
+                self.printerDetails.isPaperInserted = "No"            }
         }
-        else if Notifications.Names.startPrint ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.startPrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("StartPrint \(value)")
         }
-        else if Notifications.Names.startPagePrint ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.startPagePrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("StartPagePrint \(value)")
         }
-        else if Notifications.Names.endPrint ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.endPrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("EndPrint \(value)")
         }
-        else if Notifications.Names.endPagePrint ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.endPagePrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("EndPagePrint \(value)")
         }
-        else if Notifications.Names.setDimension ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.setDimension == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("SetDimension \(value)")
         }
-        else if Notifications.Names.setLabelType ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.setLabelType == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("SetLabelType \(value)")
         }
-        else if Notifications.Names.setLabelDensity ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.setLabelDensity == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("SetLabelDensity \(value)")
         }
     }
-    
     
     func connect() {
         do {

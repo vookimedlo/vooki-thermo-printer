@@ -22,7 +22,7 @@ class PacketDecoder: PacketDecoding, NotificationObservable {
     
     init(decoders: [PacketDecoding]) {
         self.decoders = decoders
-        registerNotification(name: Notifications.Names.uplinkedPacket, selector: #selector(receiveNotification))
+        registerNotification(name: Notification.Name.App.uplinkedPacket, selector: #selector(receiveNotification))
     }
     
     func decode(packet: Packet) -> Bool {
@@ -36,8 +36,8 @@ class PacketDecoder: PacketDecoding, NotificationObservable {
     
     @objc func receiveNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
-        if Notifications.Names.uplinkedPacket ==  notification.name {
-            let packet = notification.userInfo?[Notifications.Keys.packet] as! Packet
+        if Notification.Name.App.uplinkedPacket ==  notification.name {
+            let packet = notification.userInfo?[Notification.Keys.packet] as! Packet
             guard decode(packet: packet) else {
                 Self.logger.warning("Packet cannot be decoded")
                 return

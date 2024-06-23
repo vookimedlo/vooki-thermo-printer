@@ -24,21 +24,21 @@ class BoolBytePacketDecoder: PacketDecoding {
         guard let name = { (code: RequestCode) -> NSNotification.Name? in
             switch packet.requestCode {
             case RequestCode.RESPONSE_START_PRINT:
-                return Notifications.Names.startPrint
+                return Notification.Name.App.startPrint
             case RequestCode.RESPONSE_END_PRINT:
-                return Notifications.Names.endPrint
+                return Notification.Name.App.endPrint
             case RequestCode.RESPONSE_START_PAGE_PRINT:
-                return Notifications.Names.startPagePrint
+                return Notification.Name.App.startPagePrint
             case RequestCode.RESPONSE_END_PAGE_PRINT:
-                return Notifications.Names.endPagePrint
+                return Notification.Name.App.endPagePrint
             case RequestCode.RESPONSE_ALLOW_PRINT_CLEAR:
-                return Notifications.Names.allowPrintClear
+                return Notification.Name.App.allowPrintClear
             case RequestCode.RESPONSE_SET_LABEL_TYPE:
-                return Notifications.Names.setLabelType
+                return Notification.Name.App.setLabelType
             case RequestCode.RESPONSE_SET_LABEL_DENSITY:
-                return Notifications.Names.setLabelDensity
+                return Notification.Name.App.setLabelDensity
             case RequestCode.RESPONSE_SET_DIMENSION:
-                return Notifications.Names.setDimension
+                return Notification.Name.App.setDimension
             default:
                 return nil
             }
@@ -49,7 +49,7 @@ class BoolBytePacketDecoder: PacketDecoding {
         let result = packet.payload[0] != 0
 
         notify(name: name,
-               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, result)))
+               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, result)))
         return true
     }
 }

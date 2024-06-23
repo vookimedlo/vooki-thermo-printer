@@ -28,7 +28,7 @@ class RFIDDataPacketDecoder: PacketDecoding {
         }
         
         if packet.payload[0] == 0 {
-            notify(name: Notifications.Names.noPaper)
+            notify(name: Notification.Name.App.noPaper)
             return true
         }
         
@@ -53,8 +53,8 @@ class RFIDDataPacketDecoder: PacketDecoding {
         data.removeFirst(uint16Size)
         
         let type = data.removeFirst()
-        notify(name: Notifications.Names.rfidData,
-               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, RFIDData(uuid: uuid,
+        notify(name: Notification.Name.App.rfidData,
+               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, RFIDData(uuid: uuid,
                                                                                                barcode: String(cString: barcode + [0]),
                                                                                                serial: String(cString: serial + [0]),
                                                                                                totalLength: totalLength,

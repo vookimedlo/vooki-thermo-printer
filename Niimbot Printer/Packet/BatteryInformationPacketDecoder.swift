@@ -18,8 +18,8 @@ class BatteryInformationPacketDecoder: PacketDecoding {
             return false
         }
 
-        notify(name: Notifications.Names.batteryInformation,
-               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, packet.payload[0])))
+        notify(name: Notification.Name.App.batteryInformation,
+               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, packet.payload[0])))
         return true
     }
 }

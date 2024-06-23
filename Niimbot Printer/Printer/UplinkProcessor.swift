@@ -42,8 +42,8 @@ class UplinkProcessor : Thread, Notifier {
             Self.logger.info("\(data.hexEncodedString(options: [.commaSeparator, .prefix, .upperCase]))")
 
             if let packet = Packet.create(fromStream: &data) {
-                notify(name: Notifications.Names.uplinkedPacket,
-                       userInfo: [String : Packet](dictionaryLiteral: (Notifications.Keys.packet, packet)))
+                notify(name: Notification.Name.App.uplinkedPacket,
+                       userInfo: [String : Packet](dictionaryLiteral: (Notification.Keys.packet, packet)))
             }
         }
     }

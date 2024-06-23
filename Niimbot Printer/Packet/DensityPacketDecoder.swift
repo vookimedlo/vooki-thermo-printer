@@ -17,8 +17,8 @@ class DensityPacketDecoder: PacketDecoding {
         print("density")
         print(packet.payload.hexEncodedString(options: [.upperCase]))
        
-        notify(name: Notifications.Names.density,
-               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, packet.payload[0])))
+        notify(name: Notification.Name.App.density,
+               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, packet.payload[0])))
         return true
     }
 }

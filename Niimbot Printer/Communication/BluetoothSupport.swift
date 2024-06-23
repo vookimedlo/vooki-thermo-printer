@@ -72,8 +72,8 @@ class BluetoothSupport : NSObject, BluetoothAccess, Notifier, CBCentralManagerDe
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
 
-        notify(name: Notifications.Names.bluetoothPeripheralDiscovered,
-               userInfo: [String : BluetoothPeripheral](dictionaryLiteral: (Notifications.Keys.peripheral,
+        notify(name: Notification.Name.App.bluetoothPeripheralDiscovered,
+               userInfo: [String : BluetoothPeripheral](dictionaryLiteral: (Notification.Keys.peripheral,
                                                                             BluetoothPeripheral(peripheral: peripheral))))
     }
     

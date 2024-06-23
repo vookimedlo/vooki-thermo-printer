@@ -62,33 +62,33 @@ class ViewController: NSViewController, NotificationObservable, NSTextFieldDeleg
         fontComboBox.selectItem(withObjectValue: "Chalkboard")
         
     
-        registerNotification(name: Notifications.Names.serialNumber,
+        registerNotification(name: Notification.Name.App.serialNumber,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.softwareVersion,
+        registerNotification(name: Notification.Name.App.softwareVersion,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.hardwareVersion,
+        registerNotification(name: Notification.Name.App.hardwareVersion,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.batteryInformation,
+        registerNotification(name: Notification.Name.App.batteryInformation,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.deviceType,
+        registerNotification(name: Notification.Name.App.deviceType,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.rfidData,
+        registerNotification(name: Notification.Name.App.rfidData,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.noPaper,
+        registerNotification(name: Notification.Name.App.noPaper,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.startPrint,
+        registerNotification(name: Notification.Name.App.startPrint,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.startPagePrint,
+        registerNotification(name: Notification.Name.App.startPagePrint,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.endPrint,
+        registerNotification(name: Notification.Name.App.endPrint,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.endPagePrint,
+        registerNotification(name: Notification.Name.App.endPagePrint,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.setDimension,
+        registerNotification(name: Notification.Name.App.setDimension,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.setLabelType,
+        registerNotification(name: Notification.Name.App.setLabelType,
                                    selector: #selector(receiveNotification))
-        registerNotification(name: Notifications.Names.setLabelDensity,
+        registerNotification(name: Notification.Name.App.setLabelDensity,
                                    selector: #selector(receiveNotification))
                 
         printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport()))
@@ -220,44 +220,44 @@ class ViewController: NSViewController, NotificationObservable, NSTextFieldDeleg
     
     @objc func receiveNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
-        if Notifications.Names.serialNumber ==  notification.name {
-            let serial_number = notification.userInfo?[Notifications.Keys.value] as! String
+        if Notification.Name.App.serialNumber ==  notification.name {
+            let serial_number = notification.userInfo?[Notification.Keys.value] as! String
             Self.logger.info("Serial number: \(serial_number)")
             DispatchQueue.main.async {
                 self.serialNumberLabel.stringValue = serial_number
             }
         }
-        else if Notifications.Names.softwareVersion ==  notification.name {
-            let software_version = notification.userInfo?[Notifications.Keys.value] as! Float
+        else if Notification.Name.App.softwareVersion == notification.name {
+            let software_version = notification.userInfo?[Notification.Keys.value] as! Float
             Self.logger.info("Software version: \(software_version)")
             DispatchQueue.main.async {
                 self.softwareVersionLabel.stringValue = String(software_version)
             }
         }
-        else if Notifications.Names.hardwareVersion ==  notification.name {
-            let hardware_version = notification.userInfo?[Notifications.Keys.value] as! Float
+        else if Notification.Name.App.hardwareVersion == notification.name {
+            let hardware_version = notification.userInfo?[Notification.Keys.value] as! Float
             Self.logger.info("Hardware version: \(hardware_version)")
             DispatchQueue.main.async {
                 self.hardwareVersionLabel.stringValue = String(hardware_version)
             }
         }
-        else if Notifications.Names.batteryInformation ==  notification.name {
-            let battery_information = notification.userInfo?[Notifications.Keys.value] as! UInt8
+        else if Notification.Name.App.batteryInformation == notification.name {
+            let battery_information = notification.userInfo?[Notification.Keys.value] as! UInt8
             Self.logger.info("Battery information: \(battery_information)")
             DispatchQueue.main.async {
                 self.batteryLevelLabel.stringValue = String(battery_information)
                 self.batteryLevelIndicator.integerValue = Int(battery_information)
             }
         }
-        else if Notifications.Names.deviceType ==  notification.name {
-            let device_type = notification.userInfo?[Notifications.Keys.value] as! UInt16
+        else if Notification.Name.App.deviceType == notification.name {
+            let device_type = notification.userInfo?[Notification.Keys.value] as! UInt16
             Self.logger.info("Device type: \(device_type)")
             DispatchQueue.main.async {
                 self.deviceTypeLabel.stringValue = String(device_type)
             }
         }
-        else if Notifications.Names.rfidData ==  notification.name {
-            let rfidData = notification.userInfo?[Notifications.Keys.value] as! RFIDData
+        else if Notification.Name.App.rfidData == notification.name {
+            let rfidData = notification.userInfo?[Notification.Keys.value] as! RFIDData
             Self.logger.info("RFID data - UDID: \(rfidData.uuid.hexEncodedString())")
             Self.logger.info("RFID data - Barcode: \(rfidData.barcode)")
             Self.logger.info("RFID data - Serial: \(rfidData.serial)")
@@ -275,38 +275,38 @@ class ViewController: NSViewController, NotificationObservable, NSTextFieldDeleg
                 self.typeLabel.stringValue = String(rfidData.type)
             }
         }
-        else if Notifications.Names.noPaper ==  notification.name {
+        else if Notification.Name.App.noPaper == notification.name {
             Self.logger.info("No paper")
             DispatchQueue.main.async {
                 self.paperInsertedLabel.stringValue = "No"
             }
         }
-        else if Notifications.Names.startPrint ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.startPrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("StartPrint \(value)")
         }
-        else if Notifications.Names.startPagePrint ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.startPagePrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("StartPagePrint \(value)")
         }
-        else if Notifications.Names.endPrint ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.endPrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("EndPrint \(value)")
         }
-        else if Notifications.Names.endPagePrint ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.endPagePrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("EndPagePrint \(value)")
         }
-        else if Notifications.Names.setDimension ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.setDimension == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("SetDimension \(value)")
         }
-        else if Notifications.Names.setLabelType ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.setLabelType == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("SetLabelType \(value)")
         }
-        else if Notifications.Names.setLabelDensity ==  notification.name {
-            let value = notification.userInfo?[Notifications.Keys.value] as! Bool
+        else if Notification.Name.App.setLabelDensity == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("SetLabelDensity \(value)")
         }
     }

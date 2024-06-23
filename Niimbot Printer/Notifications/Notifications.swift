@@ -7,14 +7,14 @@
 
 import Foundation
 
-class Notifications {
-    class Names {
+extension Notification.Name {
+    struct App {
         static public let startPopulatingPeripherals = NSNotification.Name("notify-bt-start-pop")
         static public let stopPopulatingPeripherals = NSNotification.Name("notify-bt-stop-pop")
-        static public let selectedPeripheral = NSNotification.Name("notify-bt-selected")        
+        static public let selectedPeripheral = NSNotification.Name("notify-bt-selected")
         static public let disconnectPeripheral = NSNotification.Name("notify-bt-disconnect")
-
         static public let bluetoothPeripheralDiscovered = NSNotification.Name("notify-bt-perip")
+        
         static public let uplinkedPacket = NSNotification.Name("notify-uplinked-packet")
         static public let density = NSNotification.Name("notify-density")
         static public let labelType = NSNotification.Name("notify-label-type")
@@ -35,7 +35,9 @@ class Notifications {
         static public let setLabelDensity = NSNotification.Name("notify-set-label-density")
         static public let setDimension = NSNotification.Name("notify-set-dimension")
     }
-    
+}
+
+extension Notification {
     class Keys {
         static public let packet = "key-packet"
         static public let value = "key-value"

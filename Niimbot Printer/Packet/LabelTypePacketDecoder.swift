@@ -17,8 +17,8 @@ class LabelTypePacketDecoder: PacketDecoding {
         print("label")
         print(packet.payload.hexEncodedString(options: [.upperCase]))
        
-        notify(name: Notifications.Names.labelType,
-               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, packet.payload[0])))
+        notify(name: Notification.Name.App.labelType,
+               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, packet.payload[0])))
         return true
     }
 }

@@ -20,8 +20,8 @@ class HardwareVersionPacketDecoder: PacketDecoding {
         
         let version: Float = Float(integerVersion) / 100
 
-        notify(name: Notifications.Names.hardwareVersion,
-               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, version)))
+        notify(name: Notification.Name.App.hardwareVersion,
+               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, version)))
         return true
     }
 }

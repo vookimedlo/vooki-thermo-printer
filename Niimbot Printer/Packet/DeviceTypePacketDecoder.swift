@@ -18,8 +18,8 @@ class DeviceTypePacketDecoder: PacketDecoding {
             return false
         }
 
-        notify(name: Notifications.Names.deviceType,
-               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, deviceType)))
+        notify(name: Notification.Name.App.deviceType,
+               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, deviceType)))
         return true
     }
 }

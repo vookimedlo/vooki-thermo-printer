@@ -101,7 +101,7 @@ struct ContentView: View, Notifier {
             }
             ToolbarItem(placement: .appBar) {
                 Button (action: {
-                    notify(name: Notifications.Names.disconnectPeripheral)
+                    notify(name: Notification.Name.App.disconnectPeripheral)
                 }, label: {
                     SwiftUI.Image(systemName: "antenna.radiowaves.left.and.right")
                         .symbolRenderingMode(.palette)

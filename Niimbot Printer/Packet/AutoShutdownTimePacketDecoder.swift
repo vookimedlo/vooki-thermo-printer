@@ -14,8 +14,8 @@ class AutoShutdownTimePacketDecoder: PacketDecoding {
         guard Self.code == packet.requestCode else { return false }
         guard packet.payload.count == 1 else { return false }
        
-        notify(name: Notifications.Names.autoShutdownTime,
-               userInfo: [String : Any](dictionaryLiteral: (Notifications.Keys.value, packet.payload[0])))
+        notify(name: Notification.Name.App.autoShutdownTime,
+               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, packet.payload[0])))
         return true
     }
 }

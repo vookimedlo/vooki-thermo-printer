@@ -33,7 +33,7 @@ struct BluetoothPeripheralsView: View, Notifier {
                 guard oldValue != newValue else { return }
                 guard let value = newValue else { return }
                 isPresented = false
-                notify(name: Notifications.Names.selectedPeripheral, userInfo: [String : UUID] (dictionaryLiteral: (Notifications.Keys.value, value)))
+                notify(name: Notification.Name.App.selectedPeripheral, userInfo: [String : UUID] (dictionaryLiteral: (Notification.Keys.value, value)))
             }.padding(.all)
             
             Toggle("Filter D110 named devices", isOn: $onlyD110)
@@ -41,10 +41,10 @@ struct BluetoothPeripheralsView: View, Notifier {
         }.onAppear() {
             peripherals.removeAll()
             selection = nil
-            notify(name: Notifications.Names.startPopulatingPeripherals)
+            notify(name: Notification.Name.App.startPopulatingPeripherals)
             
         }.onDisappear() {
-            notify(name: Notifications.Names.stopPopulatingPeripherals)
+            notify(name: Notification.Name.App.stopPopulatingPeripherals)
         }
     }
 }

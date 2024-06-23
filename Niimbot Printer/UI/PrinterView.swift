@@ -9,29 +9,57 @@ import SwiftUI
 
 
 struct PrinterView: View {
-    @State public var fontSelection: String = "Chalkboard"
-    @State public var familySelection: String = "Chalkboard"
-    @State public var fontSize: Int = 20
-        
-    @State public var paperSerialNumber: String = "N/A"
-    @State public var remainingCount: String = "N/A"
-    @State public var printedCount: String = "N/A"
-    @State public var barcode: String = "N/A"
-    @State public var type: String = "N/A"
-    
-    @State public var textToPrint: String = ""
-    @State public var imagePreview: NSImage = NSImage(size: NSSize(width: 240, height: 120))
-    
+    @Environment(FontDetails.self) private var fontDetails
+    @Environment(TextDetails.self) private var textDetails
+    @Environment(ImagePreview.self) private var imagePreview
+
     @State private var showingInspector: Bool = true
     
-    
     var body: some View {
+        @Bindable var fontDetails = fontDetails
+        @Bindable var textDetails = textDetails
+        @Bindable var imagePreview = imagePreview
         VStack {
-            TextField("Enter your text for printing ...", text: $textToPrint)
-            SwiftUI.Image(nsImage: imagePreview)
-            FontSelectionView(fontSelection: $fontSelection,
-                              familySelection: $familySelection,
-                              fontSize: $fontSize)
+            GroupBox {
+                VStack {
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        Image(nsImage: imagePreview.image).shadow(color: .accentColor, radius: 30)
+                        Spacer()
+                    }
+                    Spacer()
+                }
+            } label: {
+                Text("Paper preview")
+            }.padding()
+            
+            Spacer()
+            
+            GroupBox {
+                HStack {
+                    Spacer()
+                    TextField("Enter your text for printing ...", text: $textDetails.text).padding()
+                    Spacer()
+                }
+            } label: {
+                Text("What to print")
+            }.padding()
+
+            
+            FontSelectionView(fontSelection: $fontDetails.name,
+                              familySelection: $fontDetails.family,
+                              fontSize: $fontDetails.size).padding()
+            
+            HStack {
+                Button {
+                    
+                } label: {
+                    Text("Print").fontWeight(.heavy)
+                        .frame(maxWidth: .infinity).padding()
+                }
+                .background(Color.accentColor, in: .buttonBorder)
+            }.padding(.horizontal, 250).padding(.bottom)
         }.navigationTitle("D110 Printer")
         .inspector(isPresented: $showingInspector) {
             VStack {
@@ -56,7 +84,6 @@ struct PrinterView: View {
                     SwiftUI.Image(systemName: "sidebar.right")
                 }
             }
-            
         }
     }
 }

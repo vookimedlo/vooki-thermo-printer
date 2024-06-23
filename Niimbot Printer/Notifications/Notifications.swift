@@ -15,6 +15,9 @@ extension Notification.Name {
         static public let disconnectPeripheral = NSNotification.Name("notify-bt-disconnect")
         static public let bluetoothPeripheralDiscovered = NSNotification.Name("notify-bt-perip")
         
+        static public let textToPrint = NSNotification.Name("notify-text-print")
+        static public let fontSelection = NSNotification.Name("notify-font-selection")
+
         static public let uplinkedPacket = NSNotification.Name("notify-uplinked-packet")
         static public let density = NSNotification.Name("notify-density")
         static public let labelType = NSNotification.Name("notify-label-type")
@@ -42,5 +45,7 @@ extension Notification {
         static public let packet = "key-packet"
         static public let value = "key-value"
         static public let peripheral = "key-peripheral"
+        static public let font = "key-font"
+        static public let size = "key-size"
     }
 }

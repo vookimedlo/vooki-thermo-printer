@@ -63,33 +63,33 @@ class ViewController: NSViewController, NotificationObservable, NSTextFieldDeleg
         
     
         registerNotification(name: Notification.Name.App.serialNumber,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.softwareVersion,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.hardwareVersion,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.batteryInformation,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.deviceType,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.rfidData,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.noPaper,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.startPrint,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.startPagePrint,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.endPrint,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.endPagePrint,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.setDimension,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.setLabelType,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
         registerNotification(name: Notification.Name.App.setLabelDensity,
-                                   selector: #selector(receiveNotification))
+                                   selector: #selector(receivePrinterNotification))
                 
         printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport()))
         printer = Printer(printerDevice: self.printerDevice!)
@@ -138,7 +138,7 @@ class ViewController: NSViewController, NotificationObservable, NSTextFieldDeleg
     }
     
     private func generatePrinterLabelData() {
-        guard let image = Image(size: CGSize(width: 240, height: 120)) else { return }
+        guard let image = ImageGenerator(size: CGSize(width: 240, height: 120)) else { return }
         image.drawText(text: printTextEdit.stringValue, fontName: fontComboBox.objectValueOfSelectedItem as! String, fontSize: Int(fontSizeTextEdit.intValue))
         (printerLabelData, printerLabel) = image.printerDataAndPreview
     }
@@ -218,7 +218,7 @@ class ViewController: NSViewController, NotificationObservable, NSTextFieldDeleg
         printer?.endPrint()
     }
     
-    @objc func receiveNotification(_ notification: Notification) {
+    @objc func receivePrinterNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
         if Notification.Name.App.serialNumber ==  notification.name {
             let serial_number = notification.userInfo?[Notification.Keys.value] as! String

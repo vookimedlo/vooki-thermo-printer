@@ -22,9 +22,15 @@ class testApp: App, NotificationObservable {
     private var uplinkProcessor: UplinkProcessor?
     
     private var bluetoothSupport: BluetoothSupport
-    
+        
     required init() {
         bluetoothSupport = BluetoothSupport()
+        
+        for name in [Notification.Name.App.textToPrint,
+                     Notification.Name.App.fontSelection] {
+            registerNotification(name: name,
+                                       selector: #selector(receiveNotification))
+        }
 
         for name in [Notification.Name.App.startPopulatingPeripherals,
                      Notification.Name.App.stopPopulatingPeripherals,
@@ -50,8 +56,10 @@ class testApp: App, NotificationObservable {
                      Notification.Name.App.setLabelType,
                      Notification.Name.App.setLabelDensity] {
             registerNotification(name: name,
-                                       selector: #selector(receiveNotification))
+                                       selector: #selector(receivePrinterNotification))
         }
+        
+        generatePrinterLabelData()
 //            printer?.getAutoShutdownTime()
 //            printer?.getDensity()
 //            printer?.getLabelType()
@@ -70,19 +78,39 @@ class testApp: App, NotificationObservable {
         }
     }()
     
-
     @State private var bluetoothPepripherals = BluetoothPeripherals()
     @State private var paperDetails = PaperDetails()
     @State private var printerDetails = PrinterDetails()
-
+    @State private var fontDetails = FontDetails()
+    @State private var textDetails = TextDetails()
+    @State private var imagePreview = ImagePreview()
 
     var body: some Scene {
         WindowGroup {
             ContentView().environmentObject(bluetoothPepripherals)
                 .environmentObject(printerDetails)
                 .environmentObject(paperDetails)
+                .environmentObject(fontDetails)
+                .environmentObject(textDetails)
+                .environmentObject(imagePreview)
         }
         .modelContainer(sharedModelContainer)
+    }
+    
+    @objc func receiveNotification(_ notification: Notification) {
+        Self.logger.info("Notification \(notification.name.rawValue) received")
+        
+        if Notification.Name.App.textToPrint ==  notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! String
+            Self.logger.info("Text to print \(value)")
+            generatePrinterLabelData()
+        }
+        else if Notification.Name.App.fontSelection ==  notification.name {
+            let font = notification.userInfo?[Notification.Keys.font] as! String
+            let size = notification.userInfo?[Notification.Keys.size] as! Int
+            Self.logger.info("Font selection \(font) @ \(size)")
+            generatePrinterLabelData()
+        }
     }
     
     @objc func receiveBluetoothNotification(_ notification: Notification) {
@@ -118,7 +146,7 @@ class testApp: App, NotificationObservable {
         }
     }
 
-    @objc func receiveNotification(_ notification: Notification) {
+    @objc func receivePrinterNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
         
         if Notification.Name.App.serialNumber ==  notification.name {
@@ -225,6 +253,17 @@ class testApp: App, NotificationObservable {
             Self.logger.error("Open failed")
         } catch {
             Self.logger.error("Open failed - unknown failure")
+        }
+    }
+    
+    private func generatePrinterLabelData() {
+        DispatchQueue.global(qos: .userInitiated).async {
+            guard let image = ImageGenerator(size: CGSize(width: 240, height: 120)) else { return }
+            image.drawText(text: self.textDetails.text, fontName: self.fontDetails.name, fontSize: self.fontDetails.size)
+            guard let preview = image.image else { return }
+            DispatchQueue.main.async {
+                self.imagePreview.image = preview
+            }
         }
     }
 }

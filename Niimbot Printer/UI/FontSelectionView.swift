@@ -55,7 +55,7 @@ struct FontSelectionView: View {
             Form {
                 Picker(selection: $familySelection) {
                     ForEach(allFontFamilies) { name in
-                        Text(name.id).font(Font.custom(name.id, size: 12))
+                        Text(name.id).tag(name.id).font(Font.custom(name.id, size: 12))
                     }
                 } label: {
                     Text("Font family").font(.headline)
@@ -64,10 +64,9 @@ struct FontSelectionView: View {
                     fontSelection = allFontNamesForFamily.first?.id ?? ""
                 }.padding(.horizontal)
                 
-                
                 Picker(selection: $fontSelection) {
                     ForEach(allFontNamesForFamily) { name in
-                        Text(name.id).font(Font.custom(name.id, size: 12, relativeTo: .title))
+                        Text(name.id).tag(name.id).font(Font.custom(name.id, size: 12, relativeTo: .title))
                     }
                 } label: {
                     Text("Font variant").font(.headline)

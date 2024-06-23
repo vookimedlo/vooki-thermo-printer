@@ -1,5 +1,5 @@
 //
-//  Image.swift
+//  ImageGenerator.swift
 //  Niimbot Printer
 //
 //  Created by Michal Duda on 06.06.2024.
@@ -13,10 +13,11 @@ import CoreText
 
 
 
-class Image {
+class ImageGenerator {
     private var context: CGContext!
     
     public var image: NSImage? {
+        guard Self.toBlackAndWhite(context: context, inverted: false) else { return nil }
         guard let image = context.makeImage() else { return nil }
         return NSImage(cgImage: image, size: .zero)
     }

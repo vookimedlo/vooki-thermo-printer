@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct PrinterView: View {
+struct PrinterView: View, Notifier {
     @Environment(FontDetails.self) private var fontDetails
     @Environment(TextDetails.self) private var textDetails
     @Environment(ImagePreview.self) private var imagePreview
@@ -53,7 +53,7 @@ struct PrinterView: View {
             
             HStack {
                 Button {
-                    
+                    notify(name: Notification.Name.App.printRequested)
                 } label: {
                     Text("Print").fontWeight(.heavy)
                         .frame(maxWidth: .infinity).padding()

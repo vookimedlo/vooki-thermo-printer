@@ -140,7 +140,7 @@ class ViewController: NSViewController, NotificationObservable, NSTextFieldDeleg
     private func generatePrinterLabelData() {
         guard let image = ImageGenerator(size: CGSize(width: 240, height: 120)) else { return }
         image.drawText(text: printTextEdit.stringValue, fontName: fontComboBox.objectValueOfSelectedItem as! String, fontSize: Int(fontSizeTextEdit.intValue))
-        (printerLabelData, printerLabel) = image.printerDataAndPreview
+       // (printerLabelData, printerLabel) = image.printerDataAndPreview
     }
     
     private func showPreview() {

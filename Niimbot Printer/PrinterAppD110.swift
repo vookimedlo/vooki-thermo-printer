@@ -27,7 +27,8 @@ class testApp: App, NotificationObservable {
         bluetoothSupport = BluetoothSupport()
         
         for name in [Notification.Name.App.textToPrint,
-                     Notification.Name.App.fontSelection] {
+                     Notification.Name.App.fontSelection,
+                     Notification.Name.App.printRequested] {
             registerNotification(name: name,
                                        selector: #selector(receiveNotification))
         }
@@ -59,7 +60,7 @@ class testApp: App, NotificationObservable {
                                        selector: #selector(receivePrinterNotification))
         }
         
-        generatePrinterLabelData()
+        generateImagePreview()
 //            printer?.getAutoShutdownTime()
 //            printer?.getDensity()
 //            printer?.getLabelType()
@@ -103,13 +104,17 @@ class testApp: App, NotificationObservable {
         if Notification.Name.App.textToPrint ==  notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! String
             Self.logger.info("Text to print \(value)")
-            generatePrinterLabelData()
+            generateImagePreview()
         }
         else if Notification.Name.App.fontSelection ==  notification.name {
             let font = notification.userInfo?[Notification.Keys.font] as! String
             let size = notification.userInfo?[Notification.Keys.size] as! Int
             Self.logger.info("Font selection \(font) @ \(size)")
-            generatePrinterLabelData()
+            generateImagePreview()
+        }
+        else if Notification.Name.App.printRequested ==  notification.name {
+            Self.logger.info("Print requested)")
+            print()
         }
     }
     
@@ -256,15 +261,58 @@ class testApp: App, NotificationObservable {
         }
     }
     
-    private func generatePrinterLabelData() {
+    private func generateImage() -> ImageGenerator? {
+        guard let image = ImageGenerator(size: CGSize(width: 240, height: 120)) else { return nil }
+        image.drawText(text: self.textDetails.text, fontName: self.fontDetails.name, fontSize: self.fontDetails.size)
+        return image
+    }
+    
+    private func generateImagePreview() {
         DispatchQueue.global(qos: .userInitiated).async {
-            guard let image = ImageGenerator(size: CGSize(width: 240, height: 120)) else { return }
-            image.drawText(text: self.textDetails.text, fontName: self.fontDetails.name, fontSize: self.fontDetails.size)
-            guard let preview = image.image else { return }
+            guard let preview = self.generateImage()?.image else { return }
             DispatchQueue.main.async {
                 self.imagePreview.image = preview
             }
         }
+    }
+        
+    private func print() {
+        guard let data = self.generateImage()?.printerData else { return }
+
+        printer?.setLabelDensity(density: 1)
+        printer?.setLabelType(type: 1)
+        printer?.startPrint()
+        printer?.startPagePrint()
+        printer?.setDimension(width: 240, height: 120)
+        sleep(1)
+        
+        var rowNumber: UInt16 = 0
+        for rowBytes in data {
+            let bitsPerByte = UInt8.bitWidth
+            let remainingBitCount = rowBytes.count % bitsPerByte
+            guard remainingBitCount == 0 else {
+                Self.logger.error("Cannot be byte aligned -  remaining bit count: \(remainingBitCount)")
+                return // TODO: throw
+            }
+
+            let bytesCount = UInt16(rowBytes.count / bitsPerByte)
+            var resultingData: [UInt8] = rowNumber.bigEndian.bytes + [0, 0, 0, 1]
+            var offsetInRow = 0
+            
+            for _ in 0 ..< bytesCount {
+                let bitsString = rowBytes[offsetInRow + 0 ..< offsetInRow + bitsPerByte].decEncodedString()
+                guard let byte = UInt8(bitsString, radix: 2) else { return } // TODO: throw
+                resultingData.append(byte)
+                offsetInRow += bitsPerByte
+            }
+            rowNumber += 1
+            printer?.setPrinterData(data: resultingData)
+        }
+        
+        sleep(3)
+        printer?.endPagePrint()
+        sleep(4)
+        printer?.endPrint()
     }
 }
 

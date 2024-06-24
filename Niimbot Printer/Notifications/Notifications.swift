@@ -17,6 +17,8 @@ extension Notification.Name {
         
         static public let textToPrint = NSNotification.Name("notify-text-print")
         static public let fontSelection = NSNotification.Name("notify-font-selection")
+        static public let printRequested = NSNotification.Name("notify-print-req")
+
 
         static public let uplinkedPacket = NSNotification.Name("notify-uplinked-packet")
         static public let density = NSNotification.Name("notify-density")

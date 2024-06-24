@@ -30,12 +30,11 @@ class ImageGenerator {
         return generateRotatedImage(inverted: true)
     }
     
-    public var printerDataAndPreview: ([[UInt8]], NSImage?) {
-        guard let image = context.makeImage() else { return ([], nil) }
-        guard let rotatedImageContext = image.rotatedContext(to: .right) else { return ([], nil) }
-        guard Self.toBlackAndWhite(context: rotatedImageContext, inverted: true) else { return ([], nil) }
-        
-        return (Self.toBytes(context: rotatedImageContext), NSImage(cgImage: image, size: .zero))
+    public var printerData: [[UInt8]] {
+        guard let image = context.makeImage() else { return [] }
+        guard let rotatedImageContext = image.rotatedContext(to: .right) else { return [] }
+        guard Self.toBlackAndWhite(context: rotatedImageContext, inverted: true) else { return [] }
+        return Self.toBytes(context: rotatedImageContext)
     }
 
     public init? (size: CGSize) {

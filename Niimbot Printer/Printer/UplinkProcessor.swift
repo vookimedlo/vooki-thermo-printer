@@ -37,7 +37,7 @@ class UplinkProcessor : Thread, Notifier {
         var data = Data(capacity: 64)
         while !super.isCancelled {
             Self.logger.info("Processing thread looped")
-            let uplink = try! printerDevice.uplink(ofLength: 1)
+            let uplink = try! printerDevice.uplink(ofLength: 64)
             data.append(contentsOf: uplink)
             Self.logger.info("\(data.hexEncodedString(options: [.commaSeparator, .prefix, .upperCase]))")
 

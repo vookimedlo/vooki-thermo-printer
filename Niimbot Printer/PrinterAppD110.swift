@@ -113,8 +113,8 @@ class testApp: App, NotificationObservable {
             generateImagePreview()
         }
         else if Notification.Name.App.printRequested ==  notification.name {
-            Self.logger.info("Print requested)")
-            print()
+            Self.logger.info("Print requested")
+            printLabel()
         }
     }
     
@@ -275,24 +275,18 @@ class testApp: App, NotificationObservable {
             }
         }
     }
-        
-    private func print() {
-        guard let data = self.generateImage()?.printerData else { return }
+    
+    private func preparePrintData() -> [[UInt8]] {
+        guard let data = self.generateImage()?.printerData else { return [] }
 
-        printer?.setLabelDensity(density: 1)
-        printer?.setLabelType(type: 1)
-        printer?.startPrint()
-        printer?.startPagePrint()
-        printer?.setDimension(width: 240, height: 120)
-        sleep(1)
-        
+        var peparedData: [[UInt8]] = []
         var rowNumber: UInt16 = 0
         for rowBytes in data {
             let bitsPerByte = UInt8.bitWidth
             let remainingBitCount = rowBytes.count % bitsPerByte
             guard remainingBitCount == 0 else {
                 Self.logger.error("Cannot be byte aligned -  remaining bit count: \(remainingBitCount)")
-                return // TODO: throw
+                return []
             }
 
             let bytesCount = UInt16(rowBytes.count / bitsPerByte)
@@ -301,18 +295,109 @@ class testApp: App, NotificationObservable {
             
             for _ in 0 ..< bytesCount {
                 let bitsString = rowBytes[offsetInRow + 0 ..< offsetInRow + bitsPerByte].decEncodedString()
-                guard let byte = UInt8(bitsString, radix: 2) else { return } // TODO: throw
+                guard let byte = UInt8(bitsString, radix: 2) else { return [] }
                 resultingData.append(byte)
                 offsetInRow += bitsPerByte
             }
             rowNumber += 1
-            printer?.setPrinterData(data: resultingData)
+            peparedData.append(resultingData)
+        }
+        return peparedData
+    }
+    
+    private func sendAndWaitForResult(name: Notification.Name, sendAction: @escaping () throws -> Void) async throws {
+        enum TaskResult {
+            case sent, received, cancelled
         }
         
-        sleep(3)
-        printer?.endPagePrint()
-        sleep(4)
-        printer?.endPrint()
+        try await withThrowingTaskGroup(of: TaskResult.self) { group in
+            group.addTask {
+                let notification = await NotificationCenter.default.notifications(named: name).makeAsyncIterator().next()
+                guard !Task.isCancelled else { return .cancelled }
+                let value = notification?.userInfo?[Notification.Keys.value] as? Bool ?? false
+                guard value else { throw IOError.read } // TODO:
+                Self.logger.info("Response on \(name.rawValue)")
+                return .received
+            }
+                
+            group.addTask {
+                try sendAction()
+                Self.logger.info("Request for \(name.rawValue)")
+                return .sent
+            }
+            
+            group.addTask {
+                try await Task.sleep(nanoseconds: 2000000000)
+                guard !Task.isCancelled else { return .cancelled }
+                Self.logger.error("Timeout of \(name.rawValue)")
+                throw IOError.read
+            }
+            
+            do {
+                for try await result in group {
+                    if result == .received {
+                        group.cancelAll()
+                    }
+                }
+            }
+            catch(_ as CancellationError) {
+                // Intentionally empty.
+            }
+        }
+    }
+    
+    
+    private func executePrintCommands() async {
+        do {
+            let data = preparePrintData()
+            guard !data.isEmpty else { return }
+            
+            try await sendAndWaitForResult(name: .App.setLabelDensity) {
+                self.printer?.setLabelDensity(density: 1)
+            }
+            try await sendAndWaitForResult(name: .App.startPrint) {
+                self.printer?.startPrint()
+            }
+            try await sendAndWaitForResult(name: .App.startPagePrint) {
+                self.printer?.startPagePrint()
+            }
+            try await sendAndWaitForResult(name: .App.setDimension) {
+                self.printer?.setDimension(width: 240, height: 120)
+            }
+            try await sendAndWaitForResult(name: .App.setLabelDensity) {
+                self.printer?.setLabelDensity(density: 1)
+            }
+            
+            for packet in data {
+                printer?.setPrinterData(data: packet)
+                usleep(50000)
+            }
+            
+            try await sendAndWaitForResult(name: .App.endPagePrint) {
+                self.printer?.endPagePrint()
+            }
+            
+            try await sendAndWaitForResult(name: .App.endPrint) {
+                self.printer?.endPrint()
+            }
+            
+            
+            
+            
+            printer?.getRFIDData()
+        }
+        catch {
+            Self.logger.error("Something went wrong when printting")
+        }
+    }
+        
+    private func printLabel() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self else { return }
+            Task {
+                await self.executePrintCommands()
+            }
+        }
     }
 }
 

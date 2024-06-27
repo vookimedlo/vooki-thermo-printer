@@ -23,7 +23,8 @@ class Printer {
                                                  BoolBytePacketDecoder(),
                                                  AutoShutdownTimePacketDecoder(),
                                                  DensityPacketDecoder(),
-                                                 LabelTypePacketDecoder()])
+                                                 LabelTypePacketDecoder(),
+                                                 PrintStatusPacketDecoder()])
     let printerDevice: PrinterDevice
     
     init(printerDevice: PrinterDevice) {
@@ -122,6 +123,11 @@ class Printer {
         send(packet: packet)
     }
     
+    public func getPrintStatus() {
+        let packet = Packet(requestCode: RequestCode.REQUEST_GET_PRINT_STATUS, data: [1])
+        send(packet: packet)
+    }
+
     public func setPrinterData(data: [UInt8]) {
         let packet = Packet(requestCode: RequestCode.REQUEST_SET_PRINTER_DATA,
                             data: data)
@@ -130,6 +136,5 @@ class Printer {
 
 //case REQUEST_HEARTBEAT = 0xDC
 //case REQUEST_SET_QUANTITY = 0x15
-//case REQUEST_GET_PRINT_STATUS = 0xA3
  
 }

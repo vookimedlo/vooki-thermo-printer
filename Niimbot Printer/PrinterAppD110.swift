@@ -11,7 +11,7 @@ import os
 
 
 @main
-class testApp: App, NotificationObservable {
+class testApp: App, Notifier, NotificationObservable {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: ViewController.self)
@@ -55,7 +55,8 @@ class testApp: App, NotificationObservable {
                      Notification.Name.App.endPagePrint,
                      Notification.Name.App.setDimension,
                      Notification.Name.App.setLabelType,
-                     Notification.Name.App.setLabelDensity] {
+                     Notification.Name.App.setLabelDensity,
+                     Notification.Name.App.getPrintStatus] {
             registerNotification(name: name,
                                        selector: #selector(receivePrinterNotification))
         }
@@ -237,6 +238,17 @@ class testApp: App, NotificationObservable {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
             Self.logger.info("SetLabelDensity \(value)")
         }
+        else if Notification.Name.App.getPrintStatus == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! PrintStatus
+            Self.logger.info("GetPrintStatus - Page: \(value.page)")
+            Self.logger.info("GetPrintStatus - Progress 1: \(value.progress1)")
+            Self.logger.info("GetPrintStatus - Progress 2: \(value.progress2)")
+            
+            if value.progress2 == 100 {
+                notify(name: .App.printFinished,
+                       userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, true)))
+            }
+        }
     }
     
     func connect() {
@@ -254,6 +266,7 @@ class testApp: App, NotificationObservable {
             printer?.getHardwareVersion()
             printer?.getDeviceType()
             printer?.getRFIDData()
+            printer?.getPrintStatus()
         } catch IOError.open {
             Self.logger.error("Open failed")
         } catch {
@@ -304,67 +317,25 @@ class testApp: App, NotificationObservable {
         }
         return peparedData
     }
-    
-    private func sendAndWaitForResult(name: Notification.Name, sendAction: @escaping () throws -> Void) async throws {
-        enum TaskResult {
-            case sent, received, cancelled
-        }
         
-        try await withThrowingTaskGroup(of: TaskResult.self) { group in
-            group.addTask {
-                let notification = await NotificationCenter.default.notifications(named: name).makeAsyncIterator().next()
-                guard !Task.isCancelled else { return .cancelled }
-                let value = notification?.userInfo?[Notification.Keys.value] as? Bool ?? false
-                guard value else { throw IOError.read } // TODO:
-                Self.logger.info("Response on \(name.rawValue)")
-                return .received
-            }
-                
-            group.addTask {
-                try sendAction()
-                Self.logger.info("Request for \(name.rawValue)")
-                return .sent
-            }
-            
-            group.addTask {
-                try await Task.sleep(nanoseconds: 2000000000)
-                guard !Task.isCancelled else { return .cancelled }
-                Self.logger.error("Timeout of \(name.rawValue)")
-                throw IOError.read
-            }
-            
-            do {
-                for try await result in group {
-                    if result == .received {
-                        group.cancelAll()
-                    }
-                }
-            }
-            catch(_ as CancellationError) {
-                // Intentionally empty.
-            }
-        }
-    }
-    
-    
     private func executePrintCommands() async {
         do {
             let data = preparePrintData()
             guard !data.isEmpty else { return }
             
-            try await sendAndWaitForResult(name: .App.setLabelDensity) {
+            try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
                 self.printer?.setLabelDensity(density: 1)
             }
-            try await sendAndWaitForResult(name: .App.startPrint) {
+            try await SendAndWaitAsync.waitOnBoolResult(name: .App.startPrint) {
                 self.printer?.startPrint()
             }
-            try await sendAndWaitForResult(name: .App.startPagePrint) {
+            try await SendAndWaitAsync.waitOnBoolResult(name: .App.startPagePrint) {
                 self.printer?.startPagePrint()
             }
-            try await sendAndWaitForResult(name: .App.setDimension) {
+            try await SendAndWaitAsync.waitOnBoolResult(name: .App.setDimension) {
                 self.printer?.setDimension(width: 240, height: 120)
             }
-            try await sendAndWaitForResult(name: .App.setLabelDensity) {
+            try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
                 self.printer?.setLabelDensity(density: 1)
             }
             
@@ -373,21 +344,25 @@ class testApp: App, NotificationObservable {
                 usleep(50000)
             }
             
-            try await sendAndWaitForResult(name: .App.endPagePrint) {
+            try await SendAndWaitAsync.waitOnBoolResult(name: .App.endPagePrint) {
                 self.printer?.endPagePrint()
             }
             
-            try await sendAndWaitForResult(name: .App.endPrint) {
+            try await SendAndWaitAsync.waitOnBoolResult(name: .App.printFinished, timeout: 10000000000) {
+                while !Task.isCancelled {
+                    self.printer?.getPrintStatus()
+                    try await Task.sleep(nanoseconds: 50000000)
+                }
+            }
+          
+            try await SendAndWaitAsync.waitOnBoolResult(name: .App.endPrint) {
                 self.printer?.endPrint()
             }
-            
-            
-            
             
             printer?.getRFIDData()
         }
         catch {
-            Self.logger.error("Something went wrong when printting")
+            Self.logger.error("Something went wrong when printing")
         }
     }
         

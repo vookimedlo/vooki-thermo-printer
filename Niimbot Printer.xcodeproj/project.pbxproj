@@ -35,6 +35,8 @@
 		8D8AF3D42C288EA1005E2F94 /* FontDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */; };
 		8D8AF3D62C28939F005E2F94 /* TextDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D52C28939F005E2F94 /* TextDetails.swift */; };
 		8D8AF3D82C28AE8A005E2F94 /* ImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */; };
+		8D92FBDF2C2CBE460040747C /* PrintStatusPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */; };
+		8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */; };
 		8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96391E2C0A8E8B00374894 /* DataExtension.swift */; };
 		8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96393E2C0B5E0600374894 /* Notifications.swift */; };
 		8D9639412C0B616D00374894 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639402C0B616D00374894 /* Notifier.swift */; };
@@ -107,6 +109,8 @@
 		8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDetails.swift; sourceTree = "<group>"; };
 		8D8AF3D52C28939F005E2F94 /* TextDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDetails.swift; sourceTree = "<group>"; };
 		8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreview.swift; sourceTree = "<group>"; };
+		8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintStatusPacketDecoder.swift; sourceTree = "<group>"; };
+		8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAndWaitAsync.swift; sourceTree = "<group>"; };
 		8D96391E2C0A8E8B00374894 /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 		8D96393E2C0B5E0600374894 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		8D9639402C0B616D00374894 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
@@ -246,6 +250,7 @@
 				8DDC3D152C19C71000296C72 /* HardwareVersionPacketDecoder.swift */,
 				8DDC3D0F2C19C6BB00296C72 /* LabelTypePacketDecoder.swift */,
 				8D96394A2C0BA60800374894 /* PacketDecoder.swift */,
+				8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */,
 				8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */,
 				8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */,
 				8DDC3D132C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift */,
@@ -288,6 +293,7 @@
 				8D76C5362C08DA38005D7EEB /* IOError.swift */,
 				8D76C5342C08DA08005D7EEB /* IOProtocol.swift */,
 				8D76C53A2C090B96005D7EEB /* PosixFileSystemAccess.swift */,
+				8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */,
 			);
 			path = Communication;
 			sourceTree = "<group>";
@@ -421,6 +427,7 @@
 			files = (
 				8DDC3D122C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift in Sources */,
 				8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */,
+				8D92FBDF2C2CBE460040747C /* PrintStatusPacketDecoder.swift in Sources */,
 				8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */,
 				8DDC3D102C19C6BB00296C72 /* LabelTypePacketDecoder.swift in Sources */,
 				8D8AF3D42C288EA1005E2F94 /* FontDetails.swift in Sources */,
@@ -458,6 +465,7 @@
 				8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */,
 				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
 				8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */,
+				8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */,
 				8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */,
 				8D8AF3D82C28AE8A005E2F94 /* ImagePreview.swift in Sources */,
 				8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */,

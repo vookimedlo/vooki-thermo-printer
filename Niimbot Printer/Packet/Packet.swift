@@ -54,6 +54,8 @@ public enum RequestCode: UInt8 {
     case RESPONSE_SET_LABEL_TYPE = 0x33                   // RequestCode.REQUEST_SET_LABEL_TYPE + 16
     case RESPONSE_SET_LABEL_DENSITY = 0x31                // RequestCode.REQUEST_SET_LABEL_DENSITY + 16
     case RESPONSE_SET_DIMENSION = 0x14                    // RequestCode.REQUEST_SET_DIMENSION + 1
+    case RESPONSE_GET_PRINT_STATUS = 0xB3                 // RequestCode.REQUEST_GET_PRINT_STATUS + 16
+
     
     case RESPONSE_SOMETHING = 0xD3          //TODO: What this type stands for?
 }

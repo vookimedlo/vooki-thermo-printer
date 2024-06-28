@@ -11,10 +11,10 @@ import os
 
 
 @main
-class testApp: App, Notifier, NotificationObservable {
+class PrinterAppD110: App, Notifier, NotificationObservable {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: ViewController.self)
+        category: String(describing: PrinterAppD110.self)
     )
         
     private var printer: Printer?
@@ -102,18 +102,18 @@ class testApp: App, Notifier, NotificationObservable {
     @objc func receiveNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
         
-        if Notification.Name.App.textToPrint ==  notification.name {
+        if Notification.Name.App.textToPrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! String
             Self.logger.info("Text to print \(value)")
             generateImagePreview()
         }
-        else if Notification.Name.App.fontSelection ==  notification.name {
+        else if Notification.Name.App.fontSelection == notification.name {
             let font = notification.userInfo?[Notification.Keys.font] as! String
             let size = notification.userInfo?[Notification.Keys.size] as! Int
             Self.logger.info("Font selection \(font) @ \(size)")
             generateImagePreview()
         }
-        else if Notification.Name.App.printRequested ==  notification.name {
+        else if Notification.Name.App.printRequested == notification.name {
             Self.logger.info("Print requested")
             printLabel()
         }
@@ -244,6 +244,9 @@ class testApp: App, Notifier, NotificationObservable {
             Self.logger.info("GetPrintStatus - Progress 1: \(value.progress1)")
             Self.logger.info("GetPrintStatus - Progress 2: \(value.progress2)")
             
+            notifyUI(name: .App.UI.printPrintingProgress,
+                   userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, value.progress1)))
+            
             if value.progress2 == 100 {
                 notify(name: .App.printFinished,
                        userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, true)))
@@ -339,8 +342,13 @@ class testApp: App, Notifier, NotificationObservable {
                 self.printer?.setLabelDensity(density: 1)
             }
             
+            let max = data.count
+            var currentStep = 1
             for packet in data {
                 printer?.setPrinterData(data: packet)
+                notifyUI(name: .App.UI.printSendingProgress,
+                         userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, currentStep != max ? Double(currentStep) / Double(max) * 100.0 : 100.0)))
+                currentStep += 1
                 usleep(50000)
             }
             
@@ -369,7 +377,11 @@ class testApp: App, Notifier, NotificationObservable {
     private func printLabel() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             guard let self = self else { return }
+            notifyUI(name: .App.UI.printStarted)
             Task {
+                defer {
+                    self.notifyUI(name: .App.UI.printDone)
+                }
                 await self.executePrintCommands()
             }
         }

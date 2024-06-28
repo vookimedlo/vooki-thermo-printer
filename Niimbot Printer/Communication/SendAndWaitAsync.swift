@@ -16,7 +16,7 @@ class SendAndWaitAsync {
     
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: ViewController.self)
+        category: String(describing: SendAndWaitAsync.self)
     )
     
     public static func waitOnBoolResult(name: Notification.Name, timeout: UInt64 = 2000000000,  sendAction: @escaping () async throws -> Void) async throws {

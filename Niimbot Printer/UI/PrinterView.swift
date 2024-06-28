@@ -14,6 +14,7 @@ struct PrinterView: View, Notifier {
     @Environment(ImagePreview.self) private var imagePreview
 
     @State private var showingInspector: Bool = true
+    @State private var showingPrintingProgress: Bool = false
     
     var body: some View {
         @Bindable var fontDetails = fontDetails
@@ -74,6 +75,25 @@ struct PrinterView: View, Notifier {
                 }.listStyle(.sidebar)
                 Spacer()
             }
+        }.onReceive(NotificationCenter.default.publisher(for: .App.UI.printStarted)) { _ in
+            withAnimation {
+                showingPrintingProgress = true
+            }
+        }.onReceive(NotificationCenter.default.publisher(for: .App.UI.printDone)) { _ in
+            withAnimation {
+                showingPrintingProgress = false
+            }
+        }
+        .sheet(isPresented: $showingPrintingProgress) {
+            VStack {
+                Text("Printing ...").padding(.top)
+                Divider()
+                HStack {
+                    Spacer()
+                    PrintingProgress()
+                    Spacer()
+                }.padding()}
+             .frame(minWidth: 600)
         }.toolbar {
             ToolbarItem() {
                 Button {

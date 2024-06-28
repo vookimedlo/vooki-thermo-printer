@@ -73,7 +73,8 @@ struct ContentView: View, Notifier {
             .onAppear { selectedItem = items.first?.id }
         } detail: {
             Text("asdads at uytut")
-        }.toolbar {
+        }
+        .toolbar {
             ToolbarItem(placement: .appBar) {
                 
                 Menu(content: {

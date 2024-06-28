@@ -44,6 +44,12 @@ extension Notification.Name {
         static public let printFinished = NSNotification.Name("notify-print-finished")
         static public let printOpsTimedOut = NSNotification.Name("notify-print-ops-timeout")
 
+        struct UI {
+            static public let printSendingProgress = NSNotification.Name("notify-ui-print-send-progress")
+            static public let printPrintingProgress = NSNotification.Name("notify-ui-print-progress")
+            static public let printDone = NSNotification.Name("notify-ui-print-done")
+            static public let printStarted = NSNotification.Name("notify-ui-print-start")
+        }
     }
 }
 

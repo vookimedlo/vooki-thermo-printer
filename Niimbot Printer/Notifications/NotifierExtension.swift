@@ -19,4 +19,16 @@ extension Notifier {
             NotificationCenter.default.post(name: name, object: self, userInfo: userInfo)
         }
     }
+    
+    func notifyUI(name: Notification.Name) {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: name, object: self)
+        }
+    }
+    
+    func notifyUI(name: Notification.Name, userInfo: [String : Any]) {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: name, object: self, userInfo: userInfo)
+        }
+    }
 }

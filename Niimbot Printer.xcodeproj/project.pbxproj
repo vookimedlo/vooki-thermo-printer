@@ -11,9 +11,7 @@
 		8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */; };
 		8D35E3382C23828A00E8E2A9 /* BluetoothPeripheralsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */; };
 		8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC152C052197001EBD95 /* PrinterAppD110.swift */; };
-		8D58DC182C052197001EBD95 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC172C052197001EBD95 /* ViewController.swift */; };
 		8D58DC1A2C052198001EBD95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC192C052198001EBD95 /* Assets.xcassets */; };
-		8D58DC1D2C052198001EBD95 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC1C2C052198001EBD95 /* Base */; };
 		8D58DC252C052317001EBD95 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC242C052317001EBD95 /* Packet.swift */; };
 		8D58DC2D2C05D460001EBD95 /* PacketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC2C2C05D460001EBD95 /* PacketTests.swift */; };
 		8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC332C064583001EBD95 /* PrinterDevice.swift */; };
@@ -46,6 +44,7 @@
 		8D9639492C0B9EC600374894 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
 		8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
 		8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */; };
+		8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
 		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
 		8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */; };
@@ -84,9 +83,7 @@
 		8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralsView.swift; sourceTree = "<group>"; };
 		8D58DC122C052197001EBD95 /* Niimbot Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Niimbot Printer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC152C052197001EBD95 /* PrinterAppD110.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppD110.swift; sourceTree = "<group>"; };
-		8D58DC172C052197001EBD95 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8D58DC192C052198001EBD95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8D58DC1C2C052198001EBD95 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D58DC1E2C052198001EBD95 /* Niimbot_Printer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Niimbot_Printer.entitlements; sourceTree = "<group>"; };
 		8D58DC242C052317001EBD95 /* Packet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
 		8D58DC2A2C05D460001EBD95 /* Niimbot PrinterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Niimbot PrinterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,6 +117,7 @@
 		8D9639482C0B9EC600374894 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		8D96394A2C0BA60800374894 /* PacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoder.swift; sourceTree = "<group>"; };
 		8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterLabelDetailView.swift; sourceTree = "<group>"; };
+		8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingProgress.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
 		8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialNumberPacketDecoder.swift; sourceTree = "<group>"; };
@@ -316,11 +314,10 @@
 				8DDC3D412C1A290700296C72 /* ContentView.swift */,
 				8D84EF992C20F6090070BA8A /* FontSelectionView.swift */,
 				8DDC3D452C1A552800296C72 /* HistoryView.swift */,
-				8D58DC1B2C052198001EBD95 /* Main.storyboard */,
 				8D84EF9B2C20FA0D0070BA8A /* PrinterDetailsView.swift */,
 				8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */,
 				8DDC3D432C1A45A900296C72 /* PrinterView.swift */,
-				8D58DC172C052197001EBD95 /* ViewController.swift */,
+				8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -407,7 +404,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D58DC1A2C052198001EBD95 /* Assets.xcassets in Resources */,
-				8D58DC1D2C052198001EBD95 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +423,7 @@
 			files = (
 				8DDC3D122C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift in Sources */,
 				8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */,
+				8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */,
 				8D92FBDF2C2CBE460040747C /* PrintStatusPacketDecoder.swift in Sources */,
 				8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */,
 				8DDC3D102C19C6BB00296C72 /* LabelTypePacketDecoder.swift in Sources */,
@@ -453,7 +450,6 @@
 				8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */,
 				8D8AF3CD2C2756CD005E2F94 /* LevelIndicator.swift in Sources */,
 				8DDC3D442C1A45A900296C72 /* PrinterView.swift in Sources */,
-				8D58DC182C052197001EBD95 /* ViewController.swift in Sources */,
 				8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */,
 				8D8AF3D22C28271B005E2F94 /* PaperDetails.swift in Sources */,
 				8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */,
@@ -501,17 +497,6 @@
 			targetProxy = 8D58DC2E2C05D460001EBD95 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		8D58DC1B2C052198001EBD95 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8D58DC1C2C052198001EBD95 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8D58DC1F2C052198001EBD95 /* Debug */ = {

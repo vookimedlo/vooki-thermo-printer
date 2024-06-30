@@ -65,6 +65,10 @@
 		8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */; };
 		8DEB85EE2C0E5E610028526B /* DataConsumerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */; };
 		8DEB860E2C1250BF0028526B /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB860D2C1250BF0028526B /* ImageGenerator.swift */; };
+		8DED511D2C2FE14500B52F1E /* AlignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511C2C2FE14500B52F1E /* AlignmentView.swift */; };
+		8DED511F2C3080F700B52F1E /* SegmentedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */; };
+		8DED51212C318E3100B52F1E /* HorizontalAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51202C318E3100B52F1E /* HorizontalAlignment.swift */; };
+		8DED51232C31927200B52F1E /* VerticalAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51222C31927200B52F1E /* VerticalAlignment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +143,10 @@
 		8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAccessProtocol.swift; sourceTree = "<group>"; };
 		8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConsumerProtocol.swift; sourceTree = "<group>"; };
 		8DEB860D2C1250BF0028526B /* ImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGenerator.swift; sourceTree = "<group>"; };
+		8DED511C2C2FE14500B52F1E /* AlignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentView.swift; sourceTree = "<group>"; };
+		8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerView.swift; sourceTree = "<group>"; };
+		8DED51202C318E3100B52F1E /* HorizontalAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalAlignment.swift; sourceTree = "<group>"; };
+		8DED51222C31927200B52F1E /* VerticalAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalAlignment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +172,7 @@
 			children = (
 				8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */,
 				8D8AF3CC2C2756CD005E2F94 /* LevelIndicator.swift */,
+				8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -220,10 +229,12 @@
 			children = (
 				8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */,
 				8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */,
+				8DED51202C318E3100B52F1E /* HorizontalAlignment.swift */,
 				8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */,
 				8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */,
 				8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */,
 				8D8AF3D52C28939F005E2F94 /* TextDetails.swift */,
+				8DED51222C31927200B52F1E /* VerticalAlignment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -310,6 +321,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1F59B92C20EAD7002A037F /* Components */,
+				8DED511C2C2FE14500B52F1E /* AlignmentView.swift */,
 				8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */,
 				8DDC3D412C1A290700296C72 /* ContentView.swift */,
 				8D84EF992C20F6090070BA8A /* FontSelectionView.swift */,
@@ -438,9 +450,11 @@
 				8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */,
 				8D8AF3D62C28939F005E2F94 /* TextDetails.swift in Sources */,
 				8D35E3382C23828A00E8E2A9 /* BluetoothPeripheralsView.swift in Sources */,
+				8DED511F2C3080F700B52F1E /* SegmentedPickerView.swift in Sources */,
 				8DDC3D422C1A290800296C72 /* ContentView.swift in Sources */,
 				8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */,
 				8D9639412C0B616D00374894 /* Notifier.swift in Sources */,
+				8DED51212C318E3100B52F1E /* HorizontalAlignment.swift in Sources */,
 				8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */,
 				8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */,
 				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
@@ -460,7 +474,9 @@
 				8D8AF3D02C2826FD005E2F94 /* PrinterDetails.swift in Sources */,
 				8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */,
 				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
+				8DED51232C31927200B52F1E /* VerticalAlignment.swift in Sources */,
 				8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */,
+				8DED511D2C2FE14500B52F1E /* AlignmentView.swift in Sources */,
 				8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */,
 				8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */,
 				8D8AF3D82C28AE8A005E2F94 /* ImagePreview.swift in Sources */,

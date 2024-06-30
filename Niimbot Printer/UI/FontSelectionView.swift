@@ -76,7 +76,7 @@ struct FontSelectionView: View {
                                     minValue: 1,
                                     maxValue: 100,
                                     label: { Text("Font size").font(.headline) }).padding(.horizontal)
-            }
+            }.padding()
         } label: {
             Text("Font selection")
         }

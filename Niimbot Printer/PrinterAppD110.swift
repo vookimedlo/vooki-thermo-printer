@@ -86,6 +86,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     @State private var fontDetails = FontDetails()
     @State private var textDetails = TextDetails()
     @State private var imagePreview = ImagePreview()
+    @State private var horizontalAlignment = HorizontalTextAlignment()
+    @State private var verticalAlignment = VerticalTextAlignment()
 
     var body: some Scene {
         WindowGroup {
@@ -95,6 +97,9 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 .environmentObject(fontDetails)
                 .environmentObject(textDetails)
                 .environmentObject(imagePreview)
+                .environmentObject(horizontalAlignment)
+                .environmentObject(verticalAlignment)
+
         }
         .modelContainer(sharedModelContainer)
     }

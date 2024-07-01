@@ -181,8 +181,6 @@
 			isa = PBXGroup;
 			children = (
 				8D58DC142C052197001EBD95 /* Niimbot Printer */,
-				8DEB860D2C1250BF0028526B /* ImageGenerator.swift */,
-				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
 				8D58DC2B2C05D460001EBD95 /* Niimbot PrinterTests */,
 				8D58DC132C052197001EBD95 /* Products */,
 			);
@@ -210,6 +208,8 @@
 				8DDC3D092C19C62D00296C72 /* Packet */,
 				8DDC3D222C19EDFC00296C72 /* Printer */,
 				8DDC3D232C19EE6100296C72 /* UI */,
+				8DEB860D2C1250BF0028526B /* ImageGenerator.swift */,
+				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
 			);
 			path = "Niimbot Printer";
 			sourceTree = "<group>";

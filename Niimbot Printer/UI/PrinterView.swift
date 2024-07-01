@@ -32,7 +32,8 @@ struct PrinterView: View, Notifier {
                     Spacer()
                     HStack{
                         Spacer()
-                        Image(nsImage: imagePreview.image).shadow(color: .accentColor, radius: 30)
+                        Image(nsImage: imagePreview.image)
+                            .shadow(color: .accentColor, radius: 30)
                         Spacer()
                     }
                     Spacer()

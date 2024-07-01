@@ -16,7 +16,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: PrinterAppD110.self)
     )
-        
+
     private var printer: Printer?
     private var printerDevice: PrinterDevice?
     private var uplinkProcessor: UplinkProcessor?
@@ -28,7 +28,9 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         
         for name in [Notification.Name.App.textToPrint,
                      Notification.Name.App.fontSelection,
-                     Notification.Name.App.printRequested] {
+                     Notification.Name.App.printRequested,
+                     Notification.Name.App.horizontalTextAlignment,
+                     Notification.Name.App.verticalTextAlignment] {
             registerNotification(name: name,
                                        selector: #selector(receiveNotification))
         }
@@ -121,6 +123,14 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         else if Notification.Name.App.printRequested == notification.name {
             Self.logger.info("Print requested")
             printLabel()
+        }
+        else if Notification.Name.App.horizontalTextAlignment == notification.name {
+            Self.logger.info("Horizontal Alignment changed")
+            generateImagePreview()
+        }
+        else if Notification.Name.App.verticalTextAlignment == notification.name {
+            Self.logger.info("Vertical Alignment changed")
+            generateImagePreview()
         }
     }
     
@@ -284,7 +294,11 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     
     private func generateImage() -> ImageGenerator? {
         guard let image = ImageGenerator(size: CGSize(width: 240, height: 120)) else { return nil }
-        image.drawText(text: self.textDetails.text, fontName: self.fontDetails.name, fontSize: self.fontDetails.size)
+        image.drawText(text: self.textDetails.text,
+                       fontName: self.fontDetails.name,
+                       fontSize: self.fontDetails.size,
+                       horizontal: horizontalAlignment.alignment,
+                       vertical: verticalAlignment.alignment)
         return image
     }
     

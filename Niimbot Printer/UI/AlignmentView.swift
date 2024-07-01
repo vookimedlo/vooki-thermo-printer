@@ -62,7 +62,6 @@ struct AlignmentView: View {
                             .symbolRenderingMode(.monochrome)
                             .symbolVariant(.none)
                             .fontWeight(.regular)
-                            .help(item.help)
                     }
                     
                     SegmentedPickerView(VerticalAlignment.allCases, selection: $verticalAlignment) { item in
@@ -70,7 +69,6 @@ struct AlignmentView: View {
                             .symbolRenderingMode(.monochrome)
                             .symbolVariant(.none)
                             .fontWeight(.regular)
-                            .help(item.help)
                     }
                 }
             }

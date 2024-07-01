@@ -12,7 +12,6 @@ import CoreImage
 import CoreText
 
 
-
 class ImageGenerator {
     private var context: CGContext!
     
@@ -68,7 +67,7 @@ class ImageGenerator {
         return context
     }
     
-    public func drawText(text: String, fontName: String, fontSize: Int) {
+    public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) {
         context.saveGState()
     
         let margin: CGFloat = 10
@@ -79,17 +78,46 @@ class ImageGenerator {
 
         let attributedString = NSAttributedString(string: text,
                                                   attributes: attributes)
-
+        
         let line = CTLineCreateWithAttributedString(attributedString)
-        let stringRect = CTLineGetImageBounds(line, context)
+        let stringRect = CGRectStandardize(CTLineGetImageBounds(line, context))
         
-        let ctxHeightHalf = CGFloat(context.height) / 2
-        let fntHeightHalf = stringRect.height / 2
+        let x: CGFloat = {
+            switch horizontal {
+            case .left:
+                return margin
+            case .center:
+                return max((CGFloat(context.width) - stringRect.width) / 2.0, 0)
+            case .right:
+                return CGFloat(context.width) - stringRect.width - margin
+            }
+        }()
         
-        context.textPosition = CGPoint(x: margin,
-                                       y: max(ctxHeightHalf - fntHeightHalf, 0))
-
+        let y: CGFloat = {
+            switch vertical {
+            case .bottom:
+                return margin
+            case .center:
+                return max((CGFloat(context.height) - stringRect.height) / 2.0, 0)
+            case .top:
+                return CGFloat(context.height) - stringRect.height - margin
+            }
+        }()
+        
+        context.textPosition = CGPoint(x: x - stringRect.origin.x,
+                                       y: y - stringRect.origin.y)
+        
         CTLineDraw(line, context)
+
+#if DEBUG_BOUNDING_BOX
+        context.setStrokeColor(CGColor.black)
+        context.setLineWidth(1)
+        context.addRect(CGRect(x: x,
+                               y: y,
+                               width: stringRect.width,
+                               height: stringRect.height))
+        context.drawPath(using: .stroke)
+#endif
 
         context.restoreGState()
     }

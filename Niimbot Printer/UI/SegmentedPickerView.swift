@@ -11,7 +11,6 @@ protocol SegmentedPrickerHelp {
     var help: String { get }
 }
 
-
 struct SegmentedPickerView<Data, Content>: View where Data: Hashable, Content: View {
     @Binding private var selection: Data
     
@@ -36,25 +35,22 @@ struct SegmentedPickerView<Data, Content>: View where Data: Hashable, Content: V
         ZStack {
             GeometryReader { geo in
                 ForEach(0..<data.count, id: \.self) { i in
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill(data[i] == selection ? controlSelectedColor : controlBackgroundColor)
-                        .frame(width: geo.size.width / CGFloat(data.count))
-                        .help(data[i] is SegmentedPrickerHelp ? (data[i] as! SegmentedPrickerHelp).help : "")
-                        .gesture(TapGesture()
-                            .onEnded({gesture in
-                                withAnimation(.snappy) {
-                                    selection = data[i]
-                                }
-                            }))
-                        .overlay {
-                            itemBuilder(data[i]).gesture(TapGesture()
-                                .onEnded({gesture in
-                                    withAnimation(.snappy) {
-                                        selection = data[i]
-                                    }
-                                }))
-                        }
-                        .offset(x: (geo.size.width / CGFloat(data.count)) * Double(i))
+                    HStack {
+                        RoundedRectangle(cornerRadius: cornerRadius)
+                            .fill(data[i] == selection ? controlSelectedColor : controlBackgroundColor)
+                            .frame(width: geo.size.width / CGFloat(data.count))
+                            .overlay {
+                                itemBuilder(data[i])
+                            }
+                    }
+                    .help(data[i] is SegmentedPrickerHelp ? (data[i] as! SegmentedPrickerHelp).help : "")
+                    .gesture(TapGesture()
+                        .onEnded({gesture in
+                            withAnimation(.snappy) {
+                                selection = data[i]
+                            }
+                        }))
+                    .offset(x: (geo.size.width / CGFloat(data.count)) * Double(i))
                 }
             }
         }.frame(maxHeight: height)

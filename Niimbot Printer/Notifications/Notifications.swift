@@ -51,6 +51,7 @@ extension Notification.Name {
             static public let printPrintingProgress = NSNotification.Name("notify-ui-print-progress")
             static public let printDone = NSNotification.Name("notify-ui-print-done")
             static public let printStarted = NSNotification.Name("notify-ui-print-start")
+            static public let alert = NSNotification.Name("notify-ui-alert")
         }
     }
 }

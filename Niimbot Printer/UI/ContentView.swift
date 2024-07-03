@@ -8,6 +8,24 @@
 import SwiftUI
 import SwiftData
 
+public enum AlertType: Int, CaseIterable {
+    case none, printError
+    
+    var title: String {
+        switch self {
+        case .printError: return "Error"
+        case .none: return ""
+        }
+    }
+    var message: String {
+        switch self {
+        case .printError: return "Cannot complete printing operation."
+        case .none: return ""
+        }
+    }
+}
+
+
 struct ContentView: View, Notifier {
     
     enum Views {
@@ -43,7 +61,8 @@ struct ContentView: View, Notifier {
     
     @State var selectedItem: Views?
     @State var showConnectionView: Bool = false
-    
+    @State var showAlert: Bool = false
+    @State var alertType: AlertType = .printError
     
     var body: some View {
         NavigationSplitView {
@@ -73,6 +92,23 @@ struct ContentView: View, Notifier {
             .onAppear { selectedItem = items.first?.id }
         } detail: {
             Text("asdads at uytut")
+        }
+        .alert(Text(alertType.title),
+                isPresented: $showAlert,
+                actions: {
+                    Button("OK") {
+                        showAlert = false;
+                        alertType = .none
+                    }
+                }, message: {
+                    Text(alertType.message)
+                }
+            )
+        .onReceive(NotificationCenter.default.publisher(for: .App.UI.alert)) { notification  in
+            alertType = notification.userInfo?[Notification.Keys.value] as! AlertType
+            withAnimation {
+                showAlert = true
+            }
         }
         .toolbar {
             ToolbarItem(placement: .appBar) {

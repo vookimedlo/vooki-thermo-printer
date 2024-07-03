@@ -390,6 +390,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         }
         catch {
             Self.logger.error("Something went wrong when printing")
+            notifyUIAlert(alertType: .printError)
         }
     }
         

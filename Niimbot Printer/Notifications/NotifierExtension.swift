@@ -31,4 +31,10 @@ extension Notifier {
             NotificationCenter.default.post(name: name, object: self, userInfo: userInfo)
         }
     }
+    
+    func notifyUIAlert(alertType: AlertType) {
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .App.UI.alert, object: self, userInfo: [String : AlertType](dictionaryLiteral: (Notification.Keys.value, alertType)))
+        }
+    }
 }

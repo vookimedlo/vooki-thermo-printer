@@ -35,9 +35,18 @@ class ImageGenerator {
         guard Self.toBlackAndWhite(context: rotatedImageContext, inverted: true) else { return [] }
         return Self.toBytes(context: rotatedImageContext)
     }
+    
+    private let margin: Margin
 
     public init? (size: CGSize) {
+        margin = Margin(left: 0, right: 0, up: 0, bottom: 0)
         guard let ctx = createContext(size: size) else { return nil }
+        context = ctx
+    }
+    
+    public init? (paperType: PaperType) {
+        margin = paperType.margin
+        guard let ctx = createContext(size: paperType.printableSizeInPixels) else { return nil }
         context = ctx
     }
 
@@ -60,7 +69,7 @@ class ImageGenerator {
         context?.saveGState()
         
         context?.setFillColor(red: 1, green: 1, blue: 1, alpha: 1)
-        context?.fill(CGRectMake(0, 0, size.width, size.height ))
+        context?.fill(CGRectMake(0, 0, size.width, size.height))
         
         context?.restoreGState()
         
@@ -69,13 +78,12 @@ class ImageGenerator {
     
     public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) {
         context.saveGState()
-    
-        let margin: CGFloat = 10
+        
         let color = CGColor.black
         let font = CTFontCreateWithName(fontName as CFString, CGFloat(fontSize), nil)
-
+        
         let attributes: [NSAttributedString.Key : Any] = [.font: font, .foregroundColor: color]
-
+        
         let attributedString = NSAttributedString(string: text,
                                                   attributes: attributes)
         
@@ -85,22 +93,22 @@ class ImageGenerator {
         let x: CGFloat = {
             switch horizontal {
             case .left:
-                return margin
+                return margin.left
             case .center:
                 return max((CGFloat(context.width) - stringRect.width) / 2.0, 0)
             case .right:
-                return CGFloat(context.width) - stringRect.width - margin
+                return CGFloat(context.width) - stringRect.width - margin.right
             }
         }()
         
         let y: CGFloat = {
             switch vertical {
             case .bottom:
-                return margin
+                return margin.bottom
             case .center:
                 return max((CGFloat(context.height) - stringRect.height) / 2.0, 0)
             case .top:
-                return CGFloat(context.height) - stringRect.height - margin
+                return CGFloat(context.height) - stringRect.height - margin.up
             }
         }()
         
@@ -108,8 +116,22 @@ class ImageGenerator {
                                        y: y - stringRect.origin.y)
         
         CTLineDraw(line, context)
+        
+        context.setStrokeColor(CGColor.black)
+        context.setLineWidth(1)
+        
+        #if DEBUG_CALIBRATION_PATTERN
+        for i in 0..<50 {
+            let offset = Double(i) * 10.0
+            context.addRect(CGRect(x: 0 + offset,
+                                   y: 0 + offset,
+                                   width: stringRect.width - offset,
+                                   height: stringRect.height - offset))
+            context.drawPath(using: .stroke)
+        }
+        #endif
 
-#if DEBUG_BOUNDING_BOX
+        #if DEBUG_BOUNDING_BOX
         context.setStrokeColor(CGColor.black)
         context.setLineWidth(1)
         context.addRect(CGRect(x: x,
@@ -117,7 +139,7 @@ class ImageGenerator {
                                width: stringRect.width,
                                height: stringRect.height))
         context.drawPath(using: .stroke)
-#endif
+        #endif
 
         context.restoreGState()
     }

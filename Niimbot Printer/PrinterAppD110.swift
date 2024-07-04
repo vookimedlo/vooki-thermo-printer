@@ -90,6 +90,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     @State private var imagePreview = ImagePreview()
     @State private var horizontalAlignment = HorizontalTextAlignment()
     @State private var verticalAlignment = VerticalTextAlignment()
+    @State private var paperType = ObservablePaperType()
 
     var body: some Scene {
         WindowGroup {
@@ -101,7 +102,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 .environmentObject(imagePreview)
                 .environmentObject(horizontalAlignment)
                 .environmentObject(verticalAlignment)
-
+                .environmentObject(paperType)
         }
         .modelContainer(sharedModelContainer)
     }
@@ -212,6 +213,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             Self.logger.info("RFID data - Type: \(rfidData.type)")
 
             DispatchQueue.main.async {
+                self.paperType.type = PaperType(rawValue: rfidData.barcode) ?? .unknown
+                
                 self.printerDetails.isPaperInserted = "Yes"
                 self.paperDetails.remainingCount = String(rfidData.totalLength - rfidData.usedLength)
                 self.paperDetails.printedCount = String(rfidData.usedLength)
@@ -293,7 +296,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     }
     
     private func generateImage() -> ImageGenerator? {
-        guard let image = ImageGenerator(size: CGSize(width: 240, height: 120)) else { return nil }
+        guard let image = ImageGenerator(paperType: paperType.type) else { return nil }
         image.drawText(text: self.textDetails.text,
                        fontName: self.fontDetails.name,
                        fontSize: self.fontDetails.size,
@@ -355,7 +358,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 self.printer?.startPagePrint()
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setDimension) {
-                self.printer?.setDimension(width: 240, height: 120)
+                self.printer?.setDimension(width: UInt16(self.paperType.type.printableSizeInPixels.width),
+                                           height: UInt16(self.paperType.type.printableSizeInPixels.height))
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
                 self.printer?.setLabelDensity(density: 1)

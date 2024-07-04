@@ -75,6 +75,16 @@ struct AlignmentView: View {
         }
     }
 
-//#Preview {
-//    AlignmentView()
-//}
+struct AlignmentPreview: PreviewProvider {
+    static var previews: some View {
+        @State var ha = AlignmentView.HorizontalAlignment.right
+        @State var va = AlignmentView.VerticalAlignment.center
+        
+        AlignmentView(horizontalAlignment: $ha,
+                      verticalAlignment: $va)
+    }
+}
+
+#Preview {
+    AlignmentPreview.previews
+}

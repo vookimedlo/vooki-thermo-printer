@@ -10,5 +10,6 @@ import AppKit
 
 @Observable
 class ImagePreview: ObservableObject, Notifier {
-    var image: NSImage = NSImage(size: NSSize(width: 240, height: 120))
+    var image: NSImage = NSImage(size: NSSize(width: PaperType.unknown.printableSizeInPixels.width,
+                                              height: PaperType.unknown.printableSizeInPixels.height))
 }

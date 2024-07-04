@@ -69,6 +69,10 @@
 		8DED511F2C3080F700B52F1E /* SegmentedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */; };
 		8DED51212C318E3100B52F1E /* HorizontalAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51202C318E3100B52F1E /* HorizontalAlignment.swift */; };
 		8DED51232C31927200B52F1E /* VerticalAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51222C31927200B52F1E /* VerticalAlignment.swift */; };
+		8DF9FE4F2C36A057004DAED2 /* PaperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE4E2C36A057004DAED2 /* PaperType.swift */; };
+		8DF9FE512C36DD5D004DAED2 /* Margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE502C36DD5D004DAED2 /* Margin.swift */; };
+		8DF9FE532C36DF97004DAED2 /* ObservablePaperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */; };
+		8DF9FE552C36E7F8004DAED2 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE542C36E7F8004DAED2 /* Preview.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +151,10 @@
 		8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerView.swift; sourceTree = "<group>"; };
 		8DED51202C318E3100B52F1E /* HorizontalAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalAlignment.swift; sourceTree = "<group>"; };
 		8DED51222C31927200B52F1E /* VerticalAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalAlignment.swift; sourceTree = "<group>"; };
+		8DF9FE4E2C36A057004DAED2 /* PaperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperType.swift; sourceTree = "<group>"; };
+		8DF9FE502C36DD5D004DAED2 /* Margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margin.swift; sourceTree = "<group>"; };
+		8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePaperType.swift; sourceTree = "<group>"; };
+		8DF9FE542C36E7F8004DAED2 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +180,7 @@
 			children = (
 				8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */,
 				8D8AF3CC2C2756CD005E2F94 /* LevelIndicator.swift */,
+				8DF9FE542C36E7F8004DAED2 /* Preview.swift */,
 				8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */,
 			);
 			name = Components;
@@ -231,7 +240,10 @@
 				8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */,
 				8DED51202C318E3100B52F1E /* HorizontalAlignment.swift */,
 				8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */,
+				8DF9FE502C36DD5D004DAED2 /* Margin.swift */,
+				8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */,
 				8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */,
+				8DF9FE4E2C36A057004DAED2 /* PaperType.swift */,
 				8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */,
 				8D8AF3D52C28939F005E2F94 /* TextDetails.swift */,
 				8DED51222C31927200B52F1E /* VerticalAlignment.swift */,
@@ -455,10 +467,12 @@
 				8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */,
 				8D9639412C0B616D00374894 /* Notifier.swift in Sources */,
 				8DED51212C318E3100B52F1E /* HorizontalAlignment.swift in Sources */,
+				8DF9FE4F2C36A057004DAED2 /* PaperType.swift in Sources */,
 				8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */,
 				8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */,
 				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
 				8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */,
+				8DF9FE532C36DF97004DAED2 /* ObservablePaperType.swift in Sources */,
 				8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */,
 				8D9639452C0B984F00374894 /* ObservableExtension.swift in Sources */,
 				8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */,
@@ -473,6 +487,7 @@
 				8D9639492C0B9EC600374894 /* Printer.swift in Sources */,
 				8D8AF3D02C2826FD005E2F94 /* PrinterDetails.swift in Sources */,
 				8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */,
+				8DF9FE512C36DD5D004DAED2 /* Margin.swift in Sources */,
 				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
 				8DED51232C31927200B52F1E /* VerticalAlignment.swift in Sources */,
 				8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */,
@@ -490,6 +505,7 @@
 				8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */,
 				8D76C53B2C090B96005D7EEB /* PosixFileSystemAccess.swift in Sources */,
 				8D84EF9A2C20F6090070BA8A /* FontSelectionView.swift in Sources */,
+				8DF9FE552C36E7F8004DAED2 /* Preview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,6 @@ struct PrinterView: View, Notifier {
 
     @Environment(FontDetails.self) private var fontDetails
     @Environment(TextDetails.self) private var textDetails
-    @Environment(ImagePreview.self) private var imagePreview
     
     @State private var showingInspector: Bool = true
     @State private var showingPrintingProgress: Bool = false
@@ -25,15 +24,13 @@ struct PrinterView: View, Notifier {
         
         @Bindable var fontDetails = fontDetails
         @Bindable var textDetails = textDetails
-        @Bindable var imagePreview = imagePreview
         VStack {
             GroupBox {
                 VStack {
                     Spacer()
                     HStack{
                         Spacer()
-                        Image(nsImage: imagePreview.image)
-                            .shadow(color: .accentColor, radius: 30)
+                        Preview()
                         Spacer()
                     }
                     Spacer()

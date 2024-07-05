@@ -17,7 +17,11 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         category: String(describing: PrinterAppD110.self)
     )
 
-    private var printer: Printer?
+    private var printer: Printer? {
+        willSet {
+            printerAvailability.isAvailable = (newValue != nil)
+        }
+    }
     private var printerDevice: PrinterDevice?
     private var uplinkProcessor: UplinkProcessor?
     
@@ -39,6 +43,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                      Notification.Name.App.stopPopulatingPeripherals,
                      Notification.Name.App.disconnectPeripheral,
                      Notification.Name.App.selectedPeripheral,
+                     Notification.Name.App.lastSelectedPeripheral,
+                     Notification.Name.App.bluetoothPeripheralDisconnected,
                      Notification.Name.App.bluetoothPeripheralDiscovered] {
             registerNotification(name: name,
                                        selector: #selector(receiveBluetoothNotification))
@@ -91,6 +97,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     @State private var horizontalAlignment = HorizontalTextAlignment()
     @State private var verticalAlignment = VerticalTextAlignment()
     @State private var paperType = ObservablePaperType()
+    @State private var printerAvailability = PrinterAvailability()
 
     var body: some Scene {
         WindowGroup {
@@ -103,6 +110,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 .environmentObject(horizontalAlignment)
                 .environmentObject(verticalAlignment)
                 .environmentObject(paperType)
+                .environmentObject(printerAvailability)
         }
         .modelContainer(sharedModelContainer)
     }
@@ -150,6 +158,12 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             printerDevice?.close()
             uplinkProcessor?.stopProcessing()
         }
+        else if Notification.Name.App.bluetoothPeripheralDisconnected ==  notification.name {
+            Self.logger.info("Bluetooth peripheral disconnected")
+            printerDevice?.close()
+            uplinkProcessor?.stopProcessing()
+            printerAvailability.isConnected = false
+        }
         else if Notification.Name.App.startPopulatingPeripherals == notification.name {
             Self.logger.info("Populating peripherals")
             bluetoothSupport.startScanning()
@@ -166,6 +180,11 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             printer = Printer(printerDevice: printerDevice!)
             connect()
         }
+        else if Notification.Name.App.lastSelectedPeripheral == notification.name {
+            Self.logger.info("Last selected peripheral")
+            connect()
+        }
+        
     }
 
     @objc func receivePrinterNotification(_ notification: Notification) {
@@ -278,6 +297,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 uplinkProcessor?.cancel()
             }
             try printerDevice?.open()
+            printerAvailability.isConnected = true
             Self.logger.info("Open")
             self.uplinkProcessor = UplinkProcessor(printerDevice: self.printerDevice!)
             self.uplinkProcessor?.startProcessing()

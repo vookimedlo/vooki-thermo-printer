@@ -59,7 +59,9 @@ struct ContentView: View, Notifier {
     let items: [LitsItem] = [LitsItem(id: .printerView, systemName: "printer", description: "D110 Printer"),
                              LitsItem(id: .historicalView, systemName: "book.closed", description: "History")]
     
-    @State var selectedItem: Views?
+    @Environment(PrinterAvailability.self) private var printerAvailability
+    
+    @State var selectedItem: Views = .printerView
     @State var showConnectionView: Bool = false
     @State var showAlert: Bool = false
     @State var alertType: AlertType = .printError
@@ -89,9 +91,7 @@ struct ContentView: View, Notifier {
                 }
             }
             .listRowSeparator(.hidden)
-            .onAppear { selectedItem = items.first?.id }
         } detail: {
-            Text("asdads at uytut")
         }
         .alert(Text(alertType.title),
                 isPresented: $showAlert,
@@ -112,7 +112,6 @@ struct ContentView: View, Notifier {
         }
         .toolbar {
             ToolbarItem(placement: .appBar) {
-                
                 Menu(content: {
                     Button(action: {
                         withAnimation {
@@ -120,19 +119,21 @@ struct ContentView: View, Notifier {
                         }
                     }) {
                         Text("Search printers")
-                    }
+                    }.disabled(printerAvailability.isConnected)
                     Button(action: {
-                        // TODO
+                        notify(name: .App.lastSelectedPeripheral)
                     }) {
                         Text("Last printer")
-                    }
+                    }.disabled(!printerAvailability.isAvailable || printerAvailability.isConnected)
                 }, label: {
                     SwiftUI.Image(systemName: "antenna.radiowaves.left.and.right")
                         .symbolRenderingMode(.palette)
                         .fontWeight(.regular)
                         .foregroundStyle(.green)
                     Text("Connect ...")
-                }).popover(isPresented: $showConnectionView) {
+                })
+                .disabled(printerAvailability.isConnected)
+                .popover(isPresented: $showConnectionView) {
                     BluetoothPeripheralsView(isPresented: $showConnectionView)
                 }
             }
@@ -145,7 +146,7 @@ struct ContentView: View, Notifier {
                         .fontWeight(.regular)
                         .foregroundStyle(.red)
                     Text("Disconnect")
-                })
+                }).disabled(!printerAvailability.isConnected)
             }
         }
     }
@@ -163,6 +164,7 @@ struct ContentView: View, Notifier {
         .environmentObject(PaperDetails())
         .environmentObject(ImagePreview())
         .environmentObject(ObservablePaperType())
+        .environmentObject(PrinterAvailability())
 }
 
 extension ToolbarItemPlacement {

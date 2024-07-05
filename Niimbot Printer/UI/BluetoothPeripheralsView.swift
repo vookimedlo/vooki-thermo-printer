@@ -70,7 +70,6 @@ struct BluetoothPeripheralsViewPreviews: PreviewProvider {
 
                     return envObj
                 }() )
-
     }
 }
 

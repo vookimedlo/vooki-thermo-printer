@@ -12,7 +12,9 @@ extension Notification.Name {
         static public let startPopulatingPeripherals = NSNotification.Name("notify-bt-start-pop")
         static public let stopPopulatingPeripherals = NSNotification.Name("notify-bt-stop-pop")
         static public let selectedPeripheral = NSNotification.Name("notify-bt-selected")
+        static public let lastSelectedPeripheral = NSNotification.Name("notify-bt-selected-last")
         static public let disconnectPeripheral = NSNotification.Name("notify-bt-disconnect")
+        static public let bluetoothPeripheralDisconnected = NSNotification.Name("notify-bt-disconnected")
         static public let bluetoothPeripheralDiscovered = NSNotification.Name("notify-bt-perip")
         
         static public let horizontalTextAlignment = NSNotification.Name("notify-text-align-horizon")

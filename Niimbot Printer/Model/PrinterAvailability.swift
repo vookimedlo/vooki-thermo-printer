@@ -1,0 +1,14 @@
+//
+//  PrinterAvailability.swift
+//  Niimbot Printer
+//
+//  Created by Michal Duda on 05.07.2024.
+//
+
+import Foundation
+
+@Observable
+class PrinterAvailability: ObservableObject, Notifier {
+    var isAvailable: Bool = false
+    var isConnected: Bool = false
+}

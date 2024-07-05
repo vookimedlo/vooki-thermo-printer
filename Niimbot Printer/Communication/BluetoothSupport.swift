@@ -90,6 +90,7 @@ class BluetoothSupport : NSObject, BluetoothAccess, Notifier, CBCentralManagerDe
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral: CBPeripheral, error: (any Error)?) {
         guard self.peripheral?.identifier == didDisconnectPeripheral.identifier else { return }
         disconnectSemaphore.signal()
+        notify(name: Notification.Name.App.bluetoothPeripheralDisconnected)
     }
     
 

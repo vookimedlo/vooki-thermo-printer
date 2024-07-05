@@ -15,8 +15,13 @@ struct PrinterView: View, Notifier {
     @Environment(FontDetails.self) private var fontDetails
     @Environment(TextDetails.self) private var textDetails
     
+    @Environment(PrinterAvailability.self) private var printerAvailability
+    
     @State private var showingInspector: Bool = true
     @State private var showingPrintingProgress: Bool = false
+    
+    private let controlDisabledColor = Color(NSColor.disabledControlTextColor)
+
     
     var body: some View {
         @Bindable var horizontalAlignment = horizontalAlignment
@@ -78,7 +83,8 @@ struct PrinterView: View, Notifier {
                     Text("Print").fontWeight(.heavy)
                         .frame(maxWidth: .infinity).padding()
                 }
-                .background(Color.accentColor, in: .buttonBorder)
+                .background(printerAvailability.isConnected ? Color.accentColor : controlDisabledColor, in: .buttonBorder)
+                .disabled(!printerAvailability.isConnected)
             }.padding(.horizontal, 250).padding(.bottom)
         }.navigationTitle("D110 Printer")
             .inspector(isPresented: $showingInspector) {

@@ -1,0 +1,75 @@
+//
+//  TextTabView.swift
+//  Niimbot Printer
+//
+//  Created by Michal Duda on 06.07.2024.
+//
+
+import SwiftUI
+
+
+struct TextTabView: View {
+    @Environment(TextProperties.self) private var textProperties
+    
+    private let controlBackgroundColor = Color(NSColor.separatorColor)
+    private let controlSelectedColor = Color(NSColor.selectedControlColor)
+ 
+    @State var selectedTab = 0
+ 
+    var body: some View {
+        
+        ZStack(alignment: .top) {
+            GroupBox {
+                HStack {
+                    Spacer()
+                    TextConstructionView().environmentObject(textProperties.properties[selectedTab])
+                    Spacer()
+                }
+            }.padding(.top, 10)
+            
+            HStack(spacing: 0) {
+                Spacer()
+                ForEach(0..<textProperties.properties.count, id:\.self) {index in
+                    Tab(label: "\(index + 1)", id: index)
+                }
+                NewTab(label: "+")
+                Spacer()
+            }
+        }
+    }
+}
+
+extension TextTabView {
+    @ViewBuilder
+    func Tab(label: String, id: Int) -> some View {
+        ZStack(alignment: .center) {
+            RoundedRectangle(cornerRadius: 3)
+                .fill(id == selectedTab ? controlSelectedColor : controlBackgroundColor)
+                .frame(width: 20, height: 20)
+            Text(label)
+        }.gesture(TapGesture().onEnded({
+            withAnimation {
+                selectedTab = id
+            }
+        }))
+    }
+    
+    func NewTab(label: String) -> some View {
+        ZStack(alignment: .center) {
+            RoundedRectangle(cornerRadius: 3)
+                .fill(controlBackgroundColor)
+                .frame(width: 20, height: 20)
+            Text(label)
+        }.gesture(TapGesture().onEnded({
+            textProperties.properties.append(TextProperty())
+            withAnimation {
+                selectedTab = textProperties.properties.count - 1
+            }
+        }))
+    }
+}
+
+#Preview {
+    TextTabView()
+        .environmentObject(TextProperties())
+}

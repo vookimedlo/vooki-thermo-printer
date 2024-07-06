@@ -31,7 +31,6 @@
 		8D8AF3D02C2826FD005E2F94 /* PrinterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */; };
 		8D8AF3D22C28271B005E2F94 /* PaperDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */; };
 		8D8AF3D42C288EA1005E2F94 /* FontDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */; };
-		8D8AF3D62C28939F005E2F94 /* TextDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D52C28939F005E2F94 /* TextDetails.swift */; };
 		8D8AF3D82C28AE8A005E2F94 /* ImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */; };
 		8D92FBDF2C2CBE460040747C /* PrintStatusPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */; };
 		8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */; };
@@ -67,13 +66,16 @@
 		8DEB860E2C1250BF0028526B /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB860D2C1250BF0028526B /* ImageGenerator.swift */; };
 		8DED511D2C2FE14500B52F1E /* AlignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511C2C2FE14500B52F1E /* AlignmentView.swift */; };
 		8DED511F2C3080F700B52F1E /* SegmentedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */; };
-		8DED51212C318E3100B52F1E /* HorizontalAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51202C318E3100B52F1E /* HorizontalAlignment.swift */; };
-		8DED51232C31927200B52F1E /* VerticalAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51222C31927200B52F1E /* VerticalAlignment.swift */; };
+		8DED51212C318E3100B52F1E /* HorizontalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */; };
+		8DED51232C31927200B52F1E /* VerticalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */; };
 		8DF9FE4F2C36A057004DAED2 /* PaperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE4E2C36A057004DAED2 /* PaperType.swift */; };
 		8DF9FE512C36DD5D004DAED2 /* Margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE502C36DD5D004DAED2 /* Margin.swift */; };
 		8DF9FE532C36DF97004DAED2 /* ObservablePaperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */; };
 		8DF9FE552C36E7F8004DAED2 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE542C36E7F8004DAED2 /* Preview.swift */; };
 		8DF9FE572C37FA8E004DAED2 /* PrinterAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */; };
+		8DF9FE592C38A669004DAED2 /* TextTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE582C38A669004DAED2 /* TextTabView.swift */; };
+		8DF9FE5B2C393E2D004DAED2 /* TextConstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE5A2C393E2D004DAED2 /* TextConstructionView.swift */; };
+		8DF9FE5D2C394D8C004DAED2 /* TextProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE5C2C394D8C004DAED2 /* TextProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,7 +115,6 @@
 		8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDetails.swift; sourceTree = "<group>"; };
 		8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperDetails.swift; sourceTree = "<group>"; };
 		8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDetails.swift; sourceTree = "<group>"; };
-		8D8AF3D52C28939F005E2F94 /* TextDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextDetails.swift; sourceTree = "<group>"; };
 		8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreview.swift; sourceTree = "<group>"; };
 		8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintStatusPacketDecoder.swift; sourceTree = "<group>"; };
 		8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAndWaitAsync.swift; sourceTree = "<group>"; };
@@ -150,13 +151,16 @@
 		8DEB860D2C1250BF0028526B /* ImageGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGenerator.swift; sourceTree = "<group>"; };
 		8DED511C2C2FE14500B52F1E /* AlignmentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlignmentView.swift; sourceTree = "<group>"; };
 		8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerView.swift; sourceTree = "<group>"; };
-		8DED51202C318E3100B52F1E /* HorizontalAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalAlignment.swift; sourceTree = "<group>"; };
-		8DED51222C31927200B52F1E /* VerticalAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalAlignment.swift; sourceTree = "<group>"; };
+		8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTextAlignment.swift; sourceTree = "<group>"; };
+		8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTextAlignment.swift; sourceTree = "<group>"; };
 		8DF9FE4E2C36A057004DAED2 /* PaperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperType.swift; sourceTree = "<group>"; };
 		8DF9FE502C36DD5D004DAED2 /* Margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margin.swift; sourceTree = "<group>"; };
 		8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePaperType.swift; sourceTree = "<group>"; };
 		8DF9FE542C36E7F8004DAED2 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAvailability.swift; sourceTree = "<group>"; };
+		8DF9FE582C38A669004DAED2 /* TextTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTabView.swift; sourceTree = "<group>"; };
+		8DF9FE5A2C393E2D004DAED2 /* TextConstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConstructionView.swift; sourceTree = "<group>"; };
+		8DF9FE5C2C394D8C004DAED2 /* TextProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextProperties.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +188,7 @@
 				8D8AF3CC2C2756CD005E2F94 /* LevelIndicator.swift */,
 				8DF9FE542C36E7F8004DAED2 /* Preview.swift */,
 				8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */,
+				8DF9FE582C38A669004DAED2 /* TextTabView.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -240,7 +245,7 @@
 			children = (
 				8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */,
 				8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */,
-				8DED51202C318E3100B52F1E /* HorizontalAlignment.swift */,
+				8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */,
 				8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */,
 				8DF9FE502C36DD5D004DAED2 /* Margin.swift */,
 				8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */,
@@ -248,8 +253,8 @@
 				8DF9FE4E2C36A057004DAED2 /* PaperType.swift */,
 				8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */,
 				8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */,
-				8D8AF3D52C28939F005E2F94 /* TextDetails.swift */,
-				8DED51222C31927200B52F1E /* VerticalAlignment.swift */,
+				8DF9FE5C2C394D8C004DAED2 /* TextProperties.swift */,
+				8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -345,6 +350,7 @@
 				8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */,
 				8DDC3D432C1A45A900296C72 /* PrinterView.swift */,
 				8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */,
+				8DF9FE5A2C393E2D004DAED2 /* TextConstructionView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -448,6 +454,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DF9FE5B2C393E2D004DAED2 /* TextConstructionView.swift in Sources */,
 				8DDC3D122C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift in Sources */,
 				8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */,
 				8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */,
@@ -463,13 +470,12 @@
 				8DDC3D182C19C72A00296C72 /* BatteryInformationPacketDecoder.swift in Sources */,
 				8D9639432C0B927F00374894 /* NotificationObservable.swift in Sources */,
 				8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */,
-				8D8AF3D62C28939F005E2F94 /* TextDetails.swift in Sources */,
 				8D35E3382C23828A00E8E2A9 /* BluetoothPeripheralsView.swift in Sources */,
 				8DED511F2C3080F700B52F1E /* SegmentedPickerView.swift in Sources */,
 				8DDC3D422C1A290800296C72 /* ContentView.swift in Sources */,
 				8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */,
 				8D9639412C0B616D00374894 /* Notifier.swift in Sources */,
-				8DED51212C318E3100B52F1E /* HorizontalAlignment.swift in Sources */,
+				8DED51212C318E3100B52F1E /* HorizontalTextAlignment.swift in Sources */,
 				8DF9FE4F2C36A057004DAED2 /* PaperType.swift in Sources */,
 				8DF9FE572C37FA8E004DAED2 /* PrinterAvailability.swift in Sources */,
 				8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */,
@@ -491,9 +497,11 @@
 				8D9639492C0B9EC600374894 /* Printer.swift in Sources */,
 				8D8AF3D02C2826FD005E2F94 /* PrinterDetails.swift in Sources */,
 				8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */,
+				8DF9FE592C38A669004DAED2 /* TextTabView.swift in Sources */,
+				8DF9FE5D2C394D8C004DAED2 /* TextProperties.swift in Sources */,
 				8DF9FE512C36DD5D004DAED2 /* Margin.swift in Sources */,
 				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
-				8DED51232C31927200B52F1E /* VerticalAlignment.swift in Sources */,
+				8DED51232C31927200B52F1E /* VerticalTextAlignment.swift in Sources */,
 				8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */,
 				8DED511D2C2FE14500B52F1E /* AlignmentView.swift in Sources */,
 				8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */,

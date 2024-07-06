@@ -1,5 +1,5 @@
 //
-//  HorizontalAlignment.swift
+//  HorizontalTextAlignment.swift
 //  Niimbot Printer
 //
 //  Created by Michal Duda on 30.06.2024.
@@ -14,8 +14,7 @@ class HorizontalTextAlignment: ObservableObject, Notifier {
     var alignment: Alignment = .center {
         willSet {
             guard alignment != newValue else { return }
-            notify(name: Notification.Name.App.horizontalTextAlignment,
-                   userInfo: [String : Alignment](dictionaryLiteral: (Notification.Keys.value, newValue)))
+            notify(name: Notification.Name.App.textPropertiesUpdated)
         }
     }
 }

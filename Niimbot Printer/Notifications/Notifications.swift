@@ -16,12 +16,9 @@ extension Notification.Name {
         static public let disconnectPeripheral = NSNotification.Name("notify-bt-disconnect")
         static public let bluetoothPeripheralDisconnected = NSNotification.Name("notify-bt-disconnected")
         static public let bluetoothPeripheralDiscovered = NSNotification.Name("notify-bt-perip")
-        
-        static public let horizontalTextAlignment = NSNotification.Name("notify-text-align-horizon")
-        static public let verticalTextAlignment = NSNotification.Name("notify-text-align-vertical")
-        static public let textToPrint = NSNotification.Name("notify-text-print")
-        static public let fontSelection = NSNotification.Name("notify-font-selection")
         static public let printRequested = NSNotification.Name("notify-print-req")
+        static public let textPropertiesUpdated = NSNotification.Name("notify-text-props-updated")
+
 
 
         static public let uplinkedPacket = NSNotification.Name("notify-uplinked-packet")

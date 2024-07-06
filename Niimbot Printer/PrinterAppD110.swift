@@ -30,11 +30,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     required init() {
         bluetoothSupport = BluetoothSupport()
         
-        for name in [Notification.Name.App.textToPrint,
-                     Notification.Name.App.fontSelection,
-                     Notification.Name.App.printRequested,
-                     Notification.Name.App.horizontalTextAlignment,
-                     Notification.Name.App.verticalTextAlignment] {
+        for name in [Notification.Name.App.textPropertiesUpdated,
+                     Notification.Name.App.printRequested] {
             registerNotification(name: name,
                                        selector: #selector(receiveNotification))
         }
@@ -91,26 +88,21 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     @State private var bluetoothPepripherals = BluetoothPeripherals()
     @State private var paperDetails = PaperDetails()
     @State private var printerDetails = PrinterDetails()
-    @State private var fontDetails = FontDetails()
-    @State private var textDetails = TextDetails()
     @State private var imagePreview = ImagePreview()
-    @State private var horizontalAlignment = HorizontalTextAlignment()
-    @State private var verticalAlignment = VerticalTextAlignment()
     @State private var paperType = ObservablePaperType()
     @State private var printerAvailability = PrinterAvailability()
+    @State private var textProperties = TextProperties()
 
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(bluetoothPepripherals)
+            ContentView()
+                .environmentObject(bluetoothPepripherals)
                 .environmentObject(printerDetails)
                 .environmentObject(paperDetails)
-                .environmentObject(fontDetails)
-                .environmentObject(textDetails)
                 .environmentObject(imagePreview)
-                .environmentObject(horizontalAlignment)
-                .environmentObject(verticalAlignment)
                 .environmentObject(paperType)
                 .environmentObject(printerAvailability)
+                .environmentObject(textProperties)
         }
         .modelContainer(sharedModelContainer)
     }
@@ -118,27 +110,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     @objc func receiveNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
         
-        if Notification.Name.App.textToPrint == notification.name {
-            let value = notification.userInfo?[Notification.Keys.value] as! String
-            Self.logger.info("Text to print \(value)")
-            generateImagePreview()
-        }
-        else if Notification.Name.App.fontSelection == notification.name {
-            let font = notification.userInfo?[Notification.Keys.font] as! String
-            let size = notification.userInfo?[Notification.Keys.size] as! Int
-            Self.logger.info("Font selection \(font) @ \(size)")
-            generateImagePreview()
-        }
-        else if Notification.Name.App.printRequested == notification.name {
-            Self.logger.info("Print requested")
-            printLabel()
-        }
-        else if Notification.Name.App.horizontalTextAlignment == notification.name {
-            Self.logger.info("Horizontal Alignment changed")
-            generateImagePreview()
-        }
-        else if Notification.Name.App.verticalTextAlignment == notification.name {
-            Self.logger.info("Vertical Alignment changed")
+        if Notification.Name.App.textPropertiesUpdated == notification.name {
+            Self.logger.info("Text properties updated")
             generateImagePreview()
         }
     }
@@ -317,11 +290,14 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     
     private func generateImage() -> ImageGenerator? {
         guard let image = ImageGenerator(paperType: paperType.type) else { return nil }
-        image.drawText(text: self.textDetails.text,
-                       fontName: self.fontDetails.name,
-                       fontSize: self.fontDetails.size,
-                       horizontal: horizontalAlignment.alignment,
-                       vertical: verticalAlignment.alignment)
+        for property in textProperties.properties {
+            guard !property.text.isEmpty else { continue }
+            image.drawText(text: property.text,
+                           fontName: property.fontDetails.name,
+                           fontSize: property.fontDetails.size,
+                           horizontal: property.horizontalAlignment.alignment,
+                           vertical: property.verticalAlignment.alignment)
+        }
         return image
     }
     

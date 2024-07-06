@@ -14,8 +14,7 @@ class VerticalTextAlignment: ObservableObject, Notifier {
     var alignment: Alignment = .center {
         willSet {
             guard alignment != newValue else { return }
-            notify(name: Notification.Name.App.verticalTextAlignment,
-                   userInfo: [String : Alignment](dictionaryLiteral: (Notification.Keys.value, newValue)))
+            notify(name: Notification.Name.App.textPropertiesUpdated)
         }
     }
 }

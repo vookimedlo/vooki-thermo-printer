@@ -11,6 +11,7 @@ struct HistoryView: View {
     var body: some View {
         VStack {
             Text("History View")
+            TextTabView()
         }.navigationTitle("History")
     }
 }

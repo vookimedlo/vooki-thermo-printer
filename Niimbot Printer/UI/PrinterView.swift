@@ -9,12 +9,6 @@ import SwiftUI
 
 
 struct PrinterView: View, Notifier {
-    @Environment(HorizontalTextAlignment.self) private var horizontalAlignment
-    @Environment(VerticalTextAlignment.self) private var verticalAlignment
-
-    @Environment(FontDetails.self) private var fontDetails
-    @Environment(TextDetails.self) private var textDetails
-    
     @Environment(PrinterAvailability.self) private var printerAvailability
     
     @State private var showingInspector: Bool = true
@@ -24,11 +18,6 @@ struct PrinterView: View, Notifier {
 
     
     var body: some View {
-        @Bindable var horizontalAlignment = horizontalAlignment
-        @Bindable var verticalAlignment = verticalAlignment
-        
-        @Bindable var fontDetails = fontDetails
-        @Bindable var textDetails = textDetails
         VStack {
             GroupBox {
                 VStack {
@@ -46,35 +35,7 @@ struct PrinterView: View, Notifier {
             
             Spacer()
             
-            GroupBox {
-                HStack {
-                    Spacer()
-                    TextField("Enter your text for printing ...", text: $textDetails.text).padding()
-                    Spacer()
-                }
-            } label: {
-                Text("What to print")
-            }.padding()
-            
-            GroupBox {
-                GroupBox {
-                    HStack{
-                        AlignmentView(horizontalAlignment: $horizontalAlignment.alignment,
-                                      verticalAlignment: $verticalAlignment.alignment)
-                        Spacer().frame(maxWidth: .infinity)
-                    }
-                } label: {
-                    Text("Alignment")
-                }.padding(.horizontal)
-                
-                FontSelectionView(fontSelection: $fontDetails.name,
-                                  familySelection: $fontDetails.family,
-                                  fontSize: $fontDetails.size).padding()
-                
-            } label: {
-                Text("Text properties")
-            }.padding(.horizontal)
-            
+            TextTabView()
             
             HStack {
                 Button {
@@ -135,4 +96,10 @@ struct PrinterView: View, Notifier {
 
 #Preview {
     PrinterView()
+        .environmentObject(PrinterDetails())
+        .environmentObject(PaperDetails())
+        .environmentObject(ImagePreview())
+        .environmentObject(ObservablePaperType())
+        .environmentObject(PrinterAvailability())
+        .environmentObject(TextProperties())
 }

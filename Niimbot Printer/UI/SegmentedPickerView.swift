@@ -53,7 +53,7 @@ struct SegmentedPickerView<Data, Content>: View where Data: Hashable, Content: V
                     .offset(x: (geo.size.width / CGFloat(data.count)) * Double(i))
                 }
             }
-        }.frame(maxHeight: height)
+        }.frame(height: height)
     }
 }
 

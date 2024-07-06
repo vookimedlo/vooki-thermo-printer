@@ -79,6 +79,8 @@ class ImageGenerator {
     public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) {
         context.saveGState()
         
+        context.textPosition = CGPoint(x: 0, y: 0)
+        
         let color = CGColor.black
         let font = CTFontCreateWithName(fontName as CFString, CGFloat(fontSize), nil)
         

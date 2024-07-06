@@ -156,15 +156,12 @@ struct ContentView: View, Notifier {
     ContentView()
         .modelContainer(for: Item.self, inMemory: true)
         .environmentObject(BluetoothPeripherals())
-        .environmentObject(FontDetails())
-        .environmentObject(TextDetails())
-        .environmentObject(HorizontalTextAlignment())
-        .environmentObject(VerticalTextAlignment())
         .environmentObject(PrinterDetails())
         .environmentObject(PaperDetails())
         .environmentObject(ImagePreview())
         .environmentObject(ObservablePaperType())
         .environmentObject(PrinterAvailability())
+        .environmentObject(TextProperties())
 }
 
 extension ToolbarItemPlacement {

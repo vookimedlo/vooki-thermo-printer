@@ -9,12 +9,37 @@ import Foundation
 
 @Observable
 class TextProperty: ObservableObject, Notifier {
+    public enum WhatToPrint: Int, CaseIterable, SegmentedPrickerHelp {
+        case text, qr
+        
+        var help: String {
+            switch self {
+            case .text: return "Text"
+            case .qr: return "QR code"
+            }
+        }
+    }
+    
     var horizontalAlignment: HorizontalTextAlignment = HorizontalTextAlignment()
     var verticalAlignment: VerticalTextAlignment = VerticalTextAlignment()
     var fontDetails: FontDetails = FontDetails()
     var text: String = "" {
         willSet {
             guard text != newValue else { return }
+            notify(name: Notification.Name.App.textPropertiesUpdated)
+        }
+    }
+    var whatToPrint: WhatToPrint = .text
+    {
+        willSet {
+            guard whatToPrint != newValue else { return }
+            notify(name: Notification.Name.App.textPropertiesUpdated)
+        }
+    }
+    var squareCodeSize = 80
+    {
+        willSet {
+            guard squareCodeSize != newValue else { return }
             notify(name: Notification.Name.App.textPropertiesUpdated)
         }
     }

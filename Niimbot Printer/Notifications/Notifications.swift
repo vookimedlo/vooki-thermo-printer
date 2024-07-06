@@ -60,7 +60,5 @@ extension Notification {
         static public let packet = "key-packet"
         static public let value = "key-value"
         static public let peripheral = "key-peripheral"
-        static public let font = "key-font"
-        static public let size = "key-size"
     }
 }

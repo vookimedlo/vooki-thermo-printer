@@ -114,6 +114,10 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             Self.logger.info("Text properties updated")
             generateImagePreview()
         }
+        else if Notification.Name.App.printRequested == notification.name {
+            Self.logger.info("Print requested")
+            printLabel()
+        }
     }
     
     @objc func receiveBluetoothNotification(_ notification: Notification) {
@@ -292,11 +296,19 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         guard let image = ImageGenerator(paperType: paperType.type) else { return nil }
         for property in textProperties.properties {
             guard !property.text.isEmpty else { continue }
-            image.drawText(text: property.text,
-                           fontName: property.fontDetails.name,
-                           fontSize: property.fontDetails.size,
-                           horizontal: property.horizontalAlignment.alignment,
-                           vertical: property.verticalAlignment.alignment)
+            switch property.whatToPrint {
+            case .text:
+                image.drawText(text: property.text,
+                               fontName: property.fontDetails.name,
+                               fontSize: property.fontDetails.size,
+                               horizontal: property.horizontalAlignment.alignment,
+                               vertical: property.verticalAlignment.alignment)
+            case .qr:
+                image.generateQRCode(text: property.text,
+                                     size: property.squareCodeSize,
+                                     horizontal: property.horizontalAlignment.alignment,
+                                     vertical: property.verticalAlignment.alignment)
+            }
         }
         return image
     }

@@ -1,5 +1,5 @@
 //
-//  ObservableExtension.swift
+//  NotificationObservableExtension.swift
 //  Niimbot Printer
 //
 //  Created by Michal Duda on 01.06.2024.

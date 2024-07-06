@@ -8,41 +8,76 @@
 import SwiftUI
 
 
-struct TextConstructionView: View {
+struct TextConstructionView: View {    
     @Environment(TextProperty.self) private var textProperty
-    
+
     var body: some View {
         @Bindable var textProperty = textProperty
         
         VStack() {
             GroupBox {
-                HStack {
-                    Spacer()
-                    TextField("Enter your text for printing ...", text: $textProperty.text)
-                        .padding()
-                    Spacer()
-                }
+                VStack{
+                    HStack {
+                        Spacer()
+                        SegmentedPickerView(TextProperty.WhatToPrint.allCases, selection: $textProperty.whatToPrint) { item in
+                            Text(item.help)
+                        }.frame(width: 200)
+                        Spacer().frame(maxWidth: .infinity)
+                    }.padding(.bottom)
+                    
+                    HStack {
+                        Spacer()
+                        TextField("Enter your text for printing ...", text: $textProperty.text)
+                        Spacer()
+                    }
+                }.padding()
             } label: {
                 Text("What to print")
             }
             
-            GroupBox {
+            if textProperty.whatToPrint == .text {
                 GroupBox {
-                    HStack{
-                        AlignmentView(horizontalAlignment: $textProperty.horizontalAlignment.alignment,
-                                      verticalAlignment: $textProperty.verticalAlignment.alignment)
-                        Spacer().frame(maxWidth: .infinity)
-                    }
+                    GroupBox {
+                        HStack{
+                            AlignmentView(horizontalAlignment: $textProperty.horizontalAlignment.alignment,
+                                          verticalAlignment: $textProperty.verticalAlignment.alignment)
+                            Spacer().frame(maxWidth: .infinity)
+                        }
+                    } label: {
+                        Text("Alignment")
+                    }.padding(.horizontal)
+                    
+                    FontSelectionView(fontSelection: $textProperty.fontDetails.name,
+                                      familySelection: $textProperty.fontDetails.family,
+                                      fontSize: $textProperty.fontDetails.size)
+                    .padding()
                 } label: {
-                    Text("Alignment")
-                }.padding(.horizontal)
-                
-                FontSelectionView(fontSelection: $textProperty.fontDetails.name,
-                                  familySelection: $textProperty.fontDetails.family,
-                                  fontSize: $textProperty.fontDetails.size)
-                .padding()
-            } label: {
-                Text("Text properties")
+                    Text("Text properties")
+                }
+            }
+            
+            if textProperty.whatToPrint == .qr {
+                GroupBox {
+                    GroupBox {
+                        HStack{
+                            AlignmentView(horizontalAlignment: $textProperty.horizontalAlignment.alignment,
+                                          verticalAlignment: $textProperty.verticalAlignment.alignment)
+                            Spacer().frame(maxWidth: .infinity)
+                        }
+                    } label: {
+                        Text("Alignment")
+                    }.padding(.horizontal)
+                    
+                    
+                    IndicatorValueSlider(value: $textProperty.squareCodeSize,
+                                        minValue: 75,
+                                        maxValue: 120,
+                                        label: { Text("Size").font(.headline) }).padding(.horizontal)
+
+                    
+                } label: {
+                    Text("QR code properties")
+                }
             }
         }
     }

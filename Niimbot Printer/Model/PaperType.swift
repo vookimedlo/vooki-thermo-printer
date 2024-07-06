@@ -33,9 +33,9 @@ public enum PaperType: String, CaseIterable {
     var printableSizeInMillimeters: CGSize {
         switch self {
         case .ean02282280, .ean6972842743589:
-            return CGSize(width: 30, height: 11)
+            return CGSize(width: 30, height: 10)
         case .unknown:
-            return CGSize(width: 30, height: 11)
+            return CGSize(width: 30, height: 10)
         }
     }
     
@@ -60,9 +60,9 @@ public enum PaperType: String, CaseIterable {
     var margin: Margin {
         switch self {
         case .ean02282280, .ean6972842743589:
-            return Margin(left: 10, right: 10, up: 2, bottom: 2)
+            return Margin(left: 12, right: 10, up: 2, bottom: 2)
         case .unknown:
-            return Margin(left: 10, right: 10, up: 10, bottom: 10)
+            return Margin(left: 12, right: 10, up: 10, bottom: 10)
         }
     }
 }

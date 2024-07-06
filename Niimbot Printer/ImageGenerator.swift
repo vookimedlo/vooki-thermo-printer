@@ -9,6 +9,7 @@ import Foundation
 import AppKit
 import CoreGraphics
 import CoreImage
+import CoreImage.CIFilterBuiltins
 import CoreText
 
 
@@ -144,6 +145,59 @@ class ImageGenerator {
         #endif
 
         context.restoreGState()
+    }
+    
+    public func generateQRCode(text: String, size: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) {
+        guard let data = text.data(using: String.Encoding.ascii) else { return }
+        let filter = CIFilter.qrCodeGenerator()
+        filter.message = data
+        filter.correctionLevel = "M"
+
+        let transform = CGAffineTransform(scaleX: 3, y: 3)
+        if let output = filter.outputImage?.transformed(by: transform) {
+            guard let cgImage = toCGImage(input: output) else { return }
+            
+            let sizeFloat = CGFloat(size)
+
+            context.saveGState()
+                        
+            let x: CGFloat = {
+                switch horizontal {
+                case .left:
+                    return margin.left
+                case .center:
+                    return max((CGFloat(context.width) - sizeFloat) / 2.0, 0)
+                case .right:
+                    return CGFloat(context.width) - sizeFloat - margin.right
+                }
+            }()
+            
+            let y: CGFloat = {
+                switch vertical {
+                case .bottom:
+                    return 0
+                case .center:
+                    return max((CGFloat(context.height) - sizeFloat) / 2.0, 0)
+                case .top:
+                    return CGFloat(context.height) - sizeFloat
+                }
+            }()
+            
+            context.draw(cgImage,
+                         in: NSMakeRect(x,
+                                        y,
+                                        sizeFloat,
+                                        sizeFloat),
+                         byTiling: false)
+            
+            context.restoreGState()
+        }
+    }
+    
+    static let ciContext = CIContext(options: [.useSoftwareRenderer: false])
+
+    private func toCGImage(input: CIImage) -> CGImage? {
+        return Self.ciContext.createCGImage(input, from: input.extent)
     }
     
     private static func toBlackAndWhite(context: CGContext, inverted: Bool = false) -> Bool {

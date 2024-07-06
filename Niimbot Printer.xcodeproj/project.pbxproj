@@ -38,7 +38,7 @@
 		8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96393E2C0B5E0600374894 /* Notifications.swift */; };
 		8D9639412C0B616D00374894 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639402C0B616D00374894 /* Notifier.swift */; };
 		8D9639432C0B927F00374894 /* NotificationObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639422C0B927F00374894 /* NotificationObservable.swift */; };
-		8D9639452C0B984F00374894 /* ObservableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639442C0B984F00374894 /* ObservableExtension.swift */; };
+		8D9639452C0B984F00374894 /* NotificationObservableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639442C0B984F00374894 /* NotificationObservableExtension.swift */; };
 		8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639462C0B9C8B00374894 /* NotifierExtension.swift */; };
 		8D9639492C0B9EC600374894 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
 		8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
@@ -122,7 +122,7 @@
 		8D96393E2C0B5E0600374894 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		8D9639402C0B616D00374894 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		8D9639422C0B927F00374894 /* NotificationObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObservable.swift; sourceTree = "<group>"; };
-		8D9639442C0B984F00374894 /* ObservableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableExtension.swift; sourceTree = "<group>"; };
+		8D9639442C0B984F00374894 /* NotificationObservableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObservableExtension.swift; sourceTree = "<group>"; };
 		8D9639462C0B9C8B00374894 /* NotifierExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifierExtension.swift; sourceTree = "<group>"; };
 		8D9639482C0B9EC600374894 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		8D96394A2C0BA60800374894 /* PacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoder.swift; sourceTree = "<group>"; };
@@ -294,7 +294,7 @@
 				8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */,
 				8D96391E2C0A8E8B00374894 /* DataExtension.swift */,
 				8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */,
-				8D9639442C0B984F00374894 /* ObservableExtension.swift */,
+				8D9639442C0B984F00374894 /* NotificationObservableExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -484,7 +484,7 @@
 				8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */,
 				8DF9FE532C36DF97004DAED2 /* ObservablePaperType.swift in Sources */,
 				8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */,
-				8D9639452C0B984F00374894 /* ObservableExtension.swift in Sources */,
+				8D9639452C0B984F00374894 /* NotificationObservableExtension.swift in Sources */,
 				8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */,
 				8D8AF3CD2C2756CD005E2F94 /* LevelIndicator.swift in Sources */,
 				8DDC3D442C1A45A900296C72 /* PrinterView.swift in Sources */,

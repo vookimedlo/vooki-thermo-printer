@@ -15,9 +15,11 @@ struct PrinterLabelDetailView: View {
         GroupBox {
             VStack(alignment: .leading) {
                 add(title: "Number of remaining labels", value: $details.remainingCount)
+                    .animation(.smooth, value: details.remainingCount)
                 Divider().padding(.horizontal)
 
                 add(title: "Number of printed labels", value: $details.printedCount)
+                    .animation(.smooth, value: details.printedCount)
                 Divider().padding(.horizontal)
 
                 add(title: "Serial number", value: $details.serialNumber)
@@ -29,6 +31,8 @@ struct PrinterLabelDetailView: View {
                 add(title: "Type", value: $details.type)
             }
         }
+        .animation(.easeIn(duration: 2), value: details.remainingCount)
+        .animation(.easeIn(duration: 2), value: details.printedCount)
     }
     
     private func add(title: String, value: Binding<String>) -> some View {

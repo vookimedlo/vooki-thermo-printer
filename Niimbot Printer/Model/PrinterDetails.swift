@@ -9,17 +9,19 @@ import Foundation
 
 @Observable
 class PrinterDetails: ObservableObject {
-    var serialNumber: String = "N/A"
-    var softwareVersion: String = "N/A"
-    var deviceType: String = "N/A"
-    var isPaperInserted: String = "No"
+    var name = ""
+    var serialNumber: String = ""
+    var softwareVersion: String = ""
+    var deviceType: String = ""
+    var isPaperInserted: Bool = false
     var batteryLevel: Int = 0
     
     func clear() {
-        serialNumber = "N/A"
-        softwareVersion = "N/A"
-        deviceType = "N/A"
-        isPaperInserted = "No"
+        name = ""
+        serialNumber = ""
+        softwareVersion = ""
+        deviceType = ""
+        isPaperInserted = false
         batteryLevel = 0
     }
 }

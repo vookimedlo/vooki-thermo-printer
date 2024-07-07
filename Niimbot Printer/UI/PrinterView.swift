@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PrinterView: View, Notifier {
     @Environment(PrinterAvailability.self) private var printerAvailability
+    @Environment(PrinterDetails.self) private var printeDetails
     
     @State private var showingInspector: Bool = true
     @State private var showingPrintingProgress: Bool = false
@@ -35,14 +36,14 @@ struct PrinterView: View, Notifier {
             
             Spacer()
             
-            TextTabView()
+            TextTabView().padding([.horizontal, .bottom])
             
             HStack {
                 Button {
                     notify(name: Notification.Name.App.printRequested)
                 } label: {
                     Text("Print").fontWeight(.heavy)
-                        .frame(maxWidth: .infinity).padding()
+                        .frame(minWidth: 200, maxWidth: .infinity).padding()
                 }
                 .background(printerAvailability.isConnected ? Color.accentColor : controlDisabledColor, in: .buttonBorder)
                 .disabled(!printerAvailability.isConnected)
@@ -54,13 +55,17 @@ struct PrinterView: View, Notifier {
                         Section(header: Text("Printer")) {
                             PrinterDetailsView()
                         }
-                        
-                        Section(header: Text("Paper")) {
-                            PrinterLabelDetailView()
+
+                        if printerAvailability.isConnected && printeDetails.isPaperInserted {
+                            Section(header: Text("Paper")) {
+                                PrinterLabelDetailView()
+                            }
                         }
                     }.listStyle(.sidebar)
                     Spacer()
                 }
+                .animation(.easeInOut, value: printerAvailability.isConnected)
+                .animation(.easeInOut, value: printeDetails.isPaperInserted)
             }.onReceive(NotificationCenter.default.publisher(for: .App.UI.printStarted)) { _ in
                 withAnimation {
                     showingPrintingProgress = true

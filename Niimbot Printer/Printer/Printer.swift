@@ -33,8 +33,8 @@ class Printer {
     
     func send(packet: Packet) {
         let downlink = packet.downlink()
-        var c = try! self.printerDevice.downlink(from: downlink)
-        Self.logger.info("Write \(c)")
+        let writtenBytes = try! self.printerDevice.downlink(from: downlink)
+        Self.logger.debug("Write op: \(writtenBytes) bytes")
     }
     
     public func getBatteryInformation() {

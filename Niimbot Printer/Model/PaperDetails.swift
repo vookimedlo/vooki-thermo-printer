@@ -14,4 +14,12 @@ class PaperDetails: ObservableObject {
     var printedCount: String = "N/A"
     var barcode: String = "N/A"
     var type: String = "N/A"
+    
+    func clear() {
+        serialNumber = ""
+        remainingCount = ""
+        printedCount = ""
+        barcode = ""
+        type = ""
+    }
 }

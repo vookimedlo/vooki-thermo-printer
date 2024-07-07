@@ -140,6 +140,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             printerDevice?.close()
             uplinkProcessor?.stopProcessing()
             printerAvailability.isConnected = false
+            printerDetails.clear()
+            paperDetails.clear()
         }
         else if Notification.Name.App.startPopulatingPeripherals == notification.name {
             Self.logger.info("Populating peripherals")
@@ -196,7 +198,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             let device_type = notification.userInfo?[Notification.Keys.value] as! UInt16
             Self.logger.info("Device type: \(device_type)")
             DispatchQueue.main.async {
-                self.printerDetails.deviceType = String(device_type)
+                self.printerDetails.deviceType = 2304 == device_type ? "D110" : String(device_type)
             }
         }
         else if Notification.Name.App.rfidData ==  notification.name {
@@ -211,18 +213,19 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             DispatchQueue.main.async {
                 self.paperType.type = PaperType(rawValue: rfidData.barcode) ?? .unknown
                 
-                self.printerDetails.isPaperInserted = "Yes"
                 self.paperDetails.remainingCount = String(rfidData.totalLength - rfidData.usedLength)
                 self.paperDetails.printedCount = String(rfidData.usedLength)
                 self.paperDetails.barcode = rfidData.barcode
                 self.paperDetails.serialNumber = rfidData.serial
                 self.paperDetails.type = String(rfidData.type)
+                self.printerDetails.isPaperInserted = true
             }
         }
         else if Notification.Name.App.noPaper ==  notification.name {
             Self.logger.info("No paper")
             DispatchQueue.main.async {
-                self.printerDetails.isPaperInserted = "No"            }
+                self.printerDetails.isPaperInserted = false
+            }
         }
         else if Notification.Name.App.startPrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
@@ -274,6 +277,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 uplinkProcessor?.cancel()
             }
             try printerDevice?.open()
+            printerDetails.name = printerDevice?.io.name ?? ""
             printerAvailability.isConnected = true
             Self.logger.info("Open")
             self.uplinkProcessor = UplinkProcessor(printerDevice: self.printerDevice!)

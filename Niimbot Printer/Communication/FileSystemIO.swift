@@ -12,6 +12,10 @@ public class FileSystemIO : IO {
     let filepath: String
     let fileSystemAccess: FileSystemAccess
     
+    public var name: String {
+        return filepath
+    }
+    
     public init(fileSystemAccess: FileSystemAccess, filepath: String) {
         self.fileSystemAccess = fileSystemAccess
         self.filepath = filepath

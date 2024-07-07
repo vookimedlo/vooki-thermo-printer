@@ -20,6 +20,10 @@ class BluetoothIO : IO, DataConsumer {
     var incomingData: Data
     let incomingDataLock = NSLock()
     let incomingDataSemaphore = DispatchSemaphore(value: 0)
+    
+    public var name: String {
+        return bluetoothAccess.name
+    }
         
     public init(bluetoothAccess: BluetoothAccess) {
         self.bluetoothAccess = bluetoothAccess

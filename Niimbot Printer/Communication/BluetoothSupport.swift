@@ -23,6 +23,10 @@ class BluetoothSupport : NSObject, BluetoothAccess, Notifier, CBCentralManagerDe
     var peripheral: CBPeripheral?
     var characteristic: CBCharacteristic?
     
+    var name: String {
+        return peripheral?.name ?? ""
+    }
+    
     var isConnectedPrinter: Bool = false
 
     static let centralManager = CBCentralManager(delegate: nil, queue: DispatchQueue(label: "CentralManager"))

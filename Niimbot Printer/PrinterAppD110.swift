@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import os
+import TipKit
 
 
 @main
@@ -29,6 +30,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         
     required init() {
         bluetoothSupport = BluetoothSupport()
+        try? Tips.resetDatastore()
+        try? Tips.configure()
         
         for name in [Notification.Name.App.textPropertiesUpdated,
                      Notification.Name.App.printRequested] {
@@ -299,19 +302,23 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     private func generateImage() -> ImageGenerator? {
         guard let image = ImageGenerator(paperType: paperType.type) else { return nil }
         for property in textProperties.properties {
-            guard !property.text.isEmpty else { continue }
             switch property.whatToPrint {
             case .text:
+                guard !property.text.isEmpty else { continue }
                 image.drawText(text: property.text,
                                fontName: property.fontDetails.name,
                                fontSize: property.fontDetails.size,
                                horizontal: property.horizontalAlignment.alignment,
                                vertical: property.verticalAlignment.alignment)
             case .qr:
+                guard !property.text.isEmpty else { continue }
                 image.generateQRCode(text: property.text,
                                      size: property.squareCodeSize,
                                      horizontal: property.horizontalAlignment.alignment,
                                      vertical: property.verticalAlignment.alignment)
+            case .image:
+                guard !property.image.isEmpty else { continue }
+                image.drawImage(data: property.image)
             }
         }
         return image

@@ -10,12 +10,13 @@ import Foundation
 @Observable
 class TextProperty: ObservableObject, Notifier {
     public enum WhatToPrint: Int, CaseIterable, SegmentedPrickerHelp {
-        case text, qr
+        case text, qr, image
         
         var help: String {
             switch self {
             case .text: return "Text"
             case .qr: return "QR code"
+            case .image: return "Image"
             }
         }
     }
@@ -40,6 +41,13 @@ class TextProperty: ObservableObject, Notifier {
     {
         willSet {
             guard squareCodeSize != newValue else { return }
+            notify(name: Notification.Name.App.textPropertiesUpdated)
+        }
+    }
+    var image: Data = Data()
+    {
+        willSet {
+            guard image != newValue else { return }
             notify(name: Notification.Name.App.textPropertiesUpdated)
         }
     }

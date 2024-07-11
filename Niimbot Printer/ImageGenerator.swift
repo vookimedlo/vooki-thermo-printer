@@ -78,7 +78,12 @@ class ImageGenerator {
     }
     
     public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) {
+        guard !text.isEmpty else { return }
+
         context.saveGState()
+        defer {
+            context.restoreGState()
+        }
         
         context.textPosition = CGPoint(x: 0, y: 0)
         
@@ -143,11 +148,21 @@ class ImageGenerator {
                                height: stringRect.height))
         context.drawPath(using: .stroke)
         #endif
+    }
+    
+    public func drawImage(data: Data) {
+        guard !data.isEmpty else { return }
 
-        context.restoreGState()
+        context.saveGState()
+        defer {
+            context.restoreGState()
+        }
+        guard let cgImage = NSImage(data: data)?.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return }
+        context.draw(cgImage, in: NSMakeRect(0, 0, CGFloat(cgImage.width), CGFloat(cgImage.height)), byTiling: false)
     }
     
     public func generateQRCode(text: String, size: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) {
+        guard !text.isEmpty else { return }
         guard let data = text.data(using: String.Encoding.ascii) else { return }
         let filter = CIFilter.qrCodeGenerator()
         filter.message = data

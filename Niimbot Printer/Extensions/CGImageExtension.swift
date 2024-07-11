@@ -7,6 +7,7 @@
 
 import Foundation
 import AppKit
+import UniformTypeIdentifiers
 
 public extension CGImage {
     func rotatedContext(to orientation: CGImagePropertyOrientation) -> CGContext? {
@@ -82,5 +83,12 @@ public extension CGImage {
                                       bitmapInfo: self.bitmapInfo.rawValue) else { return nil }
         context.draw(self, in: CGRect(x: 0, y: 0, width: self.width, height: self.height))
         return context
+    }
+    
+    var data: Data {
+        var data: CFMutableData = CFDataCreateMutable(nil, 0)
+        guard let destination = CGImageDestinationCreateWithData(data, UTType.tiff.identifier as CFString, 1, nil) else { return Data() }
+        CGImageDestinationAddImage(destination, self, nil)
+        return CGImageDestinationFinalize(destination) ? data as Data : Data()
     }
 }

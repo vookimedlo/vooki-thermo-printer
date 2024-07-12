@@ -9,10 +9,63 @@ import SwiftUI
 import TipKit
 import UniformTypeIdentifiers
 
+public enum Decoration: Int, Equatable, CaseIterable {
+    case custom
+    case frame, frame3, frame4, frame5
+    case doubleFrame, doubleFrame3, doubleFrame4, doubleFrame5
+
+    var name: String {
+        switch self {
+        case .custom:
+            "Custom image"
+        case .frame:
+            "Full frame"
+        case .frame3:
+            "Frame 1/3"
+        case .frame4:
+            "Frame 1/4"
+        case .frame5:
+            "Frame 1/5"
+        case .doubleFrame:
+            "Double full frame"
+        case .doubleFrame3:
+            "Double frame 1/3"
+        case .doubleFrame4:
+            "Double frame 1/4"
+        case .doubleFrame5:
+            "Double frame 1/5"
+        }
+        
+    }
+    
+    var frameDivider: CGFloat {
+        switch self {
+        case .frame, .doubleFrame: 2
+        case .frame3, .doubleFrame3: 3
+        case .frame4, .doubleFrame4: 4
+        case .frame5, .doubleFrame5: 5
+        default:
+            1
+        }
+    }
+    
+    var isDoubleFrame: Bool {
+        switch self {
+        case .doubleFrame, .doubleFrame3, .doubleFrame4, .doubleFrame5:
+            true
+        default:
+            false
+        }
+    }
+}
+
 
 struct TextConstructionView: View {    
     @Environment(TextProperty.self) private var textProperty
     @Environment(ObservablePaperType.self) private var paperType
+    
+   // @State private var selectedDecoration: Decoration = .custom
+
     
     var body: some View {
         @Bindable var textProperty = textProperty
@@ -31,8 +84,18 @@ struct TextConstructionView: View {
                     
                     switch textProperty.whatToPrint {
                     case .image:
-                        TipView(ImageTip(size: paperType.type.printableSizeInPixels),
-                                arrowEdge: .bottom)
+                        
+                        Form {
+                            Picker("Decoration", selection: $textProperty.imageDecoration) {
+                                ForEach(Decoration.allCases, id: \.self) {item in
+                                    Text(item.name)
+                                }
+                            }
+                        }
+                        
+                        if (textProperty.imageDecoration == .custom) {
+                            TipView(ImageTip(size: paperType.type.printableSizeInPixels),
+                                    arrowEdge: .bottom)
                             .containerRelativeFrame(.vertical, alignment: .top) { value, axis in
                                 switch axis {
                                 case .horizontal:
@@ -40,6 +103,7 @@ struct TextConstructionView: View {
                                 case .vertical:
                                     return 90
                                 }
+                            }
                         }
                             HStack {
                                 ZStack {

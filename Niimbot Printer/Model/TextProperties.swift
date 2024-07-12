@@ -51,6 +51,15 @@ class TextProperty: ObservableObject, Notifier {
             notify(name: Notification.Name.App.textPropertiesUpdated)
         }
     }
+    
+    var imageDecoration: Decoration = .custom
+    {
+        willSet {
+            guard imageDecoration != newValue else { return }
+            image = Data()
+            notify(name: Notification.Name.App.textPropertiesUpdated)
+        }
+    }
 }
 
 @Observable

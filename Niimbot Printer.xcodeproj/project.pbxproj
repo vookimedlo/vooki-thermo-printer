@@ -181,6 +181,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D1EFC2C2C40311100C25DEB /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				8DEB860D2C1250BF0028526B /* ImageGenerator.swift */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
 		8D1F59B92C20EAD7002A037F /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -217,6 +225,7 @@
 				8D58DC192C052198001EBD95 /* Assets.xcassets */,
 				8DDC3D212C19ECBE00296C72 /* Communication */,
 				8DDC3D1F2C19EBB800296C72 /* Extensions */,
+				8D1EFC2C2C40311100C25DEB /* Image */,
 				8D8AF3CE2C2826E2005E2F94 /* Model */,
 				8D58DC1E2C052198001EBD95 /* Niimbot_Printer.entitlements */,
 				8DEB85E62C0CBFD40028526B /* Niimbot-Printer-Info.plist */,
@@ -224,7 +233,6 @@
 				8DDC3D092C19C62D00296C72 /* Packet */,
 				8DDC3D222C19EDFC00296C72 /* Printer */,
 				8DDC3D232C19EE6100296C72 /* UI */,
-				8DEB860D2C1250BF0028526B /* ImageGenerator.swift */,
 				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
 			);
 			path = "Niimbot Printer";

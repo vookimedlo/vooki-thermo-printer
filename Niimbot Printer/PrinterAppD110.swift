@@ -316,9 +316,24 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                                      size: property.squareCodeSize,
                                      horizontal: property.horizontalAlignment.alignment,
                                      vertical: property.verticalAlignment.alignment)
-            case .image:
-                guard !property.image.isEmpty else { continue }
-                image.drawImage(data: property.image)
+            case .image:                
+                switch (property.imageDecoration) {
+                case .custom:
+                    guard !property.image.isEmpty else { continue }
+                    image.drawImage(data: property.image)
+                case .frame, .frame3, .frame4, .frame5:
+                    fallthrough
+                case .doubleFrame, .doubleFrame3, .doubleFrame4, .doubleFrame5:
+                    let divider = property.imageDecoration.frameDivider
+                    let isDoubleFrame = property.imageDecoration.isDoubleFrame
+                    image.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
+                    guard property.image.isEmpty else { continue }
+                    guard let imagePreview = ImageGenerator(paperType: paperType.type) else { continue }
+                    imagePreview.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
+                    DispatchQueue.main.async {
+                        property.image = imagePreview.cgImage?.data ?? Data()
+                    }
+                }
             }
         }
         return image

@@ -22,6 +22,11 @@ class ImageGenerator {
         return NSImage(cgImage: image, size: .zero)
     }
     
+    public var cgImage: CGImage? {
+        guard Self.toBlackAndWhite(context: context, inverted: false) else { return nil }
+        return  context.makeImage()
+    }
+    
     public var rotatedImage: NSImage? {
         return generateRotatedImage(inverted: false)
     }
@@ -65,15 +70,18 @@ class ImageGenerator {
                                 bitsPerComponent: 8,
                                 bytesPerRow: bitmapBytesPerRow,
                                 space: CGColorSpaceCreateDeviceRGB(),
-                                bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipLast.rawValue).rawValue)
+                                bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue).rawValue)
 
         context?.saveGState()
+        defer {
+            context?.restoreGState()
+        }
         
-        context?.setFillColor(red: 1, green: 1, blue: 1, alpha: 1)
+        context?.setFillColor(red: 1,
+                              green: 1,
+                              blue: 1,
+                              alpha: 1)
         context?.fill(CGRectMake(0, 0, size.width, size.height))
-        
-        context?.restoreGState()
-        
         return context
     }
     
@@ -161,6 +169,87 @@ class ImageGenerator {
         context.draw(cgImage, in: NSMakeRect(0, 0, CGFloat(cgImage.width), CGFloat(cgImage.height)), byTiling: false)
     }
     
+    private func lineMargins(horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment, offset: CGFloat = 0) -> CGPoint {
+        let x: CGFloat = {
+            switch horizontal {
+            case .left:
+                return margin.left + offset
+            case .right:
+                return (CGFloat(context.width)) - margin.right - offset
+            case .center:
+                return (CGFloat(context.width)) / 2
+            }
+        }()
+        
+        let y: CGFloat = {
+            switch vertical {
+            case .top:
+                return (CGFloat(context.height)) - margin.up - offset
+            case .bottom:
+                return margin.bottom + offset
+            case .center:
+                return (CGFloat(context.height)) / 2
+            }
+        }()
+        
+        return CGPoint(x: x, y: y)
+    }
+    
+    func horizontalDivider(_ by: CGFloat) -> CGFloat {
+        return ((CGFloat(context.width)) - margin.left - margin.right) / by
+    }
+    
+    func verticalDivider(_ by: CGFloat) -> CGFloat {
+        return ((CGFloat(context.height)) - margin.bottom - margin.up) / by
+    }
+    
+    func addOffset(_ point: CGPoint, x: CGFloat = 0, y: CGFloat = 0) -> CGPoint {
+        return CGPointMake(point.x + x, point.y + y)
+    }
+    
+    public func drawBorder(divide_by: CGFloat, doubleBorder: Bool = false) {
+        context.saveGState()
+        defer {
+            context.restoreGState()
+        }
+        
+        let offsets: [Int] = doubleBorder ? [0, 5] : [0]
+        
+        for i in offsets {
+            do {
+                let firstPoint = lineMargins(horizontal: .left, vertical: .bottom, offset: CGFloat(i))
+                let secondPoint = addOffset(firstPoint, x: horizontalDivider(divide_by) - CGFloat(i))
+                let thirdPoint = addOffset(firstPoint, y: verticalDivider(divide_by) - CGFloat(i))
+                context.strokeLineSegments(between: [firstPoint, secondPoint,
+                                                     firstPoint, thirdPoint])
+            }
+            
+            do {
+                let firstPoint = lineMargins(horizontal: .right, vertical: .bottom, offset: CGFloat(i))
+                let secondPoint = addOffset(firstPoint, x: -horizontalDivider(divide_by) + CGFloat(i))
+                let thirdPoint = addOffset(firstPoint, y: verticalDivider(divide_by) - CGFloat(i))
+                context.strokeLineSegments(between: [firstPoint, secondPoint,
+                                                     firstPoint, thirdPoint])
+            }
+            
+            do {
+                let firstPoint = lineMargins(horizontal: .right, vertical: .top, offset: CGFloat(i))
+                let secondPoint = addOffset(firstPoint, x: -horizontalDivider(divide_by) + CGFloat(i))
+                let thirdPoint = addOffset(firstPoint, y: -verticalDivider(divide_by) + CGFloat(i))
+                context.strokeLineSegments(between: [firstPoint, secondPoint,
+                                                     firstPoint, thirdPoint])
+            }
+            
+            do {
+                let firstPoint = lineMargins(horizontal: .left, vertical: .top, offset: CGFloat(i))
+                let secondPoint = addOffset(firstPoint, x: horizontalDivider(divide_by) - CGFloat(i))
+                let thirdPoint = addOffset(firstPoint, y: -verticalDivider(divide_by) + CGFloat(i))
+                context.strokeLineSegments(between: [firstPoint, secondPoint,
+                                                     firstPoint, thirdPoint])
+            }
+        }
+    }
+    
     public func generateQRCode(text: String, size: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) {
         guard !text.isEmpty else { return }
         guard let data = text.data(using: String.Encoding.ascii) else { return }
@@ -175,6 +264,9 @@ class ImageGenerator {
             let sizeFloat = CGFloat(size)
 
             context.saveGState()
+            defer {
+                context.restoreGState()
+            }
                         
             let x: CGFloat = {
                 switch horizontal {
@@ -204,8 +296,6 @@ class ImageGenerator {
                                         sizeFloat,
                                         sizeFloat),
                          byTiling: false)
-            
-            context.restoreGState()
         }
     }
     

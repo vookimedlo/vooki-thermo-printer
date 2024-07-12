@@ -29,21 +29,13 @@ extension Array<UInt8> {
 }
 
 extension Array<UInt8> {
-    struct HexEncodingOptions: OptionSet {
-        let rawValue: Int
-        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
-        static let prefix = HexEncodingOptions(rawValue: 1 << 1)
-        static let commaSeparator = HexEncodingOptions(rawValue: 1 << 2)
-        static let spaceSeparator = HexEncodingOptions(rawValue: 1 << 3)
-    }
-
-    func hexEncodedString(options: HexEncodingOptions = []) -> String {
-        let format = { (options: HexEncodingOptions) -> String in
+    func hexEncodedString(options: Data.HexEncodingOptions = []) -> String {
+        let format = { (options: Data.HexEncodingOptions) -> String in
             let caseSensitiveFormat = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
             return (options.contains(.prefix) ? "0x" : "") + caseSensitiveFormat
         }(options)
         
-        let separator = { (options: HexEncodingOptions) -> String in
+        let separator = { (options: Data.HexEncodingOptions) -> String in
             if options.contains(.commaSeparator) && options.contains(.spaceSeparator) { return "" }
             if options.contains(.commaSeparator) { return ", " }
             if options.contains(.spaceSeparator) { return " " }

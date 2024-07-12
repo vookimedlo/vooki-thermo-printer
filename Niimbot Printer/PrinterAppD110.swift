@@ -97,7 +97,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     @State private var textProperties = TextProperties()
 
     var body: some Scene {
-        WindowGroup {
+        WindowGroup { [self] in
             ContentView()
                 .environmentObject(bluetoothPepripherals)
                 .environmentObject(printerDetails)

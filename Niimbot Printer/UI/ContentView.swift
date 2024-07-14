@@ -165,5 +165,5 @@ struct ContentView: View, Notifier {
 }
 
 extension ToolbarItemPlacement {
-    static let appBar = accessoryBar(id: UUID().uuidString)
+    @MainActor static let appBar = accessoryBar(id: UUID().uuidString)
 }

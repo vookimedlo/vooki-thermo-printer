@@ -8,7 +8,8 @@
 import SwiftUI
 import SwiftData
 
-public enum AlertType: Int, CaseIterable {
+@MainActor
+public enum AlertType: Int {
     case none, printError
     
     var title: String {

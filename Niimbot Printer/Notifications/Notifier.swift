@@ -11,6 +11,6 @@ protocol Notifier {
     func notify(name: Notification.Name)
     func notify(name: Notification.Name, userInfo: [String : Any])
     func notifyUI(name: Notification.Name)
-    func notifyUI(name: Notification.Name, userInfo: [String : Any])
+    func notifyUI(name: Notification.Name, userInfo: sending [String : Any])
     func notifyUIAlert(alertType: AlertType)
 }

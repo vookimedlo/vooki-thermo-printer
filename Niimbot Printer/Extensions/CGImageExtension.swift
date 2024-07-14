@@ -86,7 +86,7 @@ public extension CGImage {
     }
     
     var data: Data {
-        var data: CFMutableData = CFDataCreateMutable(nil, 0)
+        let data: CFMutableData = CFDataCreateMutable(nil, 0)
         guard let destination = CGImageDestinationCreateWithData(data, UTType.tiff.identifier as CFString, 1, nil) else { return Data() }
         CGImageDestinationAddImage(destination, self, nil)
         return CGImageDestinationFinalize(destination) ? data as Data : Data()

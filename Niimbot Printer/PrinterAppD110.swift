@@ -299,20 +299,20 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         }
     }
     
-    private func generateImage() -> ImageGenerator? {
+    private func generateImage() async -> ImageGenerator? {
         guard let image = ImageGenerator(paperType: paperType.type) else { return nil }
         for property in textProperties.properties {
             switch property.whatToPrint {
             case .text:
                 guard !property.text.isEmpty else { continue }
-                image.drawText(text: property.text,
+                await image.drawText(text: property.text,
                                fontName: property.fontDetails.name,
                                fontSize: property.fontDetails.size,
                                horizontal: property.horizontalAlignment.alignment,
                                vertical: property.verticalAlignment.alignment)
             case .qr:
                 guard !property.text.isEmpty else { continue }
-                image.generateQRCode(text: property.text,
+                await image.generateQRCode(text: property.text,
                                      size: property.squareCodeSize,
                                      horizontal: property.horizontalAlignment.alignment,
                                      vertical: property.verticalAlignment.alignment)
@@ -326,10 +326,10 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 case .doubleFrame, .doubleFrame3, .doubleFrame4, .doubleFrame5:
                     let divider = property.imageDecoration.frameDivider
                     let isDoubleFrame = property.imageDecoration.isDoubleFrame
-                    image.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
+                    await image.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
                     guard property.image.isEmpty else { continue }
                     guard let imagePreview = ImageGenerator(paperType: paperType.type) else { continue }
-                    imagePreview.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
+                    await imagePreview.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
                     DispatchQueue.main.async {
                         property.image = imagePreview.cgImage?.data ?? Data()
                     }
@@ -340,16 +340,14 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     }
     
     private func generateImagePreview() {
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let preview = self.generateImage()?.image else { return }
-            DispatchQueue.main.async {
-                self.imagePreview.image = preview
-            }
+        Task(priority: .userInitiated) {
+            guard let preview = await self.generateImage()?.cgImage else { return }
+            self.imagePreview.image = preview
         }
     }
     
-    private func preparePrintData() -> [[UInt8]] {
-        guard let data = self.generateImage()?.printerData else { return [] }
+    private func preparePrintData() async  -> [[UInt8]] {
+        guard let data = await self.generateImage()?.printerData else { return [] }
 
         var peparedData: [[UInt8]] = []
         var rowNumber: UInt16 = 0
@@ -379,7 +377,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         
     private func executePrintCommands() async {
         do {
-            let data = preparePrintData()
+            let data = await preparePrintData()
             guard !data.isEmpty else { return }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {

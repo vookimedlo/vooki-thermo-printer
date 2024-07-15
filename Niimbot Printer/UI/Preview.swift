@@ -31,7 +31,12 @@ struct Preview: View {
                             .shadow(color: .accentColor, radius: 30)
                             .frame(width: $paperType.wrappedValue.type.physicalSizeInPixels.width,
                                    height: $paperType.wrappedValue.type.physicalSizeInPixels.height)
-                        Image(nsImage: imagePreview.image).border(.red, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                        if (imagePreview.image != nil) {
+                            Image(nsImage: NSImage(cgImage: imagePreview.image!,
+                                                   size: NSSize(width: imagePreview.image!.width,
+                                                                height: imagePreview.image!.height)) )
+                            .border(.red, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                        }
                     }
                     Spacer()
                 }

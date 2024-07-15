@@ -8,7 +8,8 @@
 import Foundation
 import AppKit
 
+@MainActor
 @Observable
 class ImagePreview: ObservableObject, Notifier {
-    var image: NSImage = NSImage(size: PaperType.unknown.printableSizeInPixels)
+    var image: CGImage?
 }

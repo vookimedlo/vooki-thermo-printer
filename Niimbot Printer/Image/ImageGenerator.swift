@@ -12,7 +12,7 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import CoreText
 
-
+@MainActor
 class ImageGenerator {
     private var context: CGContext!
     
@@ -85,7 +85,7 @@ class ImageGenerator {
         return context
     }
     
-    public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) {
+    public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) async {
         guard !text.isEmpty else { return }
 
         context.saveGState()
@@ -207,7 +207,7 @@ class ImageGenerator {
         return CGPointMake(point.x + x, point.y + y)
     }
     
-    public func drawBorder(divide_by: CGFloat, doubleBorder: Bool = false) {
+    public func drawBorder(divide_by: CGFloat, doubleBorder: Bool = false) async {
         context.saveGState()
         defer {
             context.restoreGState()
@@ -250,7 +250,7 @@ class ImageGenerator {
         }
     }
     
-    public func generateQRCode(text: String, size: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) {
+    public func generateQRCode(text: String, size: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) async {
         guard !text.isEmpty else { return }
         guard let data = text.data(using: String.Encoding.ascii) else { return }
         let filter = CIFilter.qrCodeGenerator()

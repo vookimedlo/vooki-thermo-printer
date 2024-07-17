@@ -9,7 +9,7 @@ import Foundation
 import CoreBluetooth
 
 @Observable
-final class BluetoothPeripheral : Identifiable {
+final class BluetoothPeripheral : Identifiable, @unchecked Sendable {
     var identifier: UUID
     var name: String
     var peripheral: CBPeripheral?

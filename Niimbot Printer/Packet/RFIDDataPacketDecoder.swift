@@ -54,7 +54,7 @@ class RFIDDataPacketDecoder: PacketDecoding {
         
         let type = data.removeFirst()
         notify(name: Notification.Name.App.rfidData,
-               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, RFIDData(uuid: uuid,
+               userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, RFIDData(uuid: uuid,
                                                                                                barcode: String(cString: barcode + [0]),
                                                                                                serial: String(cString: serial + [0]),
                                                                                                totalLength: totalLength,

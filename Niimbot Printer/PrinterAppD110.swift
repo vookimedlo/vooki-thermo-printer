@@ -276,11 +276,11 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             Self.logger.info("GetPrintStatus - Progress 2: \(value.progress2)")
             
             notifyUI(name: .App.UI.printPrintingProgress,
-                   userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, value.progress1)))
+                   userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, value.progress1)))
             
             if value.progress2 == 100 {
                 notify(name: .App.printFinished,
-                       userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, true)))
+                       userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, true)))
             }
         }
     }
@@ -414,7 +414,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             for packet in data {
                 printer?.setPrinterData(data: packet)
                 notifyUI(name: .App.UI.printSendingProgress,
-                         userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, currentStep != max ? Double(currentStep) / Double(max) * 100.0 : 100.0)))
+                         userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, currentStep != max ? Double(currentStep) / Double(max) * 100.0 : 100.0)))
                 currentStep += 1
                 try? await Task.sleep(for: .milliseconds(50),
                                       tolerance: .milliseconds(25))

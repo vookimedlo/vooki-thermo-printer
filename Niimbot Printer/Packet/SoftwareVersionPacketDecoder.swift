@@ -21,7 +21,7 @@ class SoftwareVersionPacketDecoder: PacketDecoding {
         let version: Float = Float(integerVersion) / 100
 
         notify(name: Notification.Name.App.softwareVersion,
-               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, version)))
+               userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, version)))
         return true
     }
 }

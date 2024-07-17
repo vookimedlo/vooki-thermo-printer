@@ -13,8 +13,8 @@ extension Notifier {
             NotificationCenter.default.post(name: name, object: nil)
         }
     }
-    
-    func notify(name: Notification.Name, userInfo: [String : Any]) {
+        
+    func notify(name: Notification.Name, userInfo: [String : Sendable]) {
         Dispatch.DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
             NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo)
         }
@@ -26,7 +26,7 @@ extension Notifier {
         }
     }
     
-    func notifyUI(name: Notification.Name, userInfo: sending [String : Any]) {
+    func notifyUI(name: Notification.Name, userInfo: [String : Sendable]) {
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo)
         }

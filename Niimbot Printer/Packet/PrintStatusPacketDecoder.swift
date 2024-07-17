@@ -34,7 +34,7 @@ class PrintStatusPacketDecoder: PacketDecoding {
         let progress2 = data.removeFirst()
 
         notify(name: Notification.Name.App.getPrintStatus,
-               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, PrintStatus(page: page,
+               userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, PrintStatus(page: page,
                                                                                                  progress1: progress1,
                                                                                                  progress2: progress2))))
         return true

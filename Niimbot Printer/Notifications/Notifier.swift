@@ -9,8 +9,8 @@ import Foundation
 
 protocol Notifier {
     func notify(name: Notification.Name)
-    func notify(name: Notification.Name, userInfo: [String : Any])
+    func notify(name: Notification.Name, userInfo: [String : Sendable])
     func notifyUI(name: Notification.Name)
-    func notifyUI(name: Notification.Name, userInfo: sending [String : Any])
+    func notifyUI(name: Notification.Name, userInfo: [String : Sendable])
     func notifyUIAlert(alertType: AlertType)
 }

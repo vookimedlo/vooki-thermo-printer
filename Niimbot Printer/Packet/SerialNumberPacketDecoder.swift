@@ -16,7 +16,7 @@ class SerialNumberPacketDecoder: PacketDecoding {
         }
 
         notify(name: Notification.Name.App.serialNumber,
-               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, String(cString: packet.payload + [0]))))
+               userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, String(decoding: packet.payload + [0], as: UTF8.self))))
         return true
     }
 }

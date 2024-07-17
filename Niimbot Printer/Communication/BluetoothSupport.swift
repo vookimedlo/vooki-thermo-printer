@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import CoreBluetooth
+@preconcurrency import CoreBluetooth
 import os
 
 class BluetoothSupport : NSObject, BluetoothAccess, Notifier, CBCentralManagerDelegate, CBPeripheralDelegate {

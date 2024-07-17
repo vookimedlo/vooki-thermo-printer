@@ -49,7 +49,7 @@ class BoolBytePacketDecoder: PacketDecoding {
         let result = packet.payload[0] != 0
 
         notify(name: name,
-               userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, result)))
+               userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, result)))
         return true
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PaperType: String, CaseIterable {
+public enum PaperType: String, Sendable {
     case unknown = "0",
          ean6972842743589 = "6972842743589", // 30*15 white
          ean02282280 = "02282280" // 30*15 white - came with printer

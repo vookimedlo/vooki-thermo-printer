@@ -7,8 +7,9 @@
 
 import Foundation
 
+@MainActor
 @Observable
-class PaperDetails: ObservableObject {
+final class PaperDetails: ObservableObject {
     var serialNumber: String = "N/A"
     var remainingCount: String = "N/A"
     var printedCount: String = "N/A"

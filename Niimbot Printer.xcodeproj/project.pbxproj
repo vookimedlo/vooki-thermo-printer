@@ -26,6 +26,7 @@
 		8D76C5602C0A11BB005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
 		8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */; };
 		8D785DB42C470A9A00C25566 /* ImageActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D785DB32C470A9A00C25566 /* ImageActor.swift */; };
+		8D785DB62C4813AF00C25566 /* Decoration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D785DB52C4813AF00C25566 /* Decoration.swift */; };
 		8D84EF9A2C20F6090070BA8A /* FontSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84EF992C20F6090070BA8A /* FontSelectionView.swift */; };
 		8D84EF9C2C20FA0D0070BA8A /* PrinterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84EF9B2C20FA0D0070BA8A /* PrinterDetailsView.swift */; };
 		8D8AF3CD2C2756CD005E2F94 /* LevelIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3CC2C2756CD005E2F94 /* LevelIndicator.swift */; };
@@ -111,6 +112,7 @@
 		8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIOTests.swift; sourceTree = "<group>"; };
 		8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UplinkProcessor.swift; sourceTree = "<group>"; };
 		8D785DB32C470A9A00C25566 /* ImageActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageActor.swift; sourceTree = "<group>"; };
+		8D785DB52C4813AF00C25566 /* Decoration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoration.swift; sourceTree = "<group>"; };
 		8D84EF992C20F6090070BA8A /* FontSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSelectionView.swift; sourceTree = "<group>"; };
 		8D84EF9B2C20FA0D0070BA8A /* PrinterDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDetailsView.swift; sourceTree = "<group>"; };
 		8D8AF3CC2C2756CD005E2F94 /* LevelIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelIndicator.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */,
+				8D785DB52C4813AF00C25566 /* Decoration.swift */,
 				8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */,
 				8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */,
 				8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */,
@@ -522,6 +525,7 @@
 				8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */,
 				8D84EF9C2C20FA0D0070BA8A /* PrinterDetailsView.swift in Sources */,
 				8DEB85EE2C0E5E610028526B /* DataConsumerProtocol.swift in Sources */,
+				8D785DB62C4813AF00C25566 /* Decoration.swift in Sources */,
 				8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */,
 				8DDC3D162C19C71000296C72 /* HardwareVersionPacketDecoder.swift in Sources */,
 				8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */,
@@ -696,6 +700,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.Niimbot.app.Niimbot-Printer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
 				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
 				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
@@ -733,6 +738,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.Niimbot.app.Niimbot-Printer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = targeted;
 				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
 				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
 				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;

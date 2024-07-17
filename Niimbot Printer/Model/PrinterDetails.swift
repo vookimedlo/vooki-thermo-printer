@@ -7,8 +7,9 @@
 
 import Foundation
 
+@MainActor
 @Observable
-class PrinterDetails: ObservableObject {
+final class PrinterDetails: ObservableObject {
     var name = ""
     var serialNumber: String = ""
     var softwareVersion: String = ""

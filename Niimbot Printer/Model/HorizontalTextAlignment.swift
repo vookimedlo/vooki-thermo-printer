@@ -7,8 +7,9 @@
 
 import Foundation
 
+@MainActor
 @Observable
-class HorizontalTextAlignment: ObservableObject, Notifier {
+final class HorizontalTextAlignment: ObservableObject, Notifier {
     typealias Alignment = AlignmentView.HorizontalAlignment
     
     var alignment: Alignment = .center {

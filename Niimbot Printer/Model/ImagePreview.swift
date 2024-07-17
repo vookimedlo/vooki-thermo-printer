@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import AppKit
+import CoreGraphics
 
 @MainActor
 @Observable
-class ImagePreview: ObservableObject, Notifier {
+final class ImagePreview: ObservableObject, Notifier {
     var image: CGImage?
 }

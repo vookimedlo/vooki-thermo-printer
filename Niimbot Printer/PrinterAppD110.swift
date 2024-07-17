@@ -114,13 +114,13 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     var body: some Scene {
         WindowGroup { [self] in
             ContentView()
-                .environmentObject(bluetoothPepripherals)
-                .environmentObject(printerDetails)
-                .environmentObject(paperDetails)
-                .environmentObject(imagePreview)
-                .environmentObject(paperType)
-                .environmentObject(printerAvailability)
-                .environmentObject(textProperties)
+                .environmentObject(self.bluetoothPepripherals)
+                .environmentObject(self.printerDetails)
+                .environmentObject(self.paperDetails)
+                .environmentObject(self.imagePreview)
+                .environmentObject(self.paperType)
+                .environmentObject(self.printerAvailability)
+                .environmentObject(self.textProperties)
         }
         .modelContainer(sharedModelContainer)
     }
@@ -416,7 +416,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 notifyUI(name: .App.UI.printSendingProgress,
                          userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, currentStep != max ? Double(currentStep) / Double(max) * 100.0 : 100.0)))
                 currentStep += 1
-                try? await Task.sleep(for: .milliseconds(50))
+                try? await Task.sleep(for: .milliseconds(50),
+                                      tolerance: .milliseconds(25))
             }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.endPagePrint) {

@@ -9,7 +9,7 @@ import Foundation
 import CoreBluetooth
 
 @Observable
-class BluetoothPeripheral : Identifiable {
+final class BluetoothPeripheral : Identifiable {
     var identifier: UUID
     var name: String
     var peripheral: CBPeripheral?
@@ -27,7 +27,7 @@ class BluetoothPeripheral : Identifiable {
 }
 
 @Observable
-class BluetoothPeripherals : ObservableObject {
+final class BluetoothPeripherals : ObservableObject {
     private var _peripherals : [BluetoothPeripheral] = []
     var peripherals : [BluetoothPeripheral] {
             return _peripherals

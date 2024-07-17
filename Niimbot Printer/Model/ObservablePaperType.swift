@@ -7,7 +7,8 @@
 
 import Foundation
 
+@MainActor
 @Observable
-class ObservablePaperType: ObservableObject {
+final class ObservablePaperType: ObservableObject {
     var type: PaperType = PaperType.unknown
 }

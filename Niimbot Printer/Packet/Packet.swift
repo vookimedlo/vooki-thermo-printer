@@ -8,7 +8,7 @@
 import Foundation
 import os
 
-public enum InfoCode: UInt8 {
+public enum InfoCode: UInt8, Sendable {
     case DENSITY = 1
     case PRINT_SPEED = 2
     case LABEL_TYPE = 3
@@ -21,7 +21,7 @@ public enum InfoCode: UInt8 {
     case HARDWARE_VERSION = 12
 }
 
-public enum RequestCode: UInt8 {
+public enum RequestCode: UInt8, Sendable {
     case REQUEST_GET_INFO = 0x40
     case REQUEST_GET_RFID = 0x1A
     case REQUEST_HEARTBEAT = 0xDC
@@ -60,14 +60,14 @@ public enum RequestCode: UInt8 {
     case RESPONSE_SOMETHING = 0xD3          //TODO: What this type stands for?
 }
 
-public class Packet {
+public final class Packet: Sendable {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: Packet.self)
     )
     
-    public private(set) var requestCode: RequestCode
-    public private(set) var payload: [UInt8]
+    public let requestCode: RequestCode
+    public let payload: [UInt8]
     
     
     public init(requestCode: RequestCode, data: [UInt8]) {

@@ -13,9 +13,6 @@ class LabelTypePacketDecoder: PacketDecoding {
     func decode(packet: Packet) -> Bool {
         guard Self.code == packet.requestCode else { return false }
         guard packet.payload.count == 1 else { return false }
-        
-        print("label")
-        print(packet.payload.hexEncodedString(options: [.upperCase]))
        
         notify(name: Notification.Name.App.labelType,
                userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, packet.payload[0])))

@@ -14,9 +14,6 @@ class DensityPacketDecoder: PacketDecoding {
         guard Self.code == packet.requestCode else { return false }
         guard packet.payload.count == 1 else { return false }
         
-        print("density")
-        print(packet.payload.hexEncodedString(options: [.upperCase]))
-       
         notify(name: Notification.Name.App.density,
                userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, packet.payload[0])))
         return true

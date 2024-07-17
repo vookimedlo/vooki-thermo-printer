@@ -27,14 +27,27 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     private var uplinkProcessor: UplinkProcessor?
     
     private var bluetoothSupport: BluetoothSupport
+    
+    var notificationListenerTask: Task<Void, Never>? = nil
+
         
     required init() {
         bluetoothSupport = BluetoothSupport()
+        
+        notificationListenerTask = Task.detached {
+            for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
+                if let preview = await self.generateImage()?.cgImage {
+                    await MainActor.run {
+                        self.imagePreview.image = preview
+                    }
+                }
+            }
+        }
+        
         try? Tips.resetDatastore()
         try? Tips.configure()
         
-        for name in [Notification.Name.App.textPropertiesUpdated,
-                     Notification.Name.App.printRequested] {
+        for name in [Notification.Name.App.printRequested] {
             registerNotification(name: name,
                                        selector: #selector(receiveNotification))
         }
@@ -69,7 +82,9 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                                        selector: #selector(receivePrinterNotification))
         }
         
-        generateImagePreview()
+        Task {
+            await generateImagePreview()
+        }
 //            printer?.getAutoShutdownTime()
 //            printer?.getDensity()
 //            printer?.getLabelType()
@@ -113,16 +128,12 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     @objc func receiveNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
         
-        if Notification.Name.App.textPropertiesUpdated == notification.name {
-            Self.logger.info("Text properties updated")
-            generateImagePreview()
-        }
-        else if Notification.Name.App.printRequested == notification.name {
+        if Notification.Name.App.printRequested == notification.name {
             Self.logger.info("Print requested")
             printLabel()
         }
     }
-    
+        
     @objc func receiveBluetoothNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
 
@@ -299,51 +310,51 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         }
     }
     
+    @ImageActor
     private func generateImage() async -> ImageGenerator? {
-        guard let image = ImageGenerator(paperType: paperType.type) else { return nil }
-        for property in textProperties.properties {
-            switch property.whatToPrint {
+        guard let image = await ImageGenerator(paperType: paperType.type) else { return nil }
+        for property in await textProperties.properties {
+            switch await property.whatToPrint {
             case .text:
-                guard !property.text.isEmpty else { continue }
+                guard await !property.text.isEmpty else { continue }
                 await image.drawText(text: property.text,
                                fontName: property.fontDetails.name,
                                fontSize: property.fontDetails.size,
                                horizontal: property.horizontalAlignment.alignment,
                                vertical: property.verticalAlignment.alignment)
             case .qr:
-                guard !property.text.isEmpty else { continue }
+                guard await !property.text.isEmpty else { continue }
                 await image.generateQRCode(text: property.text,
                                      size: property.squareCodeSize,
                                      horizontal: property.horizontalAlignment.alignment,
                                      vertical: property.verticalAlignment.alignment)
-            case .image:                
-                switch (property.imageDecoration) {
+            case .image:
+                switch await (property.imageDecoration) {
                 case .custom:
-                    guard !property.image.isEmpty else { continue }
-                    image.drawImage(data: property.image)
+                    guard await !property.image.isEmpty else { continue }
+                    await image.drawImage(data: property.image)
                 case .frame, .frame3, .frame4, .frame5:
                     fallthrough
                 case .doubleFrame, .doubleFrame3, .doubleFrame4, .doubleFrame5:
-                    let divider = property.imageDecoration.frameDivider
-                    let isDoubleFrame = property.imageDecoration.isDoubleFrame
+                    let divider = await property.imageDecoration.frameDivider
+                    let isDoubleFrame = await property.imageDecoration.isDoubleFrame
                     await image.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
-                    guard property.image.isEmpty else { continue }
-                    guard let imagePreview = ImageGenerator(paperType: paperType.type) else { continue }
+                    guard await property.image.isEmpty else { continue }
+                    guard let imagePreview = await ImageGenerator(paperType: paperType.type) else { continue }
                     await imagePreview.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
-                    DispatchQueue.main.async {
-                        property.image = imagePreview.cgImage?.data ?? Data()
+                    let data = await imagePreview.cgImage?.data ?? Data()
+                    await MainActor.run {
+                        property.image = data
                     }
                 }
             }
         }
         return image
     }
-    
-    private func generateImagePreview() {
-        Task(priority: .userInitiated) {
-            guard let preview = await self.generateImage()?.cgImage else { return }
-            self.imagePreview.image = preview
-        }
+
+    private func generateImagePreview() async {
+        guard let preview = await self.generateImage()?.cgImage else { return }
+        self.imagePreview.image = preview
     }
     
     private func preparePrintData() async  -> [[UInt8]] {
@@ -374,7 +385,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         }
         return peparedData
     }
-        
+    
+    @MainActor
     private func executePrintCommands() async {
         do {
             let data = await preparePrintData()
@@ -404,17 +416,18 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 notifyUI(name: .App.UI.printSendingProgress,
                          userInfo: [String : Any](dictionaryLiteral: (Notification.Keys.value, currentStep != max ? Double(currentStep) / Double(max) * 100.0 : 100.0)))
                 currentStep += 1
-                usleep(50000)
+                try? await Task.sleep(for: .milliseconds(50))
             }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.endPagePrint) {
                 self.printer?.endPagePrint()
             }
             
-            try await SendAndWaitAsync.waitOnBoolResult(name: .App.printFinished, timeout: 10000000000) {
+            try await SendAndWaitAsync.waitOnBoolResult(name: .App.printFinished,
+                                                        timeout: .seconds(10)) {
                 while !Task.isCancelled {
                     self.printer?.getPrintStatus()
-                    try await Task.sleep(nanoseconds: 50000000)
+                    try await Task.sleep(for: .milliseconds(50))
                 }
             }
           

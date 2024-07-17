@@ -19,7 +19,7 @@ class SendAndWaitAsync {
         category: String(describing: SendAndWaitAsync.self)
     )
     
-    public static func waitOnBoolResult(name: Notification.Name, timeout: UInt64 = 2000000000,  sendAction: @escaping () async throws -> Void) async throws {
+    public static func waitOnBoolResult(name: Notification.Name, timeout: Duration = .seconds(2),  sendAction: @escaping () async throws -> Void) async throws {
         enum TaskResult {
             case sent, received, cancelled
         }
@@ -35,7 +35,7 @@ class SendAndWaitAsync {
             }
                             
             group.addTask {
-                try await Task.sleep(nanoseconds: timeout)
+                try await Task.sleep(for: timeout)
                 guard !Task.isCancelled else { return .cancelled }
                 Self.logger.error("Timeout of \(name.rawValue)")
                 throw WaitError.timeout

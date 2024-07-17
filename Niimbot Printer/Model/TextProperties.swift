@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 @Observable
 class TextProperty: ObservableObject, Notifier {
     public enum WhatToPrint: Int, CaseIterable, SegmentedPrickerHelp {
@@ -62,6 +63,7 @@ class TextProperty: ObservableObject, Notifier {
     }
 }
 
+@MainActor
 @Observable
 class TextProperties: ObservableObject {
     var properties: Array<TextProperty> = [TextProperty()]

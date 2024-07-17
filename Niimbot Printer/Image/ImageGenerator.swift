@@ -12,19 +12,22 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import CoreText
 
-@MainActor
-class ImageGenerator {
+
+@ImageActor
+final class ImageGenerator {
     private var context: CGContext!
     
     public var image: NSImage? {
-        guard Self.toBlackAndWhite(context: context, inverted: false) else { return nil }
+        guard toBlackAndWhite(context: context, inverted: false) else { return nil }
         guard let image = context.makeImage() else { return nil }
         return NSImage(cgImage: image, size: .zero)
     }
     
     public var cgImage: CGImage? {
-        guard Self.toBlackAndWhite(context: context, inverted: false) else { return nil }
-        return  context.makeImage()
+        get async {
+            guard toBlackAndWhite(context: context, inverted: false) else { return nil }
+            return  context.makeImage()
+        }
     }
     
     public var rotatedImage: NSImage? {
@@ -36,10 +39,12 @@ class ImageGenerator {
     }
     
     public var printerData: [[UInt8]] {
-        guard let image = context.makeImage() else { return [] }
-        guard let rotatedImageContext = image.rotatedContext(to: .right) else { return [] }
-        guard Self.toBlackAndWhite(context: rotatedImageContext, inverted: true) else { return [] }
-        return Self.toBytes(context: rotatedImageContext)
+        get async {
+            guard let image = context.makeImage() else { return [] }
+            guard let rotatedImageContext = image.rotatedContext(to: .right) else { return [] }
+            guard toBlackAndWhite(context: rotatedImageContext, inverted: true) else { return [] }
+            return Self.toBytes(context: rotatedImageContext)
+        }
     }
     
     private let margin: Margin
@@ -55,16 +60,12 @@ class ImageGenerator {
         guard let ctx = createContext(size: paperType.printableSizeInPixels) else { return nil }
         context = ctx
     }
-
+    
     private func createContext(size: CGSize) -> CGContext? {
         let width = Int(size.width)
         let height = Int(size.height)
         let bitmapBytesPerRow = width * 4
-        let bufferLength = size.width * size.height * 4
-        let bitmapData: CFMutableData = CFDataCreateMutable(nil, 0)
-        CFDataSetLength(bitmapData, CFIndex(bufferLength))
-        let bitmap = CFDataGetMutableBytePtr(bitmapData)
-        let context = CGContext(data: bitmap,
+        let context = CGContext(data: nil,
                                 width: width,
                                 height: height,
                                 bitsPerComponent: 8,
@@ -305,13 +306,15 @@ class ImageGenerator {
         return Self.ciContext.createCGImage(input, from: input.extent)
     }
     
-    private static func toBlackAndWhite(context: CGContext, inverted: Bool = false) -> Bool {
+    private func toBlackAndWhite(context: CGContext, inverted: Bool = false) -> Bool {
         guard let data = context.data else { return false }
         let width = context.width
         let height = context.height
-        let pixelBuffer = data.bindMemory(to: RGBA32.self, capacity: width * height)
+        let capacity = width * height
         
-        for offset in 0 ..< height * width {
+        let pixelBuffer = UnsafeMutableRawPointer(data).bindMemory(to: RGBA32.self, capacity: capacity)
+        
+        for offset in 0 ..< capacity {
             if inverted ? !pixelBuffer[offset].isWhite() : pixelBuffer[offset].isWhite() {
                 pixelBuffer[offset] = RGBA32.white
             } else {
@@ -325,7 +328,9 @@ class ImageGenerator {
         guard let data = context.data else { return [] }
         let width = context.width
         let height = context.height
-        let pixelBuffer = data.bindMemory(to: RGBA32.self, capacity: width * height)
+        let capacity = width * height
+
+        let pixelBuffer = data.bindMemory(to: RGBA32.self, capacity: capacity)
 
         var result: [[UInt8]] = Array<[UInt8]>(repeating: Array<UInt8>(repeating: 0,
                                                                        count: width),
@@ -350,7 +355,7 @@ class ImageGenerator {
     private func generateRotatedImage(inverted: Bool = false) -> NSImage? {
         guard let image = context.makeImage() else { return nil }
         guard let rotatedImageContext = image.rotatedContext(to: .right) else { return nil }
-        guard Self.toBlackAndWhite(context: rotatedImageContext, inverted: inverted) else { return nil }
+        guard toBlackAndWhite(context: rotatedImageContext, inverted: inverted) else { return nil }
         guard let rotatedImage = rotatedImageContext.makeImage() else { return nil }
 
         return NSImage(cgImage: rotatedImage, size: .zero)

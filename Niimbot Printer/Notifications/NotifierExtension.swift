@@ -28,7 +28,7 @@ extension Notifier {
     
     func notifyUI(name: Notification.Name, userInfo: sending [String : Any]) {
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: name, object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo)
         }
     }
     

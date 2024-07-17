@@ -393,20 +393,20 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             guard !data.isEmpty else { return }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
-                self.printer?.setLabelDensity(density: 1)
+                await self.printer?.setLabelDensity(density: 1)
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.startPrint) {
-                self.printer?.startPrint()
+                await self.printer?.startPrint()
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.startPagePrint) {
-                self.printer?.startPagePrint()
+                await self.printer?.startPagePrint()
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setDimension) {
-                self.printer?.setDimension(width: UInt16(self.paperType.type.printableSizeInPixels.width),
+                await self.printer?.setDimension(width: UInt16(self.paperType.type.printableSizeInPixels.width),
                                            height: UInt16(self.paperType.type.printableSizeInPixels.height))
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
-                self.printer?.setLabelDensity(density: 1)
+                await self.printer?.setLabelDensity(density: 1)
             }
             
             let max = data.count
@@ -421,19 +421,19 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.endPagePrint) {
-                self.printer?.endPagePrint()
+                await self.printer?.endPagePrint()
             }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.printFinished,
                                                         timeout: .seconds(10)) {
                 while !Task.isCancelled {
-                    self.printer?.getPrintStatus()
+                    await self.printer?.getPrintStatus()
                     try await Task.sleep(for: .milliseconds(50))
                 }
             }
           
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.endPrint) {
-                self.printer?.endPrint()
+                await self.printer?.endPrint()
             }
             
             printer?.getRFIDData()

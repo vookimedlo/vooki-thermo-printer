@@ -19,7 +19,7 @@ class SendAndWaitAsync {
         category: String(describing: SendAndWaitAsync.self)
     )
     
-    public static func waitOnBoolResult(name: Notification.Name, timeout: Duration = .seconds(2),  sendAction: @escaping () async throws -> Void) async throws {
+    public static func waitOnBoolResult(name: Notification.Name, timeout: Duration = .seconds(2),  sendAction: @Sendable @escaping () async throws -> Void) async throws {
         enum TaskResult {
             case sent, received, cancelled
         }

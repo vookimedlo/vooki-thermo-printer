@@ -40,7 +40,7 @@ struct PrinterView: View, Notifier {
             
             HStack {
                 Button {
-                    notify(name: Notification.Name.App.printRequested)
+                    notifyUI(name: Notification.Name.App.printRequested)
                 } label: {
                     Text("Print").fontWeight(.heavy)
                         .frame(minWidth: 200, maxWidth: .infinity).padding()

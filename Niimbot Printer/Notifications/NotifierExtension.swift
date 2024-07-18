@@ -10,14 +10,14 @@ import Foundation
 extension Notifier {
     nonisolated
     func notify(name: Notification.Name) {
-        Dispatch.DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
+        Task { @PrinterActor in
             NotificationCenter.default.post(name: name, object: nil)
         }
     }
         
     nonisolated
     func notify(name: Notification.Name, userInfo: [String : Sendable]) {
-        Dispatch.DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
+        Task { @PrinterActor in
             NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo)
         }
     }

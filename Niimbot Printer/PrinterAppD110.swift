@@ -11,12 +11,6 @@ import os
 import TipKit
 
 
-@globalActor actor PrinterActor: GlobalActor {
-    static let shared = PrinterActor()
-}
-
-
-
 @main
 class PrinterAppD110: App, Notifier, NotificationObservable {
     nonisolated
@@ -58,11 +52,6 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         try? Tips.resetDatastore()
         try? Tips.configure()
         
-        for name in [Notification.Name.App.printRequested] {
-            registerNotification(name: name,
-                                       selector: #selector(receiveNotification))
-        }
-
         for name in [Notification.Name.App.bluetoothPeripheralDisconnected,
                      Notification.Name.App.bluetoothPeripheralDiscovered] {
             registerNotification(name: name,
@@ -73,7 +62,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                      Notification.Name.App.stopPopulatingPeripherals,
                      Notification.Name.App.selectedPeripheral,
                      Notification.Name.App.lastSelectedPeripheral,
-                     Notification.Name.App.disconnectPeripheral] {
+                     Notification.Name.App.disconnectPeripheral,
+                     Notification.Name.App.printRequested] {
             registerNotification(name: name,
                                        selector: #selector(receiveUINotification))
         }
@@ -139,16 +129,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         }
         .modelContainer(sharedModelContainer)
     }
-    
-    @objc func receiveNotification(_ notification: Notification) {
-        Self.logger.info("Notification \(notification.name.rawValue) received")
         
-        if Notification.Name.App.printRequested == notification.name {
-            Self.logger.info("Print requested")
-            printLabel()
-        }
-    }
-    
     @MainActor
     @objc func receiveUINotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
@@ -188,6 +169,12 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                 uplinkProcessor?.stopProcessing()
             }
         }
+        else if Notification.Name.App.printRequested == notification.name {
+            Self.logger.info("Print requested")
+            Task { @PrinterActor in
+                printLabel()
+            }
+        }
     }
 
     @PrinterActor
@@ -216,51 +203,54 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         }
     }
 
+    @PrinterActor
     @objc func receivePrinterNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
         
         if Notification.Name.App.serialNumber ==  notification.name {
             let serial_number = notification.userInfo?[Notification.Keys.value] as! String
-            Self.logger.info("Serial number: \(serial_number)")
-            DispatchQueue.main.async {
+            Task { @MainActor in
+                Self.logger.info("Serial number: \(serial_number)")
                 self.printerDetails.serialNumber = serial_number
             }
         }
         else if Notification.Name.App.softwareVersion ==  notification.name {
             let software_version = notification.userInfo?[Notification.Keys.value] as! Float
-            Self.logger.info("Software version: \(software_version)")
-            DispatchQueue.main.async {
+            Task { @MainActor in
+                Self.logger.info("Software version: \(software_version)")
                 self.printerDetails.softwareVersion = String(software_version)
             }
         }
         else if Notification.Name.App.hardwareVersion ==  notification.name {
             let hardware_version = notification.userInfo?[Notification.Keys.value] as! Float
-            Self.logger.info("Hardware version: \(hardware_version)")
+            Task { @MainActor in
+                Self.logger.info("Hardware version: \(hardware_version)")
+            }
         }
         else if Notification.Name.App.batteryInformation ==  notification.name {
             let battery_information = notification.userInfo?[Notification.Keys.value] as! UInt8
-            Self.logger.info("Battery information: \(battery_information)")
-            DispatchQueue.main.async {
+            Task { @MainActor in
+                Self.logger.info("Battery information: \(battery_information)")
                 self.printerDetails.batteryLevel = Int(battery_information)
             }
         }
         else if Notification.Name.App.deviceType ==  notification.name {
             let device_type = notification.userInfo?[Notification.Keys.value] as! UInt16
-            Self.logger.info("Device type: \(device_type)")
-            DispatchQueue.main.async {
+            Task { @MainActor in
+                Self.logger.info("Device type: \(device_type)")
                 self.printerDetails.deviceType = 2304 == device_type ? "D110" : String(device_type)
             }
         }
         else if Notification.Name.App.rfidData ==  notification.name {
             let rfidData = notification.userInfo?[Notification.Keys.value] as! RFIDData
-            Self.logger.info("RFID data - UDID: \(rfidData.uuid.hexEncodedString())")
-            Self.logger.info("RFID data - Barcode: \(rfidData.barcode)")
-            Self.logger.info("RFID data - Serial: \(rfidData.serial)")
-            Self.logger.info("RFID data - Total labels: \(rfidData.totalLength)")
-            Self.logger.info("RFID data - Used labels: \(rfidData.usedLength)")
-            Self.logger.info("RFID data - Type: \(rfidData.type)")
+            Task { @MainActor in
+                Self.logger.info("RFID data - UDID: \(rfidData.uuid.hexEncodedString())")
+                Self.logger.info("RFID data - Barcode: \(rfidData.barcode)")
+                Self.logger.info("RFID data - Serial: \(rfidData.serial)")
+                Self.logger.info("RFID data - Total labels: \(rfidData.totalLength)")
+                Self.logger.info("RFID data - Used labels: \(rfidData.usedLength)")
+                Self.logger.info("RFID data - Type: \(rfidData.type)")
 
-            DispatchQueue.main.async {
                 self.paperType.type = PaperType(rawValue: rfidData.barcode) ?? .unknown
                 
                 self.paperDetails.remainingCount = String(rfidData.totalLength - rfidData.usedLength)
@@ -272,51 +262,68 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             }
         }
         else if Notification.Name.App.noPaper ==  notification.name {
-            Self.logger.info("No paper")
-            DispatchQueue.main.async {
+            Task { @MainActor in
+                Self.logger.info("No paper")
                 self.printerDetails.isPaperInserted = false
             }
         }
         else if Notification.Name.App.startPrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Self.logger.info("StartPrint \(value)")
+            Task { @MainActor in
+                Self.logger.info("StartPrint \(value)")
+            }
         }
         else if Notification.Name.App.startPagePrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Self.logger.info("StartPagePrint \(value)")
+            Task { @MainActor in
+                Self.logger.info("StartPagePrint \(value)")
+            }
         }
         else if Notification.Name.App.endPrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Self.logger.info("EndPrint \(value)")
+            Task { @MainActor in
+                Self.logger.info("EndPrint \(value)")
+            }
         }
         else if Notification.Name.App.endPagePrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Self.logger.info("EndPagePrint \(value)")
+            Task { @MainActor in
+                Self.logger.info("EndPagePrint \(value)")
+            }
         }
         else if Notification.Name.App.setDimension == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Self.logger.info("SetDimension \(value)")
+            Task { @MainActor in
+                Self.logger.info("SetDimension \(value)")
+            }
         }
         else if Notification.Name.App.setLabelType == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Self.logger.info("SetLabelType \(value)")
+            Task { @MainActor in
+                Self.logger.info("SetLabelType \(value)")
+            }
         }
         else if Notification.Name.App.setLabelDensity == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Self.logger.info("SetLabelDensity \(value)")
+            Task { @MainActor in
+                
+                Self.logger.info("SetLabelDensity \(value)")
+            }
         }
         else if Notification.Name.App.getPrintStatus == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! PrintStatus
-            Self.logger.info("GetPrintStatus - Page: \(value.page)")
-            Self.logger.info("GetPrintStatus - Progress 1: \(value.progress1)")
-            Self.logger.info("GetPrintStatus - Progress 2: \(value.progress2)")
-            
-            notifyUI(name: .App.UI.printPrintingProgress,
-                   userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, value.progress1)))
-            
-            if value.progress2 == 100 {
-                notify(name: .App.printFinished,
-                       userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, true)))
+            Task { @MainActor in
+                Self.logger.info("GetPrintStatus - Page: \(value.page)")
+                Self.logger.info("GetPrintStatus - Progress 1: \(value.progress1)")
+                Self.logger.info("GetPrintStatus - Progress 2: \(value.progress2)")
+                
+                notifyUI(name: .App.UI.printPrintingProgress,
+                         userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, value.progress1)))
+                
+                if value.progress2 == 100 {
+                    notify(name: .App.printFinished,
+                           userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, true)))
+                }
             }
         }
     }
@@ -500,16 +507,14 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         }
     }
         
+    @PrinterActor
     private func printLabel() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self else { return }
-            notifyUI(name: .App.UI.printStarted)
-            Task {
-                defer {
-                    self.notifyUI(name: .App.UI.printDone)
-                }
-                await self.executePrintCommands()
+        notifyUI(name: .App.UI.printStarted)
+        Task {
+            defer {
+                self.notifyUI(name: .App.UI.printDone)
             }
+            await self.executePrintCommands()
         }
     }
 }

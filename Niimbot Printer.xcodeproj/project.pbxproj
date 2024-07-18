@@ -15,6 +15,7 @@
 		8D58DC252C052317001EBD95 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC242C052317001EBD95 /* Packet.swift */; };
 		8D58DC2D2C05D460001EBD95 /* PacketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC2C2C05D460001EBD95 /* PacketTests.swift */; };
 		8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC332C064583001EBD95 /* PrinterDevice.swift */; };
+		8D708D932C49BE8E006BF3BE /* PrinterActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D922C49BE8E006BF3BE /* PrinterActor.swift */; };
 		8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
 		8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */; };
 		8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5342C08DA08005D7EEB /* IOProtocol.swift */; };
@@ -102,6 +103,7 @@
 		8D58DC2A2C05D460001EBD95 /* Niimbot PrinterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Niimbot PrinterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC2C2C05D460001EBD95 /* PacketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTests.swift; sourceTree = "<group>"; };
 		8D58DC332C064583001EBD95 /* PrinterDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDevice.swift; sourceTree = "<group>"; };
+		8D708D922C49BE8E006BF3BE /* PrinterActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterActor.swift; sourceTree = "<group>"; };
 		8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIO.swift; sourceTree = "<group>"; };
 		8D76C5342C08DA08005D7EEB /* IOProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOProtocol.swift; sourceTree = "<group>"; };
@@ -345,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				8D9639482C0B9EC600374894 /* Printer.swift */,
+				8D708D922C49BE8E006BF3BE /* PrinterActor.swift */,
 				8D58DC332C064583001EBD95 /* PrinterDevice.swift */,
 				8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */,
 			);
@@ -533,6 +536,7 @@
 				8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */,
 				8D76C53B2C090B96005D7EEB /* PosixFileSystemAccess.swift in Sources */,
 				8D84EF9A2C20F6090070BA8A /* FontSelectionView.swift in Sources */,
+				8D708D932C49BE8E006BF3BE /* PrinterActor.swift in Sources */,
 				8DF9FE552C36E7F8004DAED2 /* Preview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -711,7 +715,7 @@
 				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
 				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
 				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -749,7 +753,7 @@
 				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
 				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
 				SWIFT_UPCOMING_FEATURE_REGION_BASED_ISOLATION = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};

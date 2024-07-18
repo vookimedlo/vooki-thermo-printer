@@ -49,15 +49,9 @@ final class ImageGenerator {
     
     private let margin: Margin
 
-    public init? (size: CGSize) {
-        margin = Margin(left: 0, right: 0, up: 0, bottom: 0)
+    public init? (size: CGSize, margin: Margin = Margin(left: 0, right: 0, up: 0, bottom: 0)) {
+        self.margin = margin
         guard let ctx = createContext(size: size) else { return nil }
-        context = ctx
-    }
-    
-    public init? (paperType: PaperType) {
-        margin = paperType.margin
-        guard let ctx = createContext(size: paperType.printableSizeInPixels) else { return nil }
         context = ctx
     }
     

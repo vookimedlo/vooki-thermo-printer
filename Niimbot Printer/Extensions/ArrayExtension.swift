@@ -19,6 +19,17 @@ extension Array {
     }
 }
 
+extension Array {
+    func findFirstMatching(predicate: (Element) -> Bool) -> Element? {
+        for item in self {
+            if predicate(item) {
+                return item
+            }
+        }
+        return nil
+    }
+}
+
 extension Array<UInt8> {
     func toUInt16(fromBigEndian: Bool = true) -> UInt16? {
         guard self.count == 2 else {

@@ -13,6 +13,7 @@ import TipKit
 
 @main
 class PrinterAppD110: App, Notifier, NotificationObservable {
+    nonisolated
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: PrinterAppD110.self)
@@ -36,7 +37,8 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         
         notificationListenerTask = Task.detached {
             for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
-                if let preview = await self.generateImage()?.cgImage {
+                let paperType = await self.toSendable(self.paperType)
+                if let preview = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: self.toSendable(self.textProperties))?.cgImage {
                     await MainActor.run {
                         self.imagePreview.image = preview
                     }
@@ -311,54 +313,70 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
     }
     
     @ImageActor
-    private func generateImage() async -> ImageGenerator? {
-        guard let image = await ImageGenerator(paperType: paperType.type) else { return nil }
-        for property in await textProperties.properties {
-            switch await property.whatToPrint {
+    private func generateImage(paperSize: CGSize, margin: Margin, from properties: [SendableTextProperty]) async -> ImageGenerator? {
+        guard let image = ImageGenerator(size: paperSize, margin: margin) else { return nil }
+        for (index, property) in properties.enumerated() {
+            switch property.whatToPrint {
             case .text:
-                guard await !property.text.isEmpty else { continue }
+                guard !property.text.isEmpty else { continue }
                 await image.drawText(text: property.text,
-                               fontName: property.fontDetails.name,
-                               fontSize: property.fontDetails.size,
-                               horizontal: property.horizontalAlignment.alignment,
-                               vertical: property.verticalAlignment.alignment)
+                               fontName: property.fontName,
+                               fontSize: property.fontSize,
+                               horizontal: property.horizontalAlignment,
+                               vertical: property.verticalAlignment)
             case .qr:
-                guard await !property.text.isEmpty else { continue }
+                guard !property.text.isEmpty else { continue }
                 await image.generateQRCode(text: property.text,
                                      size: property.squareCodeSize,
-                                     horizontal: property.horizontalAlignment.alignment,
-                                     vertical: property.verticalAlignment.alignment)
+                                     horizontal: property.horizontalAlignment,
+                                     vertical: property.verticalAlignment)
             case .image:
-                switch await (property.imageDecoration) {
+                switch (property.imageDecoration) {
                 case .custom:
-                    guard await !property.image.isEmpty else { continue }
-                    await image.drawImage(data: property.image)
+                    guard !property.image.isEmpty else { continue }
+                    image.drawImage(data: property.image)
                 case .frame, .frame3, .frame4, .frame5:
                     fallthrough
                 case .doubleFrame, .doubleFrame3, .doubleFrame4, .doubleFrame5:
-                    let divider = await property.imageDecoration.frameDivider
-                    let isDoubleFrame = await property.imageDecoration.isDoubleFrame
+                    let divider = property.imageDecoration.frameDivider
+                    let isDoubleFrame = property.imageDecoration.isDoubleFrame
                     await image.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
-                    guard await property.image.isEmpty else { continue }
-                    guard let imagePreview = await ImageGenerator(paperType: paperType.type) else { continue }
+                    guard property.image.isEmpty else { continue }
+                    guard let imagePreview = ImageGenerator(size: paperSize, margin: margin) else { continue }
                     await imagePreview.drawBorder(divide_by: divider, doubleBorder: isDoubleFrame)
                     let data = await imagePreview.cgImage?.data ?? Data()
                     await MainActor.run {
-                        property.image = data
+                        textProperties.properties[index].image = data
                     }
                 }
             }
         }
         return image
     }
+    
+    private func toSendable(_ textProperties: TextProperties) -> [SendableTextProperty] {
+        var result = [SendableTextProperty]()
+        for property in textProperties.properties {
+            result.append(SendableTextProperty(from: property))
+        }
+        return result
+    }
+    
+    private func toSendable(_ paperType: ObservablePaperType) -> PaperType {
+        return paperType.type
+    }
 
     private func generateImagePreview() async {
-        guard let preview = await self.generateImage()?.cgImage else { return }
+        let properties = toSendable(textProperties)
+        let paperType = self.toSendable(self.paperType)
+        guard let preview = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: properties)?.cgImage else { return }
         self.imagePreview.image = preview
     }
     
     private func preparePrintData() async  -> [[UInt8]] {
-        guard let data = await self.generateImage()?.printerData else { return [] }
+        let properties = toSendable(textProperties)
+        let paperType = self.toSendable(self.paperType)
+        guard let data = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: properties)?.printerData else { return [] }
 
         var peparedData: [[UInt8]] = []
         var rowNumber: UInt16 = 0

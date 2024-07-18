@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 @Observable
 final class TextProperty: ObservableObject, Notifier {
-    public enum WhatToPrint: Int, CaseIterable, SegmentedPrickerHelp {
+    public enum WhatToPrint: Int, CaseIterable, SegmentedPrickerHelp, Sendable {
         case text, qr, image
         
         var help: String {
@@ -67,4 +67,29 @@ final class TextProperty: ObservableObject, Notifier {
 @Observable
 class TextProperties: ObservableObject {
     var properties: Array<TextProperty> = [TextProperty()]
+}
+
+struct SendableTextProperty: Sendable {
+    @MainActor
+    init(from: TextProperty) {
+        self.whatToPrint = from.whatToPrint
+        self.horizontalAlignment = from.horizontalAlignment.alignment
+        self.verticalAlignment = from.verticalAlignment.alignment
+        self.squareCodeSize = from.squareCodeSize
+        self.image = from.image
+        self.imageDecoration = from.imageDecoration
+        self.text = from.text
+        self.fontName = from.fontDetails.name
+        self.fontSize = from.fontDetails.size
+    }
+    
+    let whatToPrint: TextProperty.WhatToPrint
+    let horizontalAlignment: HorizontalTextAlignment.Alignment
+    let verticalAlignment: VerticalTextAlignment.Alignment
+    let squareCodeSize: Int
+    let image: Data
+    let imageDecoration: Decoration
+    let text: String
+    let fontName: String
+    let fontSize: Int
 }

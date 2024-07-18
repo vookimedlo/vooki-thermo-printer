@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Margin {
+struct Margin: Sendable {
     let left: Double
     let right: Double
     let up: Double

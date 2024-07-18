@@ -12,6 +12,7 @@ public enum PaperType: String, Sendable {
          ean6972842743589 = "6972842743589", // 30*15 white
          ean02282280 = "02282280" // 30*15 white - came with printer
     
+    nonisolated
     var physicalSizeInMillimeters: CGSize {
         switch self {
         case .ean02282280, .ean6972842743589:
@@ -21,6 +22,7 @@ public enum PaperType: String, Sendable {
         }
     }
     
+    nonisolated
     var physicalSizeInPixels: CGSize {
         switch self {
         case .ean02282280, .ean6972842743589:
@@ -30,6 +32,7 @@ public enum PaperType: String, Sendable {
         }
     }
     
+    nonisolated
     var printableSizeInMillimeters: CGSize {
         switch self {
         case .ean02282280, .ean6972842743589:
@@ -39,6 +42,7 @@ public enum PaperType: String, Sendable {
         }
     }
     
+    nonisolated
     var printableSizeInPixels: CGSize {
         switch self {
         case .ean02282280, .ean6972842743589:
@@ -48,6 +52,7 @@ public enum PaperType: String, Sendable {
         }
     }
     
+    nonisolated
     var labelType: UInt8 {
         switch self {
         case .ean02282280, .ean6972842743589:
@@ -56,7 +61,8 @@ public enum PaperType: String, Sendable {
             return 1
         }
     }
-        
+    
+    nonisolated
     var margin: Margin {
         switch self {
         case .ean02282280, .ean6972842743589:

@@ -41,7 +41,7 @@ struct BluetoothPeripheralsView: View, Notifier {
                 guard oldValue != newValue else { return }
                 guard let value = newValue else { return }
                 isPresented = false
-                notify(name: Notification.Name.App.selectedPeripheral, userInfo: [String : UUID] (dictionaryLiteral: (Notification.Keys.value, value)))
+                notifyUI(name: Notification.Name.App.selectedPeripheral, userInfo: [String : UUID] (dictionaryLiteral: (Notification.Keys.value, value)))
             }
             .padding(.all)
             
@@ -50,10 +50,10 @@ struct BluetoothPeripheralsView: View, Notifier {
         }.onAppear() {
             peripherals.removeAll()
             selection = nil
-            notify(name: Notification.Name.App.startPopulatingPeripherals)
+            notifyUI(name: Notification.Name.App.startPopulatingPeripherals)
             
         }.onDisappear() {
-            notify(name: Notification.Name.App.stopPopulatingPeripherals)
+            notifyUI(name: Notification.Name.App.stopPopulatingPeripherals)
         }
     }
 }

@@ -11,6 +11,12 @@ import os
 import TipKit
 
 
+@globalActor actor PrinterActor: GlobalActor {
+    static let shared = PrinterActor()
+}
+
+
+
 @main
 class PrinterAppD110: App, Notifier, NotificationObservable {
     nonisolated
@@ -19,22 +25,25 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         category: String(describing: PrinterAppD110.self)
     )
 
+    @PrinterActor
     private var printer: Printer? {
         willSet {
-            printerAvailability.isAvailable = (newValue != nil)
+            Task { @MainActor in
+                printerAvailability.isAvailable = (newValue != nil)
+            }
         }
     }
-    private var printerDevice: PrinterDevice?
-    private var uplinkProcessor: UplinkProcessor?
     
-    private var bluetoothSupport: BluetoothSupport
+    @PrinterActor
+    private var printerDevice: PrinterDevice?
+    @PrinterActor
+    private var uplinkProcessor: UplinkProcessor?
+    @PrinterActor
+    private var bluetoothSupport = BluetoothSupport()
     
     var notificationListenerTask: Task<Void, Never>? = nil
-
         
     required init() {
-        bluetoothSupport = BluetoothSupport()
-        
         notificationListenerTask = Task.detached {
             for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
                 let paperType = await self.toSendable(self.paperType)
@@ -54,17 +63,21 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
                                        selector: #selector(receiveNotification))
         }
 
-        for name in [Notification.Name.App.startPopulatingPeripherals,
-                     Notification.Name.App.stopPopulatingPeripherals,
-                     Notification.Name.App.disconnectPeripheral,
-                     Notification.Name.App.selectedPeripheral,
-                     Notification.Name.App.lastSelectedPeripheral,
-                     Notification.Name.App.bluetoothPeripheralDisconnected,
+        for name in [Notification.Name.App.bluetoothPeripheralDisconnected,
                      Notification.Name.App.bluetoothPeripheralDiscovered] {
             registerNotification(name: name,
                                        selector: #selector(receiveBluetoothNotification))
         }
         
+        for name in [Notification.Name.App.startPopulatingPeripherals,
+                     Notification.Name.App.stopPopulatingPeripherals,
+                     Notification.Name.App.selectedPeripheral,
+                     Notification.Name.App.lastSelectedPeripheral,
+                     Notification.Name.App.disconnectPeripheral] {
+            registerNotification(name: name,
+                                       selector: #selector(receiveUINotification))
+        }
+
         for name in [Notification.Name.App.serialNumber,
                      Notification.Name.App.softwareVersion,
                      Notification.Name.App.hardwareVersion,
@@ -135,51 +148,72 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
             printLabel()
         }
     }
-        
-    @objc func receiveBluetoothNotification(_ notification: Notification) {
+    
+    @MainActor
+    @objc func receiveUINotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
 
-        if Notification.Name.App.bluetoothPeripheralDiscovered ==  notification.name {
-            let value = notification.userInfo?[Notification.Keys.peripheral] as! BluetoothPeripheral
-            Self.logger.info("Bluetooth peripheral \(value.identifier)")
-            DispatchQueue.main.async {
-                self.bluetoothPepripherals.add(peripheral: value)
-            }
-        }
-        else if Notification.Name.App.disconnectPeripheral ==  notification.name {
-            Self.logger.info("Disconnecting peripheral")
-            printerDevice?.close()
-            uplinkProcessor?.stopProcessing()
-        }
-        else if Notification.Name.App.bluetoothPeripheralDisconnected ==  notification.name {
-            Self.logger.info("Bluetooth peripheral disconnected")
-            printerDevice?.close()
-            uplinkProcessor?.stopProcessing()
-            printerAvailability.isConnected = false
-            printerDetails.clear()
-            paperDetails.clear()
-        }
-        else if Notification.Name.App.startPopulatingPeripherals == notification.name {
+        if Notification.Name.App.startPopulatingPeripherals == notification.name {
             Self.logger.info("Populating peripherals")
-            bluetoothSupport.startScanning()
+            Task { @PrinterActor in
+                bluetoothSupport.startScanning()
+            }
         }
         else if Notification.Name.App.stopPopulatingPeripherals == notification.name {
             Self.logger.info("Stop populating peripherals")
-            bluetoothSupport.stopScanning()
+            Task { @PrinterActor in
+                bluetoothSupport.stopScanning()
+            }
         }
         else if Notification.Name.App.selectedPeripheral == notification.name {
             let uuid = notification.userInfo?[Notification.Keys.value] as! UUID
             Self.logger.info("Selected peripheral \(uuid.uuidString)")
             guard let peripheral = bluetoothPepripherals.find(identifier: uuid)?.peripheral else { return }
-            printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport(peripheral: peripheral)))
-            printer = Printer(printerDevice: printerDevice!)
-            connect()
+            Task { @PrinterActor in
+                printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport(peripheral: peripheral)))
+                printer = Printer(printerDevice: printerDevice!)
+                connect()
+            }
         }
         else if Notification.Name.App.lastSelectedPeripheral == notification.name {
             Self.logger.info("Last selected peripheral")
-            connect()
+            Task { @PrinterActor in
+                connect()
+            }
+        }
+        else if Notification.Name.App.disconnectPeripheral ==  notification.name {
+            Self.logger.info("Disconnecting peripheral")
+            Task { @PrinterActor in
+                printerDevice?.close()
+                uplinkProcessor?.stopProcessing()
+            }
+        }
+    }
+
+    @PrinterActor
+    @objc func receiveBluetoothNotification(_ notification: Notification) {
+        let rawValue = notification.name.rawValue
+        Task { @MainActor in
+            Self.logger.info("Notification \(rawValue) received")
         }
         
+        if Notification.Name.App.bluetoothPeripheralDiscovered ==  notification.name {
+            let value = notification.userInfo?[Notification.Keys.peripheral] as! BluetoothPeripheral
+            Task { @MainActor in
+                Self.logger.info("Bluetooth peripheral \(value.identifier)")
+                self.bluetoothPepripherals.add(peripheral: value)
+            }
+        }
+        else if Notification.Name.App.bluetoothPeripheralDisconnected ==  notification.name {
+            Self.logger.info("Bluetooth peripheral disconnected")
+            printerDevice?.close()
+            uplinkProcessor?.stopProcessing()
+            Task { @MainActor in
+                printerAvailability.isConnected = false
+                printerDetails.clear()
+                paperDetails.clear()
+            }
+        }
     }
 
     @objc func receivePrinterNotification(_ notification: Notification) {
@@ -287,15 +321,19 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         }
     }
     
+    @PrinterActor
     func connect() {
         do {
             if uplinkProcessor != nil {
                 uplinkProcessor?.cancel()
             }
             try printerDevice?.open()
-            printerDetails.name = printerDevice?.io.name ?? ""
-            printerAvailability.isConnected = true
-            Self.logger.info("Open")
+            let name = printerDevice?.io.name ?? ""
+            Task { @MainActor in
+                printerDetails.name = name
+                printerAvailability.isConnected = true
+                Self.logger.info("Open")
+            }
             self.uplinkProcessor = UplinkProcessor(printerDevice: self.printerDevice!)
             self.uplinkProcessor?.startProcessing()
             printer?.getBatteryInformation()
@@ -404,7 +442,7 @@ class PrinterAppD110: App, Notifier, NotificationObservable {
         return peparedData
     }
     
-    @MainActor
+    @PrinterActor
     private func executePrintCommands() async {
         do {
             let data = await preparePrintData()

@@ -8,32 +8,37 @@
 import Foundation
 
 extension Notifier {
+    nonisolated
     func notify(name: Notification.Name) {
         Dispatch.DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
             NotificationCenter.default.post(name: name, object: nil)
         }
     }
         
+    nonisolated
     func notify(name: Notification.Name, userInfo: [String : Sendable]) {
         Dispatch.DispatchQueue.global(qos: DispatchQoS.QoSClass.background).async {
             NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo)
         }
     }
     
+    nonisolated
     func notifyUI(name: Notification.Name) {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             NotificationCenter.default.post(name: name, object: nil)
         }
     }
     
+    nonisolated
     func notifyUI(name: Notification.Name, userInfo: [String : Sendable]) {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             NotificationCenter.default.post(name: name, object: nil, userInfo: userInfo)
         }
     }
     
+    nonisolated
     func notifyUIAlert(alertType: AlertType) {
-        DispatchQueue.main.async {
+        Task { @MainActor in
             NotificationCenter.default.post(name: .App.UI.alert, object: nil, userInfo: [String : AlertType](dictionaryLiteral: (Notification.Keys.value, alertType)))
         }
     }

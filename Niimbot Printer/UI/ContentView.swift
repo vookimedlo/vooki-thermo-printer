@@ -122,7 +122,7 @@ struct ContentView: View, Notifier {
                         Text("Search printers")
                     }.disabled(printerAvailability.isConnected)
                     Button(action: {
-                        notify(name: .App.lastSelectedPeripheral)
+                        notifyUI(name: .App.lastSelectedPeripheral)
                     }) {
                         Text("Last printer")
                     }.disabled(!printerAvailability.isAvailable || printerAvailability.isConnected)

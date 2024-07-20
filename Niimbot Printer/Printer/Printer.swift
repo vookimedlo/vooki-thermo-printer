@@ -8,7 +8,8 @@
 import Foundation
 import os
 
-final class Printer: @unchecked Sendable {
+@PrinterActor
+final class Printer {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: Printer.self)

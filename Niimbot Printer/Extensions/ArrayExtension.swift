@@ -40,7 +40,7 @@ extension Array<UInt8> {
 }
 
 extension Array<UInt8> {
-    func hexEncodedString(options: Data.HexEncodingOptions = []) -> String {
+    public func hexEncodedString(options: Data.HexEncodingOptions = []) -> String {
         let format = { (options: Data.HexEncodingOptions) -> String in
             let caseSensitiveFormat = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
             return (options.contains(.prefix) ? "0x" : "") + caseSensitiveFormat

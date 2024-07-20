@@ -92,8 +92,6 @@ public final class Packet: Sendable {
         let payloadChecksum = Packet.checksum(requestCode: requestCode, payload: payload[...])
         return [0x55, 0x55, self.requestCode.rawValue, UInt8(payload.count)] + payload + [payloadChecksum, 0xAA, 0xAA]
     }
-    
-    
 }
 
 extension Packet {
@@ -101,7 +99,7 @@ extension Packet {
         guard uplink.count > 6 else {
             return nil
         }
-        guard (uplink.starts(with: [0x55, 0x55]) && uplink.suffix(2) == [UInt8](arrayLiteral: 0xAA, 0xAA)[...]) else {
+        guard (uplink.starts(with: [0x55, 0x55]) && uplink.suffix(2) == [UInt8](arrayLiteral: 0xAA, 0xAA)) else {
             return nil
         }
         

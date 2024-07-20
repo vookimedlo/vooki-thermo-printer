@@ -8,15 +8,20 @@
 import Foundation
 
 extension Data {
-    struct HexEncodingOptions: OptionSet {
-        let rawValue: Int
-        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
-        static let prefix = HexEncodingOptions(rawValue: 1 << 1)
-        static let commaSeparator = HexEncodingOptions(rawValue: 1 << 2)
-        static let spaceSeparator = HexEncodingOptions(rawValue: 1 << 3)
+    public struct HexEncodingOptions: OptionSet, Sendable {
+        public let rawValue: Int
+        
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+        
+        public static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+        public static let prefix = HexEncodingOptions(rawValue: 1 << 1)
+        public static let commaSeparator = HexEncodingOptions(rawValue: 1 << 2)
+        public static let spaceSeparator = HexEncodingOptions(rawValue: 1 << 3)
     }
 
-    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+    public func hexEncodedString(options: HexEncodingOptions = []) -> String {
         let format = { (options: HexEncodingOptions) -> String in
             let caseSensitiveFormat = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
             return (options.contains(.prefix) ? "0x" : "") + caseSensitiveFormat

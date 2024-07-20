@@ -24,6 +24,16 @@ final class PacketTests: XCTestCase {
         (RequestCode.REQUEST_GET_RFID, [])
     ]
     
+    func testPacketConstructors() {
+        let inputData = [0x55, 0x55, RequestCode.REQUEST_GET_INFO.rawValue, 0x03, 0x11, 0x22, 0x33, 0x43, 0xAA, 0xAA]
+        
+        let fromArray = Packet(requestCode: .REQUEST_GET_INFO, data: inputData)
+        let fromSlice = Packet(requestCode: .REQUEST_GET_INFO, data: inputData[...])
+        
+        XCTAssertEqual(fromArray.payload, fromSlice.payload)
+        XCTAssertEqual(fromArray.requestCode, fromSlice.requestCode)
+    }
+    
     func testDownlinkConstructionFromPacket() {
         
         for index in 0...PacketTests.validPackets.count - 1 {
@@ -78,4 +88,64 @@ final class PacketTests: XCTestCase {
         let packet = Packet.create(uplink:  [0x55, 0x55, RequestCode.REQUEST_GET_PRINT_STATUS.rawValue, 0x02, 0x11, 0xB3, 0xAA, 0xAA])
         XCTAssertNil(packet)
     }
+    
+    func testPacketConstructionFromUplinkStream() throws {
+        var stream = Data()
+        for uplink in PacketTests.validUplinks {
+            stream.append(contentsOf: uplink)
+        }
+        for index in 0 ..< PacketTests.validUplinks.count {
+            let packet =  try XCTUnwrap(Packet.create(fromStream: &stream))
+            let (expectedRequestCode, expectedPayload) = PacketTests.validPackets[index]
+            XCTAssertEqual(expectedRequestCode, packet.requestCode)
+            XCTAssertEqual(expectedPayload, packet.payload)
+        }
+        XCTAssertTrue(stream.isEmpty)
+    }
+
+    func testPacketConstructionFromUplinkStream_InvalidData() throws {
+        var stream = Data()
+        for uplink in PacketTests.validUplinks {
+            stream.append(contentsOf: uplink)
+        }
+        stream.append(contentsOf: [0x00])
+        for uplink in PacketTests.validUplinks {
+            stream.append(contentsOf: uplink)
+        }
+        
+        var expectedRemainingStream = Data()
+        for uplink in PacketTests.validUplinks {
+            expectedRemainingStream.append(contentsOf: uplink)
+        }
+        expectedRemainingStream.append(contentsOf: [0x00])
+        
+        for index in 0 ..< PacketTests.validUplinks.count {
+            let packet =  try XCTUnwrap(Packet.create(fromStream: &stream))
+            let (expectedRequestCode, expectedPayload) = PacketTests.validPackets[index]
+            XCTAssertEqual(expectedRequestCode, packet.requestCode)
+            XCTAssertEqual(expectedPayload, packet.payload)
+        }
+        
+        XCTAssertNil(Packet.create(fromStream: &stream))
+        XCTAssertFalse(stream.isEmpty)
+        
+        var streamBuffer = [UInt8]()
+        streamBuffer.reserveCapacity(stream.count)
+        _ = streamBuffer.withUnsafeMutableBytes{stream.copyBytes(to: $0)}
+        
+        var expectedRemainingStreamBuffer = [UInt8]()
+        expectedRemainingStreamBuffer.reserveCapacity(expectedRemainingStream.count)
+        _ = expectedRemainingStreamBuffer.withUnsafeMutableBytes{expectedRemainingStream.copyBytes(to: $0)}
+        
+        XCTAssertEqual(expectedRemainingStreamBuffer, streamBuffer)
+    }
+
+    func testPacketConstructionFromUplinkStream_InvalidCheksum() throws {
+        var stream = Data()
+        stream.append(contentsOf: [0x55, 0x55, RequestCode.REQUEST_GET_PRINT_STATUS.rawValue, 0x01, 0x11, 0x00, 0xAA, 0xAA])
+        
+        XCTAssertNil(Packet.create(fromStream: &stream))
+        XCTAssertTrue(stream.isEmpty)
+    }
+    
 }

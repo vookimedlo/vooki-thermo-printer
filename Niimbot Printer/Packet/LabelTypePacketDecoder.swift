@@ -7,10 +7,12 @@
 
 import Foundation
 
-class LabelTypePacketDecoder: PacketDecoding {
+public class LabelTypePacketDecoder: PacketDecoding {
     static let code = RequestCode.RESPONSE_GET_INFO_LABEL_TYPE
     
-    func decode(packet: Packet) -> Bool {
+    public init() {}
+    
+    public func decode(packet: Packet) -> Bool {
         guard Self.code == packet.requestCode else { return false }
         guard packet.payload.count == 1 else { return false }
        

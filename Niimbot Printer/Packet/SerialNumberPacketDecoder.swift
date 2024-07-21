@@ -7,16 +7,18 @@
 
 import Foundation
 
-class SerialNumberPacketDecoder: PacketDecoding {
+public class SerialNumberPacketDecoder: PacketDecoding {
     static let code = RequestCode.RESPONSE_GET_INFO_DEVICE_SERIAL
     
-    func decode(packet: Packet) -> Bool {
+    public init() {}
+    
+    public func decode(packet: Packet) -> Bool {
         guard Self.code == packet.requestCode else {
             return false
         }
 
         notify(name: Notification.Name.App.serialNumber,
-               userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, String(decoding: packet.payload + [0], as: UTF8.self))))
+               userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, String(decoding: packet.payload, as: UTF8.self))))
         return true
     }
 }

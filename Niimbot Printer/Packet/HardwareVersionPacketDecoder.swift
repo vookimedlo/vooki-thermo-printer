@@ -7,10 +7,12 @@
 
 import Foundation
 
-class HardwareVersionPacketDecoder: PacketDecoding {
+public class HardwareVersionPacketDecoder: PacketDecoding {
     static let code = RequestCode.RESPONSE_GET_INFO_HARDWARE_VERSION
     
-    func decode(packet: Packet) -> Bool {
+    public init() {}
+    
+    public func decode(packet: Packet) -> Bool {
         guard Self.code == packet.requestCode else {
             return false
         }

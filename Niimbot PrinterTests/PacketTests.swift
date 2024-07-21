@@ -46,7 +46,7 @@ final class PacketTests: XCTestCase {
     
     func testPacketConstructionFromUplink() throws {
         for index in 0...PacketTests.validUplinks.count - 1 {
-            let packet =  try XCTUnwrap(Packet.create(uplink: PacketTests.validUplinks[index][...]))
+            let packet = try XCTUnwrap(Packet.create(uplink: PacketTests.validUplinks[index][...]))
             let (expectedRequestCode, expectedPayload) = PacketTests.validPackets[index]
             XCTAssertEqual(expectedRequestCode, packet.requestCode)
             XCTAssertEqual(expectedPayload, packet.payload)

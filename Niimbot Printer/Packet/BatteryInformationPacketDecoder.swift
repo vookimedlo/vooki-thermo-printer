@@ -7,10 +7,12 @@
 
 import Foundation
 
-class BatteryInformationPacketDecoder: PacketDecoding {
+public class BatteryInformationPacketDecoder: PacketDecoding {
     static let code = RequestCode.RESPONSE_GET_INFO_BATTERY
     
-    func decode(packet: Packet) -> Bool {
+    public init() {}
+    
+    public func decode(packet: Packet) -> Bool {
         guard Self.code == packet.requestCode else {
             return false
         }

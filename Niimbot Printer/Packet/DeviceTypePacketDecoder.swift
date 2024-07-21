@@ -7,10 +7,12 @@
 
 import Foundation
 
-class DeviceTypePacketDecoder: PacketDecoding {
+public class DeviceTypePacketDecoder: PacketDecoding {
     static let code = RequestCode.RESPONSE_GET_INFO_DEVICE_TYPE
     
-    func decode(packet: Packet) -> Bool {
+    public init() {}
+    
+    public func decode(packet: Packet) -> Bool {
         guard Self.code == packet.requestCode else {
             return false
         }

@@ -20,12 +20,12 @@ class PacketDecoder: PacketDecoding, NotificationObservable {
 
     var decoders: [PacketDecoding]
     
-    init(decoders: [PacketDecoding]) {
+    public init(decoders: [PacketDecoding]) {
         self.decoders = decoders
         registerNotification(name: Notification.Name.App.uplinkedPacket, selector: #selector(receiveNotification))
     }
     
-    func decode(packet: Packet) -> Bool {
+    public func decode(packet: Packet) -> Bool {
         for decoder in decoders {
             if decoder.decode(packet: packet) {
                 return true

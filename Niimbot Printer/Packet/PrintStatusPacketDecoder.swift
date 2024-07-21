@@ -7,16 +7,12 @@
 
 import Foundation
 
-struct PrintStatus {
-    let page: UInt16
-    let progress1: UInt8
-    let progress2: UInt8
-}
-
-class PrintStatusPacketDecoder: PacketDecoding {
+public class PrintStatusPacketDecoder: PacketDecoding {
     static let code = RequestCode.RESPONSE_GET_PRINT_STATUS
     
-    func decode(packet: Packet) -> Bool {
+    public init() {}
+    
+    public func decode(packet: Packet) -> Bool {
         guard Self.code == packet.requestCode else {
             return false
         }

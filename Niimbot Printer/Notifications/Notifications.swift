@@ -8,7 +8,7 @@
 import Foundation
 
 extension Notification.Name {
-    struct App {
+    public struct App {
         static public let startPopulatingPeripherals = NSNotification.Name("notify-bt-start-pop")
         static public let stopPopulatingPeripherals = NSNotification.Name("notify-bt-stop-pop")
         static public let selectedPeripheral = NSNotification.Name("notify-bt-selected")
@@ -56,7 +56,7 @@ extension Notification.Name {
 }
 
 extension Notification {
-    class Keys {
+    public class Keys {
         static public let packet = "key-packet"
         static public let value = "key-value"
         static public let peripheral = "key-peripheral"

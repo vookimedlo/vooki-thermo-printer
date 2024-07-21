@@ -7,10 +7,12 @@
 
 import Foundation
 
-class DensityPacketDecoder: PacketDecoding {
+public class DensityPacketDecoder: PacketDecoding {
     static let code = RequestCode.RESPONSE_GET_INFO_DENSITY
     
-    func decode(packet: Packet) -> Bool {
+    public init() {}
+    
+    public func decode(packet: Packet) -> Bool {
         guard Self.code == packet.requestCode else { return false }
         guard packet.payload.count == 1 else { return false }
         

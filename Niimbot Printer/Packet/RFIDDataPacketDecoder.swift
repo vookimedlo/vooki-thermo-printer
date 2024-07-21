@@ -7,19 +7,12 @@
 
 import Foundation
 
-struct RFIDData {
-    let uuid: [UInt8]
-    let barcode: String
-    let serial: String
-    let totalLength: UInt16
-    let usedLength: UInt16
-    let type: UInt8
-}
-
-class RFIDDataPacketDecoder: PacketDecoding {
+public class RFIDDataPacketDecoder: PacketDecoding {
     static let code = RequestCode.RESPONSE_GET_RFID
     
-    func decode(packet: Packet) -> Bool {
+    public init() {}
+    
+    public func decode(packet: Packet) -> Bool {
         guard Self.code == packet.requestCode else {
             return false
         }
@@ -55,8 +48,8 @@ class RFIDDataPacketDecoder: PacketDecoding {
         let type = data.removeFirst()
         notify(name: Notification.Name.App.rfidData,
                userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, RFIDData(uuid: uuid,
-                                                                                               barcode: String(decoding: barcode + [0], as: UTF8.self),
-                                                                                               serial: String(decoding: serial + [0], as: UTF8.self),
+                                                                                               barcode: String(decoding: barcode, as: UTF8.self),
+                                                                                               serial: String(decoding: serial, as: UTF8.self),
                                                                                                totalLength: totalLength,
                                                                                                usedLength: usedLength,
                                                                                                type: type))))

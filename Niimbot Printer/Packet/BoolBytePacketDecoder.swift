@@ -7,8 +7,8 @@
 
 import Foundation
 
-class BoolBytePacketDecoder: PacketDecoding {
-    static let codes = [RequestCode.RESPONSE_START_PRINT,
+public final class BoolBytePacketDecoder: PacketDecoding {
+    public static let codes = [RequestCode.RESPONSE_START_PRINT,
                         RequestCode.RESPONSE_END_PRINT,
                         RequestCode.RESPONSE_START_PAGE_PRINT,
                         RequestCode.RESPONSE_END_PAGE_PRINT,
@@ -17,7 +17,9 @@ class BoolBytePacketDecoder: PacketDecoding {
                         RequestCode.RESPONSE_SET_LABEL_TYPE,
                         RequestCode.RESPONSE_SET_DIMENSION]
     
-    func decode(packet: Packet) -> Bool {
+    public init() {}
+    
+    public func decode(packet: Packet) -> Bool {
         guard Self.codes.contains(packet.requestCode) else { return false }
         guard packet.payload.count == 1 else { return false }
         

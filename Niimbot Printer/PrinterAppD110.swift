@@ -12,7 +12,7 @@ import TipKit
 
 
 @main
-class PrinterAppD110: App, Notifier, NotificationObservable {
+class PrinterAppD110: App, Notifiable, NotificationObservable {
     nonisolated
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,

@@ -9,7 +9,7 @@ import Foundation
 @preconcurrency import CoreBluetooth
 import os
 
-class BluetoothSupport : NSObject, BluetoothAccess, Notifier, CBCentralManagerDelegate, CBPeripheralDelegate {
+class BluetoothSupport : NSObject, BluetoothAccess, Notifiable, CBCentralManagerDelegate, CBPeripheralDelegate {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: BluetoothSupport.self)

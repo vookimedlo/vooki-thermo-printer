@@ -8,7 +8,7 @@
 import Combine
 import SwiftUI
 
-struct BluetoothPeripheralsView: View, Notifier {
+struct BluetoothPeripheralsView: View, Notifiable {
     @Environment(BluetoothPeripherals.self) private var peripherals
     
     @State private var selection: UUID?

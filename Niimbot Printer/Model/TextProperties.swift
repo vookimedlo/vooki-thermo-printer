@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 @Observable
-final class TextProperty: ObservableObject, Notifier {
+final class TextProperty: ObservableObject, Notifiable {
     public enum WhatToPrint: Int, CaseIterable, SegmentedPrickerHelp, Sendable {
         case text, qr, image
         

@@ -1,5 +1,5 @@
 //
-//  Notify.swift
+//  Notifiable.swift
 //  Niimbot Printer
 //
 //  Created by Michal Duda on 01.06.2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Notifier {
+protocol Notifiable {
     nonisolated
     func notify(name: Notification.Name)
     

@@ -52,10 +52,10 @@
 		8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */; };
 		8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96391E2C0A8E8B00374894 /* DataExtension.swift */; };
 		8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96393E2C0B5E0600374894 /* Notifications.swift */; };
-		8D9639412C0B616D00374894 /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639402C0B616D00374894 /* Notifier.swift */; };
+		8D9639412C0B616D00374894 /* Notifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639402C0B616D00374894 /* Notifiable.swift */; };
 		8D9639432C0B927F00374894 /* NotificationObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639422C0B927F00374894 /* NotificationObservable.swift */; };
 		8D9639452C0B984F00374894 /* NotificationObservableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639442C0B984F00374894 /* NotificationObservableExtension.swift */; };
-		8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639462C0B9C8B00374894 /* NotifierExtension.swift */; };
+		8D9639472C0B9C8B00374894 /* NotifiableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */; };
 		8D9639492C0B9EC600374894 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
 		8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
 		8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */; };
@@ -151,10 +151,10 @@
 		8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAndWaitAsync.swift; sourceTree = "<group>"; };
 		8D96391E2C0A8E8B00374894 /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
 		8D96393E2C0B5E0600374894 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
-		8D9639402C0B616D00374894 /* Notifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
+		8D9639402C0B616D00374894 /* Notifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifiable.swift; sourceTree = "<group>"; };
 		8D9639422C0B927F00374894 /* NotificationObservable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObservable.swift; sourceTree = "<group>"; };
 		8D9639442C0B984F00374894 /* NotificationObservableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObservableExtension.swift; sourceTree = "<group>"; };
-		8D9639462C0B9C8B00374894 /* NotifierExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifierExtension.swift; sourceTree = "<group>"; };
+		8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifiableExtension.swift; sourceTree = "<group>"; };
 		8D9639482C0B9EC600374894 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		8D96394A2C0BA60800374894 /* PacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoder.swift; sourceTree = "<group>"; };
 		8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterLabelDetailView.swift; sourceTree = "<group>"; };
@@ -356,8 +356,8 @@
 			isa = PBXGroup;
 			children = (
 				8D96393E2C0B5E0600374894 /* Notifications.swift */,
-				8D9639402C0B616D00374894 /* Notifier.swift */,
-				8D9639462C0B9C8B00374894 /* NotifierExtension.swift */,
+				8D9639402C0B616D00374894 /* Notifiable.swift */,
+				8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */,
 				8D9639422C0B927F00374894 /* NotificationObservable.swift */,
 			);
 			path = Notifications;
@@ -529,7 +529,7 @@
 				8DED511F2C3080F700B52F1E /* SegmentedPickerView.swift in Sources */,
 				8DDC3D422C1A290800296C72 /* ContentView.swift in Sources */,
 				8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */,
-				8D9639412C0B616D00374894 /* Notifier.swift in Sources */,
+				8D9639412C0B616D00374894 /* Notifiable.swift in Sources */,
 				8DED51212C318E3100B52F1E /* HorizontalTextAlignment.swift in Sources */,
 				8D785DB42C470A9A00C25566 /* ImageActor.swift in Sources */,
 				8DF9FE4F2C36A057004DAED2 /* PaperType.swift in Sources */,
@@ -537,7 +537,7 @@
 				8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */,
 				8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */,
 				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
-				8D9639472C0B9C8B00374894 /* NotifierExtension.swift in Sources */,
+				8D9639472C0B9C8B00374894 /* NotifiableExtension.swift in Sources */,
 				8DF9FE532C36DF97004DAED2 /* ObservablePaperType.swift in Sources */,
 				8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */,
 				8D9639452C0B984F00374894 /* NotificationObservableExtension.swift in Sources */,

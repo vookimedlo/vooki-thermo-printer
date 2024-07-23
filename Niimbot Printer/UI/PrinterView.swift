@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct PrinterView: View, Notifier {
+struct PrinterView: View, Notifiable {
     @Environment(PrinterAvailability.self) private var printerAvailability
     @Environment(PrinterDetails.self) private var printeDetails
     

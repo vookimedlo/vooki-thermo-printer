@@ -10,6 +10,6 @@ import CoreGraphics
 
 @MainActor
 @Observable
-final class ImagePreview: ObservableObject, Notifier {
+final class ImagePreview: ObservableObject, Notifiable {
     var image: CGImage?
 }

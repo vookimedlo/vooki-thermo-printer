@@ -1,5 +1,5 @@
 //
-//  NotifierExtension.swift
+//  NotifiableExtension.swift
 //  Niimbot Printer
 //
 //  Created by Michal Duda on 01.06.2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-extension Notifier {
+extension Notifiable {
     nonisolated
     func notify(name: Notification.Name) {
         Task { @PrinterActor in

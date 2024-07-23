@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 @Observable
-final class FontDetails: ObservableObject, Notifier {
+final class FontDetails: ObservableObject, Notifiable {
     var family: String = "Chalkboard"
     
     var name: String = "Chalkboard" {

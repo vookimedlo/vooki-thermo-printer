@@ -27,7 +27,7 @@ public enum AlertType: Int {
 }
 
 
-struct ContentView: View, Notifier {
+struct ContentView: View, Notifiable {
     
     enum Views {
         case printerView

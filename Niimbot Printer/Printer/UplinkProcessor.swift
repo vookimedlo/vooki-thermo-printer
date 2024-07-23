@@ -8,7 +8,7 @@
 import Foundation
 import os
 
-class UplinkProcessor : Thread, Notifier {
+class UplinkProcessor : Thread, Notifiable {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: UplinkProcessor.self)

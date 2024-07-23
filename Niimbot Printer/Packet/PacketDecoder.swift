@@ -8,7 +8,7 @@
 import Foundation
 import os
 
-protocol PacketDecoding: Notifier {
+protocol PacketDecoding: Notifiable {
     func decode(packet: Packet) -> Bool
 }
 

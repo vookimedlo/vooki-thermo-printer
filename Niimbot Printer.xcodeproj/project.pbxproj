@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D036FB32C50536800CADCCC /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D036FB22C50535D00CADCCC /* ArrayExtensionTests.swift */; };
 		8D1F59BB2C20EAF8002A037F /* IndicatorValueSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */; };
 		8D312BFB2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312BFA2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift */; };
 		8D312BFD2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312BFC2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift */; };
@@ -105,6 +106,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D036FB22C50535D00CADCCC /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorValueSlider.swift; sourceTree = "<group>"; };
 		8D312BFA2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareVersionPacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D312BFC2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInformationPacketDecoderTests.swift; sourceTree = "<group>"; };
@@ -212,6 +214,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D036FB02C50528C00CADCCC /* Packet */ = {
+			isa = PBXGroup;
+			children = (
+				8D036FB12C5052C200CADCCC /* Decoders */,
+				8D58DC2C2C05D460001EBD95 /* PacketTests.swift */,
+			);
+			path = Packet;
+			sourceTree = "<group>";
+		};
+		8D036FB12C5052C200CADCCC /* Decoders */ = {
+			isa = PBXGroup;
+			children = (
+				8D312C022C4D9E7A006D0360 /* AutoShutdownTimePacketDecoderTests.swift */,
+				8D312BFC2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift */,
+				8D708D942C4C6076006BF3BE /* BoolBytePacketDecoderTests.swift */,
+				8D312C002C4D9D0B006D0360 /* DensityPacketDecoderTests.swift */,
+				8D312C042C4DA102006D0360 /* DeviceTypePacketDecoderTests.swift */,
+				8D312BFA2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift */,
+				8D312BFE2C4D99D3006D0360 /* LabelTypePacketDecoderTests.swift */,
+				8D312C0D2C4DA9BF006D0360 /* PrintStatusPacketDecoderTests.swift */,
+				8D312C062C4DA460006D0360 /* SerialNumberPacketDecoderTests.swift */,
+				8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */,
+			);
+			path = Decoders;
+			sourceTree = "<group>";
+		};
 		8D1EFC2C2C40311100C25DEB /* Image */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,18 +301,9 @@
 		8D58DC2B2C05D460001EBD95 /* Niimbot PrinterTests */ = {
 			isa = PBXGroup;
 			children = (
-				8D312C022C4D9E7A006D0360 /* AutoShutdownTimePacketDecoderTests.swift */,
-				8D312BFC2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift */,
-				8D708D942C4C6076006BF3BE /* BoolBytePacketDecoderTests.swift */,
-				8D312C002C4D9D0B006D0360 /* DensityPacketDecoderTests.swift */,
-				8D312C042C4DA102006D0360 /* DeviceTypePacketDecoderTests.swift */,
+				8D036FB22C50535D00CADCCC /* ArrayExtensionTests.swift */,
+				8D036FB02C50528C00CADCCC /* Packet */,
 				8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */,
-				8D312BFA2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift */,
-				8D312BFE2C4D99D3006D0360 /* LabelTypePacketDecoderTests.swift */,
-				8D58DC2C2C05D460001EBD95 /* PacketTests.swift */,
-				8D312C0D2C4DA9BF006D0360 /* PrintStatusPacketDecoderTests.swift */,
-				8D312C062C4DA460006D0360 /* SerialNumberPacketDecoderTests.swift */,
-				8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */,
 				8D76C53E2C091162005D7EEB /* StubbedFileSystem.swift */,
 			);
 			path = "Niimbot PrinterTests";
@@ -347,6 +366,7 @@
 				8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */,
 				8D96391E2C0A8E8B00374894 /* DataExtension.swift */,
 				8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */,
+				8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */,
 				8D9639442C0B984F00374894 /* NotificationObservableExtension.swift */,
 			);
 			path = Extensions;
@@ -357,7 +377,6 @@
 			children = (
 				8D96393E2C0B5E0600374894 /* Notifications.swift */,
 				8D9639402C0B616D00374894 /* Notifiable.swift */,
-				8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */,
 				8D9639422C0B927F00374894 /* NotificationObservable.swift */,
 			);
 			path = Notifications;
@@ -593,6 +612,7 @@
 				8D312C052C4DA102006D0360 /* DeviceTypePacketDecoderTests.swift in Sources */,
 				8D312BFB2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift in Sources */,
 				8D312BFD2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift in Sources */,
+				8D036FB32C50536800CADCCC /* ArrayExtensionTests.swift in Sources */,
 				8D76C53F2C091162005D7EEB /* StubbedFileSystem.swift in Sources */,
 				8D58DC2D2C05D460001EBD95 /* PacketTests.swift in Sources */,
 				8D708D952C4C6099006BF3BE /* BoolBytePacketDecoderTests.swift in Sources */,

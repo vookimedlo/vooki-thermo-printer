@@ -19,8 +19,6 @@ extension Notification.Name {
         static public let printRequested = NSNotification.Name("notify-print-req")
         static public let textPropertiesUpdated = NSNotification.Name("notify-text-props-updated")
 
-
-
         static public let uplinkedPacket = NSNotification.Name("notify-uplinked-packet")
         static public let density = NSNotification.Name("notify-density")
         static public let labelType = NSNotification.Name("notify-label-type")

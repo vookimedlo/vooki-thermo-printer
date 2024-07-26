@@ -62,6 +62,8 @@
 		8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */; };
 		8DAC16092C52A89F005FABB7 /* DataExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16082C52A896005FABB7 /* DataExtensionTests.swift */; };
 		8DAC160C2C543B1D005FABB7 /* FixedWidthIntegerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */; };
+		8DAC160F2C544089005FABB7 /* PrinterDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC160E2C544083005FABB7 /* PrinterDeviceTests.swift */; };
+		8DAC16132C5441C2005FABB7 /* StubbedIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16122C5441C2005FABB7 /* StubbedIO.swift */; };
 		8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
 		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
@@ -164,6 +166,8 @@
 		8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterLabelDetailView.swift; sourceTree = "<group>"; };
 		8DAC16082C52A896005FABB7 /* DataExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensionTests.swift; sourceTree = "<group>"; };
 		8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerTests.swift; sourceTree = "<group>"; };
+		8DAC160E2C544083005FABB7 /* PrinterDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDeviceTests.swift; sourceTree = "<group>"; };
+		8DAC16122C5441C2005FABB7 /* StubbedIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbedIO.swift; sourceTree = "<group>"; };
 		8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingProgress.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
@@ -305,10 +309,10 @@
 		8D58DC2B2C05D460001EBD95 /* Niimbot PrinterTests */ = {
 			isa = PBXGroup;
 			children = (
+				8DAC16102C544197005FABB7 /* Communication */,
 				8DAC16072C52A843005FABB7 /* Extension */,
 				8D036FB02C50528C00CADCCC /* Packet */,
-				8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */,
-				8D76C53E2C091162005D7EEB /* StubbedFileSystem.swift */,
+				8DAC160D2C543F83005FABB7 /* Printer */,
 			);
 			path = "Niimbot PrinterTests";
 			sourceTree = "<group>";
@@ -343,6 +347,32 @@
 				8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		8DAC160D2C543F83005FABB7 /* Printer */ = {
+			isa = PBXGroup;
+			children = (
+				8DAC160E2C544083005FABB7 /* PrinterDeviceTests.swift */,
+			);
+			path = Printer;
+			sourceTree = "<group>";
+		};
+		8DAC16102C544197005FABB7 /* Communication */ = {
+			isa = PBXGroup;
+			children = (
+				8DAC16112C5441B1005FABB7 /* Stub */,
+				8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */,
+			);
+			path = Communication;
+			sourceTree = "<group>";
+		};
+		8DAC16112C5441B1005FABB7 /* Stub */ = {
+			isa = PBXGroup;
+			children = (
+				8DAC16122C5441C2005FABB7 /* StubbedIO.swift */,
+				8D76C53E2C091162005D7EEB /* StubbedFileSystem.swift */,
+			);
+			path = Stub;
 			sourceTree = "<group>";
 		};
 		8DDC3D092C19C62D00296C72 /* Packet */ = {
@@ -631,9 +661,11 @@
 				8D76C53F2C091162005D7EEB /* StubbedFileSystem.swift in Sources */,
 				8D58DC2D2C05D460001EBD95 /* PacketTests.swift in Sources */,
 				8D708D952C4C6099006BF3BE /* BoolBytePacketDecoderTests.swift in Sources */,
+				8DAC16132C5441C2005FABB7 /* StubbedIO.swift in Sources */,
 				8D312C032C4D9E7A006D0360 /* AutoShutdownTimePacketDecoderTests.swift in Sources */,
 				8DAC16092C52A89F005FABB7 /* DataExtensionTests.swift in Sources */,
 				8D76C5412C0912C4005D7EEB /* FileSystemIOTests.swift in Sources */,
+				8DAC160F2C544089005FABB7 /* PrinterDeviceTests.swift in Sources */,
 				8D312C072C4DA460006D0360 /* SerialNumberPacketDecoderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

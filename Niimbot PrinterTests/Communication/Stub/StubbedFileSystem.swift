@@ -8,7 +8,7 @@
 import Foundation
 import Niimbot_Printer
 
-public class StubbedFileSystem : FileSystemAccess {
+class StubbedFileSystem : FileSystemAccess {
     public var openResult: Int32 = -1
     public var closeResult: Int32 = -1
     public var readResult: Int = -1

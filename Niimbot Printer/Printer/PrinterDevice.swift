@@ -1,5 +1,5 @@
 //
-//  PacketDevice.swift
+//  PrinterDevice.swift
 //  Niimbot Printer
 //
 //  Created by Michal Duda on 28.05.2024.

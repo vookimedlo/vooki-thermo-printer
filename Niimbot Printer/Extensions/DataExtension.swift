@@ -39,7 +39,7 @@ extension Data {
 }
 
 extension Data {
-    func toUInt16(fromBigEndian: Bool = true) -> UInt16? {
+    public func toUInt16(fromBigEndian: Bool = true) -> UInt16? {
         guard self.count == 2 else {
             return nil
         }

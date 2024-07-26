@@ -8,7 +8,7 @@
 import Foundation
 
 extension FixedWidthInteger {
-    var bytes: [UInt8] {
+    public var bytes: [UInt8] {
         var source = self
         return Array<UInt8>(rawPointer: &source, count: MemoryLayout<Self>.size)
     }

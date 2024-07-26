@@ -60,6 +60,8 @@
 		8D9639492C0B9EC600374894 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
 		8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
 		8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */; };
+		8DAC16092C52A89F005FABB7 /* DataExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16082C52A896005FABB7 /* DataExtensionTests.swift */; };
+		8DAC160C2C543B1D005FABB7 /* FixedWidthIntegerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */; };
 		8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
 		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
@@ -160,6 +162,8 @@
 		8D9639482C0B9EC600374894 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		8D96394A2C0BA60800374894 /* PacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoder.swift; sourceTree = "<group>"; };
 		8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterLabelDetailView.swift; sourceTree = "<group>"; };
+		8DAC16082C52A896005FABB7 /* DataExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensionTests.swift; sourceTree = "<group>"; };
+		8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerTests.swift; sourceTree = "<group>"; };
 		8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingProgress.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
@@ -301,7 +305,7 @@
 		8D58DC2B2C05D460001EBD95 /* Niimbot PrinterTests */ = {
 			isa = PBXGroup;
 			children = (
-				8D036FB22C50535D00CADCCC /* ArrayExtensionTests.swift */,
+				8DAC16072C52A843005FABB7 /* Extension */,
 				8D036FB02C50528C00CADCCC /* Packet */,
 				8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */,
 				8D76C53E2C091162005D7EEB /* StubbedFileSystem.swift */,
@@ -329,6 +333,16 @@
 				8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		8DAC16072C52A843005FABB7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				8D036FB22C50535D00CADCCC /* ArrayExtensionTests.swift */,
+				8DAC16082C52A896005FABB7 /* DataExtensionTests.swift */,
+				8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		8DDC3D092C19C62D00296C72 /* Packet */ = {
@@ -610,6 +624,7 @@
 				8D76C5602C0A11BB005D7EEB /* ArrayExtension.swift in Sources */,
 				8D312C012C4D9D0B006D0360 /* DensityPacketDecoderTests.swift in Sources */,
 				8D312C052C4DA102006D0360 /* DeviceTypePacketDecoderTests.swift in Sources */,
+				8DAC160C2C543B1D005FABB7 /* FixedWidthIntegerTests.swift in Sources */,
 				8D312BFB2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift in Sources */,
 				8D312BFD2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift in Sources */,
 				8D036FB32C50536800CADCCC /* ArrayExtensionTests.swift in Sources */,
@@ -617,6 +632,7 @@
 				8D58DC2D2C05D460001EBD95 /* PacketTests.swift in Sources */,
 				8D708D952C4C6099006BF3BE /* BoolBytePacketDecoderTests.swift in Sources */,
 				8D312C032C4D9E7A006D0360 /* AutoShutdownTimePacketDecoderTests.swift in Sources */,
+				8DAC16092C52A89F005FABB7 /* DataExtensionTests.swift in Sources */,
 				8D76C5412C0912C4005D7EEB /* FileSystemIOTests.swift in Sources */,
 				8D312C072C4DA460006D0360 /* SerialNumberPacketDecoderTests.swift in Sources */,
 			);

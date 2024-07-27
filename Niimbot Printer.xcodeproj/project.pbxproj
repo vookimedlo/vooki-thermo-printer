@@ -64,6 +64,7 @@
 		8DAC160C2C543B1D005FABB7 /* FixedWidthIntegerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */; };
 		8DAC160F2C544089005FABB7 /* PrinterDeviceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC160E2C544083005FABB7 /* PrinterDeviceTests.swift */; };
 		8DAC16132C5441C2005FABB7 /* StubbedIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16122C5441C2005FABB7 /* StubbedIO.swift */; };
+		8DAC16152C54535C005FABB7 /* PacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16142C545350005FABB7 /* PacketDecoderTests.swift */; };
 		8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
 		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
@@ -168,6 +169,7 @@
 		8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerTests.swift; sourceTree = "<group>"; };
 		8DAC160E2C544083005FABB7 /* PrinterDeviceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDeviceTests.swift; sourceTree = "<group>"; };
 		8DAC16122C5441C2005FABB7 /* StubbedIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbedIO.swift; sourceTree = "<group>"; };
+		8DAC16142C545350005FABB7 /* PacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoderTests.swift; sourceTree = "<group>"; };
 		8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingProgress.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				8D312C042C4DA102006D0360 /* DeviceTypePacketDecoderTests.swift */,
 				8D312BFA2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift */,
 				8D312BFE2C4D99D3006D0360 /* LabelTypePacketDecoderTests.swift */,
+				8DAC16142C545350005FABB7 /* PacketDecoderTests.swift */,
 				8D312C0D2C4DA9BF006D0360 /* PrintStatusPacketDecoderTests.swift */,
 				8D312C062C4DA460006D0360 /* SerialNumberPacketDecoderTests.swift */,
 				8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */,
@@ -648,6 +651,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DAC16152C54535C005FABB7 /* PacketDecoderTests.swift in Sources */,
 				8D312BFF2C4D99D3006D0360 /* LabelTypePacketDecoderTests.swift in Sources */,
 				8D489B752C4D040200B9CC36 /* SoftwareVersionPacketDecoderTests.swift in Sources */,
 				8D312C0E2C4DA9BF006D0360 /* PrintStatusPacketDecoderTests.swift in Sources */,

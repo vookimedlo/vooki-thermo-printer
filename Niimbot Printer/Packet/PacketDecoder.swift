@@ -8,17 +8,17 @@
 import Foundation
 import os
 
-protocol PacketDecoding: Notifiable {
+public protocol PacketDecoding: Notifiable {
     func decode(packet: Packet) -> Bool
 }
 
-class PacketDecoder: PacketDecoding, NotificationObservable {
+public class PacketDecoder: PacketDecoding, NotificationObservable {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: UplinkProcessor.self)
     )
 
-    var decoders: [PacketDecoding]
+    private let decoders: [PacketDecoding]
     
     public init(decoders: [PacketDecoding]) {
         self.decoders = decoders

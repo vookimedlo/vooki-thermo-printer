@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Notifiable {
+public protocol Notifiable {
     nonisolated
     func notify(name: Notification.Name)
     

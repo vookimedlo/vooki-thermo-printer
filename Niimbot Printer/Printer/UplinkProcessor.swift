@@ -8,28 +8,28 @@
 import Foundation
 import os
 
-class UplinkProcessor : Thread, Notifiable {
+public class UplinkProcessor : Thread, Notifiable {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: UplinkProcessor.self)
     )
     
-    let printerDevice: PrinterDevice
+    private let printerDevice: PrinterDevice
     
-    init(printerDevice: PrinterDevice) {
+    public init(printerDevice: PrinterDevice) {
         self.printerDevice = printerDevice
         super.init()
     }
     
-    func startProcessing() {
+    public func startProcessing() {
         super.start()
     }
     
-    func stopProcessing(){
+    public func stopProcessing(){
         super.cancel()
     }
         
-    override func main() {
+    public override func main() {
         defer {
             Self.logger.info("Processing thread finished")
         }

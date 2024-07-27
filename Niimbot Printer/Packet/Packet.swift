@@ -144,3 +144,10 @@ extension Packet {
         return nil
     }
 }
+
+
+extension Packet: Equatable {
+    public static func == (lhs: Packet, rhs: Packet) -> Bool {
+        return lhs.requestCode == rhs.requestCode && lhs.payload == rhs.payload
+    }
+}

@@ -22,6 +22,8 @@ class StubbedIO : IO {
     public var writeCalled = 0
     
     public var readOutputData: [UInt8] = []
+    public var readOutputDataOnlyOnce: Bool = false
+
     
     public var writeInputBuffer : [UInt8] = []
     public var writeInputBufferSize : Int = 0
@@ -45,6 +47,9 @@ class StubbedIO : IO {
         self.readCalled += 1
         if readResultThrows {
             throw IOError.read
+        }
+        if readOutputDataOnlyOnce && self.readCalled > 1 {
+            return 0
         }
         buffer.initialize(from:  &self.readOutputData, count: size)
         return self.readResult

@@ -21,14 +21,28 @@ struct PrinterView: View, Notifiable {
     var body: some View {
         VStack {
             GroupBox {
-                VStack {
-                    Spacer()
-                    HStack{
+                ZStack {
+                    VStack {
                         Spacer()
-                        Preview()
+                        HStack{
+                            Spacer()
+                            Preview()
+                            Spacer()
+                        }
                         Spacer()
                     }
-                    Spacer()
+                    VStack(alignment: .trailing) {
+                        Spacer()
+                        HStack(alignment: .center) {
+                            Spacer()
+                            GroupBox(label: Text("Legend")) {
+                                VStack(alignment: .leading) {
+                                    Text("Printable area").foregroundStyle(.red)
+                                    Text("Physical area").foregroundStyle(.green)
+                                }
+                            }.padding(10)
+                        }
+                    }
                 }
             } label: {
                 Text("Paper preview")

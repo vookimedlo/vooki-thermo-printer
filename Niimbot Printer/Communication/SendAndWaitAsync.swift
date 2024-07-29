@@ -8,7 +8,7 @@
 import Foundation
 import os
 
-class SendAndWaitAsync {
+public class SendAndWaitAsync {
     public enum WaitError: Error {
         case timeout
         case notSuccessful
@@ -36,7 +36,6 @@ class SendAndWaitAsync {
                             
             group.addTask {
                 try await Task.sleep(for: timeout)
-                guard !Task.isCancelled else { return .cancelled }
                 Self.logger.error("Timeout of \(name.rawValue)")
                 throw WaitError.timeout
             }

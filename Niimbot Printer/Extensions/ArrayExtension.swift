@@ -8,11 +8,11 @@
 import Foundation
 
 extension Array {
-    init(pointer: UnsafePointer<Element>, count: Int) {
+    public init(pointer: UnsafePointer<Element>, count: Int) {
         self = Array(UnsafeBufferPointer<Element>(start: pointer, count: count))
     }
     
-    init(rawPointer: UnsafeRawPointer, count: Int) {
+    public init(rawPointer: UnsafeRawPointer, count: Int) {
         self = Array(UnsafeBufferPointer<Element>(start: rawPointer.bindMemory(to: Element.self,
                                                                                capacity: count),
                                                   count: count))
@@ -20,7 +20,7 @@ extension Array {
 }
 
 extension Array {
-    func findFirstMatching(predicate: (Element) -> Bool) -> Element? {
+    public func findFirstMatching(predicate: (Element) -> Bool) -> Element? {
         for item in self {
             if predicate(item) {
                 return item
@@ -31,7 +31,7 @@ extension Array {
 }
 
 extension Array<UInt8> {
-    func toUInt16(fromBigEndian: Bool = true) -> UInt16? {
+    public func toUInt16(fromBigEndian: Bool = true) -> UInt16? {
         guard self.count == 2 else {
             return nil
         }
@@ -58,7 +58,7 @@ extension Array<UInt8> {
 }
 
 extension ArraySlice<UInt8> {
-    func decEncodedString() -> String {
+    public func decEncodedString() -> String {
         return self.map { String(format: "%u", $0) }.joined(separator: "")
     }
 }

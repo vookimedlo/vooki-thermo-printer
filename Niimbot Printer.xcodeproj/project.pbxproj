@@ -65,6 +65,8 @@
 		8DAC16152C54535C005FABB7 /* PacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16142C545350005FABB7 /* PacketDecoderTests.swift */; };
 		8DAC16172C5524BE005FABB7 /* UplinkProcessorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16162C5524B4005FABB7 /* UplinkProcessorTests.swift */; };
 		8DAC16192C58383D005FABB7 /* SendAndWaitAsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16182C58382C005FABB7 /* SendAndWaitAsyncTests.swift */; };
+		8DAC161B2C584BEA005FABB7 /* StubbedBluetoothAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC161A2C584BD2005FABB7 /* StubbedBluetoothAccess.swift */; };
+		8DAC161D2C584F60005FABB7 /* BluetoothIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC161C2C584F58005FABB7 /* BluetoothIOTests.swift */; };
 		8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
 		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
@@ -172,6 +174,8 @@
 		8DAC16142C545350005FABB7 /* PacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoderTests.swift; sourceTree = "<group>"; };
 		8DAC16162C5524B4005FABB7 /* UplinkProcessorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UplinkProcessorTests.swift; sourceTree = "<group>"; };
 		8DAC16182C58382C005FABB7 /* SendAndWaitAsyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAndWaitAsyncTests.swift; sourceTree = "<group>"; };
+		8DAC161A2C584BD2005FABB7 /* StubbedBluetoothAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbedBluetoothAccess.swift; sourceTree = "<group>"; };
+		8DAC161C2C584F58005FABB7 /* BluetoothIOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothIOTests.swift; sourceTree = "<group>"; };
 		8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingProgress.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				8DAC16112C5441B1005FABB7 /* Stub */,
+				8DAC161C2C584F58005FABB7 /* BluetoothIOTests.swift */,
 				8D76C5402C0912C4005D7EEB /* FileSystemIOTests.swift */,
 				8DAC16182C58382C005FABB7 /* SendAndWaitAsyncTests.swift */,
 			);
@@ -376,8 +381,9 @@
 		8DAC16112C5441B1005FABB7 /* Stub */ = {
 			isa = PBXGroup;
 			children = (
-				8DAC16122C5441C2005FABB7 /* StubbedIO.swift */,
+				8DAC161A2C584BD2005FABB7 /* StubbedBluetoothAccess.swift */,
 				8D76C53E2C091162005D7EEB /* StubbedFileSystem.swift */,
+				8DAC16122C5441C2005FABB7 /* StubbedIO.swift */,
 			);
 			path = Stub;
 			sourceTree = "<group>";
@@ -664,12 +670,14 @@
 				8DAC160C2C543B1D005FABB7 /* FixedWidthIntegerTests.swift in Sources */,
 				8DAC16172C5524BE005FABB7 /* UplinkProcessorTests.swift in Sources */,
 				8D312BFB2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift in Sources */,
+				8DAC161D2C584F60005FABB7 /* BluetoothIOTests.swift in Sources */,
 				8D312BFD2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift in Sources */,
 				8D036FB32C50536800CADCCC /* ArrayExtensionTests.swift in Sources */,
 				8D76C53F2C091162005D7EEB /* StubbedFileSystem.swift in Sources */,
 				8D58DC2D2C05D460001EBD95 /* PacketTests.swift in Sources */,
 				8D708D952C4C6099006BF3BE /* BoolBytePacketDecoderTests.swift in Sources */,
 				8DAC16132C5441C2005FABB7 /* StubbedIO.swift in Sources */,
+				8DAC161B2C584BEA005FABB7 /* StubbedBluetoothAccess.swift in Sources */,
 				8D312C032C4D9E7A006D0360 /* AutoShutdownTimePacketDecoderTests.swift in Sources */,
 				8DAC16092C52A89F005FABB7 /* DataExtensionTests.swift in Sources */,
 				8D76C5412C0912C4005D7EEB /* FileSystemIOTests.swift in Sources */,

@@ -9,7 +9,7 @@ import Foundation
 import os
 
 
-class BluetoothIO : IO, DataConsumer {
+public class BluetoothIO : IO, DataConsumer {
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: BluetoothIO.self)
@@ -34,6 +34,7 @@ class BluetoothIO : IO, DataConsumer {
     public func open() throws {
         incomingDataLock.lock()
         incomingData.removeAll()
+        _ = incomingDataSemaphore.wait(timeout: DispatchTime.now())
         incomingDataLock.unlock()
         
         try bluetoothAccess.open()
@@ -56,9 +57,9 @@ class BluetoothIO : IO, DataConsumer {
         incomingData.removeFirst(numberOfProcessedData)
 
         if !incomingData.isEmpty {
-            // We need to set the semaphore back to 1 if other data are still available,
-            // so nder lock we can wait for semaphore which succeeds or times-out immediatelly,
-            // and then we can set the semaphore and have wanted signelled binary semaphore
+            // We need to set the semaphore back to 1 if other data is still available,
+            // so under lock we can wait for semaphore which succeeds or times-out immediatelly,
+            // and then we can set the semaphore and have wanted signalled binary semaphore
             _ = incomingDataSemaphore.wait(timeout: DispatchTime.now())
             incomingDataSemaphore.signal()
         }
@@ -79,8 +80,8 @@ class BluetoothIO : IO, DataConsumer {
         
         // We need to set the semaphore back to 1 or keep it in the state of 1 signalled item
         // if other data are still available,
-        // so nder lock we can wait for semaphore which succeeds or times-out immediatelly,
-        // and then we can set the semaphore and have wanted signelled binary semaphore
+        // so under lock we can wait for semaphore which succeeds or times-out immediatelly,
+        // and then we can set the semaphore and have wanted signalled binary semaphore.
         _ = incomingDataSemaphore.wait(timeout: .now())
         incomingDataSemaphore.signal()
     }

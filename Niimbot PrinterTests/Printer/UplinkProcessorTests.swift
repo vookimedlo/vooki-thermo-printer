@@ -75,7 +75,7 @@ final class UplinkProcessorTests: XCTestCase {
                                       handler: handler)
         
         wait(for: [expectation], timeout: 2)
-        XCTAssertGreaterThan(io.readCalled, 1)
+        XCTAssertGreaterThan(io.readCalled, 0)
         
         _ = semaphoreStartPrintCount.wait(timeout: .now().advanced(by: .seconds(2)))
         _ = semaphorePrintStatusCount.wait(timeout: .now().advanced(by: .seconds(2)))

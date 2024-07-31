@@ -34,10 +34,11 @@ public class UplinkProcessor : Thread, Notifiable {
             Self.logger.info("Processing thread finished")
         }
         Self.logger.info("Processing thread started")
-        var data = Data(capacity: 64)
+        let blockSize = 64
+        var data = Data(capacity: blockSize)
         while !super.isCancelled {
             Self.logger.info("Processing thread looped")
-            let uplink = try! printerDevice.uplink(ofLength: 64)
+            let uplink = try! printerDevice.uplink(ofLength: blockSize)
             data.append(contentsOf: uplink)
             Self.logger.info("\(data.hexEncodedString(options: [.commaSeparator, .prefix, .upperCase]))")
 

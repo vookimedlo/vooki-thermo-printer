@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import Niimbot_Printer
+@testable import Niimbot_Printer
 
 final class PacketDecoderTests: XCTestCase {
     func testDecode_Fails() {

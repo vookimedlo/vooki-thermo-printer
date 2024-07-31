@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Niimbot_Printer
+@testable import Niimbot_Printer
 
 class StubbedBluetoothAccess: BluetoothAccess {
     

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Niimbot_Printer
+@testable import Niimbot_Printer
 
 class StubbedFileSystem : FileSystemAccess {
     public var openResult: Int32 = -1

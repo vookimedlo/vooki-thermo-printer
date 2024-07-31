@@ -14,7 +14,7 @@
 //
 
 import XCTest
-import Niimbot_Printer
+@testable import Niimbot_Printer
 
 final class SerialNumberPacketDecoderTests: XCTestCase {
     

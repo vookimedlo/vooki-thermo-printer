@@ -27,7 +27,9 @@ final class UplinkProcessorTests: XCTestCase {
     }
     
     func testMain_PassesPacketsToDecoders() {
-        let semaphore = DispatchSemaphore(value: 0)
+        let semaphoreStartPrintCount = DispatchSemaphore(value: 0)
+        let semaphorePrintStatusCount = DispatchSemaphore(value: 0)
+
         var startPrintCount = 0
         var printStatusCount = 0
         
@@ -53,13 +55,15 @@ final class UplinkProcessorTests: XCTestCase {
             case .RESPONSE_START_PRINT:
                 XCTAssertEqual(Packet(requestCode: .RESPONSE_START_PRINT, data: [1]), result)
                 startPrintCount += 1
-                semaphore.signal()
+                semaphoreStartPrintCount.signal()
+                break
             case .RESPONSE_GET_PRINT_STATUS:
                 XCTAssertEqual(Packet(requestCode: .RESPONSE_GET_PRINT_STATUS,
                                       data: [0, 0, 2, 0]),
                                result)
                 printStatusCount += 1
-                semaphore.signal()
+                semaphorePrintStatusCount.signal()
+                break
             default:
                 return false
             }
@@ -73,8 +77,8 @@ final class UplinkProcessorTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
         XCTAssertGreaterThan(io.readCalled, 1)
         
-        _ = semaphore.wait(timeout: .now().advanced(by: .seconds(2)))
-        _ = semaphore.wait(timeout: .now().advanced(by: .seconds(2)))
+        _ = semaphoreStartPrintCount.wait(timeout: .now().advanced(by: .seconds(2)))
+        _ = semaphorePrintStatusCount.wait(timeout: .now().advanced(by: .seconds(2)))
         XCTAssertEqual(1, startPrintCount)
         XCTAssertEqual(1, printStatusCount)
     }

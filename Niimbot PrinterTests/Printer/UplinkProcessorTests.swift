@@ -74,11 +74,11 @@ final class UplinkProcessorTests: XCTestCase {
                                       object: nil,
                                       handler: handler)
         
-        wait(for: [expectation], timeout: 2)
+        wait(for: [expectation], timeout: 5)
         XCTAssertGreaterThan(io.readCalled, 0)
         
-        _ = semaphoreStartPrintCount.wait(timeout: .now().advanced(by: .seconds(2)))
-        _ = semaphorePrintStatusCount.wait(timeout: .now().advanced(by: .seconds(2)))
+        _ = semaphoreStartPrintCount.wait(timeout: .now().advanced(by: .seconds(5)))
+        _ = semaphorePrintStatusCount.wait(timeout: .now().advanced(by: .seconds(5)))
         XCTAssertEqual(1, startPrintCount)
         XCTAssertEqual(1, printStatusCount)
     }

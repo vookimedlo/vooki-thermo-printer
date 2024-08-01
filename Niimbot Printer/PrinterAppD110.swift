@@ -17,7 +17,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: PrinterAppD110.self)
     )
-
+    
     @PrinterActor
     private var printer: Printer? {
         willSet {
@@ -35,65 +35,75 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     private var bluetoothSupport = BluetoothSupport()
     
     var notificationListenerTask: Task<Void, Never>? = nil
-        
+    
     required init() {
-        if !TestHelper.isRunningTests {
-            notificationListenerTask = Task.detached {
-                for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
-                    let paperType = await self.toSendable(self.paperType)
-                    if let preview = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: self.toSendable(self.textProperties))?.cgImage {
-                        await MainActor.run {
-                            self.imagePreview.image = preview
-                        }
+        if TestHelper.isRunningTests {
+            initForTesting()
+        }
+        else {
+            initForProduction()
+        }
+    }
+    
+    private func initForTesting() {
+    }
+    
+    private func initForProduction() {
+        notificationListenerTask = Task.detached {
+            for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
+                let paperType = await self.toSendable(self.paperType)
+                if let preview = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: self.toSendable(self.textProperties))?.cgImage {
+                    await MainActor.run {
+                        self.imagePreview.image = preview
                     }
                 }
             }
-            
-            try? Tips.resetDatastore()
-            try? Tips.configure()
-            
-            for name in [Notification.Name.App.bluetoothPeripheralDisconnected,
-                         Notification.Name.App.bluetoothPeripheralDiscovered] {
-                registerNotification(name: name,
-                                     selector: #selector(receiveBluetoothNotification))
-            }
-            
-            for name in [Notification.Name.App.startPopulatingPeripherals,
-                         Notification.Name.App.stopPopulatingPeripherals,
-                         Notification.Name.App.selectedPeripheral,
-                         Notification.Name.App.lastSelectedPeripheral,
-                         Notification.Name.App.disconnectPeripheral,
-                         Notification.Name.App.printRequested] {
-                registerNotification(name: name,
-                                     selector: #selector(receiveUINotification))
-            }
-            
-            for name in [Notification.Name.App.serialNumber,
-                         Notification.Name.App.softwareVersion,
-                         Notification.Name.App.hardwareVersion,
-                         Notification.Name.App.batteryInformation,
-                         Notification.Name.App.deviceType,
-                         Notification.Name.App.rfidData,
-                         Notification.Name.App.noPaper,
-                         Notification.Name.App.startPrint,
-                         Notification.Name.App.startPagePrint,
-                         Notification.Name.App.endPrint,
-                         Notification.Name.App.endPagePrint,
-                         Notification.Name.App.setDimension,
-                         Notification.Name.App.setLabelType,
-                         Notification.Name.App.setLabelDensity,
-                         Notification.Name.App.getPrintStatus] {
-                registerNotification(name: name,
-                                     selector: #selector(receivePrinterNotification))
-            }
-            
-            Task {
-                await generateImagePreview()
-            }
-            //            printer?.getAutoShutdownTime()
-            //            printer?.getDensity()
-            //            printer?.getLabelType()
         }
+        
+        try? Tips.resetDatastore()
+        try? Tips.configure()
+        
+        for name in [Notification.Name.App.bluetoothPeripheralDisconnected,
+                     Notification.Name.App.bluetoothPeripheralDiscovered] {
+            registerNotification(name: name,
+                                 selector: #selector(receiveBluetoothNotification))
+        }
+        
+        for name in [Notification.Name.App.startPopulatingPeripherals,
+                     Notification.Name.App.stopPopulatingPeripherals,
+                     Notification.Name.App.selectedPeripheral,
+                     Notification.Name.App.lastSelectedPeripheral,
+                     Notification.Name.App.disconnectPeripheral,
+                     Notification.Name.App.printRequested] {
+            registerNotification(name: name,
+                                 selector: #selector(receiveUINotification))
+        }
+        
+        for name in [Notification.Name.App.serialNumber,
+                     Notification.Name.App.softwareVersion,
+                     Notification.Name.App.hardwareVersion,
+                     Notification.Name.App.batteryInformation,
+                     Notification.Name.App.deviceType,
+                     Notification.Name.App.rfidData,
+                     Notification.Name.App.noPaper,
+                     Notification.Name.App.startPrint,
+                     Notification.Name.App.startPagePrint,
+                     Notification.Name.App.endPrint,
+                     Notification.Name.App.endPagePrint,
+                     Notification.Name.App.setDimension,
+                     Notification.Name.App.setLabelType,
+                     Notification.Name.App.setLabelDensity,
+                     Notification.Name.App.getPrintStatus] {
+            registerNotification(name: name,
+                                 selector: #selector(receivePrinterNotification))
+        }
+        
+        Task {
+            await generateImagePreview()
+        }
+        //            printer?.getAutoShutdownTime()
+        //            printer?.getDensity()
+        //            printer?.getLabelType()
     }
     
     var sharedModelContainer: ModelContainer = {
@@ -101,7 +111,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             Item.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+        
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
@@ -116,10 +126,12 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     @State private var paperType = ObservablePaperType()
     @State private var printerAvailability = PrinterAvailability()
     @State private var textProperties = TextProperties()
-
+    
     var body: some Scene {
         WindowGroup { [self] in
-            if !TestHelper.isRunningTests {
+            if TestHelper.isRunningTests {
+                EmptyView()
+            } else {
                 ContentView()
                     .environmentObject(self.bluetoothPepripherals)
                     .environmentObject(self.printerDetails)
@@ -128,17 +140,15 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                     .environmentObject(self.paperType)
                     .environmentObject(self.printerAvailability)
                     .environmentObject(self.textProperties)
-            } else {
-                EmptyView()
             }
         }
         .modelContainer(sharedModelContainer)
     }
-        
+    
     @MainActor
     @objc func receiveUINotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
-
+        
         if Notification.Name.App.startPopulatingPeripherals == notification.name {
             Self.logger.info("Populating peripherals")
             Task { @PrinterActor in
@@ -181,7 +191,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             }
         }
     }
-
+    
     @PrinterActor
     @objc func receiveBluetoothNotification(_ notification: Notification) {
         let rawValue = notification.name.rawValue
@@ -207,7 +217,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             }
         }
     }
-
+    
     @PrinterActor
     @objc func receivePrinterNotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
@@ -255,7 +265,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                 Self.logger.info("RFID data - Total labels: \(rfidData.totalLength)")
                 Self.logger.info("RFID data - Used labels: \(rfidData.usedLength)")
                 Self.logger.info("RFID data - Type: \(rfidData.type)")
-
+                
                 self.paperType.type = PaperType(rawValue: rfidData.barcode) ?? .unknown
                 
                 self.paperDetails.remainingCount = String(rfidData.totalLength - rfidData.usedLength)
@@ -370,16 +380,18 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             case .text:
                 guard !property.text.isEmpty else { continue }
                 await image.drawText(text: property.text,
-                               fontName: property.fontName,
-                               fontSize: property.fontSize,
-                               horizontal: property.horizontalAlignment,
-                               vertical: property.verticalAlignment)
+                                     fontName: property.fontName,
+                                     fontSize: property.fontSize,
+                                     horizontal: property.horizontalAlignment,
+                                     vertical: property.verticalAlignment,
+                                     margin: property.margin)
             case .qr:
                 guard !property.text.isEmpty else { continue }
                 await image.generateQRCode(text: property.text,
-                                     size: property.squareCodeSize,
-                                     horizontal: property.horizontalAlignment,
-                                     vertical: property.verticalAlignment)
+                                           size: property.squareCodeSize,
+                                           horizontal: property.horizontalAlignment,
+                                           vertical: property.verticalAlignment,
+                                           margin: property.margin)
             case .image:
                 switch (property.imageDecoration) {
                 case .custom:
@@ -415,7 +427,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     private func toSendable(_ paperType: ObservablePaperType) -> PaperType {
         return paperType.type
     }
-
+    
     private func generateImagePreview() async {
         let properties = toSendable(textProperties)
         let paperType = self.toSendable(self.paperType)
@@ -427,7 +439,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         let properties = toSendable(textProperties)
         let paperType = self.toSendable(self.paperType)
         guard let data = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: properties)?.printerData else { return [] }
-
+        
         var peparedData: [[UInt8]] = []
         var rowNumber: UInt16 = 0
         for rowBytes in data {
@@ -437,7 +449,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                 Self.logger.error("Cannot be byte aligned -  remaining bit count: \(remainingBitCount)")
                 return []
             }
-
+            
             let bytesCount = UInt16(rowBytes.count / bitsPerByte)
             var resultingData: [UInt8] = rowNumber.bigEndian.bytes + [0, 0, 0, 1]
             var offsetInRow = 0
@@ -471,7 +483,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setDimension) {
                 await self.printer?.setDimension(width: UInt16(self.paperType.type.printableSizeInPixels.width),
-                                           height: UInt16(self.paperType.type.printableSizeInPixels.height))
+                                                 height: UInt16(self.paperType.type.printableSizeInPixels.height))
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
                 await self.printer?.setLabelDensity(density: 1)
@@ -499,7 +511,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                     try await Task.sleep(for: .milliseconds(50))
                 }
             }
-          
+            
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.endPrint) {
                 await self.printer?.endPrint()
             }
@@ -511,7 +523,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             notifyUIAlert(alertType: .printError)
         }
     }
-        
+    
     @PrinterActor
     private func printLabel() {
         notifyUI(name: .App.UI.printStarted)

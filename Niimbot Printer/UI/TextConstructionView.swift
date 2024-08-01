@@ -16,7 +16,6 @@ struct TextConstructionView: View {
     
    // @State private var selectedDecoration: Decoration = .custom
 
-    
     var body: some View {
         @Bindable var textProperty = textProperty
         @Bindable var paperType = paperType
@@ -101,6 +100,8 @@ struct TextConstructionView: View {
                         Text("Alignment")
                     }.padding(.horizontal)
                     
+                    marginView().padding(.top)
+                    
                     FontSelectionView(fontSelection: $textProperty.fontDetails.name,
                                       familySelection: $textProperty.fontDetails.family,
                                       fontSize: $textProperty.fontDetails.size)
@@ -123,6 +124,7 @@ struct TextConstructionView: View {
                         Text("Alignment")
                     }.padding(.horizontal)
                     
+                    marginView().padding(.vertical)
                     
                     IndicatorValueSlider(value: $textProperty.squareCodeSize,
                                         minValue: 75,
@@ -155,6 +157,45 @@ struct TextConstructionView: View {
 
         var image: Image? {
             Image(systemName: "exclamationmark.square").symbolRenderingMode(.multicolor)
+        }
+    }
+    
+    @ViewBuilder
+    private func marginView() -> some View {
+        @Bindable var textProperty = textProperty
+
+        if $textProperty.horizontalAlignment.alignment.wrappedValue != .center || $textProperty.verticalAlignment.alignment.wrappedValue != .center {
+            GroupBox {
+                HStack {
+                    if $textProperty.horizontalAlignment.alignment.wrappedValue == .left {
+                        Stepper(value: $textProperty.margin.leading) {
+                            Text("Leading: \(textProperty.margin.leading)")
+                        }.padding(.horizontal)
+                    }
+                    
+                    if $textProperty.horizontalAlignment.alignment.wrappedValue == .right {
+                        Stepper(value: $textProperty.margin.trailing) {
+                            Text("Trailing: \(textProperty.margin.trailing)")
+                        }.padding(.horizontal)
+                    }
+                    
+                    if $textProperty.verticalAlignment.alignment.wrappedValue == .top {
+                        Stepper(value: $textProperty.margin.top) {
+                            Text("Top: \(textProperty.margin.top)")
+                        }.padding(.horizontal)
+                    }
+                    
+                    if $textProperty.verticalAlignment.alignment.wrappedValue == .bottom {
+                        Stepper(value: $textProperty.margin.bottom) {
+                            Text("Bottom: \(textProperty.margin.bottom)")
+                        }.padding(.horizontal)
+                    }
+                    
+                    Spacer()
+                }
+            } label: {
+                Text("Margins")
+            }.padding(.horizontal)
         }
     }
 }

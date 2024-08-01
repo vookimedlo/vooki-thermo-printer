@@ -66,9 +66,9 @@ public enum PaperType: String, Sendable {
     var margin: Margin {
         switch self {
         case .ean02282280, .ean6972842743589:
-            return Margin(left: 12, right: 10, up: 2, bottom: 2)
+            return Margin(leading: 12, trailing: 10, top: 2, bottom: 2)
         case .unknown:
-            return Margin(left: 12, right: 10, up: 10, bottom: 10)
+            return Margin(leading: 12, trailing: 10, top: 10, bottom: 10)
         }
     }
 }

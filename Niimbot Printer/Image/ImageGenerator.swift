@@ -47,10 +47,10 @@ final class ImageGenerator {
         }
     }
     
-    private let margin: Margin
+    private let imageMargin: Margin
 
-    public init? (size: CGSize, margin: Margin = Margin(left: 0, right: 0, up: 0, bottom: 0)) {
-        self.margin = margin
+    public init? (size: CGSize, margin: Margin = Margin(leading: 0, trailing: 0, top: 0, bottom: 0)) {
+        self.imageMargin = margin
         guard let ctx = createContext(size: size) else { return nil }
         context = ctx
     }
@@ -80,13 +80,15 @@ final class ImageGenerator {
         return context
     }
     
-    public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) async {
+    public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment, margin: Margin) async {
         guard !text.isEmpty else { return }
 
         context.saveGState()
         defer {
             context.restoreGState()
         }
+        
+        let combinedMargins = self.imageMargin + margin
         
         context.textPosition = CGPoint(x: 0, y: 0)
         
@@ -104,22 +106,22 @@ final class ImageGenerator {
         let x: CGFloat = {
             switch horizontal {
             case .left:
-                return margin.left
+                return Double(combinedMargins.leading)
             case .center:
                 return max((CGFloat(context.width) - stringRect.width) / 2.0, 0)
             case .right:
-                return CGFloat(context.width) - stringRect.width - margin.right
+                return CGFloat(context.width) - stringRect.width - Double(combinedMargins.trailing)
             }
         }()
         
         let y: CGFloat = {
             switch vertical {
             case .bottom:
-                return margin.bottom
+                return Double(combinedMargins.bottom)
             case .center:
                 return max((CGFloat(context.height) - stringRect.height) / 2.0, 0)
             case .top:
-                return CGFloat(context.height) - stringRect.height - margin.up
+                return CGFloat(context.height) - stringRect.height - Double(combinedMargins.top)
             }
         }()
         
@@ -168,9 +170,9 @@ final class ImageGenerator {
         let x: CGFloat = {
             switch horizontal {
             case .left:
-                return margin.left + offset
+                return Double(imageMargin.leading) + offset
             case .right:
-                return (CGFloat(context.width)) - margin.right - offset
+                return (CGFloat(context.width)) - Double(imageMargin.trailing) - offset
             case .center:
                 return (CGFloat(context.width)) / 2
             }
@@ -179,9 +181,9 @@ final class ImageGenerator {
         let y: CGFloat = {
             switch vertical {
             case .top:
-                return (CGFloat(context.height)) - margin.up - offset
+                return (CGFloat(context.height)) - Double(imageMargin.top) - offset
             case .bottom:
-                return margin.bottom + offset
+                return Double(imageMargin.bottom) + offset
             case .center:
                 return (CGFloat(context.height)) / 2
             }
@@ -191,11 +193,11 @@ final class ImageGenerator {
     }
     
     func horizontalDivider(_ by: CGFloat) -> CGFloat {
-        return ((CGFloat(context.width)) - margin.left - margin.right) / by
+        return ((CGFloat(context.width)) - Double(imageMargin.leading - imageMargin.trailing)) / by
     }
     
     func verticalDivider(_ by: CGFloat) -> CGFloat {
-        return ((CGFloat(context.height)) - margin.bottom - margin.up) / by
+        return ((CGFloat(context.height)) - Double(imageMargin.bottom - imageMargin.top)) / by
     }
     
     func addOffset(_ point: CGPoint, x: CGFloat = 0, y: CGFloat = 0) -> CGPoint {
@@ -245,7 +247,7 @@ final class ImageGenerator {
         }
     }
     
-    public func generateQRCode(text: String, size: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment) async {
+    public func generateQRCode(text: String, size: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment, margin: Margin) async {
         guard !text.isEmpty else { return }
         guard let data = text.data(using: String.Encoding.ascii) else { return }
         let filter = CIFilter.qrCodeGenerator()
@@ -262,15 +264,17 @@ final class ImageGenerator {
             defer {
                 context.restoreGState()
             }
+            
+            let combinedMargins = self.imageMargin + margin
                         
             let x: CGFloat = {
                 switch horizontal {
                 case .left:
-                    return margin.left
+                    return Double(combinedMargins.leading)
                 case .center:
                     return max((CGFloat(context.width) - sizeFloat) / 2.0, 0)
                 case .right:
-                    return CGFloat(context.width) - sizeFloat - margin.right
+                    return CGFloat(context.width) - sizeFloat - Double(combinedMargins.trailing)
                 }
             }()
             

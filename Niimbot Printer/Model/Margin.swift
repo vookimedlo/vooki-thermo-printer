@@ -7,9 +7,16 @@
 
 import Foundation
 
-struct Margin: Sendable {
-    let left: Double
-    let right: Double
-    let up: Double
-    let bottom: Double
+struct Margin: Sendable, Equatable {
+    var leading: Int
+    var trailing: Int
+    var top: Int
+    var bottom: Int
+    
+    static func + (left: Margin, right: Margin) -> Margin {
+        return Margin(leading: left.leading + right.leading,
+                      trailing: left.trailing + right.trailing,
+                      top: left.top + right.top,
+                      bottom: left.bottom + right.bottom)
+    }
 }

@@ -61,6 +61,14 @@ final class TextProperty: ObservableObject, Notifiable {
             notify(name: Notification.Name.App.textPropertiesUpdated)
         }
     }
+    
+    var margin = Margin(leading: 0, trailing: 0, top: 0, bottom: 0)
+    {
+        willSet {
+            guard margin != newValue else { return }
+            notify(name: Notification.Name.App.textPropertiesUpdated)
+        }
+    }
 }
 
 @MainActor
@@ -81,6 +89,7 @@ struct SendableTextProperty: Sendable {
         self.text = from.text
         self.fontName = from.fontDetails.name
         self.fontSize = from.fontDetails.size
+        self.margin = from.margin
     }
     
     let whatToPrint: TextProperty.WhatToPrint
@@ -92,4 +101,5 @@ struct SendableTextProperty: Sendable {
     let text: String
     let fontName: String
     let fontSize: Int
+    let margin: Margin
 }

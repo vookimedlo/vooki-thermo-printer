@@ -21,6 +21,7 @@
 		8D312C0E2C4DA9BF006D0360 /* PrintStatusPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312C0D2C4DA9BF006D0360 /* PrintStatusPacketDecoderTests.swift */; };
 		8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */; };
 		8D35E3382C23828A00E8E2A9 /* BluetoothPeripheralsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */; };
+		8D38E7162C5B7D4100EFA505 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7152C5B7D4100EFA505 /* TestHelper.swift */; };
 		8D489B752C4D040200B9CC36 /* SoftwareVersionPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */; };
 		8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC152C052197001EBD95 /* PrinterAppD110.swift */; };
 		8D58DC1A2C052198001EBD95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC192C052198001EBD95 /* Assets.xcassets */; };
@@ -127,6 +128,7 @@
 		8D312C0D2C4DA9BF006D0360 /* PrintStatusPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintStatusPacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheral.swift; sourceTree = "<group>"; };
 		8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheralsView.swift; sourceTree = "<group>"; };
+		8D38E7152C5B7D4100EFA505 /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		8D58DC122C052197001EBD95 /* Niimbot Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Niimbot Printer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC152C052197001EBD95 /* PrinterAppD110.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppD110.swift; sourceTree = "<group>"; };
 		8D58DC192C052198001EBD95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				8DDC3D222C19EDFC00296C72 /* Printer */,
 				8DDC3D232C19EE6100296C72 /* UI */,
 				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
+				8D38E7152C5B7D4100EFA505 /* TestHelper.swift */,
 			);
 			path = "Niimbot Printer";
 			sourceTree = "<group>";
@@ -635,6 +638,7 @@
 				8D312C0A2C4DA8A5006D0360 /* RFIDData.swift in Sources */,
 				8DED51232C31927200B52F1E /* VerticalTextAlignment.swift in Sources */,
 				8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */,
+				8D38E7162C5B7D4100EFA505 /* TestHelper.swift in Sources */,
 				8DED511D2C2FE14500B52F1E /* AlignmentView.swift in Sources */,
 				8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */,
 				8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */,

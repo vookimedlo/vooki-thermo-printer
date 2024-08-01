@@ -10,7 +10,6 @@ import SwiftData
 import os
 import TipKit
 
-
 @main
 class PrinterAppD110: App, Notifiable, NotificationObservable {
     nonisolated
@@ -38,61 +37,63 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     var notificationListenerTask: Task<Void, Never>? = nil
         
     required init() {
-        notificationListenerTask = Task.detached {
-            for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
-                let paperType = await self.toSendable(self.paperType)
-                if let preview = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: self.toSendable(self.textProperties))?.cgImage {
-                    await MainActor.run {
-                        self.imagePreview.image = preview
+        if !TestHelper.isRunningTests {
+            notificationListenerTask = Task.detached {
+                for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
+                    let paperType = await self.toSendable(self.paperType)
+                    if let preview = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: self.toSendable(self.textProperties))?.cgImage {
+                        await MainActor.run {
+                            self.imagePreview.image = preview
+                        }
                     }
                 }
             }
+            
+            try? Tips.resetDatastore()
+            try? Tips.configure()
+            
+            for name in [Notification.Name.App.bluetoothPeripheralDisconnected,
+                         Notification.Name.App.bluetoothPeripheralDiscovered] {
+                registerNotification(name: name,
+                                     selector: #selector(receiveBluetoothNotification))
+            }
+            
+            for name in [Notification.Name.App.startPopulatingPeripherals,
+                         Notification.Name.App.stopPopulatingPeripherals,
+                         Notification.Name.App.selectedPeripheral,
+                         Notification.Name.App.lastSelectedPeripheral,
+                         Notification.Name.App.disconnectPeripheral,
+                         Notification.Name.App.printRequested] {
+                registerNotification(name: name,
+                                     selector: #selector(receiveUINotification))
+            }
+            
+            for name in [Notification.Name.App.serialNumber,
+                         Notification.Name.App.softwareVersion,
+                         Notification.Name.App.hardwareVersion,
+                         Notification.Name.App.batteryInformation,
+                         Notification.Name.App.deviceType,
+                         Notification.Name.App.rfidData,
+                         Notification.Name.App.noPaper,
+                         Notification.Name.App.startPrint,
+                         Notification.Name.App.startPagePrint,
+                         Notification.Name.App.endPrint,
+                         Notification.Name.App.endPagePrint,
+                         Notification.Name.App.setDimension,
+                         Notification.Name.App.setLabelType,
+                         Notification.Name.App.setLabelDensity,
+                         Notification.Name.App.getPrintStatus] {
+                registerNotification(name: name,
+                                     selector: #selector(receivePrinterNotification))
+            }
+            
+            Task {
+                await generateImagePreview()
+            }
+            //            printer?.getAutoShutdownTime()
+            //            printer?.getDensity()
+            //            printer?.getLabelType()
         }
-        
-        try? Tips.resetDatastore()
-        try? Tips.configure()
-        
-        for name in [Notification.Name.App.bluetoothPeripheralDisconnected,
-                     Notification.Name.App.bluetoothPeripheralDiscovered] {
-            registerNotification(name: name,
-                                       selector: #selector(receiveBluetoothNotification))
-        }
-        
-        for name in [Notification.Name.App.startPopulatingPeripherals,
-                     Notification.Name.App.stopPopulatingPeripherals,
-                     Notification.Name.App.selectedPeripheral,
-                     Notification.Name.App.lastSelectedPeripheral,
-                     Notification.Name.App.disconnectPeripheral,
-                     Notification.Name.App.printRequested] {
-            registerNotification(name: name,
-                                       selector: #selector(receiveUINotification))
-        }
-
-        for name in [Notification.Name.App.serialNumber,
-                     Notification.Name.App.softwareVersion,
-                     Notification.Name.App.hardwareVersion,
-                     Notification.Name.App.batteryInformation,
-                     Notification.Name.App.deviceType,
-                     Notification.Name.App.rfidData,
-                     Notification.Name.App.noPaper,
-                     Notification.Name.App.startPrint,
-                     Notification.Name.App.startPagePrint,
-                     Notification.Name.App.endPrint,
-                     Notification.Name.App.endPagePrint,
-                     Notification.Name.App.setDimension,
-                     Notification.Name.App.setLabelType,
-                     Notification.Name.App.setLabelDensity,
-                     Notification.Name.App.getPrintStatus] {
-            registerNotification(name: name,
-                                       selector: #selector(receivePrinterNotification))
-        }
-        
-        Task {
-            await generateImagePreview()
-        }
-//            printer?.getAutoShutdownTime()
-//            printer?.getDensity()
-//            printer?.getLabelType()
     }
     
     var sharedModelContainer: ModelContainer = {
@@ -118,14 +119,18 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
 
     var body: some Scene {
         WindowGroup { [self] in
-            ContentView()
-                .environmentObject(self.bluetoothPepripherals)
-                .environmentObject(self.printerDetails)
-                .environmentObject(self.paperDetails)
-                .environmentObject(self.imagePreview)
-                .environmentObject(self.paperType)
-                .environmentObject(self.printerAvailability)
-                .environmentObject(self.textProperties)
+            if !TestHelper.isRunningTests {
+                ContentView()
+                    .environmentObject(self.bluetoothPepripherals)
+                    .environmentObject(self.printerDetails)
+                    .environmentObject(self.paperDetails)
+                    .environmentObject(self.imagePreview)
+                    .environmentObject(self.paperType)
+                    .environmentObject(self.printerAvailability)
+                    .environmentObject(self.textProperties)
+            } else {
+                EmptyView()
+            }
         }
         .modelContainer(sharedModelContainer)
     }

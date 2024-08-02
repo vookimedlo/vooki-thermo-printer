@@ -17,7 +17,6 @@ struct PrinterView: View, Notifiable {
     
     private let controlDisabledColor = Color(NSColor.disabledControlTextColor)
 
-    
     var body: some View {
         VStack {
             GroupBox {

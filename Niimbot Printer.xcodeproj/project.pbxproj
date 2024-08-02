@@ -25,6 +25,10 @@
 		8D38E7192C5C351700EFA505 /* PrinterMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7182C5C351000EFA505 /* PrinterMenuCommands.swift */; };
 		8D38E71C2C5C3F2B00EFA505 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E71B2C5C3F2900EFA505 /* AppDelegate.swift */; };
 		8D38E71E2C5D221F00EFA505 /* ConnectionViewProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E71D2C5D221C00EFA505 /* ConnectionViewProperties.swift */; };
+		8D38E7202C5D3FEF00EFA505 /* StaticNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E71F2C5D3FEF00EFA505 /* StaticNotifiable.swift */; };
+		8D38E7242C5D402500EFA505 /* StaticNotifiableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7232C5D402500EFA505 /* StaticNotifiableExtension.swift */; };
+		8D38E7262C5D6C6D00EFA505 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7252C5D6C6D00EFA505 /* AlertType.swift */; };
+		8D38E7282C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7272C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift */; };
 		8D489B752C4D040200B9CC36 /* SoftwareVersionPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */; };
 		8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC152C052197001EBD95 /* PrinterAppD110.swift */; };
 		8D58DC1A2C052198001EBD95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC192C052198001EBD95 /* Assets.xcassets */; };
@@ -135,6 +139,10 @@
 		8D38E7182C5C351000EFA505 /* PrinterMenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterMenuCommands.swift; sourceTree = "<group>"; };
 		8D38E71B2C5C3F2900EFA505 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D38E71D2C5D221C00EFA505 /* ConnectionViewProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionViewProperties.swift; sourceTree = "<group>"; };
+		8D38E71F2C5D3FEF00EFA505 /* StaticNotifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticNotifiable.swift; sourceTree = "<group>"; };
+		8D38E7232C5D402500EFA505 /* StaticNotifiableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticNotifiableExtension.swift; sourceTree = "<group>"; };
+		8D38E7252C5D6C6D00EFA505 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
+		8D38E7272C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarItemPlacementExtension.swift; sourceTree = "<group>"; };
 		8D58DC122C052197001EBD95 /* Niimbot Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Niimbot Printer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC152C052197001EBD95 /* PrinterAppD110.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppD110.swift; sourceTree = "<group>"; };
 		8D58DC192C052198001EBD95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -355,6 +363,7 @@
 		8D8AF3CE2C2826E2005E2F94 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8D38E7252C5D6C6D00EFA505 /* AlertType.swift */,
 				8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */,
 				8D38E71D2C5D221C00EFA505 /* ConnectionViewProperties.swift */,
 				8D785DB52C4813AF00C25566 /* Decoration.swift */,
@@ -452,6 +461,8 @@
 				8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */,
 				8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */,
 				8D9639442C0B984F00374894 /* NotificationObservableExtension.swift */,
+				8D38E7232C5D402500EFA505 /* StaticNotifiableExtension.swift */,
+				8D38E7272C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -459,9 +470,10 @@
 		8DDC3D202C19EC8E00296C72 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
-				8D96393E2C0B5E0600374894 /* Notifications.swift */,
 				8D9639402C0B616D00374894 /* Notifiable.swift */,
 				8D9639422C0B927F00374894 /* NotificationObservable.swift */,
+				8D96393E2C0B5E0600374894 /* Notifications.swift */,
+				8D38E71F2C5D3FEF00EFA505 /* StaticNotifiable.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -621,9 +633,11 @@
 				8DDC3D102C19C6BB00296C72 /* LabelTypePacketDecoder.swift in Sources */,
 				8D8AF3D42C288EA1005E2F94 /* FontDetails.swift in Sources */,
 				8DDC3D462C1A552800296C72 /* HistoryView.swift in Sources */,
+				8D38E7282C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift in Sources */,
 				8DEB860E2C1250BF0028526B /* ImageGenerator.swift in Sources */,
 				8DDC3D0E2C19C69900296C72 /* DensityPacketDecoder.swift in Sources */,
 				8D58DC252C052317001EBD95 /* Packet.swift in Sources */,
+				8D38E7262C5D6C6D00EFA505 /* AlertType.swift in Sources */,
 				8DDC3D1E2C19C79000296C72 /* RFIDDataPacketDecoder.swift in Sources */,
 				8DDC3D182C19C72A00296C72 /* BatteryInformationPacketDecoder.swift in Sources */,
 				8D9639432C0B927F00374894 /* NotificationObservable.swift in Sources */,
@@ -637,6 +651,7 @@
 				8D785DB42C470A9A00C25566 /* ImageActor.swift in Sources */,
 				8DF9FE4F2C36A057004DAED2 /* PaperType.swift in Sources */,
 				8DF9FE572C37FA8E004DAED2 /* PrinterAvailability.swift in Sources */,
+				8D38E7242C5D402500EFA505 /* StaticNotifiableExtension.swift in Sources */,
 				8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */,
 				8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */,
 				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
@@ -650,6 +665,7 @@
 				8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */,
 				8D8AF3D22C28271B005E2F94 /* PaperDetails.swift in Sources */,
 				8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */,
+				8D38E7202C5D3FEF00EFA505 /* StaticNotifiable.swift in Sources */,
 				8D1F59BB2C20EAF8002A037F /* IndicatorValueSlider.swift in Sources */,
 				8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */,
 				8D76C53D2C091062005D7EEB /* FileSystemAccessProtocol.swift in Sources */,

@@ -35,8 +35,9 @@ struct PrinterLabelDetailView: View {
         .animation(.easeIn(duration: 2), value: details.printedCount)
     }
     
+    @ViewBuilder
     private func add(title: String, value: Binding<String>) -> some View {
-        return VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
             Text(title).font(.caption)
             VStack(alignment: .trailing) {
                 HStack {

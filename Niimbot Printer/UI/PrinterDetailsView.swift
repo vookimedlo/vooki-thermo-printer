@@ -64,8 +64,9 @@ struct PrinterDetailsView: View {
         }
     }
     
+    @ViewBuilder
     private func add(title: String, value: Binding<String>) -> some View {
-        return VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
             Text(title).font(.caption)
             VStack(alignment: .trailing) {
                 HStack {
@@ -76,8 +77,9 @@ struct PrinterDetailsView: View {
         }
     }
     
+    @ViewBuilder
     private func add(title: String, value: Binding<Bool>) -> some View {
-        return VStack(alignment: .leading) {
+        VStack(alignment: .leading) {
             Text(title).font(.caption)
             VStack(alignment: .trailing) {
                 HStack {

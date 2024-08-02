@@ -8,24 +8,6 @@
 import SwiftUI
 import SwiftData
 
-@MainActor
-public enum AlertType: Int {
-    case none, printError
-    
-    var title: String {
-        switch self {
-        case .printError: return "Error"
-        case .none: return ""
-        }
-    }
-    var message: String {
-        switch self {
-        case .printError: return "Cannot complete printing operation."
-        case .none: return ""
-        }
-    }
-}
-
 
 struct ContentView: View, Notifiable {
     
@@ -115,41 +97,14 @@ struct ContentView: View, Notifiable {
         }
         .toolbar {
             ToolbarItem(placement: .appBar) {
-                Menu(content: {
-                    Button(action: {
-                        withAnimation {
-                            connectionViewProperties.show = !connectionViewProperties.show
-                        }
-                    }) {
-                        Text("Search printers")
-                    }.disabled(printerAvailability.isConnected)
-                    Button(action: {
-                        notifyUI(name: .App.lastSelectedPeripheral)
-                    }) {
-                        Text("Last printer")
-                    }.disabled(!printerAvailability.isAvailable || printerAvailability.isConnected)
-                }, label: {
-                    SwiftUI.Image(systemName: "antenna.radiowaves.left.and.right")
-                        .symbolRenderingMode(.palette)
-                        .fontWeight(.regular)
-                        .foregroundStyle(.green)
-                    Text("Connect ...")
-                })
-                .disabled(printerAvailability.isConnected)
+                PrinterMenuCommands.connectMenu(printerAvailability: printerAvailability,
+                                                connectionViewProperties: connectionViewProperties)
                 .popover(isPresented: $connectionViewProperties.show) {
                     BluetoothPeripheralsView(isPresented: $connectionViewProperties.show)
                 }
             }
             ToolbarItem(placement: .appBar) {
-                Button (action: {
-                    notifyUI(name: Notification.Name.App.disconnectPeripheral)
-                }, label: {
-                    SwiftUI.Image(systemName: "antenna.radiowaves.left.and.right")
-                        .symbolRenderingMode(.palette)
-                        .fontWeight(.regular)
-                        .foregroundStyle(.red)
-                    Text("Disconnect")
-                }).disabled(!printerAvailability.isConnected)
+                PrinterMenuCommands.disconnectMenu(printerAvailability: printerAvailability)
             }
         }
     }
@@ -165,8 +120,5 @@ struct ContentView: View, Notifiable {
         .environmentObject(ObservablePaperType())
         .environmentObject(PrinterAvailability())
         .environmentObject(TextProperties())
-}
-
-extension ToolbarItemPlacement {
-    @MainActor static let appBar = accessoryBar(id: UUID().uuidString)
+        .environmentObject(ConnectionViewProperties())
 }

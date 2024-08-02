@@ -61,13 +61,15 @@ struct ContentView: View, Notifiable {
                              LitsItem(id: .historicalView, systemName: "book.closed", description: "History")]
     
     @Environment(PrinterAvailability.self) private var printerAvailability
+    @Environment(ConnectionViewProperties.self) private var connectionViewProperties
     
     @State var selectedItem: Views = .printerView
-    @State var showConnectionView: Bool = false
     @State var showAlert: Bool = false
     @State var alertType: AlertType = .printError
     
     var body: some View {
+        @Bindable var connectionViewProperties = connectionViewProperties
+        
         NavigationSplitView {
             List(selection: $selectedItem) {
                 ForEach(items) { item in
@@ -116,7 +118,7 @@ struct ContentView: View, Notifiable {
                 Menu(content: {
                     Button(action: {
                         withAnimation {
-                            showConnectionView = !showConnectionView
+                            connectionViewProperties.show = !connectionViewProperties.show
                         }
                     }) {
                         Text("Search printers")
@@ -134,8 +136,8 @@ struct ContentView: View, Notifiable {
                     Text("Connect ...")
                 })
                 .disabled(printerAvailability.isConnected)
-                .popover(isPresented: $showConnectionView) {
-                    BluetoothPeripheralsView(isPresented: $showConnectionView)
+                .popover(isPresented: $connectionViewProperties.show) {
+                    BluetoothPeripheralsView(isPresented: $connectionViewProperties.show)
                 }
             }
             ToolbarItem(placement: .appBar) {

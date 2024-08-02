@@ -10,6 +10,7 @@ import SwiftData
 import os
 import TipKit
 
+
 @main
 class PrinterAppD110: App, Notifiable, NotificationObservable {
     nonisolated
@@ -35,6 +36,8 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     private var bluetoothSupport = BluetoothSupport()
     
     var notificationListenerTask: Task<Void, Never>? = nil
+    
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     required init() {
         if TestHelper.isRunningTests {
@@ -127,7 +130,12 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     @State private var printerAvailability = PrinterAvailability()
     @State private var textProperties = TextProperties()
     
+    @State private var connectionViewProperties = ConnectionViewProperties()
+
     var body: some Scene {
+        @Bindable var printerAvailability = self.printerAvailability
+        @Bindable var connectionViewPropertie = self.connectionViewProperties
+
         WindowGroup { [self] in
             if TestHelper.isRunningTests {
                 EmptyView()
@@ -140,9 +148,14 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                     .environmentObject(self.paperType)
                     .environmentObject(self.printerAvailability)
                     .environmentObject(self.textProperties)
+                    .environmentObject(self.connectionViewProperties)
             }
         }
         .modelContainer(sharedModelContainer)
+        .commands {
+            PrinterMenuCommands(printerAvailability: printerAvailability,
+                                connectionViewProperties: connectionViewProperties)
+        }
     }
     
     @MainActor

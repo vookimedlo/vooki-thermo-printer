@@ -54,6 +54,7 @@ extension TextTabView {
         }))
     }
     
+    @ViewBuilder
     func NewTab(label: String) -> some View {
         ZStack(alignment: .center) {
             RoundedRectangle(cornerRadius: 3)
@@ -72,4 +73,5 @@ extension TextTabView {
 #Preview {
     TextTabView()
         .environmentObject(TextProperties())
+        .environmentObject(ObservablePaperType())
 }

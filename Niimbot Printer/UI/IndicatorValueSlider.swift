@@ -50,13 +50,13 @@ struct IndicatorValueSlider<Label> : View where Label : View  {
                             updateValue(with: gesture, in: geometry)
                         }
                     })
-                    .onEnded({gesture in
-                        if isDragging {
-                            isDragging = false
-                        } else {
-                            updateValue(with: gesture, in: geometry)
-                        }
-                    })
+                        .onEnded({gesture in
+                            if isDragging {
+                                isDragging = false
+                            } else {
+                                updateValue(with: gesture, in: geometry)
+                            }
+                        })
                 ).animation(isDragging ? .none : .interpolatingSpring, value: value)
             }
             .padding(.horizontal)
@@ -72,12 +72,14 @@ struct IndicatorValueSlider<Label> : View where Label : View  {
     }
     
     private func renderHighlightedTrack(geometry: GeometryProxy) -> some View {
-        let highlightedTrackWidth = geometry.size.width * percents(from: value)
-        
+        let percentsOfTrackForSelectedValue = geometry.size.width * percents(from: value)
+        let highlightedTrackWidth = value >= 0 ? percentsOfTrackForSelectedValue - geometry.size.width * percents(from: 0) : geometry.size.width * percents(from: 0) - percentsOfTrackForSelectedValue
+        let offset = value >= 0 ? geometry.size.width * percents(from: 0) : geometry.size.width * percents(from: value)
+
         return Rectangle()
             .fill(controlAccentColor)
             .frame(width: highlightedTrackWidth, height: 4)
-            .offset(x: 0)
+            .offset(x: offset)
     }
     
     private func renderIndicator(geometry: GeometryProxy) -> some View {

@@ -126,11 +126,13 @@ struct TextConstructionView: View {
                     
                     marginView().padding(.vertical)
                     
-                    Form {
-                        IndicatorValueSlider(value: $textProperty.squareCodeSize,
-                                             minValue: 75,
-                                             maxValue: 120,
-                                             label: { Text("Size").font(.headline) }).padding(.horizontal, 20)
+                    HStack {
+                        Form {
+                            IndicatorValueSlider(value: $textProperty.squareCodeSize,
+                                                 minValue: 75,
+                                                 maxValue: 120,
+                                                 label: { Text("Size").font(.headline) }).padding(.horizontal, 20)
+                        }
                     }
                 } label: {
                     Text("QR code properties")

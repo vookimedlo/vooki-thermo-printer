@@ -21,7 +21,7 @@ struct IndicatorValueSlider<Label> : View where Label : View  {
     private let textColor = Color(nsColor: NSColor.labelColor)
 
     private let indicatorRadius: CGFloat = 12
-    @State var isDragging: Bool = false
+    @State private var isDragging: Bool = false
     
     init(value: Binding<Int>, minValue: Int, maxValue: Int, @ViewBuilder label: @escaping () -> Label) {
         self._value = value
@@ -65,41 +65,54 @@ struct IndicatorValueSlider<Label> : View where Label : View  {
         }.frame(height: 25)
     }
     
+    @ViewBuilder
     private func renderTrack(geometry: GeometryProxy) -> some View {
-        return RoundedRectangle(cornerRadius: 4)
+        RoundedRectangle(cornerRadius: 4)
             .fill(controlColor.opacity(0.5))
             .frame(width: geometry.size.width, height: 3)
     }
     
+    private func originPoint() -> Int {
+        if minValue <= 0 && 0 <= maxValue {
+            return 0
+        }
+        return maxValue < 0 ? maxValue : minValue
+    }
+
+    @ViewBuilder
     private func renderHighlightedTrack(geometry: GeometryProxy) -> some View {
         let percentsOfTrackForSelectedValue = geometry.size.width * percents(from: value)
-        let highlightedTrackWidth = value >= 0 ? percentsOfTrackForSelectedValue - geometry.size.width * percents(from: 0) : geometry.size.width * percents(from: 0) - percentsOfTrackForSelectedValue
-        let offset = value >= 0 ? geometry.size.width * percents(from: 0) : geometry.size.width * percents(from: value)
+        let percentsOfTrackForOrigin = geometry.size.width * percents(from: originPoint())
+        let highlightedTrackWidth = abs(percentsOfTrackForSelectedValue - percentsOfTrackForOrigin)
+        let offset = value >= originPoint() ? percentsOfTrackForOrigin : percentsOfTrackForSelectedValue
 
-        return Rectangle()
+        Rectangle()
             .fill(controlAccentColor)
             .frame(width: highlightedTrackWidth, height: 4)
             .offset(x: offset)
     }
     
+    @ViewBuilder
     private func renderIndicator(geometry: GeometryProxy) -> some View {
-        return Circle()
+        let percentsOfTrackForSelectedValue = percents(from: value) * geometry.size.width
+        Circle()
             .fill(controlBackgroundColor)
             .stroke(controlAccentColor, lineWidth: 3)
             .frame(width: indicatorRadius * 2, alignment: .center)
-            .offset(x: percents(from: value) * geometry.size.width - indicatorRadius )
+            .offset(x: percentsOfTrackForSelectedValue - indicatorRadius )
             .overlay {
                 Text("\(value)")
                     .foregroundStyle(textColor)
                     .frame(width: 35, height: 35, alignment: .center)
-                    .offset(x: percents(from: value) * geometry.size.width - indicatorRadius)
+                    .offset(x: percentsOfTrackForSelectedValue - indicatorRadius)
                     .fontWidth(Font.Width.compressed)
                     .animation(isDragging ? .none : .interpolatingSpring(duration: 1.5), value: value)
             }
     }
     
+    @ViewBuilder
     private func marker(geometryProxy: GeometryProxy, divider: CGFloat) -> some View {
-        return RoundedRectangle(cornerRadius: 1)
+        RoundedRectangle(cornerRadius: 1)
             .fill(controlColor.opacity(0.5))
             .frame(width: 2, height: 10, alignment: .center)
             .offset(x: geometryProxy.size.width * divider - 1)
@@ -118,12 +131,41 @@ struct IndicatorValueSlider<Label> : View where Label : View  {
 }
 
 struct IndicatorValueSliderPreview: PreviewProvider {
-    
     struct ContainerView: View {
-        @State var value: Int = 20
+        @State var value1: Int = 0
+        @State var value2: Int = 0
+        @State var value3: Int = 0
+        @State var value4: Int = 0
+        @State var value5: Int = 30
+        @State var value6: Int = -30
 
         var body: some View {
-            IndicatorValueSlider(value: $value, minValue: 0, maxValue: 100, label: { Text("Font size").font(.headline) } )
+            Form {
+                IndicatorValueSlider(value: $value1,
+                                     minValue: 0,
+                                     maxValue: 100,
+                                     label: { Text("Font size").font(.headline) } )
+                IndicatorValueSlider(value: $value2,
+                                     minValue: -100,
+                                     maxValue: 100,
+                                     label: { Text("Font size").font(.headline) } )
+                IndicatorValueSlider(value: $value3,
+                                     minValue: -20,
+                                     maxValue: 70,
+                                     label: { Text("Font size").font(.headline) } )
+                IndicatorValueSlider(value: $value4,
+                                     minValue: -70,
+                                     maxValue: 20,
+                                     label: { Text("Font size").font(.headline) } )
+                IndicatorValueSlider(value: $value5,
+                                     minValue: 20,
+                                     maxValue: 70,
+                                     label: { Text("Font size").font(.headline) } )
+                IndicatorValueSlider(value: $value6,
+                                     minValue: -70,
+                                     maxValue: -20,
+                                     label: { Text("Font size").font(.headline) } )
+            }
         }
     }
     

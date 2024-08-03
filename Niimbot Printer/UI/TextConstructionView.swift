@@ -126,12 +126,12 @@ struct TextConstructionView: View {
                     
                     marginView().padding(.vertical)
                     
-                    IndicatorValueSlider(value: $textProperty.squareCodeSize,
-                                        minValue: 75,
-                                        maxValue: 120,
-                                        label: { Text("Size").font(.headline) }).padding(.horizontal)
-
-                    
+                    Form {
+                        IndicatorValueSlider(value: $textProperty.squareCodeSize,
+                                             minValue: 75,
+                                             maxValue: 120,
+                                             label: { Text("Size").font(.headline) }).padding(.horizontal, 20)
+                    }
                 } label: {
                     Text("QR code properties")
                 }
@@ -167,28 +167,34 @@ struct TextConstructionView: View {
         if $textProperty.horizontalAlignment.alignment.wrappedValue != .center || $textProperty.verticalAlignment.alignment.wrappedValue != .center {
             GroupBox {
                 HStack {
-                    if $textProperty.horizontalAlignment.alignment.wrappedValue == .left {
-                        Stepper(value: $textProperty.margin.leading) {
-                            Text("Leading: \(textProperty.margin.leading)")
-                        }.padding(.horizontal)
-                    }
-                    
-                    if $textProperty.horizontalAlignment.alignment.wrappedValue == .right {
-                        Stepper(value: $textProperty.margin.trailing) {
-                            Text("Trailing: \(textProperty.margin.trailing)")
-                        }.padding(.horizontal)
-                    }
-                    
-                    if $textProperty.verticalAlignment.alignment.wrappedValue == .top {
-                        Stepper(value: $textProperty.margin.top) {
-                            Text("Top: \(textProperty.margin.top)")
-                        }.padding(.horizontal)
-                    }
-                    
-                    if $textProperty.verticalAlignment.alignment.wrappedValue == .bottom {
-                        Stepper(value: $textProperty.margin.bottom) {
-                            Text("Bottom: \(textProperty.margin.bottom)")
-                        }.padding(.horizontal)
+                    Form {
+                        if $textProperty.horizontalAlignment.alignment.wrappedValue == .left {
+                            IndicatorValueSlider(value: $textProperty.margin.leading,
+                                                 minValue: -99,
+                                                 maxValue: 99,
+                                                 label: { Text("Leading").font(.headline) }).padding(.horizontal)
+                        }
+                        
+                        if $textProperty.horizontalAlignment.alignment.wrappedValue == .right {
+                            IndicatorValueSlider(value: $textProperty.margin.trailing,
+                                                 minValue: -99,
+                                                 maxValue: 99,
+                                                 label: { Text("Trailing").font(.headline) }).padding(.horizontal)
+                        }
+                        
+                        if $textProperty.verticalAlignment.alignment.wrappedValue == .top {
+                            IndicatorValueSlider(value: $textProperty.margin.top,
+                                                 minValue: -99,
+                                                 maxValue: 99,
+                                                 label: { Text("Top").font(.headline) }).padding(.horizontal)
+                        }
+                        
+                        if $textProperty.verticalAlignment.alignment.wrappedValue == .bottom {
+                            IndicatorValueSlider(value: $textProperty.margin.bottom,
+                                                 minValue: -99,
+                                                 maxValue: 99,
+                                                 label: { Text("Bottom").font(.headline) }).padding(.horizontal)
+                        }
                     }
                     
                     Spacer()

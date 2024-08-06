@@ -16,8 +16,8 @@ struct PrinterView: View, Notifiable {
     @State private var showingPrintingProgress: Bool = false
     
     @State private var selectedTextProperty: TextProperty?
-    @State var horizontalMargin: HorizontalMargin = HorizontalMargin.none
-    @State var verticalMargin: VerticalMargin = VerticalMargin.none
+    @State var horizontalMargin: any HorizontalMarginable = Margin.none
+    @State var verticalMargin: any VerticalMarginable = Margin.none
     
     private let controlDisabledColor = Color(NSColor.disabledControlTextColor)
 
@@ -136,7 +136,7 @@ struct PrinterView: View, Notifiable {
     
     private func computeHorizontalMargin() {
         guard let selectedTextProperty = selectedTextProperty else {
-            horizontalMargin = HorizontalMargin.none
+            horizontalMargin = Margin.none
             return
         }
         switch selectedTextProperty.whatToPrint {
@@ -144,21 +144,21 @@ struct PrinterView: View, Notifiable {
             switch selectedTextProperty.horizontalAlignment.alignment {
             case .left:
                 let margin = selectedTextProperty.margin.leading
-                horizontalMargin = margin >= 0 ? HorizontalMargin.leading(size: margin) : HorizontalMargin.none
+                horizontalMargin = margin >= 0 ? selectedTextProperty.margin.leadingMargin : Margin.none
             case .center:
-                horizontalMargin = HorizontalMargin.none
+                horizontalMargin = Margin.none
             case .right:
                 let margin = selectedTextProperty.margin.trailing
-                horizontalMargin = margin >= 0 ? HorizontalMargin.trailing(size: margin) : HorizontalMargin.none
+                horizontalMargin = margin >= 0 ? selectedTextProperty.margin.trailingMargin : Margin.none
             }
         case .image:
-            horizontalMargin = HorizontalMargin.none
+            horizontalMargin = Margin.none
         }
     }
     
     private func computeVerticalMargin() {
         guard let selectedTextProperty = selectedTextProperty else {
-            verticalMargin = VerticalMargin.none
+            verticalMargin = Margin.none
             return
         }
         switch selectedTextProperty.whatToPrint {
@@ -166,15 +166,15 @@ struct PrinterView: View, Notifiable {
             switch selectedTextProperty.verticalAlignment.alignment {
             case .bottom:
                 let margin = selectedTextProperty.margin.bottom
-                verticalMargin = margin >= 0 ? VerticalMargin.bottom(size: margin) : VerticalMargin.none
+                verticalMargin = margin >= 0 ? selectedTextProperty.margin.bottomMargin : Margin.none
             case .center:
-                verticalMargin = VerticalMargin.none
+                verticalMargin = Margin.none
             case .top:
                 let margin = selectedTextProperty.margin.top
-                verticalMargin = margin >= 0 ? VerticalMargin.top(size: margin) : VerticalMargin.none
+                verticalMargin = margin >= 0 ? selectedTextProperty.margin.topMargin : Margin.none
             }
         case .image:
-            verticalMargin = VerticalMargin.none
+            verticalMargin = Margin.none
         }
     }
 }

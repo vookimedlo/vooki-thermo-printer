@@ -16,28 +16,28 @@ import CoreText
 @ImageActor
 final class ImageGenerator {
     private var context: CGContext!
-    
+
     public var image: NSImage? {
         guard toBlackAndWhite(context: context, inverted: false) else { return nil }
         guard let image = context.makeImage() else { return nil }
         return NSImage(cgImage: image, size: .zero)
     }
-    
+
     public var cgImage: CGImage? {
         get async {
             guard toBlackAndWhite(context: context, inverted: false) else { return nil }
             return  context.makeImage()
         }
     }
-    
+
     public var rotatedImage: NSImage? {
         return generateRotatedImage(inverted: false)
     }
-    
+
     public var rotatedImageInverted: NSImage? {
         return generateRotatedImage(inverted: true)
     }
-    
+
     public var printerData: [[UInt8]] {
         get async {
             guard let image = context.makeImage() else { return [] }
@@ -46,10 +46,10 @@ final class ImageGenerator {
             return Self.toBytes(context: rotatedImageContext)
         }
     }
-    
-    private let imageMargin: Margin
 
-    public init? (size: CGSize, margin: Margin = Margin(leading: 0, trailing: 0, top: 0, bottom: 0)) {
+    private let imageMargin: Margins
+
+    public init? (size: CGSize, margin: Margins = Margins(leading: 0, trailing: 0, top: 0, bottom: 0)) {
         self.imageMargin = margin
         guard let ctx = createContext(size: size) else { return nil }
         context = ctx
@@ -71,7 +71,7 @@ final class ImageGenerator {
         defer {
             context?.restoreGState()
         }
-        
+
         context?.setFillColor(red: 1,
                               green: 1,
                               blue: 1,
@@ -80,59 +80,59 @@ final class ImageGenerator {
         return context
     }
     
-    public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment, margin: Margin) async {
+    public func drawText(text: String, fontName: String, fontSize: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment, margin: Margins) async {
         guard !text.isEmpty else { return }
 
         context.saveGState()
         defer {
             context.restoreGState()
         }
-        
+
         let combinedMargins = self.imageMargin + margin
-        
+
         context.textPosition = CGPoint(x: 0, y: 0)
-        
+
         let color = CGColor.black
         let font = CTFontCreateWithName(fontName as CFString, CGFloat(fontSize), nil)
-        
+
         let attributes: [NSAttributedString.Key : Any] = [.font: font, .foregroundColor: color]
-        
+
         let attributedString = NSAttributedString(string: text,
                                                   attributes: attributes)
-        
+
         let line = CTLineCreateWithAttributedString(attributedString)
         let stringRect = CGRectStandardize(CTLineGetImageBounds(line, context))
-        
+
         let x: CGFloat = {
             switch horizontal {
             case .left:
-                return Double(combinedMargins.leading)
+                return combinedMargins.leadingMargin.fsize
             case .center:
                 return max((CGFloat(context.width) - stringRect.width) / 2.0, 0)
             case .right:
-                return CGFloat(context.width) - stringRect.width - Double(combinedMargins.trailing)
+                return CGFloat(context.width) - stringRect.width - combinedMargins.trailingMargin.fsize
             }
         }()
-        
+
         let y: CGFloat = {
             switch vertical {
             case .bottom:
-                return Double(combinedMargins.bottom)
+                return combinedMargins.bottomMargin.fsize
             case .center:
                 return max((CGFloat(context.height) - stringRect.height) / 2.0, 0)
             case .top:
-                return CGFloat(context.height) - stringRect.height - Double(combinedMargins.top)
+                return CGFloat(context.height) - stringRect.height - combinedMargins.topMargin.fsize
             }
         }()
-        
+
         context.textPosition = CGPoint(x: x - stringRect.origin.x,
                                        y: y - stringRect.origin.y)
-        
+
         CTLineDraw(line, context)
-        
+
         context.setStrokeColor(CGColor.black)
         context.setLineWidth(1)
-        
+
         #if DEBUG_CALIBRATION_PATTERN
         for i in 0..<50 {
             let offset = Double(i) * 10.0
@@ -170,48 +170,48 @@ final class ImageGenerator {
         let x: CGFloat = {
             switch horizontal {
             case .left:
-                return Double(imageMargin.leading) + offset
+                return imageMargin.leadingMargin.fsize + offset
             case .right:
-                return (CGFloat(context.width)) - Double(imageMargin.trailing) - offset
+                return (CGFloat(context.width)) - imageMargin.trailingMargin.fsize - offset
             case .center:
                 return (CGFloat(context.width)) / 2
             }
         }()
-        
+
         let y: CGFloat = {
             switch vertical {
             case .top:
-                return (CGFloat(context.height)) - Double(imageMargin.top) - offset
+                return (CGFloat(context.height)) - imageMargin.topMargin.fsize - offset
             case .bottom:
-                return Double(imageMargin.bottom) + offset
+                return imageMargin.bottomMargin.fsize + offset
             case .center:
                 return (CGFloat(context.height)) / 2
             }
         }()
-        
+
         return CGPoint(x: x, y: y)
     }
-    
+
     func horizontalDivider(_ by: CGFloat) -> CGFloat {
-        return ((CGFloat(context.width)) - Double(imageMargin.leading - imageMargin.trailing)) / by
+        return (CGFloat(context.width) - imageMargin.leadingMargin.fsize - imageMargin.trailingMargin.fsize) / by
     }
-    
+
     func verticalDivider(_ by: CGFloat) -> CGFloat {
-        return ((CGFloat(context.height)) - Double(imageMargin.bottom - imageMargin.top)) / by
+        return (CGFloat(context.height) - imageMargin.bottomMargin.fsize - imageMargin.topMargin.fsize) / by
     }
-    
+
     func addOffset(_ point: CGPoint, x: CGFloat = 0, y: CGFloat = 0) -> CGPoint {
         return CGPointMake(point.x + x, point.y + y)
     }
-    
+
     public func drawBorder(divide_by: CGFloat, doubleBorder: Bool = false) async {
         context.saveGState()
         defer {
             context.restoreGState()
         }
-        
+
         let offsets: [Int] = doubleBorder ? [0, 5] : [0]
-        
+
         for i in offsets {
             do {
                 let firstPoint = lineMargins(horizontal: .left, vertical: .bottom, offset: CGFloat(i))
@@ -220,7 +220,7 @@ final class ImageGenerator {
                 context.strokeLineSegments(between: [firstPoint, secondPoint,
                                                      firstPoint, thirdPoint])
             }
-            
+
             do {
                 let firstPoint = lineMargins(horizontal: .right, vertical: .bottom, offset: CGFloat(i))
                 let secondPoint = addOffset(firstPoint, x: -horizontalDivider(divide_by) + CGFloat(i))
@@ -228,7 +228,7 @@ final class ImageGenerator {
                 context.strokeLineSegments(between: [firstPoint, secondPoint,
                                                      firstPoint, thirdPoint])
             }
-            
+
             do {
                 let firstPoint = lineMargins(horizontal: .right, vertical: .top, offset: CGFloat(i))
                 let secondPoint = addOffset(firstPoint, x: -horizontalDivider(divide_by) + CGFloat(i))
@@ -236,7 +236,7 @@ final class ImageGenerator {
                 context.strokeLineSegments(between: [firstPoint, secondPoint,
                                                      firstPoint, thirdPoint])
             }
-            
+
             do {
                 let firstPoint = lineMargins(horizontal: .left, vertical: .top, offset: CGFloat(i))
                 let secondPoint = addOffset(firstPoint, x: horizontalDivider(divide_by) - CGFloat(i))
@@ -246,8 +246,8 @@ final class ImageGenerator {
             }
         }
     }
-    
-    public func generateQRCode(text: String, size: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment, margin: Margin) async {
+
+    public func generateQRCode(text: String, size: Int, horizontal: AlignmentView.HorizontalAlignment, vertical: AlignmentView.VerticalAlignment, margin: Margins) async {
         guard !text.isEmpty else { return }
         guard let data = text.data(using: String.Encoding.ascii) else { return }
         let filter = CIFilter.qrCodeGenerator()
@@ -270,22 +270,22 @@ final class ImageGenerator {
             let x: CGFloat = {
                 switch horizontal {
                 case .left:
-                    return Double(combinedMargins.leading)
+                    return combinedMargins.leadingMargin.fsize
                 case .center:
                     return max((CGFloat(context.width) - sizeFloat) / 2.0, 0)
                 case .right:
-                    return CGFloat(context.width) - sizeFloat - Double(combinedMargins.trailing)
+                    return CGFloat(context.width) - sizeFloat - combinedMargins.trailingMargin.fsize
                 }
             }()
             
             let y: CGFloat = {
                 switch vertical {
                 case .bottom:
-                    return 0
+                    return combinedMargins.bottomMargin.fsize
                 case .center:
                     return max((CGFloat(context.height) - sizeFloat) / 2.0, 0)
                 case .top:
-                    return CGFloat(context.height) - sizeFloat
+                    return CGFloat(context.height) - sizeFloat - combinedMargins.topMargin.fsize
                 }
             }()
             
@@ -358,7 +358,7 @@ final class ImageGenerator {
 
         return NSImage(cgImage: rotatedImage, size: .zero)
     }
-    
+
     struct RGBA32: Equatable {
         private var color: UInt32
         
@@ -377,11 +377,11 @@ final class ImageGenerator {
         var blue: UInt8 {
             return UInt8((color >> 8) & 0xFF)
         }
-        
+
         func isWhite() -> Bool {
             return red == 0xFF && green == 0xFF && blue == 0xFF
         }
-        
+
         static let black = RGBA32(color: 0xFF000000)
         static let white = RGBA32(color: 0xFFFFFFFF)
     }

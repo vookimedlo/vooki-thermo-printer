@@ -62,7 +62,7 @@ final class TextProperty: ObservableObject, Notifiable {
         }
     }
     
-    var margin = Margin(leading: 0, trailing: 0, top: 0, bottom: 0)
+    var margin = Margins(leading: 0, trailing: 0, top: 0, bottom: 0)
     {
         willSet {
             guard margin != newValue else { return }
@@ -101,5 +101,5 @@ struct SendableTextProperty: Sendable {
     let text: String
     let fontName: String
     let fontSize: Int
-    let margin: Margin
+    let margin: Margins
 }

@@ -101,7 +101,7 @@
 		8DED51212C318E3100B52F1E /* HorizontalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */; };
 		8DED51232C31927200B52F1E /* VerticalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */; };
 		8DF9FE4F2C36A057004DAED2 /* PaperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE4E2C36A057004DAED2 /* PaperType.swift */; };
-		8DF9FE512C36DD5D004DAED2 /* Margin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE502C36DD5D004DAED2 /* Margin.swift */; };
+		8DF9FE512C36DD5D004DAED2 /* Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE502C36DD5D004DAED2 /* Margins.swift */; };
 		8DF9FE532C36DF97004DAED2 /* ObservablePaperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */; };
 		8DF9FE552C36E7F8004DAED2 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE542C36E7F8004DAED2 /* Preview.swift */; };
 		8DF9FE572C37FA8E004DAED2 /* PrinterAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */; };
@@ -219,7 +219,7 @@
 		8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTextAlignment.swift; sourceTree = "<group>"; };
 		8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTextAlignment.swift; sourceTree = "<group>"; };
 		8DF9FE4E2C36A057004DAED2 /* PaperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperType.swift; sourceTree = "<group>"; };
-		8DF9FE502C36DD5D004DAED2 /* Margin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margin.swift; sourceTree = "<group>"; };
+		8DF9FE502C36DD5D004DAED2 /* Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margins.swift; sourceTree = "<group>"; };
 		8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePaperType.swift; sourceTree = "<group>"; };
 		8DF9FE542C36E7F8004DAED2 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAvailability.swift; sourceTree = "<group>"; };
@@ -370,7 +370,7 @@
 				8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */,
 				8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */,
 				8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */,
-				8DF9FE502C36DD5D004DAED2 /* Margin.swift */,
+				8DF9FE502C36DD5D004DAED2 /* Margins.swift */,
 				8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */,
 				8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */,
 				8DF9FE4E2C36A057004DAED2 /* PaperType.swift */,
@@ -675,7 +675,7 @@
 				8D38E7192C5C351700EFA505 /* PrinterMenuCommands.swift in Sources */,
 				8DF9FE592C38A669004DAED2 /* TextTabView.swift in Sources */,
 				8DF9FE5D2C394D8C004DAED2 /* TextProperties.swift in Sources */,
-				8DF9FE512C36DD5D004DAED2 /* Margin.swift in Sources */,
+				8DF9FE512C36DD5D004DAED2 /* Margins.swift in Sources */,
 				8D38E71C2C5C3F2B00EFA505 /* AppDelegate.swift in Sources */,
 				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
 				8D312C0A2C4DA8A5006D0360 /* RFIDData.swift in Sources */,

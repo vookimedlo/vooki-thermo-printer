@@ -63,12 +63,12 @@ public enum PaperType: String, Sendable {
     }
     
     nonisolated
-    var margin: Margin {
+    var margin: Margins {
         switch self {
         case .ean02282280, .ean6972842743589:
-            return Margin(leading: 12, trailing: 10, top: 2, bottom: 2)
+            return Margins(leading: 12, trailing: 10, top: 2, bottom: 2)
         case .unknown:
-            return Margin(leading: 12, trailing: 10, top: 10, bottom: 10)
+            return Margins(leading: 12, trailing: 10, top: 10, bottom: 10)
         }
     }
 }

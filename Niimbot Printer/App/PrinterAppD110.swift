@@ -386,7 +386,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     }
     
     @ImageActor
-    private func generateImage(paperSize: CGSize, margin: Margin, from properties: [SendableTextProperty]) async -> ImageGenerator? {
+    private func generateImage(paperSize: CGSize, margin: Margins, from properties: [SendableTextProperty]) async -> ImageGenerator? {
         guard let image = ImageGenerator(size: paperSize, margin: margin) else { return nil }
         for (index, property) in properties.enumerated() {
             switch property.whatToPrint {

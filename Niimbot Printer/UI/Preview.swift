@@ -11,12 +11,11 @@ struct Preview: View {
     @Environment(ImagePreview.self) private var imagePreview
     @Environment(ObservablePaperType.self) private var paperType
     
-    @Binding var horizontalMargin: HorizontalMargin
-    @Binding var verticalMargin: VerticalMargin
+    @Binding var horizontalMargin: any HorizontalMarginable
+    @Binding var verticalMargin: any VerticalMarginable
 
 
     private let controlColor = Color(NSColor.disabledControlTextColor)
-    var i = NSImage(size: NSSize(width: 240, height: 80))
 
     private let descriptionLength = 15.0
     private let descriptionThickness = 3.0
@@ -89,7 +88,7 @@ struct Preview: View {
 
         ZStack{
             HStack {
-                if (horizontalMargin != .none) {
+                if (!horizontalMargin.isNone) {
                     let paperHeight = $paperType.wrappedValue.type.printableSizeInPixels.height
                     
                     if (horizontalMargin.edge!.contains(.trailing)) {
@@ -108,7 +107,7 @@ struct Preview: View {
             }
             
             VStack {
-                if (verticalMargin != .none) {
+                if (!verticalMargin.isNone) {
                     let paperWidth = $paperType.wrappedValue.type.printableSizeInPixels.width
                     
                     if (verticalMargin.edge!.contains(.bottom)) {
@@ -177,8 +176,8 @@ struct Preview: View {
 }
 
 #Preview {
-    @Previewable @State var horizontalMargin: HorizontalMargin = HorizontalMargin.none
-    @Previewable @State var verticalMargin: VerticalMargin = VerticalMargin.none
+    @Previewable @State var horizontalMargin: any HorizontalMarginable = Margin.none
+    @Previewable @State var verticalMargin: any VerticalMarginable = Margin.none
 
     Preview(horizontalMargin: $horizontalMargin, verticalMargin: $verticalMargin)
         .environmentObject(ImagePreview())

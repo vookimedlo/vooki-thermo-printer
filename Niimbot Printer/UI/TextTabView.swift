@@ -11,13 +11,14 @@ import SwiftUI
 struct TextTabView: View {
     @Environment(TextProperties.self) private var textProperties
     
+    @Binding var selectedTextProperty: TextProperty?
+
     private let controlBackgroundColor = Color(NSColor.separatorColor)
     private let controlSelectedColor = Color(NSColor.selectedControlColor)
  
     @State var selectedTab = 0
  
     var body: some View {
-        
         ZStack(alignment: .top) {
             GroupBox {
                 HStack {
@@ -35,6 +36,8 @@ struct TextTabView: View {
                 NewTab(label: "+")
                 Spacer()
             }
+        }.onAppear() {
+            selectedTextProperty = textProperties.properties[selectedTab]
         }
     }
 }
@@ -50,6 +53,7 @@ extension TextTabView {
         }.gesture(TapGesture().onEnded({
             withAnimation {
                 selectedTab = id
+                selectedTextProperty = textProperties.properties[selectedTab]
             }
         }))
     }
@@ -65,13 +69,16 @@ extension TextTabView {
             textProperties.properties.append(TextProperty())
             withAnimation {
                 selectedTab = textProperties.properties.count - 1
+                selectedTextProperty = textProperties.properties[selectedTab]
             }
         }))
     }
 }
 
 #Preview {
-    TextTabView()
+    @Previewable @State var textProperty: TextProperty? = nil
+
+    TextTabView(selectedTextProperty: $textProperty)
         .environmentObject(TextProperties())
         .environmentObject(ObservablePaperType())
 }

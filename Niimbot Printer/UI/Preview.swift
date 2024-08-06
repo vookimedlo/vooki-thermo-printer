@@ -11,11 +11,23 @@ struct Preview: View {
     @Environment(ImagePreview.self) private var imagePreview
     @Environment(ObservablePaperType.self) private var paperType
     
+    @Binding var horizontalMargin: HorizontalMargin
+    @Binding var verticalMargin: VerticalMargin
+
+
     private let controlColor = Color(NSColor.disabledControlTextColor)
     var i = NSImage(size: NSSize(width: 240, height: 80))
 
     private let descriptionLength = 15.0
     private let descriptionThickness = 3.0
+    
+    private let marginThickness = 2.0
+
+    private let marginColor = Color.blue
+    private let paperColor = Color.white
+    private let physicalColor = Color.green
+    private let printableColor = Color.red
+
 
     var body: some View {
         @Bindable var imagePreview = imagePreview
@@ -27,7 +39,7 @@ struct Preview: View {
                     Spacer()
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
                         RoundedRectangle(cornerRadius: 30)
-                            .fill(.white)
+                            .fill(paperColor)
                             .shadow(color: .accentColor, radius: 30)
                             .frame(width: $paperType.wrappedValue.type.physicalSizeInPixels.width,
                                    height: $paperType.wrappedValue.type.physicalSizeInPixels.height)
@@ -35,20 +47,23 @@ struct Preview: View {
                             Image(nsImage: NSImage(cgImage: imagePreview.image!,
                                                    size: NSSize(width: imagePreview.image!.width,
                                                                 height: imagePreview.image!.height)) )
-                            .border(.red, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                            .border(printableColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                            .overlay {
+                                marginGuide()
+                            }
                         }
                     }
                     Spacer()
                 }
                 
-                verticalDescription(color: .red,
+                verticalDescription(color: printableColor,
                     paperWidth: $paperType.wrappedValue.type.printableSizeInPixels.width,
                     paperHeight: $paperType.wrappedValue.type.printableSizeInPixels.height,
                                     description: "\($paperType.wrappedValue.type.printableSizeInMillimeters.height)",
                                     offset: 40)
                 .help("The height of printable area.")
                 
-                verticalDescription(color: .green,
+                verticalDescription(color: physicalColor,
                     paperWidth: $paperType.wrappedValue.type.physicalSizeInPixels.width,
                     paperHeight: $paperType.wrappedValue.type.physicalSizeInPixels.height,
                     description: "\($paperType.wrappedValue.type.physicalSizeInMillimeters.height)",
@@ -56,15 +71,60 @@ struct Preview: View {
                 .help("The height of paper.")
             }
             
-            horizontalDescription(color: .red,
+            horizontalDescription(color: printableColor,
                 paperWidth: $paperType.wrappedValue.type.printableSizeInPixels.width,
                 description: "\($paperType.wrappedValue.type.printableSizeInMillimeters.width)")
             .help("The width of printable area.")
 
-            horizontalDescription(color: .green,
+            horizontalDescription(color: physicalColor,
                 paperWidth: $paperType.wrappedValue.type.physicalSizeInPixels.width,
                 description: "\($paperType.wrappedValue.type.physicalSizeInMillimeters.width)")
             .help("The width of paper.")
+        }
+    }
+    
+    @ViewBuilder
+    private func marginGuide() -> some View {
+        @Bindable var paperType = paperType
+
+        ZStack{
+            HStack {
+                if (horizontalMargin != .none) {
+                    let paperHeight = $paperType.wrappedValue.type.printableSizeInPixels.height
+                    
+                    if (horizontalMargin.edge!.contains(.trailing)) {
+                        Spacer()
+                    }
+                    Rectangle()
+                        .fill(marginColor)
+                        .frame(width: marginThickness,
+                               height: paperHeight)
+                        .padding(horizontalMargin.edge!,
+                                 horizontalMargin.fsize)
+                    if (horizontalMargin.edge!.contains(.leading)) {
+                        Spacer()
+                    }
+                }
+            }
+            
+            VStack {
+                if (verticalMargin != .none) {
+                    let paperWidth = $paperType.wrappedValue.type.printableSizeInPixels.width
+                    
+                    if (verticalMargin.edge!.contains(.bottom)) {
+                        Spacer()
+                    }
+                    Rectangle()
+                        .fill(marginColor)
+                        .frame(width: paperWidth,
+                               height: marginThickness)
+                        .padding(verticalMargin.edge!,
+                                 verticalMargin.fsize)
+                    if (verticalMargin.edge!.contains(.top)) {
+                        Spacer()
+                    }
+                }
+            }
         }
     }
     
@@ -117,7 +177,10 @@ struct Preview: View {
 }
 
 #Preview {
-    Preview()
+    @Previewable @State var horizontalMargin: HorizontalMargin = HorizontalMargin.none
+    @Previewable @State var verticalMargin: VerticalMargin = VerticalMargin.none
+
+    Preview(horizontalMargin: $horizontalMargin, verticalMargin: $verticalMargin)
         .environmentObject(ImagePreview())
         .environmentObject(ObservablePaperType())
 }

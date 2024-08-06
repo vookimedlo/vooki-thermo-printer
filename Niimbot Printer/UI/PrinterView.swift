@@ -15,6 +15,10 @@ struct PrinterView: View, Notifiable {
     @State private var showingInspector: Bool = true
     @State private var showingPrintingProgress: Bool = false
     
+    @State private var selectedTextProperty: TextProperty?
+    @State var horizontalMargin: HorizontalMargin = HorizontalMargin.none
+    @State var verticalMargin: VerticalMargin = VerticalMargin.none
+    
     private let controlDisabledColor = Color(NSColor.disabledControlTextColor)
 
     var body: some View {
@@ -25,7 +29,8 @@ struct PrinterView: View, Notifiable {
                         Spacer()
                         HStack{
                             Spacer()
-                            Preview()
+                            Preview(horizontalMargin: $horizontalMargin,
+                                    verticalMargin: $verticalMargin)
                             Spacer()
                         }
                         Spacer()
@@ -49,7 +54,25 @@ struct PrinterView: View, Notifiable {
             
             Spacer()
             
-            TextTabView().padding([.horizontal, .bottom])
+            TextTabView(selectedTextProperty: $selectedTextProperty).padding([.horizontal, .bottom])
+                .onChange(of: selectedTextProperty?.margin.leading) {
+                    computeHorizontalMargin()
+                }
+                .onChange(of: selectedTextProperty?.margin.trailing) {
+                    computeHorizontalMargin()
+                }
+                .onChange(of: selectedTextProperty?.margin.bottom) {
+                    computeVerticalMargin()
+                }
+                .onChange(of: selectedTextProperty?.margin.top) {
+                    computeVerticalMargin()
+                }
+                .onChange(of: selectedTextProperty?.horizontalAlignment.alignment) {
+                    computeHorizontalMargin()
+                }
+                .onChange(of: selectedTextProperty?.verticalAlignment.alignment) {
+                    computeVerticalMargin()
+                }
             
             HStack {
                 Button {
@@ -109,6 +132,50 @@ struct PrinterView: View, Notifiable {
                     }
                 }
             }
+    }
+    
+    private func computeHorizontalMargin() {
+        guard let selectedTextProperty = selectedTextProperty else {
+            horizontalMargin = HorizontalMargin.none
+            return
+        }
+        switch selectedTextProperty.whatToPrint {
+        case .text, .qr:
+            switch selectedTextProperty.horizontalAlignment.alignment {
+            case .left:
+                let margin = selectedTextProperty.margin.leading
+                horizontalMargin = margin >= 0 ? HorizontalMargin.leading(size: margin) : HorizontalMargin.none
+            case .center:
+                horizontalMargin = HorizontalMargin.none
+            case .right:
+                let margin = selectedTextProperty.margin.trailing
+                horizontalMargin = margin >= 0 ? HorizontalMargin.trailing(size: margin) : HorizontalMargin.none
+            }
+        case .image:
+            horizontalMargin = HorizontalMargin.none
+        }
+    }
+    
+    private func computeVerticalMargin() {
+        guard let selectedTextProperty = selectedTextProperty else {
+            verticalMargin = VerticalMargin.none
+            return
+        }
+        switch selectedTextProperty.whatToPrint {
+        case .text, .qr:
+            switch selectedTextProperty.verticalAlignment.alignment {
+            case .bottom:
+                let margin = selectedTextProperty.margin.bottom
+                verticalMargin = margin >= 0 ? VerticalMargin.bottom(size: margin) : VerticalMargin.none
+            case .center:
+                verticalMargin = VerticalMargin.none
+            case .top:
+                let margin = selectedTextProperty.margin.top
+                verticalMargin = margin >= 0 ? VerticalMargin.top(size: margin) : VerticalMargin.none
+            }
+        case .image:
+            verticalMargin = VerticalMargin.none
+        }
     }
 }
 

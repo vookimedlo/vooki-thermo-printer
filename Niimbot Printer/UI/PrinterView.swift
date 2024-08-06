@@ -11,7 +11,8 @@ import SwiftUI
 struct PrinterView: View, Notifiable {
     @Environment(PrinterAvailability.self) private var printerAvailability
     @Environment(PrinterDetails.self) private var printeDetails
-    
+    @Environment(UISettingsProperties.self) private var uiSettingsProperties
+
     @State private var showingInspector: Bool = true
     @State private var showingPrintingProgress: Bool = false
     
@@ -50,7 +51,8 @@ struct PrinterView: View, Notifiable {
                 }
             } label: {
                 Text("Paper preview")
-            }.padding()
+            }
+            .padding()
             
             Spacer()
             
@@ -73,7 +75,12 @@ struct PrinterView: View, Notifiable {
                 .onChange(of: selectedTextProperty?.verticalAlignment.alignment) {
                     computeVerticalMargin()
                 }
-            
+                .onChange(of: uiSettingsProperties.showHorizontalMarginGuideline) {
+                    computeHorizontalMargin()
+                }
+                .onChange(of: uiSettingsProperties.showVerticalMarginGuideline) {
+                    computeVerticalMargin()
+                }
             HStack {
                 Button {
                     notifyUI(name: Notification.Name.App.printRequested)
@@ -83,21 +90,23 @@ struct PrinterView: View, Notifiable {
                 }
                 .background(printerAvailability.isConnected ? Color.accentColor : controlDisabledColor, in: .buttonBorder)
                 .disabled(!printerAvailability.isConnected)
-            }.padding(.horizontal, 250).padding(.bottom)
-        }.navigationTitle("D110 Printer")
+            }
+            .padding(.horizontal, 250).padding(.bottom)
+        }
+        .navigationTitle("D110 Printer")
             .inspector(isPresented: $showingInspector) {
                 VStack {
                     List {
                         Section(header: Text("Printer")) {
                             PrinterDetailsView()
                         }
-
                         if printerAvailability.isConnected && printeDetails.isPaperInserted {
                             Section(header: Text("Paper")) {
                                 PrinterLabelDetailView()
                             }
                         }
-                    }.listStyle(.sidebar)
+                    }
+                    .listStyle(.sidebar)
                     Spacer()
                 }
                 .animation(.easeInOut, value: printerAvailability.isConnected)
@@ -121,6 +130,7 @@ struct PrinterView: View, Notifiable {
                         Spacer()
                     }.padding()}
                 .frame(minWidth: 600)
+                .interactiveDismissDisabled()
             }.toolbar {
                 ToolbarItem() {
                     Button {
@@ -135,7 +145,7 @@ struct PrinterView: View, Notifiable {
     }
     
     private func computeHorizontalMargin() {
-        guard let selectedTextProperty = selectedTextProperty else {
+        guard let selectedTextProperty = selectedTextProperty, uiSettingsProperties.showHorizontalMarginGuideline else {
             horizontalMargin = Margin.none
             return
         }
@@ -157,7 +167,7 @@ struct PrinterView: View, Notifiable {
     }
     
     private func computeVerticalMargin() {
-        guard let selectedTextProperty = selectedTextProperty else {
+        guard let selectedTextProperty = selectedTextProperty, uiSettingsProperties.showVerticalMarginGuideline else {
             verticalMargin = Margin.none
             return
         }
@@ -187,4 +197,5 @@ struct PrinterView: View, Notifiable {
         .environmentObject(ObservablePaperType())
         .environmentObject(PrinterAvailability())
         .environmentObject(TextProperties())
+        .environmentObject(UISettingsProperties())
 }

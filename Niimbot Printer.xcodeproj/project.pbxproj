@@ -30,6 +30,8 @@
 		8D38E7262C5D6C6D00EFA505 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7252C5D6C6D00EFA505 /* AlertType.swift */; };
 		8D38E7282C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7272C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift */; };
 		8D489B752C4D040200B9CC36 /* SoftwareVersionPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */; };
+		8D580E132C623FC5005B3FAB /* ShowMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D580E122C623FBC005B3FAB /* ShowMenuCommands.swift */; };
+		8D580E152C624380005B3FAB /* UISettingsProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D580E142C624380005B3FAB /* UISettingsProperties.swift */; };
 		8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC152C052197001EBD95 /* PrinterAppD110.swift */; };
 		8D58DC1A2C052198001EBD95 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC192C052198001EBD95 /* Assets.xcassets */; };
 		8D58DC252C052317001EBD95 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC242C052317001EBD95 /* Packet.swift */; };
@@ -143,6 +145,8 @@
 		8D38E7232C5D402500EFA505 /* StaticNotifiableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticNotifiableExtension.swift; sourceTree = "<group>"; };
 		8D38E7252C5D6C6D00EFA505 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		8D38E7272C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarItemPlacementExtension.swift; sourceTree = "<group>"; };
+		8D580E122C623FBC005B3FAB /* ShowMenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMenuCommands.swift; sourceTree = "<group>"; };
+		8D580E142C624380005B3FAB /* UISettingsProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISettingsProperties.swift; sourceTree = "<group>"; };
 		8D58DC122C052197001EBD95 /* Niimbot Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Niimbot Printer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC152C052197001EBD95 /* PrinterAppD110.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppD110.swift; sourceTree = "<group>"; };
 		8D58DC192C052198001EBD95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				8D38E7182C5C351000EFA505 /* PrinterMenuCommands.swift */,
+				8D580E122C623FBC005B3FAB /* ShowMenuCommands.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 				8D312C0B2C4DA8EA006D0360 /* PrintStatus.swift */,
 				8D312C092C4DA8A4006D0360 /* RFIDData.swift */,
 				8DF9FE5C2C394D8C004DAED2 /* TextProperties.swift */,
+				8D580E142C624380005B3FAB /* UISettingsProperties.swift */,
 				8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */,
 			);
 			path = Model;
@@ -627,6 +633,7 @@
 				8DF9FE5B2C393E2D004DAED2 /* TextConstructionView.swift in Sources */,
 				8DDC3D122C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift in Sources */,
 				8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */,
+				8D580E132C623FC5005B3FAB /* ShowMenuCommands.swift in Sources */,
 				8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */,
 				8D92FBDF2C2CBE460040747C /* PrintStatusPacketDecoder.swift in Sources */,
 				8DEB85EA2C0E0A970028526B /* BluetoothSupport.swift in Sources */,
@@ -655,6 +662,7 @@
 				8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */,
 				8D76C5372C08DA38005D7EEB /* IOError.swift in Sources */,
 				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
+				8D580E152C624380005B3FAB /* UISettingsProperties.swift in Sources */,
 				8D9639472C0B9C8B00374894 /* NotifiableExtension.swift in Sources */,
 				8DF9FE532C36DF97004DAED2 /* ObservablePaperType.swift in Sources */,
 				8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */,

@@ -131,7 +131,9 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     @State private var textProperties = TextProperties()
     
     @State private var connectionViewProperties = ConnectionViewProperties()
+    @State private var uiSettingsProperties = UISettingsProperties()
 
+    
     var body: some Scene {
         @Bindable var printerAvailability = self.printerAvailability
         @Bindable var connectionViewPropertie = self.connectionViewProperties
@@ -149,12 +151,14 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                     .environmentObject(self.printerAvailability)
                     .environmentObject(self.textProperties)
                     .environmentObject(self.connectionViewProperties)
+                    .environmentObject(self.uiSettingsProperties)
             }
         }
         .modelContainer(sharedModelContainer)
         .commands {
             PrinterMenuCommands(printerAvailability: printerAvailability,
                                 connectionViewProperties: connectionViewProperties)
+            ShowMenuCommands(uiSettingsProperties: uiSettingsProperties)
         }
     }
     

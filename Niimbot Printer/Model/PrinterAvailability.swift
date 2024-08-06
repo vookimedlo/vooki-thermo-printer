@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 @Observable
-final class PrinterAvailability: ObservableObject, Notifiable {
+final class PrinterAvailability: ObservableObject {
     var isAvailable: Bool = false
     var isConnected: Bool = false
 }

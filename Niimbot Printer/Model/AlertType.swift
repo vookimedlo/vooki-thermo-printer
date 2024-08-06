@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-public enum AlertType: Int {
+public enum AlertType: Int, Sendable {
     case none, printError
     
     var title: String {

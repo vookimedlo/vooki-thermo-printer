@@ -9,17 +9,17 @@ import SwiftUI
 import AppKit
 
 struct FontSelectionView: View {
-    struct FontName: Identifiable {
+    private struct FontName: Identifiable, Equatable, Sendable {
         var id: String
     }
     
-    let allFontNames: [FontName] = { () -> [FontName] in
+    private let allFontNames: [FontName] = { () -> [FontName] in
         return NSFontManager.shared.availableFonts.map { (name) -> FontName in
             return FontName(id: name)
         }
     }()
     
-    var allFontNamesForFamily: [FontName]  {
+    private var allFontNamesForFamily: [FontName]  {
         var result: [FontName] = []
         guard let members = NSFontManager.shared.availableMembers(ofFontFamily: familySelection) else { return result }
         for item in members {
@@ -28,15 +28,18 @@ struct FontSelectionView: View {
         return result
     }
     
-    let allFontFamilies: [FontName] = { () -> [FontName] in
+    private let allFontFamilies: [FontName] = { () -> [FontName] in
         return NSFontManager.shared.availableFontFamilies.map { (name) -> FontName in
             return FontName(id: name)
         }
     }()
     
-    @Binding var fontSelection: String
-    @Binding var familySelection: String
-    @Binding var fontSize: Int
+    @State private var isFontNamesForFamilyReady = false
+    @State private var fontNamesForFamily: [FontName] = []
+    
+    @Binding private var fontSelection: String
+    @Binding private var familySelection: String
+    @Binding private var fontSize: Int
     
     init(fontSelection: Binding<String>, familySelection: Binding<String>, fontSize: Binding<Int>) {
         self._fontSelection = fontSelection
@@ -45,13 +48,7 @@ struct FontSelectionView: View {
     }
     
     var body: some View {
-        GroupBox(){
-            //            List(allFontFamilies, id: \.self) { name in
-            //                Text(name).font(Font.custom(name, size: 12))
-            //            }
-            
-            
-            
+        GroupBox {
             Form {
                 Picker(selection: $familySelection) {
                     ForEach(allFontFamilies) { name in
@@ -59,18 +56,22 @@ struct FontSelectionView: View {
                     }
                 } label: {
                     Text("Font family").font(.headline)
-                }
-                .onChange(of: familySelection, initial: true) {
-                    fontSelection = allFontNamesForFamily.first?.id ?? ""
+                }.onChange(of: familySelection, initial: true) {
+                    isFontNamesForFamilyReady = false
+                    fontNamesForFamily = allFontNamesForFamily
+                    fontSelection = fontNamesForFamily.first?.id ?? ""
+                    isFontNamesForFamilyReady = true
                 }.padding(.horizontal)
                 
-                Picker(selection: $fontSelection) {
-                    ForEach(allFontNamesForFamily) { name in
-                        Text(name.id).tag(name.id).font(Font.custom(name.id, size: 12, relativeTo: .title))
-                    }
-                } label: {
-                    Text("Font variant").font(.headline)
-                }.padding(.horizontal)
+                if isFontNamesForFamilyReady {
+                    Picker(selection: $fontSelection) {
+                        ForEach(fontNamesForFamily) { name in
+                            Text(name.id).tag(name.id).font(Font.custom(name.id, size: 12, relativeTo: .title))
+                        }
+                    } label: {
+                        Text("Font variant").font(.headline)
+                    }.padding(.horizontal)
+                }
                 
                 IndicatorValueSlider(value: $fontSize,
                                     minValue: 1,

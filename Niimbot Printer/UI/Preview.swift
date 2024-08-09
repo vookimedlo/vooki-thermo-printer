@@ -19,7 +19,7 @@ struct Preview: View {
 
     private let descriptionLength = 15.0
     private let descriptionThickness = 3.0
-    
+
     private let marginThickness = 2.0
 
     private let marginColor = Color.blue
@@ -37,15 +37,19 @@ struct Preview: View {
                 HStack{
                     Spacer()
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
-                        RoundedRectangle(cornerRadius: 30)
+                        let cornerRadius = paperType.type.cornerRadius
+
+                        RoundedRectangle(cornerRadius: cornerRadius)
                             .fill(paperColor)
-                            .shadow(color: .accentColor, radius: 30)
+                            .shadow(color: .accentColor, radius: cornerRadius)
                             .frame(width: $paperType.wrappedValue.type.physicalSizeInPixels.width,
                                    height: $paperType.wrappedValue.type.physicalSizeInPixels.height)
                         if (imagePreview.image != nil) {
+                            let size = NSSize(width: imagePreview.image!.width,
+                                              height: imagePreview.image!.height)
                             Image(nsImage: NSImage(cgImage: imagePreview.image!,
-                                                   size: NSSize(width: imagePreview.image!.width,
-                                                                height: imagePreview.image!.height)) )
+                                                   size: size))
+                            .cornerRadius(cornerRadius)
                             .border(printableColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                             .overlay {
                                 marginGuide()

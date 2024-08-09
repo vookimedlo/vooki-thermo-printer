@@ -291,6 +291,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                 self.paperDetails.serialNumber = rfidData.serial
                 self.paperDetails.type = String(rfidData.type)
                 self.printerDetails.isPaperInserted = true
+                await generateImagePreview()
             }
         }
         else if Notification.Name.App.noPaper ==  notification.name {

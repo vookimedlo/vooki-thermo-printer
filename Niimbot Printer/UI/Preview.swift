@@ -38,6 +38,7 @@ struct Preview: View {
                     Spacer()
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
                         let cornerRadius = paperType.type.cornerRadius
+                        let printableCornerRadius = paperType.type.printableSizeInPixels == paperType.type.physicalSizeInPixels ? cornerRadius : 0
 
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .fill(paperColor)
@@ -49,7 +50,7 @@ struct Preview: View {
                                               height: imagePreview.image!.height)
                             Image(nsImage: NSImage(cgImage: imagePreview.image!,
                                                    size: size))
-                            .cornerRadius(cornerRadius)
+                            .cornerRadius(printableCornerRadius)
                             .border(printableColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                             .overlay {
                                 marginGuide()

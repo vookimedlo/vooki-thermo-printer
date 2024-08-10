@@ -117,7 +117,7 @@ struct ContentView: View, Notifiable {
         .environmentObject(PrinterDetails())
         .environmentObject(PaperDetails())
         .environmentObject(ImagePreview())
-        .environmentObject(ObservablePaperType())
+        .environmentObject(ObservablePaperEAN())
         .environmentObject(PrinterAvailability())
         .environmentObject(TextProperties())
         .environmentObject(ConnectionViewProperties())

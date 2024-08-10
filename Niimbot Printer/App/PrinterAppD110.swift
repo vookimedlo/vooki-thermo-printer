@@ -54,8 +54,8 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     private func initForProduction() {
         notificationListenerTask = Task.detached {
             for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
-                let paperType = await self.toSendable(self.paperType)
-                if let preview = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: self.toSendable(self.textProperties))?.cgImage {
+                let paperEAN = await self.toSendable(self.paperEAN)
+                if let preview = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: self.toSendable(self.textProperties))?.cgImage {
                     await MainActor.run {
                         self.imagePreview.image = preview
                     }
@@ -126,7 +126,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     @State private var paperDetails = PaperDetails()
     @State private var printerDetails = PrinterDetails()
     @State private var imagePreview = ImagePreview()
-    @State private var paperType = ObservablePaperType()
+    @State private var paperEAN = ObservablePaperEAN()
     @State private var printerAvailability = PrinterAvailability()
     @State private var textProperties = TextProperties()
     
@@ -147,7 +147,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                     .environmentObject(self.printerDetails)
                     .environmentObject(self.paperDetails)
                     .environmentObject(self.imagePreview)
-                    .environmentObject(self.paperType)
+                    .environmentObject(self.paperEAN)
                     .environmentObject(self.printerAvailability)
                     .environmentObject(self.textProperties)
                     .environmentObject(self.connectionViewProperties)
@@ -283,7 +283,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                 Self.logger.info("RFID data - Used labels: \(rfidData.usedLength)")
                 Self.logger.info("RFID data - Type: \(rfidData.type)")
                 
-                self.paperType.type = PaperType(rawValue: rfidData.barcode) ?? .unknown
+                self.paperEAN.ean = PaperEAN(rawValue: rfidData.barcode) ?? .unknown
                 
                 self.paperDetails.remainingCount = String(rfidData.totalLength - rfidData.usedLength)
                 self.paperDetails.printedCount = String(rfidData.usedLength)
@@ -442,21 +442,21 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         return result
     }
     
-    private func toSendable(_ paperType: ObservablePaperType) -> PaperType {
-        return paperType.type
+    private func toSendable(_ paperEAN: ObservablePaperEAN) -> PaperEAN {
+        return paperEAN.ean
     }
     
     private func generateImagePreview() async {
         let properties = toSendable(textProperties)
-        let paperType = self.toSendable(self.paperType)
-        guard let preview = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: properties)?.cgImage else { return }
+        let paperEAN = self.toSendable(self.paperEAN)
+        guard let preview = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: properties)?.cgImage else { return }
         self.imagePreview.image = preview
     }
     
     private func preparePrintData() async  -> [[UInt8]] {
         let properties = toSendable(textProperties)
-        let paperType = self.toSendable(self.paperType)
-        guard let data = await self.generateImage(paperSize: paperType.printableSizeInPixels, margin: paperType.margin, from: properties)?.printerData else { return [] }
+        let paperEAN = self.toSendable(self.paperEAN)
+        guard let data = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: properties)?.printerData else { return [] }
         
         var peparedData: [[UInt8]] = []
         var rowNumber: UInt16 = 0
@@ -500,8 +500,8 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                 await self.printer?.startPagePrint()
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setDimension) {
-                await self.printer?.setDimension(width: UInt16(self.paperType.type.printableSizeInPixels.width),
-                                                 height: UInt16(self.paperType.type.printableSizeInPixels.height))
+                await self.printer?.setDimension(width: UInt16(self.paperEAN.ean.printableSizeInPixels.width),
+                                                 height: UInt16(self.paperEAN.ean.printableSizeInPixels.height))
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
                 await self.printer?.setLabelDensity(density: 1)

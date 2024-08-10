@@ -12,13 +12,13 @@ import UniformTypeIdentifiers
 
 struct TextConstructionView: View {
     @Environment(TextProperty.self) private var textProperty
-    @Environment(ObservablePaperType.self) private var paperType
+    @Environment(ObservablePaperEAN.self) private var paperEAN
     
    // @State private var selectedDecoration: Decoration = .custom
 
     var body: some View {
         @Bindable var textProperty = textProperty
-        @Bindable var paperType = paperType
+        @Bindable var paperEAN = paperEAN
 
         VStack() {
             GroupBox {
@@ -43,7 +43,7 @@ struct TextConstructionView: View {
                         }
                         
                         if (textProperty.imageDecoration == .custom) {
-                            TipView(ImageTip(size: paperType.type.printableSizeInPixels),
+                            TipView(ImageTip(size: paperEAN.ean.printableSizeInPixels),
                                     arrowEdge: .bottom)
                             .containerRelativeFrame(.vertical, alignment: .top) { value, axis in
                                 switch axis {
@@ -56,12 +56,12 @@ struct TextConstructionView: View {
                         }
                             HStack {
                                 ZStack {
-                                    Rectangle().frame(width: paperType.type.printableSizeInPixels.width, height: paperType.type.printableSizeInPixels.height, alignment: .center)
+                                    Rectangle().frame(width: paperEAN.ean.printableSizeInPixels.width, height: paperEAN.ean.printableSizeInPixels.height, alignment: .center)
                                         .foregroundStyle(.white)
                                         .shadow(color: .green, radius: 5)
                                     
-                                    Image(nsImage: textProperty.image.count > 0 ? NSImage(data: textProperty.image)! : NSImage(size: paperType.type.printableSizeInPixels))
-                                        .frame(width: paperType.type.printableSizeInPixels.width, height: paperType.type.printableSizeInPixels.height, alignment: .center)
+                                    Image(nsImage: textProperty.image.count > 0 ? NSImage(data: textProperty.image)! : NSImage(size: paperEAN.ean.printableSizeInPixels))
+                                        .frame(width: paperEAN.ean.printableSizeInPixels.width, height: paperEAN.ean.printableSizeInPixels.height, alignment: .center)
                                 }
                                 .dropDestination(for: NSImage.self) { items, _ in
                                     guard let image = items.first else { return false }
@@ -69,7 +69,7 @@ struct TextConstructionView: View {
                                     
                                     guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return false }
                                     
-                                    guard cgImage.width == Int(paperType.type.printableSizeInPixels.width) && cgImage.height == Int(paperType.type.printableSizeInPixels.height) else { return false }
+                                    guard cgImage.width == Int(paperEAN.ean.printableSizeInPixels.width) && cgImage.height == Int(paperEAN.ean.printableSizeInPixels.height) else { return false }
     
                                     textProperty.image = cgImage.data
 

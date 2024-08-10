@@ -39,6 +39,7 @@
 		8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC332C064583001EBD95 /* PrinterDevice.swift */; };
 		8D708D932C49BE8E006BF3BE /* PrinterActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D922C49BE8E006BF3BE /* PrinterActor.swift */; };
 		8D708D952C4C6099006BF3BE /* BoolBytePacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D942C4C6076006BF3BE /* BoolBytePacketDecoderTests.swift */; };
+		8D73719A2C67F4A200695B2E /* PaperEANTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7371992C67F49500695B2E /* PaperEANTests.swift */; };
 		8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
 		8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */; };
 		8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5342C08DA08005D7EEB /* IOProtocol.swift */; };
@@ -102,9 +103,9 @@
 		8DED511F2C3080F700B52F1E /* SegmentedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */; };
 		8DED51212C318E3100B52F1E /* HorizontalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */; };
 		8DED51232C31927200B52F1E /* VerticalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */; };
-		8DF9FE4F2C36A057004DAED2 /* PaperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE4E2C36A057004DAED2 /* PaperType.swift */; };
+		8DF9FE4F2C36A057004DAED2 /* PaperEAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */; };
 		8DF9FE512C36DD5D004DAED2 /* Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE502C36DD5D004DAED2 /* Margins.swift */; };
-		8DF9FE532C36DF97004DAED2 /* ObservablePaperType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */; };
+		8DF9FE532C36DF97004DAED2 /* ObservablePaperEAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE522C36DF97004DAED2 /* ObservablePaperEAN.swift */; };
 		8DF9FE552C36E7F8004DAED2 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE542C36E7F8004DAED2 /* Preview.swift */; };
 		8DF9FE572C37FA8E004DAED2 /* PrinterAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */; };
 		8DF9FE592C38A669004DAED2 /* TextTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE582C38A669004DAED2 /* TextTabView.swift */; };
@@ -158,6 +159,7 @@
 		8D708D922C49BE8E006BF3BE /* PrinterActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterActor.swift; sourceTree = "<group>"; };
 		8D708D942C4C6076006BF3BE /* BoolBytePacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolBytePacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareVersionPacketDecoderTests.swift; sourceTree = "<group>"; };
+		8D7371992C67F49500695B2E /* PaperEANTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperEANTests.swift; sourceTree = "<group>"; };
 		8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIO.swift; sourceTree = "<group>"; };
 		8D76C5342C08DA08005D7EEB /* IOProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOProtocol.swift; sourceTree = "<group>"; };
@@ -222,9 +224,9 @@
 		8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerView.swift; sourceTree = "<group>"; };
 		8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTextAlignment.swift; sourceTree = "<group>"; };
 		8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTextAlignment.swift; sourceTree = "<group>"; };
-		8DF9FE4E2C36A057004DAED2 /* PaperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperType.swift; sourceTree = "<group>"; };
+		8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperEAN.swift; sourceTree = "<group>"; };
 		8DF9FE502C36DD5D004DAED2 /* Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margins.swift; sourceTree = "<group>"; };
-		8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePaperType.swift; sourceTree = "<group>"; };
+		8DF9FE522C36DF97004DAED2 /* ObservablePaperEAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePaperEAN.swift; sourceTree = "<group>"; };
 		8DF9FE542C36E7F8004DAED2 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAvailability.swift; sourceTree = "<group>"; };
 		8DF9FE582C38A669004DAED2 /* TextTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTabView.swift; sourceTree = "<group>"; };
@@ -359,10 +361,19 @@
 			children = (
 				8DAC16102C544197005FABB7 /* Communication */,
 				8DAC16072C52A843005FABB7 /* Extension */,
+				8D7371982C67F47D00695B2E /* Model */,
 				8D036FB02C50528C00CADCCC /* Packet */,
 				8DAC160D2C543F83005FABB7 /* Printer */,
 			);
 			path = "Niimbot PrinterTests";
+			sourceTree = "<group>";
+		};
+		8D7371982C67F47D00695B2E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D7371992C67F49500695B2E /* PaperEANTests.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		8D8AF3CE2C2826E2005E2F94 /* Model */ = {
@@ -376,9 +387,9 @@
 				8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */,
 				8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */,
 				8DF9FE502C36DD5D004DAED2 /* Margins.swift */,
-				8DF9FE522C36DF97004DAED2 /* ObservablePaperType.swift */,
+				8DF9FE522C36DF97004DAED2 /* ObservablePaperEAN.swift */,
 				8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */,
-				8DF9FE4E2C36A057004DAED2 /* PaperType.swift */,
+				8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */,
 				8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */,
 				8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */,
 				8D312C0B2C4DA8EA006D0360 /* PrintStatus.swift */,
@@ -656,7 +667,7 @@
 				8D9639412C0B616D00374894 /* Notifiable.swift in Sources */,
 				8DED51212C318E3100B52F1E /* HorizontalTextAlignment.swift in Sources */,
 				8D785DB42C470A9A00C25566 /* ImageActor.swift in Sources */,
-				8DF9FE4F2C36A057004DAED2 /* PaperType.swift in Sources */,
+				8DF9FE4F2C36A057004DAED2 /* PaperEAN.swift in Sources */,
 				8DF9FE572C37FA8E004DAED2 /* PrinterAvailability.swift in Sources */,
 				8D38E7242C5D402500EFA505 /* StaticNotifiableExtension.swift in Sources */,
 				8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */,
@@ -664,7 +675,7 @@
 				8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */,
 				8D580E152C624380005B3FAB /* UISettingsProperties.swift in Sources */,
 				8D9639472C0B9C8B00374894 /* NotifiableExtension.swift in Sources */,
-				8DF9FE532C36DF97004DAED2 /* ObservablePaperType.swift in Sources */,
+				8DF9FE532C36DF97004DAED2 /* ObservablePaperEAN.swift in Sources */,
 				8DDC3D1C2C19C77200296C72 /* BoolBytePacketDecoder.swift in Sources */,
 				8D9639452C0B984F00374894 /* NotificationObservableExtension.swift in Sources */,
 				8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */,
@@ -720,6 +731,7 @@
 				8D312BFF2C4D99D3006D0360 /* LabelTypePacketDecoderTests.swift in Sources */,
 				8D489B752C4D040200B9CC36 /* SoftwareVersionPacketDecoderTests.swift in Sources */,
 				8D312C0E2C4DA9BF006D0360 /* PrintStatusPacketDecoderTests.swift in Sources */,
+				8D73719A2C67F4A200695B2E /* PaperEANTests.swift in Sources */,
 				8DAC16192C58383D005FABB7 /* SendAndWaitAsyncTests.swift in Sources */,
 				8D312C012C4D9D0B006D0360 /* DensityPacketDecoderTests.swift in Sources */,
 				8D312C052C4DA102006D0360 /* DeviceTypePacketDecoderTests.swift in Sources */,

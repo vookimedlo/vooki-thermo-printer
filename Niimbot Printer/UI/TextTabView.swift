@@ -80,5 +80,5 @@ extension TextTabView {
 
     TextTabView(selectedTextProperty: $textProperty)
         .environmentObject(TextProperties())
-        .environmentObject(ObservablePaperType())
+        .environmentObject(ObservablePaperEAN())
 }

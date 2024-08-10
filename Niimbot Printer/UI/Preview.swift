@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Preview: View {
     @Environment(ImagePreview.self) private var imagePreview
-    @Environment(ObservablePaperType.self) private var paperType
+    @Environment(ObservablePaperEAN.self) private var paperEAN
     
     @Binding var horizontalMargin: any HorizontalMarginable
     @Binding var verticalMargin: any VerticalMarginable
@@ -30,21 +30,21 @@ struct Preview: View {
 
     var body: some View {
         @Bindable var imagePreview = imagePreview
-        @Bindable var paperType = paperType
+        @Bindable var paperEAN = paperEAN
 
         VStack(spacing: 0) {
             ZStack {
                 HStack{
                     Spacer()
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
-                        let cornerRadius = paperType.type.cornerRadius
-                        let printableCornerRadius = paperType.type.printableSizeInPixels == paperType.type.physicalSizeInPixels ? cornerRadius : 0
+                        let cornerRadius = paperEAN.ean.cornerRadius
+                        let printableCornerRadius = paperEAN.ean.printableSizeInPixels == paperEAN.ean.physicalSizeInPixels ? cornerRadius : 0
 
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .fill(paperColor)
                             .shadow(color: .accentColor, radius: cornerRadius)
-                            .frame(width: $paperType.wrappedValue.type.physicalSizeInPixels.width,
-                                   height: $paperType.wrappedValue.type.physicalSizeInPixels.height)
+                            .frame(width: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
+                                   height: $paperEAN.wrappedValue.ean.physicalSizeInPixels.height)
                         if (imagePreview.image != nil) {
                             let size = NSSize(width: imagePreview.image!.width,
                                               height: imagePreview.image!.height)
@@ -61,40 +61,40 @@ struct Preview: View {
                 }
                 
                 verticalDescription(color: printableColor,
-                    paperWidth: $paperType.wrappedValue.type.printableSizeInPixels.width,
-                    paperHeight: $paperType.wrappedValue.type.printableSizeInPixels.height,
-                                    description: "\($paperType.wrappedValue.type.printableSizeInMillimeters.height)",
+                    paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
+                    paperHeight: $paperEAN.wrappedValue.ean.printableSizeInPixels.height,
+                                    description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.height)",
                                     offset: 40)
                 .help("The height of printable area.")
                 
                 verticalDescription(color: physicalColor,
-                    paperWidth: $paperType.wrappedValue.type.physicalSizeInPixels.width,
-                    paperHeight: $paperType.wrappedValue.type.physicalSizeInPixels.height,
-                    description: "\($paperType.wrappedValue.type.physicalSizeInMillimeters.height)",
+                    paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
+                    paperHeight: $paperEAN.wrappedValue.ean.physicalSizeInPixels.height,
+                    description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.height)",
                     offset: 95)
                 .help("The height of paper.")
             }
             
             horizontalDescription(color: printableColor,
-                paperWidth: $paperType.wrappedValue.type.printableSizeInPixels.width,
-                description: "\($paperType.wrappedValue.type.printableSizeInMillimeters.width)")
+                paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
+                description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.width)")
             .help("The width of printable area.")
 
             horizontalDescription(color: physicalColor,
-                paperWidth: $paperType.wrappedValue.type.physicalSizeInPixels.width,
-                description: "\($paperType.wrappedValue.type.physicalSizeInMillimeters.width)")
+                paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
+                description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.width)")
             .help("The width of paper.")
         }
     }
     
     @ViewBuilder
     private func marginGuide() -> some View {
-        @Bindable var paperType = paperType
+        @Bindable var paperEAN = paperEAN
 
         ZStack{
             HStack {
                 if (!horizontalMargin.isNone) {
-                    let paperHeight = $paperType.wrappedValue.type.printableSizeInPixels.height
+                    let paperHeight = $paperEAN.wrappedValue.ean.printableSizeInPixels.height
                     
                     if (horizontalMargin.edge!.contains(.trailing)) {
                         Spacer()
@@ -113,7 +113,7 @@ struct Preview: View {
             
             VStack {
                 if (!verticalMargin.isNone) {
-                    let paperWidth = $paperType.wrappedValue.type.printableSizeInPixels.width
+                    let paperWidth = $paperEAN.wrappedValue.ean.printableSizeInPixels.width
                     
                     if (verticalMargin.edge!.contains(.bottom)) {
                         Spacer()
@@ -186,5 +186,5 @@ struct Preview: View {
 
     Preview(horizontalMargin: $horizontalMargin, verticalMargin: $verticalMargin)
         .environmentObject(ImagePreview())
-        .environmentObject(ObservablePaperType())
+        .environmentObject(ObservablePaperEAN())
 }

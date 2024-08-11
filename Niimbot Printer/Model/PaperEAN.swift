@@ -12,14 +12,21 @@ enum PaperEAN: String, Sendable, CaseIterable {
     case unknown = "0",
          ean6972842743589 = "6972842743589", // 30*15 white
          ean6971501224599 = "6971501224599", // 30*15 white
-         ean02282280 = "02282280", // 30*15 white - came with printer
+         ean02282280 = "02282280",           // 30*15 white - came with printer
          ean6971501224568 = "6971501224568", // 30*12 white
-         ean6972842743565 = "6972842743565" // 30*12 white
-    
+         ean6972842743565 = "6972842743565", // 30*12 white
+         ean6971501224582 = "6971501224582", // 26*15 white
+         ean6971501224605 = "6971501224605", // 50*15 white
+         ean6971501224551 = "6971501224551", // 22*12 white
+         ean6972842743558 = "6972842743558"  // 22*12 white
+
     private enum PaperDefinition: String, Sendable, CaseIterable {
         case unknown,
              paper30x15White,
-             paper30x12White
+             paper30x12White,
+             paper26x15White,
+             paper50x15White,
+             paper22x12White
     }
     
     struct Paper: Sendable, Equatable {
@@ -33,11 +40,15 @@ enum PaperEAN: String, Sendable, CaseIterable {
     }
     
     static private let lutTypeToDefinition: [Self: PaperDefinition] = [.unknown: .unknown,
-                                                               .ean6972842743589: .paper30x15White,
-                                                               .ean6971501224599: .paper30x15White,
-                                                               .ean02282280: .paper30x15White,
-                                                               .ean6971501224568: .paper30x12White,
-                                                               .ean6972842743565: .paper30x12White,
+                                                                       .ean6972842743589: .paper30x15White,
+                                                                       .ean6971501224599: .paper30x15White,
+                                                                       .ean02282280:      .paper30x15White,
+                                                                       .ean6971501224568: .paper30x12White,
+                                                                       .ean6972842743565: .paper30x12White,
+                                                                       .ean6971501224582: .paper26x15White,
+                                                                       .ean6971501224605: .paper50x15White,
+                                                                       .ean6971501224551: .paper22x12White,
+                                                                       .ean6972842743558: .paper22x12White,
     ]
     
     static private let lutDefinitionToPaper: [PaperDefinition: Paper] = [.unknown:
@@ -61,6 +72,30 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                           physicalSizeInPixels: CGSize(width: 240, height: 96),
                                                           printableSizeInMillimeters: CGSize(width: 30, height: 12),
                                                           printableSizeInPixels: CGSize(width: 240, height: 96),
+                                                          labelType: 1,
+                                                          margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
+                                                          cornerRadius: 20),
+                                                .paper26x15White:
+                                                    Paper(physicalSizeInMillimeters: CGSize(width: 26, height: 15),
+                                                          physicalSizeInPixels: CGSize(width: 208, height: 120),
+                                                          printableSizeInMillimeters: CGSize(width: 26, height: 10),
+                                                          printableSizeInPixels: CGSize(width: 208, height: 80),
+                                                          labelType: 1,
+                                                          margin: Margins(leading: 12, trailing: 10, top: 2, bottom: 2),
+                                                          cornerRadius: 30),
+                                                .paper50x15White:
+                                                    Paper(physicalSizeInMillimeters: CGSize(width: 50, height: 15),
+                                                          physicalSizeInPixels: CGSize(width: 400, height: 120),
+                                                          printableSizeInMillimeters: CGSize(width: 50, height: 10),
+                                                          printableSizeInPixels: CGSize(width: 400, height: 80),
+                                                          labelType: 1,
+                                                          margin: Margins(leading: 12, trailing: 10, top: 2, bottom: 2),
+                                                          cornerRadius: 30),
+                                                .paper22x12White:
+                                                    Paper(physicalSizeInMillimeters: CGSize(width: 22, height: 12),
+                                                          physicalSizeInPixels: CGSize(width: 176, height: 96),
+                                                          printableSizeInMillimeters: CGSize(width: 22, height: 12),
+                                                          printableSizeInPixels: CGSize(width: 176, height: 96),
                                                           labelType: 1,
                                                           margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
                                                           cornerRadius: 20),

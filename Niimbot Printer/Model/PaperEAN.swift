@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 enum PaperEAN: String, Sendable, CaseIterable {
@@ -22,11 +23,11 @@ enum PaperEAN: String, Sendable, CaseIterable {
 
     private enum PaperDefinition: String, Sendable, CaseIterable {
         case unknown,
-             paper30x15White,
-             paper30x12White,
-             paper26x15White,
-             paper50x15White,
-             paper22x12White
+             paper30x15,
+             paper30x12,
+             paper26x15,
+             paper50x15,
+             paper22x12
     }
     
     struct Paper: Sendable, Equatable {
@@ -39,16 +40,27 @@ enum PaperEAN: String, Sendable, CaseIterable {
         let cornerRadius: Double
     }
     
-    static private let lutTypeToDefinition: [Self: PaperDefinition] = [.unknown: .unknown,
-                                                                       .ean6972842743589: .paper30x15White,
-                                                                       .ean6971501224599: .paper30x15White,
-                                                                       .ean02282280:      .paper30x15White,
-                                                                       .ean6971501224568: .paper30x12White,
-                                                                       .ean6972842743565: .paper30x12White,
-                                                                       .ean6971501224582: .paper26x15White,
-                                                                       .ean6971501224605: .paper50x15White,
-                                                                       .ean6971501224551: .paper22x12White,
-                                                                       .ean6972842743558: .paper22x12White,
+    enum ColorAttribute: Sendable, Equatable {
+        case white
+        
+        var color: (String, Color) {
+            switch (self) {
+            case .white:
+                ("white", Color.white)
+            }
+        }
+    }
+    
+    static private let lutTypeToDefinition: [Self: (PaperDefinition, ColorAttribute)] = [.unknown: (.unknown, ColorAttribute.white),
+                                                                       .ean6972842743589: (.paper30x15, ColorAttribute.white),
+                                                                       .ean6971501224599: (.paper30x15, ColorAttribute.white),
+                                                                       .ean02282280:      (.paper30x15, ColorAttribute.white),
+                                                                       .ean6971501224568: (.paper30x12, ColorAttribute.white),
+                                                                       .ean6972842743565: (.paper30x12, ColorAttribute.white),
+                                                                       .ean6971501224582: (.paper26x15, ColorAttribute.white),
+                                                                       .ean6971501224605: (.paper50x15, ColorAttribute.white),
+                                                                       .ean6971501224551: (.paper22x12, ColorAttribute.white),
+                                                                       .ean6972842743558: (.paper22x12, ColorAttribute.white),
     ]
     
     static private let lutDefinitionToPaper: [PaperDefinition: Paper] = [.unknown:
@@ -59,7 +71,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                           labelType: 1,
                                                           margin: Margins(leading: 12, trailing: 10, top: 10, bottom: 10),
                                                           cornerRadius: 30),
-                                                .paper30x15White:
+                                                .paper30x15:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 30, height: 15),
                                                           physicalSizeInPixels: CGSize(width: 240, height: 120),
                                                           printableSizeInMillimeters: CGSize(width: 30, height: 10),
@@ -67,7 +79,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                           labelType: 1,
                                                           margin: Margins(leading: 12, trailing: 10, top: 2, bottom: 2),
                                                           cornerRadius: 30),
-                                                .paper30x12White:
+                                                .paper30x12:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 30, height: 12),
                                                           physicalSizeInPixels: CGSize(width: 240, height: 96),
                                                           printableSizeInMillimeters: CGSize(width: 30, height: 12),
@@ -75,7 +87,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                           labelType: 1,
                                                           margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
                                                           cornerRadius: 20),
-                                                .paper26x15White:
+                                                .paper26x15:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 26, height: 15),
                                                           physicalSizeInPixels: CGSize(width: 208, height: 120),
                                                           printableSizeInMillimeters: CGSize(width: 26, height: 10),
@@ -83,7 +95,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                           labelType: 1,
                                                           margin: Margins(leading: 12, trailing: 10, top: 2, bottom: 2),
                                                           cornerRadius: 30),
-                                                .paper50x15White:
+                                                .paper50x15:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 50, height: 15),
                                                           physicalSizeInPixels: CGSize(width: 400, height: 120),
                                                           printableSizeInMillimeters: CGSize(width: 50, height: 10),
@@ -91,7 +103,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                           labelType: 1,
                                                           margin: Margins(leading: 12, trailing: 10, top: 2, bottom: 2),
                                                           cornerRadius: 30),
-                                                .paper22x12White:
+                                                .paper22x12:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 22, height: 12),
                                                           physicalSizeInPixels: CGSize(width: 176, height: 96),
                                                           printableSizeInMillimeters: CGSize(width: 22, height: 12),
@@ -103,44 +115,54 @@ enum PaperEAN: String, Sendable, CaseIterable {
     
     nonisolated
     var physicalSizeInMillimeters: CGSize {
-        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!]!.physicalSizeInMillimeters
+        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.physicalSizeInMillimeters
     }
     
     nonisolated
     var physicalSizeInPixels: CGSize {
-        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!]!.physicalSizeInPixels
+        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.physicalSizeInPixels
     }
     
     nonisolated
     var printableSizeInMillimeters: CGSize {
-        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!]!.printableSizeInMillimeters
+        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.printableSizeInMillimeters
     }
     
     nonisolated
     var printableSizeInPixels: CGSize {
-        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!]!.printableSizeInPixels
+        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.printableSizeInPixels
     }
     
     nonisolated
     var labelType: UInt8 {
-        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!]!.labelType
+        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.labelType
     }
     
     nonisolated
     var margin: Margins {
-        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!]!.margin
+        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.margin
     }
     
     nonisolated
     var cornerRadius: Double {
-        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!]!.cornerRadius
+        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.cornerRadius
+    }
+    
+    nonisolated
+    var colorName: String {
+        Self.lutTypeToDefinition[self]!.1.color.0
+    }
+    
+    nonisolated
+    var color: Color {
+        Self.lutTypeToDefinition[self]!.1.color.1
     }
     
     nonisolated
     static func testIntegrity() -> Bool {
         guard Self.allCases.count == lutTypeToDefinition.count else { return false }
         guard Self.allCases.sorted(by: { $0.rawValue < $1.rawValue }).elementsEqual(lutTypeToDefinition.keys.sorted(by: { $0.rawValue < $1.rawValue })) else { return false }
-        guard NSSet(array: PaperDefinition.allCases).isEqual(to: NSSet(array: lutTypeToDefinition.values.reversed())) else { return false }
+        guard NSSet(array: PaperDefinition.allCases).isEqual(to: NSSet(array: lutTypeToDefinition.values.compactMap({ (definition, _) -> PaperDefinition? in definition }))) else { return false }
 
         guard PaperDefinition.allCases.count == lutDefinitionToPaper.count else { return false }
         guard PaperDefinition.allCases.sorted(by: { $0.rawValue < $1.rawValue }).elementsEqual(lutDefinitionToPaper.keys.sorted(by: { $0.rawValue < $1.rawValue })) else { return false }

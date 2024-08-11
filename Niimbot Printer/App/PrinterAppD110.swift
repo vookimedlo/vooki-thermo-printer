@@ -290,6 +290,9 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                 self.paperDetails.barcode = rfidData.barcode
                 self.paperDetails.serialNumber = rfidData.serial
                 self.paperDetails.type = String(rfidData.type)
+                self.paperDetails.color = paperEAN.ean.color
+                self.paperDetails.colorName = paperEAN.ean.colorName
+
                 self.printerDetails.isPaperInserted = true
                 await generateImagePreview()
             }

@@ -29,6 +29,21 @@ struct PrinterLabelDetailView: View {
                 Divider().padding(.horizontal)
 
                 add(title: "Type", value: $details.type)
+                Divider().padding(.horizontal)
+
+                VStack(alignment: .leading) {
+                    Text("Color").font(.caption)
+                    VStack(alignment: .trailing) {
+                        HStack {
+                            Spacer()
+                            Circle()
+                                    .fill($details.color.wrappedValue)
+                                    .strokeBorder(Color.gray)
+                                    .frame(width: 10, height: 10)
+                            Text("\($details.colorName.wrappedValue)").font(.footnote)
+                        }
+                    }
+                }
             }
         }
         .animation(.easeIn(duration: 2), value: details.remainingCount)

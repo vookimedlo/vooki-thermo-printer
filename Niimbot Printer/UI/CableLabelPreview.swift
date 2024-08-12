@@ -14,18 +14,6 @@ struct CableLabelPreview: View {
     @Binding var horizontalMargin: any HorizontalMarginable
     @Binding var verticalMargin: any VerticalMarginable
     
-    private let controlColor = Color(NSColor.disabledControlTextColor)
-    
-    private let descriptionLength = 15.0
-    private let descriptionThickness = 3.0
-    
-    private let marginThickness = 2.0
-    
-    private let marginColor = Color.blue
-    private let paperColor = Color.white
-    private let physicalColor = Color.green
-    private let printableColor = Color.red
-    
     var body: some View {
         @Bindable var imagePreview = imagePreview
         @Bindable var paperEAN = paperEAN
@@ -40,7 +28,7 @@ struct CableLabelPreview: View {
                         HStack(spacing: 0) {
                             ZStack {
                                 RoundedRectangle(cornerRadius: cornerRadius)
-                                    .fill(paperColor)
+                                    .fill(CommonLabelPreview.paperColor)
                                     .shadow(color: .accentColor, radius: cornerRadius)
                                     .frame(width: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
                                            height: $paperEAN.wrappedValue.ean.physicalSizeInPixels.height)
@@ -51,7 +39,7 @@ struct CableLabelPreview: View {
                                     Image(nsImage: NSImage(cgImage: imagePreview.image!,
                                                            size: size))
                                     .cornerRadius(printableCornerRadius)
-                                    .border(printableColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                                    .border(CommonLabelPreview.printableColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                                     .overlay {
                                         marginGuide()
                                     }
@@ -59,7 +47,7 @@ struct CableLabelPreview: View {
                             }
                             
                             UnevenRoundedRectangle(cornerRadii: .init(topLeading: 0, bottomLeading: 0, bottomTrailing: 10, topTrailing: 10), style: .continuous)
-                                .fill(paperColor)
+                                .fill(CommonLabelPreview.paperColor)
                                 .shadow(color: .accentColor,
                                         radius: cornerRadius,
                                         x: cornerRadius + 2)
@@ -72,7 +60,7 @@ struct CableLabelPreview: View {
                     Spacer()
                 }
                 
-                leadingVerticalDescription(color: printableColor,
+                leadingVerticalDescription(color: CommonLabelPreview.printableColor,
                                            paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
                                            physicalPaperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
                                            paperHeight: $paperEAN.wrappedValue.ean.printableSizeInPixels.height,
@@ -80,7 +68,7 @@ struct CableLabelPreview: View {
                                            offset: 5)
                 .help("The height of printable area.")
                 
-                leadingVerticalDescription(color: physicalColor,
+                leadingVerticalDescription(color: CommonLabelPreview.physicalColor,
                                            paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
                                            physicalPaperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
                                            paperHeight: $paperEAN.wrappedValue.ean.physicalSizeInPixels.height,
@@ -88,7 +76,7 @@ struct CableLabelPreview: View {
                                            offset: 25)
                 .help("The height of paper.")
                 
-                trailingVerticalDescription(color: physicalColor,
+                trailingVerticalDescription(color: CommonLabelPreview.physicalColor,
                                             paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
                                             paperHeight: 56,
                                             description: "8",
@@ -96,13 +84,13 @@ struct CableLabelPreview: View {
                 .help("The height of paper.")
             }
             
-            leadingHorizontalDescription(color: printableColor,
+            leadingHorizontalDescription(color: CommonLabelPreview.printableColor,
                                          paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
                                          physicalPaperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
                                          description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.width)")
             .help("The width of printable area.")
             
-            centerHorizontalDescription(color: physicalColor,
+            centerHorizontalDescription(color: CommonLabelPreview.physicalColor,
                                         paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
                                         description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.width)")
             .help("The width of paper.")
@@ -111,83 +99,53 @@ struct CableLabelPreview: View {
     
     @ViewBuilder
     private func marginGuide() -> some View {
-        LabelPreview.marginGuide(paperEAN: paperEAN.ean,
-                                 horizontalMargin: horizontalMargin,
-                                 verticalMargin: verticalMargin,
-                                 marginColor: marginColor,
-                                 marginThickness: marginThickness)
+        CommonLabelPreview.marginGuide(paperEAN: paperEAN.ean,
+                                       horizontalMargin: horizontalMargin,
+                                       verticalMargin: verticalMargin,
+                                       marginColor: CommonLabelPreview.marginColor,
+                                       marginThickness: CommonLabelPreview.marginThickness)
     }
     
     @ViewBuilder
     private func leadingHorizontalDescription(color: Color, paperWidth: Double, physicalPaperWidth: Double, description: String) -> some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0){
-                Rectangle()
-                    .fill(color)
-                    .frame(width: descriptionThickness,
-                           height: descriptionLength)
-                    .padding(.trailing, paperWidth - descriptionThickness * 2)
-                Rectangle()
-                    .fill(color)
-                    .frame(width: descriptionThickness,
-                           height: descriptionLength)
-                    .padding(.trailing, physicalPaperWidth - paperWidth)
-                
-            }
-            Rectangle()
-                .fill(color)
-                .frame(width: paperWidth, height: descriptionThickness)
-                .padding(.trailing, physicalPaperWidth - paperWidth)
-            Text("\(description) mm")
-                .padding(.trailing, physicalPaperWidth - paperWidth)
-        }
+        CommonLabelPreview.leadingHorizontalDescription(color: color,
+                                                        paperWidth: paperWidth,
+                                                        physicalPaperWidth: physicalPaperWidth,
+                                                        description: description,
+                                                        descriptionLength: CommonLabelPreview.descriptionLength,
+                                                        descriptionThickness: CommonLabelPreview.descriptionThickness)
     }
     
     @ViewBuilder
     private func centerHorizontalDescription(color: Color, paperWidth: Double, description: String) -> some View {
-        LabelPreview.centerHorizontalDescription(color: color,
-                                                 paperWidth: paperWidth,
-                                                 description: description,
-                                                 descriptionLength: descriptionLength,
-                                                 descriptionThickness: descriptionThickness)
+        CommonLabelPreview.centerHorizontalDescription(color: color,
+                                                       paperWidth: paperWidth,
+                                                       description: description,
+                                                       descriptionLength: CommonLabelPreview.descriptionLength,
+                                                       descriptionThickness: CommonLabelPreview.descriptionThickness)
     }
     
     @ViewBuilder
     private func leadingVerticalDescription(color: Color, paperWidth: Double, physicalPaperWidth: Double, paperHeight: Double, description: String, offset: Double) -> some View {
-        ZStack {
-            let leadingPadding = -(physicalPaperWidth/2 + descriptionLength + offset)
-            VStack(spacing: 0) {
-                Rectangle()
-                    .fill(color)
-                    .frame(width: descriptionLength,
-                           height: descriptionThickness)
-                    .padding(.bottom, paperHeight - descriptionThickness * 2)
-                    .padding(.leading, leadingPadding)
-                Rectangle()
-                    .fill(color)
-                    .frame(width: descriptionLength,
-                           height: descriptionThickness)
-                    .padding(.leading, leadingPadding)
-            }
-            Rectangle()
-                .fill(color)
-                .frame(width: descriptionThickness,
-                       height: paperHeight)
-                .padding(.leading, leadingPadding)
-            Text("\(description) mm").rotationEffect(.degrees(-90))
-                .padding(.leading, leadingPadding - 35)
-        }
+        CommonLabelPreview.leadingVerticalDescription(color: color,
+                                                      paperWidth: paperWidth,
+                                                      physicalPaperWidth: physicalPaperWidth,
+                                                      paperHeight: paperHeight,
+                                                      description: description,
+                                                      offset: offset,
+                                                      descriptionLength: CommonLabelPreview.descriptionLength,
+                                                      descriptionThickness: CommonLabelPreview.descriptionThickness)
     }
     
     @ViewBuilder
     private func trailingVerticalDescription(color: Color, paperWidth: Double, paperHeight: Double, description: String, offset: Double) -> some View {
-        LabelPreview.trailingVerticalDescription(color: color,
-                                                 paperWidth: paperWidth,
-                                                 paperHeight: paperHeight,
-                                                 description: description,
-                                                 offset: offset,
-                                                 descriptionLength: descriptionLength,
-                                                 descriptionThickness: descriptionThickness)
+        CommonLabelPreview.trailingVerticalDescription(color: color,
+                                                       paperWidth: paperWidth,
+                                                       paperHeight: paperHeight,
+                                                       description: description,
+                                                       offset: offset,
+                                                       descriptionLength: CommonLabelPreview.descriptionLength,
+                                                       descriptionThickness: CommonLabelPreview.descriptionThickness)
     }
 }
 

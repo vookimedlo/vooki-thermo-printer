@@ -14,18 +14,6 @@ struct LabelPreview: View {
     @Binding var horizontalMargin: any HorizontalMarginable
     @Binding var verticalMargin: any VerticalMarginable
     
-    private let controlColor = Color(NSColor.disabledControlTextColor)
-    
-    private let descriptionLength = 15.0
-    private let descriptionThickness = 3.0
-    
-    private let marginThickness = 2.0
-    
-    private let marginColor = Color.blue
-    private let paperColor = Color.white
-    private let physicalColor = Color.green
-    private let printableColor = Color.red
-    
     var body: some View {
         @Bindable var imagePreview = imagePreview
         @Bindable var paperEAN = paperEAN
@@ -39,7 +27,7 @@ struct LabelPreview: View {
                         let printableCornerRadius = paperEAN.ean.printableSizeInPixels == paperEAN.ean.physicalSizeInPixels ? cornerRadius : 0
                         
                         RoundedRectangle(cornerRadius: cornerRadius)
-                            .fill(paperColor)
+                            .fill(CommonLabelPreview.paperColor)
                             .shadow(color: .accentColor, radius: cornerRadius)
                             .frame(width: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
                                    height: $paperEAN.wrappedValue.ean.physicalSizeInPixels.height)
@@ -49,7 +37,7 @@ struct LabelPreview: View {
                             Image(nsImage: NSImage(cgImage: imagePreview.image!,
                                                    size: size))
                             .cornerRadius(printableCornerRadius)
-                            .border(printableColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+                            .border(CommonLabelPreview.printableColor, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
                             .overlay {
                                 marginGuide()
                             }
@@ -58,14 +46,14 @@ struct LabelPreview: View {
                     Spacer()
                 }
                 
-                trailingVerticalDescription(color: printableColor,
+                trailingVerticalDescription(color: CommonLabelPreview.printableColor,
                                             paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
                                             paperHeight: $paperEAN.wrappedValue.ean.printableSizeInPixels.height,
                                             description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.height)",
                                             offset: 40)
                 .help("The height of printable area.")
                 
-                trailingVerticalDescription(color: physicalColor,
+                trailingVerticalDescription(color: CommonLabelPreview.physicalColor,
                                             paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
                                             paperHeight: $paperEAN.wrappedValue.ean.physicalSizeInPixels.height,
                                             description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.height)",
@@ -73,12 +61,12 @@ struct LabelPreview: View {
                 .help("The height of paper.")
             }
             
-            centerHorizontalDescription(color: printableColor,
+            centerHorizontalDescription(color: CommonLabelPreview.printableColor,
                                         paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
                                         description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.width)")
             .help("The width of printable area.")
             
-            centerHorizontalDescription(color: physicalColor,
+            centerHorizontalDescription(color: CommonLabelPreview.physicalColor,
                                         paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
                                         description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.width)")
             .help("The width of paper.")
@@ -87,123 +75,31 @@ struct LabelPreview: View {
     
     @ViewBuilder
     private func marginGuide() -> some View {
-        Self.marginGuide(paperEAN: paperEAN.ean,
-                         horizontalMargin: horizontalMargin,
-                         verticalMargin: verticalMargin,
-                         marginColor: marginColor,
-                         marginThickness: marginThickness)
-    }
-    
-    @ViewBuilder
-    static func marginGuide(paperEAN: PaperEAN, horizontalMargin: any HorizontalMarginable, verticalMargin: any VerticalMarginable, marginColor: Color, marginThickness: Double) -> some View {
-        ZStack{
-            HStack {
-                if (!horizontalMargin.isNone) {
-                    let paperHeight = paperEAN.printableSizeInPixels.height
-                    
-                    if (horizontalMargin.edge!.contains(.trailing)) {
-                        Spacer()
-                    }
-                    Rectangle()
-                        .fill(marginColor)
-                        .frame(width: marginThickness,
-                               height: paperHeight)
-                        .padding(horizontalMargin.edge!,
-                                 horizontalMargin.fsize)
-                    if (horizontalMargin.edge!.contains(.leading)) {
-                        Spacer()
-                    }
-                }
-            }
-            
-            VStack {
-                if (!verticalMargin.isNone) {
-                    let paperWidth = paperEAN.printableSizeInPixels.width
-                    
-                    if (verticalMargin.edge!.contains(.bottom)) {
-                        Spacer()
-                    }
-                    Rectangle()
-                        .fill(marginColor)
-                        .frame(width: paperWidth,
-                               height: marginThickness)
-                        .padding(verticalMargin.edge!,
-                                 verticalMargin.fsize)
-                    if (verticalMargin.edge!.contains(.top)) {
-                        Spacer()
-                    }
-                }
-            }
-        }
+        CommonLabelPreview.marginGuide(paperEAN: paperEAN.ean,
+                                       horizontalMargin: horizontalMargin,
+                                       verticalMargin: verticalMargin,
+                                       marginColor: CommonLabelPreview.marginColor,
+                                       marginThickness: CommonLabelPreview.marginThickness)
     }
     
     @ViewBuilder
     private func centerHorizontalDescription(color: Color, paperWidth: Double, description: String) -> some View {
-        Self.centerHorizontalDescription(color: color,
-                                         paperWidth: paperWidth,
-                                         description: description,
-                                         descriptionLength: descriptionLength,
-                                         descriptionThickness: descriptionThickness)
+        CommonLabelPreview.centerHorizontalDescription(color: color,
+                                                       paperWidth: paperWidth,
+                                                       description: description,
+                                                       descriptionLength: CommonLabelPreview.descriptionLength,
+                                                       descriptionThickness: CommonLabelPreview.descriptionThickness)
     }
-    
-    @ViewBuilder
-    static func centerHorizontalDescription(color: Color, paperWidth: Double, description: String, descriptionLength: Double, descriptionThickness: Double) -> some View {
-        VStack(spacing: 0) {
-            HStack(spacing: 0){
-                Rectangle()
-                    .fill(color)
-                    .frame(width: descriptionThickness,
-                           height: descriptionLength)
-                    .padding(.trailing, paperWidth - descriptionThickness * 2)
-                Rectangle()
-                    .fill(color)
-                    .frame(width: descriptionThickness,
-                           height: descriptionLength)
-            }
-            Rectangle()
-                .fill(color)
-                .frame(width: paperWidth, height: descriptionThickness)
-            Text("\(description) mm")
-        }
-    }
-    
+
     @ViewBuilder
     private func trailingVerticalDescription(color: Color, paperWidth: Double, paperHeight: Double, description: String, offset: Double) -> some View {
-        Self.trailingVerticalDescription(color: color,
-                                         paperWidth: paperWidth,
-                                         paperHeight: paperHeight,
-                                         description: description,
-                                         offset: offset,
-                                         descriptionLength: descriptionLength,
-                                         descriptionThickness: descriptionThickness)
-    }
-    
-    @ViewBuilder
-    static func trailingVerticalDescription(color: Color, paperWidth: Double, paperHeight: Double, description: String, offset: Double, descriptionLength: Double, descriptionThickness: Double) -> some View {
-        ZStack {
-            VStack(spacing: 0) {
-                let leadinOffset = paperWidth - descriptionLength + descriptionThickness + offset
-                Rectangle()
-                    .fill(color)
-                    .frame(width: descriptionLength,
-                           height: descriptionThickness)
-                    .padding(.bottom, paperHeight - descriptionThickness * 2)
-                    .padding(.leading, leadinOffset)
-                Rectangle()
-                    .fill(color)
-                    .frame(width: descriptionLength,
-                           height: descriptionThickness)
-                    .padding(.leading, leadinOffset)
-            }
-            let leadingOffset = paperWidth + offset
-            Rectangle()
-                .fill(color)
-                .frame(width: descriptionThickness,
-                       height: paperHeight)
-                .padding(.leading, leadingOffset)
-            Text("\(description) mm").rotationEffect(.degrees(-90))
-                .padding(.leading, leadingOffset + 20)
-        }
+        CommonLabelPreview.trailingVerticalDescription(color: color,
+                                                       paperWidth: paperWidth,
+                                                       paperHeight: paperHeight,
+                                                       description: description,
+                                                       offset: offset,
+                                                       descriptionLength: CommonLabelPreview.descriptionLength,
+                                                       descriptionThickness: CommonLabelPreview.descriptionThickness)
     }
 }
 

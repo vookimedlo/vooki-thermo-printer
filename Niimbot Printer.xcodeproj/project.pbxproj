@@ -41,6 +41,7 @@
 		8D708D952C4C6099006BF3BE /* BoolBytePacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D942C4C6076006BF3BE /* BoolBytePacketDecoderTests.swift */; };
 		8D73719A2C67F4A200695B2E /* PaperEANTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7371992C67F49500695B2E /* PaperEANTests.swift */; };
 		8D73719C2C69704000695B2E /* CableLabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73719B2C69704000695B2E /* CableLabelPreview.swift */; };
+		8D73719E2C6AB53800695B2E /* CommonLabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73719D2C6AB53800695B2E /* CommonLabelPreview.swift */; };
 		8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
 		8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */; };
 		8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5342C08DA08005D7EEB /* IOProtocol.swift */; };
@@ -162,6 +163,7 @@
 		8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareVersionPacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D7371992C67F49500695B2E /* PaperEANTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperEANTests.swift; sourceTree = "<group>"; };
 		8D73719B2C69704000695B2E /* CableLabelPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CableLabelPreview.swift; sourceTree = "<group>"; };
+		8D73719D2C6AB53800695B2E /* CommonLabelPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonLabelPreview.swift; sourceTree = "<group>"; };
 		8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIO.swift; sourceTree = "<group>"; };
 		8D76C5342C08DA08005D7EEB /* IOProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOProtocol.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				8D73719B2C69704000695B2E /* CableLabelPreview.swift */,
+				8D73719D2C6AB53800695B2E /* CommonLabelPreview.swift */,
 				8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */,
 				8DF9FE542C36E7F8004DAED2 /* LabelPreview.swift */,
 				8D8AF3CC2C2756CD005E2F94 /* LevelIndicator.swift */,
@@ -714,6 +717,7 @@
 				8DEB85EE2C0E5E610028526B /* DataConsumerProtocol.swift in Sources */,
 				8D785DB62C4813AF00C25566 /* Decoration.swift in Sources */,
 				8D96393F2C0B5E0600374894 /* Notifications.swift in Sources */,
+				8D73719E2C6AB53800695B2E /* CommonLabelPreview.swift in Sources */,
 				8D38E71E2C5D221F00EFA505 /* ConnectionViewProperties.swift in Sources */,
 				8D312C0C2C4DA8EA006D0360 /* PrintStatus.swift in Sources */,
 				8DDC3D162C19C71000296C72 /* HardwareVersionPacketDecoder.swift in Sources */,

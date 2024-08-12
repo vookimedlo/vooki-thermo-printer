@@ -19,7 +19,9 @@ enum PaperEAN: String, Sendable, CaseIterable {
          ean6971501224582 = "6971501224582", // 26*15 white
          ean6971501224605 = "6971501224605", // 50*15 white
          ean6971501224551 = "6971501224551", // 22*12 white
-         ean6972842743558 = "6972842743558"  // 22*12 white
+         ean6972842743558 = "6972842743558", // 22*12 white
+         ean10252110 = "10252110",           // 75*12 white
+         ean6972842743787 = "6972842743787"  // 109*12.5 white cable - 12.5*74+7*35
 
     private enum PaperDefinition: String, Sendable, CaseIterable {
         case unknown,
@@ -27,7 +29,9 @@ enum PaperEAN: String, Sendable, CaseIterable {
              paper30x12,
              paper26x15,
              paper50x15,
-             paper22x12
+             paper22x12,
+             paper75x12,
+             paper109x12_5
     }
     
     struct Paper: Sendable, Equatable {
@@ -41,26 +45,47 @@ enum PaperEAN: String, Sendable, CaseIterable {
     }
     
     enum ColorAttribute: Sendable, Equatable {
-        case white
+        case white, yellow, blue, green, red
         
         var color: (String, Color) {
             switch (self) {
             case .white:
                 ("white", Color.white)
+            case .yellow:
+                ("yellow", Color.yellow)
+            case .blue:
+                ("blue", Color.blue)
+            case .green:
+                ("green", Color.green)
+            case .red:
+                ("red", Color.red)
             }
         }
     }
     
-    static private let lutTypeToDefinition: [Self: (PaperDefinition, ColorAttribute)] = [.unknown: (.unknown, ColorAttribute.white),
-                                                                       .ean6972842743589: (.paper30x15, ColorAttribute.white),
-                                                                       .ean6971501224599: (.paper30x15, ColorAttribute.white),
-                                                                       .ean02282280:      (.paper30x15, ColorAttribute.white),
-                                                                       .ean6971501224568: (.paper30x12, ColorAttribute.white),
-                                                                       .ean6972842743565: (.paper30x12, ColorAttribute.white),
-                                                                       .ean6971501224582: (.paper26x15, ColorAttribute.white),
-                                                                       .ean6971501224605: (.paper50x15, ColorAttribute.white),
-                                                                       .ean6971501224551: (.paper22x12, ColorAttribute.white),
-                                                                       .ean6972842743558: (.paper22x12, ColorAttribute.white),
+    struct Attribute: Sendable, Equatable {
+        let color: ColorAttribute
+        let isCable: Bool
+        
+        init(color: ColorAttribute = ColorAttribute.white, isCable: Bool = false) {
+            self.color = color
+            self.isCable = isCable
+        }
+    }
+    
+    static private let lutTypeToDefinition: [Self: (PaperDefinition, Attribute)] = [.unknown: (.unknown, Attribute()),
+                                                                       .ean6972842743589: (.paper30x15, Attribute()),
+                                                                       .ean6971501224599: (.paper30x15, Attribute()),
+                                                                       .ean02282280:      (.paper30x15, Attribute()),
+                                                                       .ean6971501224568: (.paper30x12, Attribute()),
+                                                                       .ean6972842743565: (.paper30x12, Attribute()),
+                                                                       .ean6971501224582: (.paper26x15, Attribute()),
+                                                                       .ean6971501224605: (.paper50x15, Attribute()),
+                                                                       .ean6971501224551: (.paper22x12, Attribute()),
+                                                                       .ean6972842743558: (.paper22x12, Attribute()),
+                                                                       .ean10252110:      (.paper75x12, Attribute()),
+                                                                       .ean6972842743787: (.paper109x12_5, Attribute(isCable: true)),
+
     ]
     
     static private let lutDefinitionToPaper: [PaperDefinition: Paper] = [.unknown:
@@ -111,6 +136,22 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                           labelType: 1,
                                                           margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
                                                           cornerRadius: 20),
+                                                .paper75x12:
+                                                    Paper(physicalSizeInMillimeters: CGSize(width: 75, height: 12),
+                                                          physicalSizeInPixels: CGSize(width: 599, height: 96),
+                                                          printableSizeInMillimeters: CGSize(width: 75, height: 12),
+                                                          printableSizeInPixels: CGSize(width: 599, height: 96),
+                                                          labelType: 1,
+                                                          margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
+                                                          cornerRadius: 20),
+                                                .paper109x12_5:
+                                                                            Paper(physicalSizeInMillimeters: CGSize(width: 109, height: 12.5),
+                                                          physicalSizeInPixels: CGSize(width: 871, height: 110),
+                                                                                  printableSizeInMillimeters: CGSize(width: 74, height: 12),
+                                                          printableSizeInPixels: CGSize(width: 591, height: 96),
+                                                          labelType: 1,
+                                                          margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
+                                                          cornerRadius: 20),
     ]
     
     nonisolated
@@ -150,12 +191,17 @@ enum PaperEAN: String, Sendable, CaseIterable {
     
     nonisolated
     var colorName: String {
-        Self.lutTypeToDefinition[self]!.1.color.0
+        Self.lutTypeToDefinition[self]!.1.color.color.0
     }
     
     nonisolated
     var color: Color {
-        Self.lutTypeToDefinition[self]!.1.color.1
+        Self.lutTypeToDefinition[self]!.1.color.color.1
+    }
+    
+    nonisolated
+    var isCable: Bool {
+        Self.lutTypeToDefinition[self]!.1.isCable
     }
     
     nonisolated

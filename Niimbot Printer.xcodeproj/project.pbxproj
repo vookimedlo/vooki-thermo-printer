@@ -40,6 +40,7 @@
 		8D708D932C49BE8E006BF3BE /* PrinterActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D922C49BE8E006BF3BE /* PrinterActor.swift */; };
 		8D708D952C4C6099006BF3BE /* BoolBytePacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D942C4C6076006BF3BE /* BoolBytePacketDecoderTests.swift */; };
 		8D73719A2C67F4A200695B2E /* PaperEANTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7371992C67F49500695B2E /* PaperEANTests.swift */; };
+		8D73719C2C69704000695B2E /* CableLabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73719B2C69704000695B2E /* CableLabelPreview.swift */; };
 		8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
 		8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */; };
 		8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5342C08DA08005D7EEB /* IOProtocol.swift */; };
@@ -106,7 +107,7 @@
 		8DF9FE4F2C36A057004DAED2 /* PaperEAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */; };
 		8DF9FE512C36DD5D004DAED2 /* Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE502C36DD5D004DAED2 /* Margins.swift */; };
 		8DF9FE532C36DF97004DAED2 /* ObservablePaperEAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE522C36DF97004DAED2 /* ObservablePaperEAN.swift */; };
-		8DF9FE552C36E7F8004DAED2 /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE542C36E7F8004DAED2 /* Preview.swift */; };
+		8DF9FE552C36E7F8004DAED2 /* LabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE542C36E7F8004DAED2 /* LabelPreview.swift */; };
 		8DF9FE572C37FA8E004DAED2 /* PrinterAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */; };
 		8DF9FE592C38A669004DAED2 /* TextTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE582C38A669004DAED2 /* TextTabView.swift */; };
 		8DF9FE5B2C393E2D004DAED2 /* TextConstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE5A2C393E2D004DAED2 /* TextConstructionView.swift */; };
@@ -160,6 +161,7 @@
 		8D708D942C4C6076006BF3BE /* BoolBytePacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolBytePacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareVersionPacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D7371992C67F49500695B2E /* PaperEANTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperEANTests.swift; sourceTree = "<group>"; };
+		8D73719B2C69704000695B2E /* CableLabelPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CableLabelPreview.swift; sourceTree = "<group>"; };
 		8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIO.swift; sourceTree = "<group>"; };
 		8D76C5342C08DA08005D7EEB /* IOProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOProtocol.swift; sourceTree = "<group>"; };
@@ -227,7 +229,7 @@
 		8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperEAN.swift; sourceTree = "<group>"; };
 		8DF9FE502C36DD5D004DAED2 /* Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margins.swift; sourceTree = "<group>"; };
 		8DF9FE522C36DF97004DAED2 /* ObservablePaperEAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePaperEAN.swift; sourceTree = "<group>"; };
-		8DF9FE542C36E7F8004DAED2 /* Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
+		8DF9FE542C36E7F8004DAED2 /* LabelPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelPreview.swift; sourceTree = "<group>"; };
 		8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAvailability.swift; sourceTree = "<group>"; };
 		8DF9FE582C38A669004DAED2 /* TextTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTabView.swift; sourceTree = "<group>"; };
 		8DF9FE5A2C393E2D004DAED2 /* TextConstructionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConstructionView.swift; sourceTree = "<group>"; };
@@ -291,9 +293,10 @@
 		8D1F59B92C20EAD7002A037F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8D73719B2C69704000695B2E /* CableLabelPreview.swift */,
 				8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */,
+				8DF9FE542C36E7F8004DAED2 /* LabelPreview.swift */,
 				8D8AF3CC2C2756CD005E2F94 /* LevelIndicator.swift */,
-				8DF9FE542C36E7F8004DAED2 /* Preview.swift */,
 				8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */,
 				8DF9FE582C38A669004DAED2 /* TextTabView.swift */,
 			);
@@ -654,6 +657,7 @@
 				8D38E7282C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift in Sources */,
 				8DEB860E2C1250BF0028526B /* ImageGenerator.swift in Sources */,
 				8DDC3D0E2C19C69900296C72 /* DensityPacketDecoder.swift in Sources */,
+				8D73719C2C69704000695B2E /* CableLabelPreview.swift in Sources */,
 				8D58DC252C052317001EBD95 /* Packet.swift in Sources */,
 				8D38E7262C5D6C6D00EFA505 /* AlertType.swift in Sources */,
 				8DDC3D1E2C19C79000296C72 /* RFIDDataPacketDecoder.swift in Sources */,
@@ -719,7 +723,7 @@
 				8D76C53B2C090B96005D7EEB /* PosixFileSystemAccess.swift in Sources */,
 				8D84EF9A2C20F6090070BA8A /* FontSelectionView.swift in Sources */,
 				8D708D932C49BE8E006BF3BE /* PrinterActor.swift in Sources */,
-				8DF9FE552C36E7F8004DAED2 /* Preview.swift in Sources */,
+				8DF9FE552C36E7F8004DAED2 /* LabelPreview.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,8 @@ struct PrinterView: View, Notifiable {
     @Environment(PrinterAvailability.self) private var printerAvailability
     @Environment(PrinterDetails.self) private var printeDetails
     @Environment(UISettingsProperties.self) private var uiSettingsProperties
+    @Environment(ObservablePaperEAN.self) private var paperEAN
+
 
     @State private var showingInspector: Bool = true
     @State private var showingPrintingProgress: Bool = false
@@ -30,8 +32,14 @@ struct PrinterView: View, Notifiable {
                         Spacer()
                         HStack{
                             Spacer()
-                            Preview(horizontalMargin: $horizontalMargin,
-                                    verticalMargin: $verticalMargin)
+                            if paperEAN.ean.isCable == false {
+                                LabelPreview(horizontalMargin: $horizontalMargin,
+                                        verticalMargin: $verticalMargin)
+                            }
+                            else {
+                                CableLabelPreview(horizontalMargin: $horizontalMargin,
+                                        verticalMargin: $verticalMargin)
+                            }
                             Spacer()
                         }
                         Spacer()

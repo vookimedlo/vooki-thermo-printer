@@ -1,5 +1,5 @@
 //
-//  Preview.swift
+//  LabelPreview.swift
 //  Niimbot Printer
 //
 //  Created by Michal Duda on 04.07.2024.
@@ -7,39 +7,37 @@
 
 import SwiftUI
 
-struct Preview: View {
+struct LabelPreview: View {
     @Environment(ImagePreview.self) private var imagePreview
     @Environment(ObservablePaperEAN.self) private var paperEAN
     
     @Binding var horizontalMargin: any HorizontalMarginable
     @Binding var verticalMargin: any VerticalMarginable
-
-
+    
     private let controlColor = Color(NSColor.disabledControlTextColor)
-
+    
     private let descriptionLength = 15.0
     private let descriptionThickness = 3.0
-
+    
     private let marginThickness = 2.0
-
+    
     private let marginColor = Color.blue
     private let paperColor = Color.white
     private let physicalColor = Color.green
     private let printableColor = Color.red
-
-
+    
     var body: some View {
         @Bindable var imagePreview = imagePreview
         @Bindable var paperEAN = paperEAN
-
+        
         VStack(spacing: 0) {
             ZStack {
-                HStack{
+                HStack {
                     Spacer()
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
                         let cornerRadius = paperEAN.ean.cornerRadius
                         let printableCornerRadius = paperEAN.ean.printableSizeInPixels == paperEAN.ean.physicalSizeInPixels ? cornerRadius : 0
-
+                        
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .fill(paperColor)
                             .shadow(color: .accentColor, radius: cornerRadius)
@@ -60,41 +58,48 @@ struct Preview: View {
                     Spacer()
                 }
                 
-                verticalDescription(color: printableColor,
-                    paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
-                    paperHeight: $paperEAN.wrappedValue.ean.printableSizeInPixels.height,
-                                    description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.height)",
-                                    offset: 40)
+                trailingVerticalDescription(color: printableColor,
+                                            paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
+                                            paperHeight: $paperEAN.wrappedValue.ean.printableSizeInPixels.height,
+                                            description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.height)",
+                                            offset: 40)
                 .help("The height of printable area.")
                 
-                verticalDescription(color: physicalColor,
-                    paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
-                    paperHeight: $paperEAN.wrappedValue.ean.physicalSizeInPixels.height,
-                    description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.height)",
-                    offset: 95)
+                trailingVerticalDescription(color: physicalColor,
+                                            paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
+                                            paperHeight: $paperEAN.wrappedValue.ean.physicalSizeInPixels.height,
+                                            description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.height)",
+                                            offset: 95)
                 .help("The height of paper.")
             }
             
-            horizontalDescription(color: printableColor,
-                paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
-                description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.width)")
+            centerHorizontalDescription(color: printableColor,
+                                        paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
+                                        description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.width)")
             .help("The width of printable area.")
-
-            horizontalDescription(color: physicalColor,
-                paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
-                description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.width)")
+            
+            centerHorizontalDescription(color: physicalColor,
+                                        paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
+                                        description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.width)")
             .help("The width of paper.")
         }
     }
     
     @ViewBuilder
     private func marginGuide() -> some View {
-        @Bindable var paperEAN = paperEAN
-
+        Self.marginGuide(paperEAN: paperEAN.ean,
+                         horizontalMargin: horizontalMargin,
+                         verticalMargin: verticalMargin,
+                         marginColor: marginColor,
+                         marginThickness: marginThickness)
+    }
+    
+    @ViewBuilder
+    static func marginGuide(paperEAN: PaperEAN, horizontalMargin: any HorizontalMarginable, verticalMargin: any VerticalMarginable, marginColor: Color, marginThickness: Double) -> some View {
         ZStack{
             HStack {
                 if (!horizontalMargin.isNone) {
-                    let paperHeight = $paperEAN.wrappedValue.ean.printableSizeInPixels.height
+                    let paperHeight = paperEAN.printableSizeInPixels.height
                     
                     if (horizontalMargin.edge!.contains(.trailing)) {
                         Spacer()
@@ -113,7 +118,7 @@ struct Preview: View {
             
             VStack {
                 if (!verticalMargin.isNone) {
-                    let paperWidth = $paperEAN.wrappedValue.ean.printableSizeInPixels.width
+                    let paperWidth = paperEAN.printableSizeInPixels.width
                     
                     if (verticalMargin.edge!.contains(.bottom)) {
                         Spacer()
@@ -133,7 +138,16 @@ struct Preview: View {
     }
     
     @ViewBuilder
-    private func horizontalDescription(color: Color, paperWidth: Double, description: String) -> some View {
+    private func centerHorizontalDescription(color: Color, paperWidth: Double, description: String) -> some View {
+        Self.centerHorizontalDescription(color: color,
+                                         paperWidth: paperWidth,
+                                         description: description,
+                                         descriptionLength: descriptionLength,
+                                         descriptionThickness: descriptionThickness)
+    }
+    
+    @ViewBuilder
+    static func centerHorizontalDescription(color: Color, paperWidth: Double, description: String, descriptionLength: Double, descriptionThickness: Double) -> some View {
         VStack(spacing: 0) {
             HStack(spacing: 0){
                 Rectangle()
@@ -154,28 +168,41 @@ struct Preview: View {
     }
     
     @ViewBuilder
-    private func verticalDescription(color: Color, paperWidth: Double, paperHeight: Double, description: String, offset: Double) -> some View {
+    private func trailingVerticalDescription(color: Color, paperWidth: Double, paperHeight: Double, description: String, offset: Double) -> some View {
+        Self.trailingVerticalDescription(color: color,
+                                         paperWidth: paperWidth,
+                                         paperHeight: paperHeight,
+                                         description: description,
+                                         offset: offset,
+                                         descriptionLength: descriptionLength,
+                                         descriptionThickness: descriptionThickness)
+    }
+    
+    @ViewBuilder
+    static func trailingVerticalDescription(color: Color, paperWidth: Double, paperHeight: Double, description: String, offset: Double, descriptionLength: Double, descriptionThickness: Double) -> some View {
         ZStack {
             VStack(spacing: 0) {
+                let leadinOffset = paperWidth - descriptionLength + descriptionThickness + offset
                 Rectangle()
                     .fill(color)
                     .frame(width: descriptionLength,
                            height: descriptionThickness)
                     .padding(.bottom, paperHeight - descriptionThickness * 2)
-                    .padding(.leading, paperWidth - descriptionLength + descriptionThickness + offset)
+                    .padding(.leading, leadinOffset)
                 Rectangle()
                     .fill(color)
                     .frame(width: descriptionLength,
                            height: descriptionThickness)
-                    .padding(.leading, paperWidth - descriptionLength + descriptionThickness + offset)
+                    .padding(.leading, leadinOffset)
             }
+            let leadingOffset = paperWidth + offset
             Rectangle()
                 .fill(color)
                 .frame(width: descriptionThickness,
                        height: paperHeight)
-                .padding(.leading, paperWidth + offset)
+                .padding(.leading, leadingOffset)
             Text("\(description) mm").rotationEffect(.degrees(-90))
-                .padding(.leading, paperWidth + 20 + offset)
+                .padding(.leading, leadingOffset + 20)
         }
     }
 }
@@ -183,8 +210,8 @@ struct Preview: View {
 #Preview {
     @Previewable @State var horizontalMargin: any HorizontalMarginable = Margin.none
     @Previewable @State var verticalMargin: any VerticalMarginable = Margin.none
-
-    Preview(horizontalMargin: $horizontalMargin, verticalMargin: $verticalMargin)
+    
+    LabelPreview(horizontalMargin: $horizontalMargin, verticalMargin: $verticalMargin)
         .environmentObject(ImagePreview())
         .environmentObject(ObservablePaperEAN())
 }

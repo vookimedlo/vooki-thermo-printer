@@ -50,8 +50,11 @@ struct PrinterView: View, Notifiable {
                             Spacer()
                             GroupBox(label: Text("Legend")) {
                                 VStack(alignment: .leading) {
-                                    Text("Printable area").foregroundStyle(.red)
-                                    Text("Physical area").foregroundStyle(.green)
+                                    Text("Printable area").foregroundStyle(CommonLabelPreview.printableColor)
+                                    Text("Physical area").foregroundStyle(CommonLabelPreview.physicalColor)
+                                    if (paperEAN.ean.isCable) {
+                                        Text("Folding divider").foregroundStyle(.orange)
+                                    }
                                 }
                             }.padding(10)
                         }

@@ -44,6 +44,13 @@ struct CableLabelPreview: View {
                                         marginGuide()
                                     }
                                 }
+
+                                VerticalLine()
+                                    .stroke(style: .init(lineWidth: 2, dash: [12]))
+                                    .foregroundStyle(.orange)
+                                    .padding(.leading, paperEAN.ean.printableSizeInPixels.width / 2)
+                                    .frame(width: paperEAN.ean.printableSizeInPixels.width,
+                                           height: paperEAN.ean.physicalSizeInPixels.height)
                             }
                             
                             UnevenRoundedRectangle(cornerRadii: .init(topLeading: 0, bottomLeading: 0, bottomTrailing: 10, topTrailing: 10), style: .continuous)
@@ -53,8 +60,6 @@ struct CableLabelPreview: View {
                                         x: cornerRadius + 2)
                                 .frame(width: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width - $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
                                        height: 56)
-                            
-                            
                         }
                     }
                     Spacer()

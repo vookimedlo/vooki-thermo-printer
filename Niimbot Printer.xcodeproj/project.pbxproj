@@ -42,6 +42,7 @@
 		8D73719A2C67F4A200695B2E /* PaperEANTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7371992C67F49500695B2E /* PaperEANTests.swift */; };
 		8D73719C2C69704000695B2E /* CableLabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73719B2C69704000695B2E /* CableLabelPreview.swift */; };
 		8D73719E2C6AB53800695B2E /* CommonLabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73719D2C6AB53800695B2E /* CommonLabelPreview.swift */; };
+		8D7371A12C6AC4D700695B2E /* VerticalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7371A02C6AC4D700695B2E /* VerticalLine.swift */; };
 		8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
 		8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */; };
 		8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5342C08DA08005D7EEB /* IOProtocol.swift */; };
@@ -164,6 +165,7 @@
 		8D7371992C67F49500695B2E /* PaperEANTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperEANTests.swift; sourceTree = "<group>"; };
 		8D73719B2C69704000695B2E /* CableLabelPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CableLabelPreview.swift; sourceTree = "<group>"; };
 		8D73719D2C6AB53800695B2E /* CommonLabelPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonLabelPreview.swift; sourceTree = "<group>"; };
+		8D7371A02C6AC4D700695B2E /* VerticalLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalLine.swift; sourceTree = "<group>"; };
 		8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtension.swift; sourceTree = "<group>"; };
 		8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemIO.swift; sourceTree = "<group>"; };
 		8D76C5342C08DA08005D7EEB /* IOProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOProtocol.swift; sourceTree = "<group>"; };
@@ -382,6 +384,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		8D73719F2C6AC4CD00695B2E /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				8D7371A02C6AC4D700695B2E /* VerticalLine.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
 		8D8AF3CE2C2826E2005E2F94 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -534,6 +544,7 @@
 			children = (
 				8D1F59B92C20EAD7002A037F /* Components */,
 				8D38E7172C5C34F500EFA505 /* Menu */,
+				8D73719F2C6AC4CD00695B2E /* Shapes */,
 				8DED511C2C2FE14500B52F1E /* AlignmentView.swift */,
 				8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */,
 				8DDC3D412C1A290700296C72 /* ContentView.swift */,
@@ -708,6 +719,7 @@
 				8DED51232C31927200B52F1E /* VerticalTextAlignment.swift in Sources */,
 				8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */,
 				8D38E7162C5B7D4100EFA505 /* TestHelper.swift in Sources */,
+				8D7371A12C6AC4D700695B2E /* VerticalLine.swift in Sources */,
 				8DED511D2C2FE14500B52F1E /* AlignmentView.swift in Sources */,
 				8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */,
 				8D76C5352C08DA08005D7EEB /* IOProtocol.swift in Sources */,

@@ -40,4 +40,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         
         Self.updateMenu()
     }
+    
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
 }

@@ -14,6 +14,9 @@ struct CableLabelPreview: View {
     @Binding var horizontalMargin: any HorizontalMarginable
     @Binding var verticalMargin: any VerticalMarginable
     
+    private static let tailPhysicalHeightInMM = 8.0
+    private static let tailPhysicalHeightInPixels = PixelCalculator.pixels(lengthInMM: tailPhysicalHeightInMM, dpi: 203)
+    
     var body: some View {
         @Bindable var imagePreview = imagePreview
         @Bindable var paperEAN = paperEAN
@@ -59,7 +62,7 @@ struct CableLabelPreview: View {
                                         radius: cornerRadius,
                                         x: cornerRadius + 2)
                                 .frame(width: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width - $paperEAN.wrappedValue.ean.printableSizeInPixels.width,
-                                       height: 56)
+                                       height: Self.tailPhysicalHeightInPixels)
                         }
                     }
                     Spacer()
@@ -83,8 +86,8 @@ struct CableLabelPreview: View {
                 
                 trailingVerticalDescription(color: CommonLabelPreview.physicalColor,
                                             paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels.width,
-                                            paperHeight: 56,
-                                            description: "8",
+                                            paperHeight: Self.tailPhysicalHeightInPixels,
+                                            description: "\(Self.tailPhysicalHeightInMM)",
                                             offset: 25)
                 .help("The height of paper.")
             }

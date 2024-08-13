@@ -159,7 +159,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                           cornerRadius: 20),
                                                 .paper109x12_5:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 109, height: 12.5),
-                                                          physicalSizeInPixels: CGSize(width: 871, height: 110),
+                                                          physicalSizeInPixels: CGSize(width: 871, height: 100),
                                                           printableSizeInMillimeters: CGSize(width: 74, height: 12),
                                                           printableSizeInPixels: CGSize(width: 591, height: 96),
                                                           labelType: 1,

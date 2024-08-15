@@ -10,7 +10,7 @@ import SwiftUI
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
     private static let unwantedMenus = ["File", "View"]
-    private static let keepPosition = [("Printer", 1)]
+    private static let keepPosition = [("Printer", 1), ("Label", 2)]
 
     private static func updateMenu() {
         Self.unwantedMenus.forEach {

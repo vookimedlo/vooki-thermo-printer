@@ -83,6 +83,7 @@
 		8DAC161B2C584BEA005FABB7 /* StubbedBluetoothAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC161A2C584BD2005FABB7 /* StubbedBluetoothAccess.swift */; };
 		8DAC161D2C584F60005FABB7 /* BluetoothIOTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC161C2C584F58005FABB7 /* BluetoothIOTests.swift */; };
 		8DBF74D32C6BEFF00012F875 /* PixelCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF74D22C6BEFEB0012F875 /* PixelCalculatorTests.swift */; };
+		8DBF74D52C6C0DB80012F875 /* LabelMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF74D42C6C0DB10012F875 /* LabelMenuCommands.swift */; };
 		8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
 		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
@@ -208,6 +209,7 @@
 		8DAC161A2C584BD2005FABB7 /* StubbedBluetoothAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbedBluetoothAccess.swift; sourceTree = "<group>"; };
 		8DAC161C2C584F58005FABB7 /* BluetoothIOTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothIOTests.swift; sourceTree = "<group>"; };
 		8DBF74D22C6BEFEB0012F875 /* PixelCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelCalculatorTests.swift; sourceTree = "<group>"; };
+		8DBF74D42C6C0DB10012F875 /* LabelMenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuCommands.swift; sourceTree = "<group>"; };
 		8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingProgress.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 		8D38E7172C5C34F500EFA505 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				8DBF74D42C6C0DB10012F875 /* LabelMenuCommands.swift */,
 				8D38E7182C5C351000EFA505 /* PrinterMenuCommands.swift */,
 				8D580E122C623FBC005B3FAB /* ShowMenuCommands.swift */,
 			);
@@ -717,6 +720,7 @@
 				8D8AF3D22C28271B005E2F94 /* PaperDetails.swift in Sources */,
 				8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */,
 				8D38E7202C5D3FEF00EFA505 /* StaticNotifiable.swift in Sources */,
+				8DBF74D52C6C0DB80012F875 /* LabelMenuCommands.swift in Sources */,
 				8D1F59BB2C20EAF8002A037F /* IndicatorValueSlider.swift in Sources */,
 				8D58DC162C052197001EBD95 /* PrinterAppD110.swift in Sources */,
 				8D76C53D2C091062005D7EEB /* FileSystemAccessProtocol.swift in Sources */,

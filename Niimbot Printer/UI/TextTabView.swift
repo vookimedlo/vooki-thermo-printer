@@ -23,8 +23,12 @@ struct TextTabView: View {
             GroupBox {
                 HStack {
                     Spacer()
-                    TextConstructionView().environmentObject(textProperties.properties[selectedTab])
+                    TextConstructionView().environmentObject(textProperties.properties[textProperties.properties.count > selectedTab ? selectedTab : 0])
                     Spacer()
+                }.onChange(of: textProperties.properties.count) { oldValue, newValue in
+                    if oldValue != newValue && newValue == 1 {
+                        selectedTab = 0
+                    }
                 }
             }.padding(.top, 10)
             

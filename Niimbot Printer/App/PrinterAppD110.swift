@@ -77,7 +77,8 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                      Notification.Name.App.selectedPeripheral,
                      Notification.Name.App.lastSelectedPeripheral,
                      Notification.Name.App.disconnectPeripheral,
-                     Notification.Name.App.printRequested] {
+                     Notification.Name.App.printRequested,
+                     Notification.Name.App.paperDetect] {
             registerNotification(name: name,
                                  selector: #selector(receiveUINotification))
         }
@@ -132,8 +133,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     
     @State private var connectionViewProperties = ConnectionViewProperties()
     @State private var uiSettingsProperties = UISettingsProperties()
-
-    
+        
     var body: some Scene {
         @Bindable var printerAvailability = self.printerAvailability
         @Bindable var connectionViewPropertie = self.connectionViewProperties
@@ -158,6 +158,9 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         .commands {
             PrinterMenuCommands(printerAvailability: printerAvailability,
                                 connectionViewProperties: connectionViewProperties)
+            LabelMenuCommands(paperEAN: paperEAN,
+                              textProperties: textProperties,
+                              printerAvailability: printerAvailability)
             ShowMenuCommands(uiSettingsProperties: uiSettingsProperties)
         }
     }
@@ -205,6 +208,12 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             Self.logger.info("Print requested")
             Task { @PrinterActor in
                 printLabel()
+            }
+        }
+        else if Notification.Name.App.paperDetect == notification.name {
+            Self.logger.info("Print detection requested")
+            Task { @PrinterActor in
+                printer?.getRFIDData()
             }
         }
     }
@@ -284,6 +293,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                 Self.logger.info("RFID data - Type: \(rfidData.type)")
                 
                 self.paperEAN.ean = PaperEAN(rawValue: rfidData.barcode) ?? .unknown
+                notifyUI(name: .App.paperChanged, userInfo: [String : any Sendable](dictionaryLiteral: (Notification.Keys.value, self.paperEAN.ean)))
                 
                 self.paperDetails.remainingCount = String(rfidData.totalLength - rfidData.usedLength)
                 self.paperDetails.printedCount = String(rfidData.usedLength)

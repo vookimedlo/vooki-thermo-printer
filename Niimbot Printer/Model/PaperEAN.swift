@@ -218,6 +218,11 @@ enum PaperEAN: String, Sendable, CaseIterable {
     }
     
     nonisolated
+    var description: String {
+        isCable ? "Cable: \(physicalSizeInMillimeters.width)mm * \(physicalSizeInMillimeters.height)mm" : "Plain: \(physicalSizeInMillimeters.width)mm * \(physicalSizeInMillimeters.height)mm"
+    }
+    
+    nonisolated
     static func testIntegrity() -> Bool {
         guard Self.allCases.count == lutTypeToDefinition.count else { return false }
         guard Self.allCases.sorted(by: { $0.rawValue < $1.rawValue }).elementsEqual(lutTypeToDefinition.keys.sorted(by: { $0.rawValue < $1.rawValue })) else { return false }

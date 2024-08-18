@@ -25,7 +25,8 @@ enum PaperEAN: String, Sendable, CaseIterable {
          ean6972842743824 = "6972842743824", // 109*12.5 yellow cable - 12.5*74+7*35
          ean6972842743817 = "6972842743817", // 109*12.5 red cable - 12.5*74+7*35
          ean6972842743800 = "6972842743800", // 109*12.5 green cable - 12.5*74+7*35
-         ean6972842743794 = "6972842743794"  // 109*12.5 blue cable - 12.5*74+7*35
+         ean6972842743794 = "6972842743794", // 109*12.5 blue cable - 12.5*74+7*35
+         ean6971501229778 = "6971501229778"  // 30*12 white
 
 
 
@@ -51,7 +52,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
     }
     
     enum ColorAttribute: Sendable, Equatable {
-        case white, yellow, blue, green, red
+        case white, yellow, blue, green, red, various
         
         var color: (String, Color) {
             switch (self) {
@@ -65,6 +66,8 @@ enum PaperEAN: String, Sendable, CaseIterable {
                 ("green", Color.green)
             case .red:
                 ("red", Color.red)
+            case .various:
+                ("various", Color.clear)
             }
         }
     }
@@ -99,6 +102,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                                                                                      isCable: true)),
                                                                        .ean6972842743794: (.paper109x12_5, Attribute(color: .blue,
                                                                                                                      isCable: true)),
+                                                                       .ean6971501229778: (.paper30x12, Attribute(color: .various)),
     ]
     
     static private let lutDefinitionToPaper: [PaperDefinition: Paper] = [.unknown:

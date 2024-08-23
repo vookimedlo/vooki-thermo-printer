@@ -62,6 +62,7 @@
 		8D8AF3D22C28271B005E2F94 /* PaperDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */; };
 		8D8AF3D42C288EA1005E2F94 /* FontDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */; };
 		8D8AF3D82C28AE8A005E2F94 /* ImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */; };
+		8D9107FC2C753B1E00C2F7AF /* SavedLabelProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9107FB2C753B1C00C2F7AF /* SavedLabelProperty.swift */; };
 		8D92FBDF2C2CBE460040747C /* PrintStatusPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */; };
 		8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */; };
 		8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96391E2C0A8E8B00374894 /* DataExtension.swift */; };
@@ -85,6 +86,7 @@
 		8DBF74D32C6BEFF00012F875 /* PixelCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF74D22C6BEFEB0012F875 /* PixelCalculatorTests.swift */; };
 		8DBF74D52C6C0DB80012F875 /* LabelMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF74D42C6C0DB10012F875 /* LabelMenuCommands.swift */; };
 		8DC767142C2E0F0B00237C26 /* PrintingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */; };
+		8DD5683D2C72A04400DEB243 /* SavedLabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD5683C2C72A03500DEB243 /* SavedLabelPreview.swift */; };
 		8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
 		8DDC3CEA2C179A4A00296C72 /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
 		8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */; };
@@ -188,6 +190,7 @@
 		8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperDetails.swift; sourceTree = "<group>"; };
 		8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDetails.swift; sourceTree = "<group>"; };
 		8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreview.swift; sourceTree = "<group>"; };
+		8D9107FB2C753B1C00C2F7AF /* SavedLabelProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLabelProperty.swift; sourceTree = "<group>"; };
 		8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintStatusPacketDecoder.swift; sourceTree = "<group>"; };
 		8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAndWaitAsync.swift; sourceTree = "<group>"; };
 		8D96391E2C0A8E8B00374894 /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
@@ -211,6 +214,7 @@
 		8DBF74D22C6BEFEB0012F875 /* PixelCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PixelCalculatorTests.swift; sourceTree = "<group>"; };
 		8DBF74D42C6C0DB10012F875 /* LabelMenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMenuCommands.swift; sourceTree = "<group>"; };
 		8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintingProgress.swift; sourceTree = "<group>"; };
+		8DD5683C2C72A03500DEB243 /* SavedLabelPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLabelPreview.swift; sourceTree = "<group>"; };
 		8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerExtension.swift; sourceTree = "<group>"; };
 		8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialNumberPacketDecoder.swift; sourceTree = "<group>"; };
@@ -309,6 +313,7 @@
 				8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */,
 				8DF9FE542C36E7F8004DAED2 /* LabelPreview.swift */,
 				8D8AF3CC2C2756CD005E2F94 /* LevelIndicator.swift */,
+				8DD5683C2C72A03500DEB243 /* SavedLabelPreview.swift */,
 				8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */,
 				8DF9FE582C38A669004DAED2 /* TextTabView.swift */,
 			);
@@ -419,6 +424,7 @@
 				8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */,
 				8D312C0B2C4DA8EA006D0360 /* PrintStatus.swift */,
 				8D312C092C4DA8A4006D0360 /* RFIDData.swift */,
+				8D9107FB2C753B1C00C2F7AF /* SavedLabelProperty.swift */,
 				8DF9FE5C2C394D8C004DAED2 /* TextProperties.swift */,
 				8D580E142C624380005B3FAB /* UISettingsProperties.swift */,
 				8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */,
@@ -753,9 +759,11 @@
 				8D312C0C2C4DA8EA006D0360 /* PrintStatus.swift in Sources */,
 				8DDC3D162C19C71000296C72 /* HardwareVersionPacketDecoder.swift in Sources */,
 				8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */,
+				8D9107FC2C753B1E00C2F7AF /* SavedLabelProperty.swift in Sources */,
 				8DDC3D142C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift in Sources */,
 				8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */,
 				8D76C53B2C090B96005D7EEB /* PosixFileSystemAccess.swift in Sources */,
+				8DD5683D2C72A04400DEB243 /* SavedLabelPreview.swift in Sources */,
 				8D84EF9A2C20F6090070BA8A /* FontSelectionView.swift in Sources */,
 				8D708D932C49BE8E006BF3BE /* PrinterActor.swift in Sources */,
 				8DF9FE552C36E7F8004DAED2 /* LabelPreview.swift in Sources */,

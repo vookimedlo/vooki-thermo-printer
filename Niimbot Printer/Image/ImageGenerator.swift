@@ -350,6 +350,13 @@ final class ImageGenerator {
         try cicontext.writePNGRepresentation(of: ciimage, to: url, format: .RGBA8, colorSpace: ciimage.colorSpace!)
     }
     
+    public func pngRepresentation() -> Data? {
+        guard let image = context.makeImage() else { return nil }
+        let cicontext = CIContext()
+        let ciimage = CIImage(cgImage: image)
+        return cicontext.pngRepresentation(of: ciimage, format: .RGBA8, colorSpace: ciimage.colorSpace!)
+    }
+    
     private func generateRotatedImage(inverted: Bool = false) -> NSImage? {
         guard let image = context.makeImage() else { return nil }
         guard let rotatedImageContext = image.rotatedContext(to: .right) else { return nil }

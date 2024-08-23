@@ -92,6 +92,23 @@ struct SendableTextProperty: Sendable {
         self.margin = from.margin
     }
     
+    @MainActor
+    func toTextProperty() -> TextProperty {
+        let property = TextProperty()
+        property.whatToPrint = self.whatToPrint
+        property.horizontalAlignment.alignment = self.horizontalAlignment
+        property.verticalAlignment.alignment = self.verticalAlignment
+        property.squareCodeSize = self.squareCodeSize
+        property.image = self.image
+        property.imageDecoration = self.imageDecoration
+        property.text = self.text
+        property.fontDetails.name = self.fontName
+        property.fontDetails.size = self.fontSize
+        property.margin = self.margin
+        
+        return property
+    }
+    
     let whatToPrint: TextProperty.WhatToPrint
     let horizontalAlignment: HorizontalTextAlignment.Alignment
     let verticalAlignment: VerticalTextAlignment.Alignment

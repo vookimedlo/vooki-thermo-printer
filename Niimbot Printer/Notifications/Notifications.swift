@@ -45,7 +45,8 @@ extension Notification.Name {
         
         static public let paperChanged = NSNotification.Name("notify-paper-changed")
         static public let paperDetect = NSNotification.Name("notify-paper-detect")
-
+        
+        static public let loadHistoricalItem = NSNotification.Name("notify-ui-load-historical-item")
 
         struct UI {
             static public let printSendingProgress = NSNotification.Name("notify-ui-print-send-progress")

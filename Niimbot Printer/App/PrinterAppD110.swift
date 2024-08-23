@@ -78,7 +78,8 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                      Notification.Name.App.lastSelectedPeripheral,
                      Notification.Name.App.disconnectPeripheral,
                      Notification.Name.App.printRequested,
-                     Notification.Name.App.paperDetect] {
+                     Notification.Name.App.paperDetect,
+                     Notification.Name.App.loadHistoricalItem] {
             registerNotification(name: name,
                                  selector: #selector(receiveUINotification))
         }
@@ -133,6 +134,8 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     
     @State private var connectionViewProperties = ConnectionViewProperties()
     @State private var uiSettingsProperties = UISettingsProperties()
+    
+    @State private var savedLabelProperties = SavedLabelProperties()
         
     var body: some Scene {
         @Bindable var printerAvailability = self.printerAvailability
@@ -152,6 +155,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                     .environmentObject(self.textProperties)
                     .environmentObject(self.connectionViewProperties)
                     .environmentObject(self.uiSettingsProperties)
+                    .environmentObject(self.savedLabelProperties)
             }
         }
         .modelContainer(sharedModelContainer)
@@ -215,6 +219,14 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             Task { @PrinterActor in
                 printer?.getRFIDData()
             }
+        }
+        else if Notification.Name.App.loadHistoricalItem == notification.name {
+            Self.logger.info("Load data from history requested")
+            let savedProperty = notification.userInfo?[Notification.Keys.value] as! SavedLabelProperty
+            textProperties.properties = savedProperty.textProperties.map { sendableTextProperty in
+                sendableTextProperty.toTextProperty()
+            }
+            notifyUI(name: .App.textPropertiesUpdated)
         }
     }
     

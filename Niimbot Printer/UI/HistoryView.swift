@@ -22,40 +22,50 @@ struct HistoryView: View, StaticNotifiable {
     
     var body: some View {
         VStack {
-            ScrollView {
-                ForEach(processProperties(0..<labelProperties.count)) { group in
-                    GroupBox(label: Text(group.type).font(.headline)) {
-                        LazyVGrid(columns: [GridItem(.adaptive(minimum: group.width + 20))]) {
-                            ForEach(group.group) { item in
-                                SavedLabelPreview(savedLabelProperty: item).padding(.top)
-                                    .contextMenu {
-                                        Button(action: {
-                                            let data = [String: Sendable](dictionaryLiteral: (Notification.Keys.value, item.id))
-                                            Self.notifyUI(name: .App.loadHistoricalItem,
-                                                          userInfo: data)
-                                        }) {
-                                            Label("Load", systemImage: "tray.and.arrow.up").labelStyle(.titleAndIcon)
+            if (labelProperties.count != 0) {
+                ScrollView {
+                    ForEach(processProperties(0..<labelProperties.count)) { group in
+                        GroupBox(label: Text(group.type).font(.headline)) {
+                            LazyVGrid(columns: [GridItem(.adaptive(minimum: group.width + 20))]) {
+                                ForEach(group.group) { item in
+                                    SavedLabelPreview(savedLabelProperty: item).padding(.top)
+                                        .contextMenu {
+                                            Button(action: {
+                                                let data = [String: Sendable](dictionaryLiteral: (Notification.Keys.value, item.id))
+                                                Self.notifyUI(name: .App.loadHistoricalItem,
+                                                              userInfo: data)
+                                            }) {
+                                                Label("Load", systemImage: "tray.and.arrow.up").labelStyle(.titleAndIcon)
+                                            }
+                                            Button(action: {
+                                                guard let url = showSavePanel() else { return }
+                                                let imageRep = NSBitmapImageRep(data: item.pngImage)!
+                                                let pngData = imageRep.representation(using: .png, properties: [:])!
+                                                try! pngData.write(to: url)
+                                            }) {
+                                                Label("Save as PNG", systemImage: "tray.and.arrow.down").labelStyle(.titleAndIcon)
+                                            }
+                                            Button(action: {
+                                                self.context.delete(item)
+                                            }) {
+                                                Label("Delete", systemImage: "trash").labelStyle(.titleAndIcon)
+                                            }
                                         }
-                                        Button(action: {
-                                            guard let url = showSavePanel() else { return }
-                                            let imageRep = NSBitmapImageRep(data: item.pngImage)!
-                                            let pngData = imageRep.representation(using: .png, properties: [:])!
-                                            try! pngData.write(to: url)
-                                        }) {
-                                            Label("Save as PNG", systemImage: "tray.and.arrow.down").labelStyle(.titleAndIcon)
-                                        }
-                                        Button(action: {
-                                            self.context.delete(item)
-                                        }) {
-                                            Label("Delete", systemImage: "trash").labelStyle(.titleAndIcon)
-                                        }
-                                    }
+                                }
                             }
-                        }
-                    }.padding(.top)
+                        }.padding(.top)
+                    }
                 }
             }
-        }.navigationTitle("History")
+            else {
+                ContentUnavailableView {
+                    Label("Printing history", systemImage: "book.closed")
+                } description: {
+                    Text("This secion contains all labels that have been printed so far.")
+                }
+            }
+        }
+        .navigationTitle("History")
     }
     
     func processProperties(_ range: Range<Int>) -> [Group] {

@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import SwiftData
 
 @MainActor
 @Observable
 final class TextProperty: ObservableObject, Notifiable {
-    public enum WhatToPrint: Int, CaseIterable, SegmentedPrickerHelp, Sendable {
+    public enum WhatToPrint: Int, CaseIterable, SegmentedPrickerHelp, Sendable, Codable {
         case text, qr, image
         
         var help: String {
@@ -119,4 +120,63 @@ struct SendableTextProperty: Sendable {
     let fontName: String
     let fontSize: Int
     let margin: Margins
+}
+
+@Model
+final class SDTextProperty {
+    @MainActor
+    init(whatToPrint: TextProperty.WhatToPrint, horizontalAlignment: HorizontalTextAlignment.Alignment, verticalAlignment: VerticalTextAlignment.Alignment, squareCodeSize: Int, image: Data, imageDecoration: Decoration, text: String, fontName: String, fontSize: Int, margin: Margins) {
+        self.whatToPrint = whatToPrint
+        self.horizontalAlignment = horizontalAlignment
+        self.verticalAlignment = verticalAlignment
+        self.squareCodeSize = squareCodeSize
+        self.image = image
+        self.imageDecoration = imageDecoration
+        self.text = text
+        self.fontName = fontName
+        self.fontSize = fontSize
+        self.margin = margin
+    }
+    
+    @MainActor
+    init(from: TextProperty) {
+        self.whatToPrint = from.whatToPrint
+        self.horizontalAlignment = from.horizontalAlignment.alignment
+        self.verticalAlignment = from.verticalAlignment.alignment
+        self.squareCodeSize = from.squareCodeSize
+        self.image = from.image
+        self.imageDecoration = from.imageDecoration
+        self.text = from.text
+        self.fontName = from.fontDetails.name
+        self.fontSize = from.fontDetails.size
+        self.margin = from.margin
+    }
+    
+    @MainActor
+    func toTextProperty() -> TextProperty {
+        let property = TextProperty()
+        property.whatToPrint = self.whatToPrint
+        property.horizontalAlignment.alignment = self.horizontalAlignment
+        property.verticalAlignment.alignment = self.verticalAlignment
+        property.squareCodeSize = self.squareCodeSize
+        property.image = self.image
+        property.imageDecoration = self.imageDecoration
+        property.text = self.text
+        property.fontDetails.name = self.fontName
+        property.fontDetails.size = self.fontSize
+        property.margin = self.margin
+        
+        return property
+    }
+
+    @Attribute var whatToPrint: TextProperty.WhatToPrint
+    @Attribute var horizontalAlignment: HorizontalTextAlignment.Alignment
+    @Attribute var verticalAlignment: VerticalTextAlignment.Alignment
+    @Attribute var squareCodeSize: Int
+    @Attribute var image: Data
+    @Attribute var imageDecoration: Decoration
+    @Attribute var text: String
+    @Attribute var fontName: String
+    @Attribute var fontSize: Int
+    @Attribute var margin: Margins
 }

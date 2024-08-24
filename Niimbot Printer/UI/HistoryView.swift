@@ -6,28 +6,31 @@
 //
 
 import SwiftUI
+import SwiftData
 
-struct HistoryView: View, StaticNotifiable {
-    @Environment(SavedLabelProperties.self) private var savedLabelProperties
+
+struct HistoryView: View, StaticNotifiable {    
+    @Environment(\.modelContext) var context
+    @Query(sort: \SDLabelProperty.date, order: SortOrder.reverse) var labelProperties: [SDLabelProperty]
     
     struct Group: Identifiable {
         let id: String = UUID().uuidString
         var width: Double = 0
-        var group: [SavedLabelProperty] = []
+        var group: [SDLabelProperty] = []
         var type: String = ""
     }
     
     var body: some View {
         VStack {
             ScrollView {
-                ForEach(processProperties(0..<savedLabelProperties.properties.count)) { group in
+                ForEach(processProperties(0..<labelProperties.count)) { group in
                     GroupBox(label: Text(group.type).font(.headline)) {
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: group.width + 20))]) {
                             ForEach(group.group) { item in
                                 SavedLabelPreview(savedLabelProperty: item).padding(.top)
                                     .contextMenu {
                                         Button(action: {
-                                            let data = [String: Sendable](dictionaryLiteral: (Notification.Keys.value, item))
+                                            let data = [String: Sendable](dictionaryLiteral: (Notification.Keys.value, item.id))
                                             Self.notifyUI(name: .App.loadHistoricalItem,
                                                           userInfo: data)
                                         }) {
@@ -41,6 +44,11 @@ struct HistoryView: View, StaticNotifiable {
                                         }) {
                                             Label("Save as PNG", systemImage: "tray.and.arrow.down").labelStyle(.titleAndIcon)
                                         }
+                                        Button(action: {
+                                            self.context.delete(item)
+                                        }) {
+                                            Label("Delete", systemImage: "trash").labelStyle(.titleAndIcon)
+                                        }
                                     }
                             }
                         }
@@ -52,20 +60,19 @@ struct HistoryView: View, StaticNotifiable {
     
     func processProperties(_ range: Range<Int>) -> [Group] {
         var dividedProperties: [Group] = []
-        
         var lastImageWidth: Double = 0
         
         for index in range {
-            guard let ean = PaperEAN(rawValue: self.savedLabelProperties.properties[index].paperEANRawValue) else { continue }
+            guard let ean = PaperEAN(rawValue: self.labelProperties[index].paperEANRawValue) else { continue }
             let width = ean.printableSizeInPixels.width
 
             if lastImageWidth != width {
                 dividedProperties.append(Group(width: width, type: ean.description))
             }
-            dividedProperties[dividedProperties.count - 1].group.insert(self.savedLabelProperties.properties[index], at: 0)
+            dividedProperties[dividedProperties.count - 1].group.append(self.labelProperties[index])
             lastImageWidth = width
         }
-        return dividedProperties.reversed()
+        return dividedProperties
     }
 
     func showSavePanel() -> URL? {
@@ -83,4 +90,5 @@ struct HistoryView: View, StaticNotifiable {
 
 #Preview {
     HistoryView()
+        .modelContainer(for: SDLabelProperty.self, inMemory: true)
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SavedLabelPreview: View {
-    let savedLabelProperty: SavedLabelProperty
+    let savedLabelProperty: SDLabelProperty
     
     var body: some View {
         VStack {

@@ -79,6 +79,9 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                      Notification.Name.App.disconnectPeripheral,
                      Notification.Name.App.printRequested,
                      Notification.Name.App.paperDetect,
+                     Notification.Name.App.historyRemoveAll,
+                     Notification.Name.App.historyKeepRecords,
+                     Notification.Name.App.historyRemoveOlderRecords,
                      Notification.Name.App.loadHistoricalItem] {
             registerNotification(name: name,
                                  selector: #selector(receiveUINotification))
@@ -110,15 +113,12 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         //            printer?.getDensity()
         //            printer?.getLabelType()
     }
-    
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-        
+
+    let container: ModelContainer = {
+        let schema = Schema([SDLabelProperty.self])
+        let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(for: schema, configurations: [configuration])
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
@@ -155,10 +155,9 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                     .environmentObject(self.textProperties)
                     .environmentObject(self.connectionViewProperties)
                     .environmentObject(self.uiSettingsProperties)
-                    .environmentObject(self.savedLabelProperties)
             }
         }
-        .modelContainer(sharedModelContainer)
+        .modelContainer(container)
         .commands {
             PrinterMenuCommands(printerAvailability: printerAvailability,
                                 connectionViewProperties: connectionViewProperties)
@@ -222,11 +221,56 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         }
         else if Notification.Name.App.loadHistoricalItem == notification.name {
             Self.logger.info("Load data from history requested")
-            let savedProperty = notification.userInfo?[Notification.Keys.value] as! SavedLabelProperty
-            textProperties.properties = savedProperty.textProperties.map { sendableTextProperty in
-                sendableTextProperty.toTextProperty()
+            let identifier = notification.userInfo?[Notification.Keys.value] as! PersistentIdentifier
+            let item = self.container.mainContext.model(for: identifier) as! SDLabelProperty
+            textProperties.properties = item.textProperties.map { sdTextProperty in
+                sdTextProperty.toTextProperty()
             }
             notifyUI(name: .App.textPropertiesUpdated)
+        }
+        else if Notification.Name.App.historyRemoveAll == notification.name {
+            Self.logger.info("Remove all historical records requested")
+            do {
+                try container.mainContext.delete(model: SDLabelProperty.self)
+            }
+            catch {
+                Self.logger.error("Cannot remove historical data")
+            }
+        }
+        else if Notification.Name.App.historyRemoveOlderRecords == notification.name {
+            Self.logger.info("Remove older historical records requested")
+            do {
+                let days = notification.userInfo?[Notification.Keys.value] as! Int
+                let twentyDaysInPast = Calendar(identifier: .gregorian).date(
+                    byAdding: .day,
+                    value: -days,
+                    to: Date()
+                )!
+                try container.mainContext.delete(model: SDLabelProperty.self, where: #Predicate { input in
+                    input.date < twentyDaysInPast
+                })
+            }
+            catch {
+                Self.logger.error("Cannot remove historical data")
+            }
+        }
+        else if Notification.Name.App.historyKeepRecords == notification.name {
+            Self.logger.info("Keeping historical records requested")
+            do {
+                let numberOfItemsToBeKept = notification.userInfo?[Notification.Keys.value] as! Int
+                try container.mainContext.transaction {
+                    let fetchDescriptor = FetchDescriptor<SDLabelProperty>(sortBy: [SortDescriptor<SDLabelProperty>(\SDLabelProperty.date, order: SortOrder.forward)])
+                    let fetchCount = try container.mainContext.fetchCount(fetchDescriptor)
+                    let numberOfItemsToBeRemoved = fetchCount > numberOfItemsToBeKept ? fetchCount - numberOfItemsToBeKept : 0
+                    let itemsToBeRemoved = try container.mainContext.fetch(fetchDescriptor)
+                    for item in itemsToBeRemoved[0..<numberOfItemsToBeRemoved] {
+                        container.mainContext.delete(item)
+                    }
+                }
+            }
+            catch {
+                Self.logger.error("Cannot remove historical data")
+            }
         }
     }
     
@@ -576,14 +620,5 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             }
             await self.executePrintCommands()
         }
-    }
-}
-
-@Model
-final class Item {
-    var timestamp: Date
-    
-    init(timestamp: Date) {
-        self.timestamp = timestamp
     }
 }

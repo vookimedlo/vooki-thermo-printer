@@ -8,7 +8,7 @@
 import Foundation
 
 
-public enum Decoration: Int, Equatable, CaseIterable, Sendable {
+public enum Decoration: Int, Equatable, CaseIterable, Sendable, Codable {
     case custom
     case frame, frame3, frame4, frame5
     case doubleFrame, doubleFrame3, doubleFrame4, doubleFrame5

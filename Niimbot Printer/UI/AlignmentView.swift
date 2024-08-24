@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AlignmentView: View {
-    public enum HorizontalAlignment: Int, CaseIterable, SegmentedPrickerHelp, Sendable {
+    public enum HorizontalAlignment: Int, CaseIterable, SegmentedPrickerHelp, Sendable, Codable {
         case left, center, right
         
         var help: String {
@@ -27,7 +27,7 @@ struct AlignmentView: View {
         }
     }
 
-    public enum VerticalAlignment: Int, CaseIterable, SegmentedPrickerHelp, Sendable {
+    public enum VerticalAlignment: Int, CaseIterable, SegmentedPrickerHelp, Sendable, Codable {
         case bottom, center, top
         
         var help: String {

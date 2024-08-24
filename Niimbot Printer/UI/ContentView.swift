@@ -112,7 +112,7 @@ struct ContentView: View, Notifiable {
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: SDLabelProperty.self, inMemory: true)
         .environmentObject(BluetoothPeripherals())
         .environmentObject(PrinterDetails())
         .environmentObject(PaperDetails())

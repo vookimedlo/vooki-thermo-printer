@@ -99,6 +99,69 @@ struct LabelMenuCommands: Commands, StaticNotifiable {
             }, label: {
                 Text("Type ...")
             })
+            
+            Menu(content: {
+                Button(action: {
+                    Self.notifyUI(name: .App.historyRemoveAll)
+                }) {
+                    Text("Remove all records")
+                }
+                
+                Menu(content: {
+                    Button(action: {
+                        Self.notifyUI(name: .App.historyKeepRecords,
+                                      userInfo: [String : any Sendable](dictionaryLiteral: (Notification.Keys.value, 10)))
+                    }) {
+                        Text("10 records")
+                    }
+                    Button(action: {
+                        Self.notifyUI(name: .App.historyKeepRecords,
+                                      userInfo: [String : any Sendable](dictionaryLiteral: (Notification.Keys.value, 20)))
+                    }) {
+                        Text("20 records")
+                    }
+                    Button(action: {
+                        Self.notifyUI(name: .App.historyKeepRecords,
+                                      userInfo: [String : any Sendable](dictionaryLiteral: (Notification.Keys.value, 30)))
+                    }) {
+                        Text("30 records")
+                    }
+                }, label: {
+                    Text("Keep most recent ...")
+                })
+                
+                Menu(content: {
+                    Button(action: {
+                        Self.notifyUI(name: .App.historyRemoveOlderRecords,
+                                      userInfo: [String : any Sendable](dictionaryLiteral: (Notification.Keys.value, 1)))
+                    }) {
+                        Text("a day")
+                    }
+                    Button(action: {
+                        Self.notifyUI(name: .App.historyRemoveOlderRecords,
+                                      userInfo: [String : any Sendable](dictionaryLiteral: (Notification.Keys.value, 7)))
+                    }) {
+                        Text("a week")
+                    }
+                    Button(action: {
+                        Self.notifyUI(name: .App.historyRemoveOlderRecords,
+                                      userInfo: [String : any Sendable](dictionaryLiteral: (Notification.Keys.value, 30)))
+                    }) {
+                        Text("a month")
+                    }
+                    Button(action: {
+                        Self.notifyUI(name: .App.historyRemoveOlderRecords,
+                                      userInfo: [String : any Sendable](dictionaryLiteral: (Notification.Keys.value, 365)))
+                    }) {
+                        Text("a year")
+                    }
+                }, label: {
+                    Text("Remove all records older than ...")
+                })
+            }, label: {
+                Text("History ...")
+            })
+            
         }
     }
 }

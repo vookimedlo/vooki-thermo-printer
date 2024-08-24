@@ -62,7 +62,7 @@
 		8D8AF3D22C28271B005E2F94 /* PaperDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */; };
 		8D8AF3D42C288EA1005E2F94 /* FontDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */; };
 		8D8AF3D82C28AE8A005E2F94 /* ImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */; };
-		8D9107FC2C753B1E00C2F7AF /* SavedLabelProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9107FB2C753B1C00C2F7AF /* SavedLabelProperty.swift */; };
+		8D9107FC2C753B1E00C2F7AF /* SDLabelProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9107FB2C753B1C00C2F7AF /* SDLabelProperty.swift */; };
 		8D92FBDF2C2CBE460040747C /* PrintStatusPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */; };
 		8D92FBE12C2E075B0040747C /* SendAndWaitAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */; };
 		8D96391F2C0A8E8B00374894 /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96391E2C0A8E8B00374894 /* DataExtension.swift */; };
@@ -190,7 +190,7 @@
 		8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperDetails.swift; sourceTree = "<group>"; };
 		8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontDetails.swift; sourceTree = "<group>"; };
 		8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePreview.swift; sourceTree = "<group>"; };
-		8D9107FB2C753B1C00C2F7AF /* SavedLabelProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLabelProperty.swift; sourceTree = "<group>"; };
+		8D9107FB2C753B1C00C2F7AF /* SDLabelProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDLabelProperty.swift; sourceTree = "<group>"; };
 		8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrintStatusPacketDecoder.swift; sourceTree = "<group>"; };
 		8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendAndWaitAsync.swift; sourceTree = "<group>"; };
 		8D96391E2C0A8E8B00374894 /* DataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtension.swift; sourceTree = "<group>"; };
@@ -424,7 +424,7 @@
 				8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */,
 				8D312C0B2C4DA8EA006D0360 /* PrintStatus.swift */,
 				8D312C092C4DA8A4006D0360 /* RFIDData.swift */,
-				8D9107FB2C753B1C00C2F7AF /* SavedLabelProperty.swift */,
+				8D9107FB2C753B1C00C2F7AF /* SDLabelProperty.swift */,
 				8DF9FE5C2C394D8C004DAED2 /* TextProperties.swift */,
 				8D580E142C624380005B3FAB /* UISettingsProperties.swift */,
 				8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */,
@@ -759,7 +759,7 @@
 				8D312C0C2C4DA8EA006D0360 /* PrintStatus.swift in Sources */,
 				8DDC3D162C19C71000296C72 /* HardwareVersionPacketDecoder.swift in Sources */,
 				8D76C5332C08D9D1005D7EEB /* FileSystemIO.swift in Sources */,
-				8D9107FC2C753B1E00C2F7AF /* SavedLabelProperty.swift in Sources */,
+				8D9107FC2C753B1E00C2F7AF /* SDLabelProperty.swift in Sources */,
 				8DDC3D142C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift in Sources */,
 				8D76C5622C0A21AD005D7EEB /* UplinkProcessor.swift in Sources */,
 				8D76C53B2C090B96005D7EEB /* PosixFileSystemAccess.swift in Sources */,

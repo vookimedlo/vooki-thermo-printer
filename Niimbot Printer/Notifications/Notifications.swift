@@ -46,7 +46,11 @@ extension Notification.Name {
         static public let paperChanged = NSNotification.Name("notify-paper-changed")
         static public let paperDetect = NSNotification.Name("notify-paper-detect")
         
-        static public let loadHistoricalItem = NSNotification.Name("notify-ui-load-historical-item")
+        static public let loadHistoricalItem = NSNotification.Name("notify-load-historical-item")
+        static public let historyRemoveAll = NSNotification.Name("notify-historical-item-remove-all")
+        static public let historyKeepRecords = NSNotification.Name("notify-historical-item-keep")
+        static public let historyRemoveOlderRecords = NSNotification.Name("notify-historical-item-remove-older")
+
 
         struct UI {
             static public let printSendingProgress = NSNotification.Name("notify-ui-print-send-progress")

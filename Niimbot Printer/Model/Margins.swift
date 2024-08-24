@@ -41,7 +41,7 @@ extension Marginable {
     }
 }
 
-enum Margin: Sendable, Equatable, HorizontalMarginable, VerticalMarginable {
+enum Margin: Sendable, Equatable, HorizontalMarginable, VerticalMarginable, Codable {
     case leading(size: Int)
     case trailing(size: Int)
     case top(size: Int)
@@ -109,7 +109,7 @@ enum Margin: Sendable, Equatable, HorizontalMarginable, VerticalMarginable {
     }
 }
 
-struct Margins: Sendable, Equatable {
+struct Margins: Sendable, Equatable, Codable {
     private var _leading = Margin.leading(size: 0)
     private var _trailing = Margin.trailing(size: 0)
     private var _top = Margin.top(size: 0)

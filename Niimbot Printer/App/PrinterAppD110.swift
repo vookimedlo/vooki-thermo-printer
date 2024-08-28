@@ -238,7 +238,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             Self.logger.info("Load data from history requested")
             let identifier = notification.userInfo?[Notification.Keys.value] as! PersistentIdentifier
             guard let item = self.container.mainContext.model(for: identifier) as? any SDLabelProperty else { return }
-            textProperties.properties = (item.textProperties?.map { sdTextProperty in
+            textProperties.properties = (item.orderedTextProperties?.map { sdTextProperty in
                 sdTextProperty.toTextProperty()
             })!
             notifyUI(name: .App.textPropertiesUpdated)

@@ -128,7 +128,7 @@ struct SendableTextProperty: Sendable, Codable {
 @Model
 final class SDTextProperty {
     @MainActor
-    init(whatToPrint: TextProperty.WhatToPrint, horizontalAlignment: HorizontalTextAlignment.Alignment, verticalAlignment: VerticalTextAlignment.Alignment, squareCodeSize: Int, image: Data, imageDecoration: Decoration, text: String, fontFamily: String, fontName: String, fontSize: Int, margin: Margins) {
+    init(whatToPrint: TextProperty.WhatToPrint, horizontalAlignment: HorizontalTextAlignment.Alignment, verticalAlignment: VerticalTextAlignment.Alignment, squareCodeSize: Int, image: Data, imageDecoration: Decoration, text: String, fontFamily: String, fontName: String, fontSize: Int, margin: Margins, orderId: Int = 0) {
         self.whatToPrint = whatToPrint
         self.horizontalAlignment = horizontalAlignment
         self.verticalAlignment = verticalAlignment
@@ -140,10 +140,11 @@ final class SDTextProperty {
         self.fontName = fontName
         self.fontSize = fontSize
         self.margin = margin
+        self.orderId = orderId
     }
     
     @MainActor
-    init(from: TextProperty) {
+    init(from: TextProperty, orderId: Int = 0) {
         self.whatToPrint = from.whatToPrint
         self.horizontalAlignment = from.horizontalAlignment.alignment
         self.verticalAlignment = from.verticalAlignment.alignment
@@ -155,6 +156,7 @@ final class SDTextProperty {
         self.fontName = from.fontDetails.name
         self.fontSize = from.fontDetails.size
         self.margin = from.margin
+        self.orderId = orderId
     }
     
     @MainActor
@@ -178,6 +180,7 @@ final class SDTextProperty {
     @Relationship(inverse:\SDHistoryLabelProperty.textProperties) var HistoryLabelTextProperties: [SDHistoryLabelProperty]?
     @Relationship(inverse:\SDSavedLabelProperty.textProperties) var SavedLabelTextProperties: [SDSavedLabelProperty]?
 
+    @Attribute var orderId: Int = 0
     @Attribute var whatToPrint: TextProperty.WhatToPrint = TextProperty.WhatToPrint.text
     @Attribute var horizontalAlignment: HorizontalTextAlignment.Alignment =  HorizontalTextAlignment.Alignment.center
     @Attribute var verticalAlignment: VerticalTextAlignment.Alignment = VerticalTextAlignment.Alignment.center

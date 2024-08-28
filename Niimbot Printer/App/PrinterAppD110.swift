@@ -38,7 +38,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     var notificationListenerTask: Task<Void, Never>? = nil
     
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
+
     required init() {
         if TestHelper.isRunningTests {
             initForTesting()
@@ -54,11 +54,11 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     private func initForProduction() {
         notificationListenerTask = Task.detached {
             for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
+                let properties = await self.toSendable(self.textProperties)
                 let paperEAN = await self.toSendable(self.paperEAN)
-                if let preview = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: self.toSendable(self.textProperties))?.cgImage {
-                    await MainActor.run {
-                        self.imagePreview.image = preview
-                    }
+                guard let cgImage = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: properties)?.cgImage else { return }
+                await MainActor.run {
+                    self.imagePreview.image = cgImage
                 }
             }
         }
@@ -115,8 +115,17 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     }
 
     let container: ModelContainer = {
-        let schema = Schema([SDLabelProperty.self])
-        let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
+        let schema = Schema([SDHistoryLabelProperty.self, SDSavedLabelProperty.self])
+        
+        let configuration = {
+            if TestHelper.isRunningTests {
+                ModelConfiguration(isStoredInMemoryOnly: true)
+            }
+            else {
+                ModelConfiguration(isStoredInMemoryOnly: false)
+            }
+        }()
+
         do {
             return try ModelContainer(for: schema, configurations: [configuration])
         } catch {
@@ -134,9 +143,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     
     @State private var connectionViewProperties = ConnectionViewProperties()
     @State private var uiSettingsProperties = UISettingsProperties()
-    
-    @State private var savedLabelProperties = SavedLabelProperties()
-        
+
     var body: some Scene {
         @Bindable var printerAvailability = self.printerAvailability
         @Bindable var connectionViewPropertie = self.connectionViewProperties
@@ -209,6 +216,14 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         }
         else if Notification.Name.App.printRequested == notification.name {
             Self.logger.info("Print requested")
+            Task { @MainActor in
+                guard let imageGenerator = await generateImagePreview(propagate: false) else { return }
+                guard let pngRepresentation = await imageGenerator.pngRepresentation() else { return }
+                let labelProperty = SDHistoryLabelProperty(textProperties: toSendable(self.textProperties),
+                                                           pngImage: pngRepresentation,
+                                                           paperEANRawValue: self.paperEAN.ean.rawValue)
+                container.mainContext.insert(labelProperty)
+            }
             Task { @PrinterActor in
                 printLabel()
             }
@@ -222,16 +237,16 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         else if Notification.Name.App.loadHistoricalItem == notification.name {
             Self.logger.info("Load data from history requested")
             let identifier = notification.userInfo?[Notification.Keys.value] as! PersistentIdentifier
-            let item = self.container.mainContext.model(for: identifier) as! SDLabelProperty
-            textProperties.properties = item.textProperties.map { sdTextProperty in
+            guard let item = self.container.mainContext.model(for: identifier) as? any SDLabelProperty else { return }
+            textProperties.properties = (item.textProperties?.map { sdTextProperty in
                 sdTextProperty.toTextProperty()
-            }
+            })!
             notifyUI(name: .App.textPropertiesUpdated)
         }
         else if Notification.Name.App.historyRemoveAll == notification.name {
             Self.logger.info("Remove all historical records requested")
             do {
-                try container.mainContext.delete(model: SDLabelProperty.self)
+                try container.mainContext.delete(model: SDHistoryLabelProperty.self)
             }
             catch {
                 Self.logger.error("Cannot remove historical data")
@@ -246,7 +261,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                     value: -days,
                     to: Date()
                 )!
-                try container.mainContext.delete(model: SDLabelProperty.self, where: #Predicate { input in
+                try container.mainContext.delete(model: SDHistoryLabelProperty.self, where: #Predicate { input in
                     input.date < twentyDaysInPast
                 })
             }
@@ -259,7 +274,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             do {
                 let numberOfItemsToBeKept = notification.userInfo?[Notification.Keys.value] as! Int
                 try container.mainContext.transaction {
-                    let fetchDescriptor = FetchDescriptor<SDLabelProperty>(sortBy: [SortDescriptor<SDLabelProperty>(\SDLabelProperty.date, order: SortOrder.forward)])
+                    let fetchDescriptor = FetchDescriptor<SDHistoryLabelProperty>(sortBy: [SortDescriptor<SDHistoryLabelProperty>(\SDHistoryLabelProperty.date, order: SortOrder.forward)])
                     let fetchCount = try container.mainContext.fetchCount(fetchDescriptor)
                     let numberOfItemsToBeRemoved = fetchCount > numberOfItemsToBeKept ? fetchCount - numberOfItemsToBeKept : 0
                     let itemsToBeRemoved = try container.mainContext.fetch(fetchDescriptor)
@@ -515,11 +530,18 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         return paperEAN.ean
     }
     
-    private func generateImagePreview() async {
+    @discardableResult
+    private func generateImagePreview(propagate: Bool = true) async -> ImageGenerator? {
         let properties = toSendable(textProperties)
         let paperEAN = self.toSendable(self.paperEAN)
-        guard let preview = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: properties)?.cgImage else { return }
-        self.imagePreview.image = preview
+        guard let preview = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: properties) else { return nil }
+
+        if (propagate) {
+            guard let cgImage = await preview.cgImage else { return nil }
+            self.imagePreview.image = cgImage
+            return nil
+        }
+        return preview
     }
     
     private func preparePrintData() async  -> [[UInt8]] {

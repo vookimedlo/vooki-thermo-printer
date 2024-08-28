@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D036FB32C50536800CADCCC /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D036FB22C50535D00CADCCC /* ArrayExtensionTests.swift */; };
+		8D1216072C7B833200608090 /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1216062C7B833200608090 /* SavedView.swift */; };
 		8D1F59BB2C20EAF8002A037F /* IndicatorValueSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */; };
 		8D312BFB2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312BFA2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift */; };
 		8D312BFD2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312BFC2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift */; };
@@ -133,6 +134,7 @@
 
 /* Begin PBXFileReference section */
 		8D036FB22C50535D00CADCCC /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
+		8D1216062C7B833200608090 /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
 		8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorValueSlider.swift; sourceTree = "<group>"; };
 		8D312BFA2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareVersionPacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D312BFC2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInformationPacketDecoderTests.swift; sourceTree = "<group>"; };
@@ -577,6 +579,7 @@
 				8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */,
 				8DDC3D432C1A45A900296C72 /* PrinterView.swift */,
 				8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */,
+				8D1216062C7B833200608090 /* SavedView.swift */,
 				8DF9FE5A2C393E2D004DAED2 /* TextConstructionView.swift */,
 			);
 			path = UI;
@@ -743,6 +746,7 @@
 				8D312C0A2C4DA8A5006D0360 /* RFIDData.swift in Sources */,
 				8DED51232C31927200B52F1E /* VerticalTextAlignment.swift in Sources */,
 				8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */,
+				8D1216072C7B833200608090 /* SavedView.swift in Sources */,
 				8D38E7162C5B7D4100EFA505 /* TestHelper.swift in Sources */,
 				8D7371A12C6AC4D700695B2E /* VerticalLine.swift in Sources */,
 				8DED511D2C2FE14500B52F1E /* AlignmentView.swift in Sources */,
@@ -952,7 +956,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.Niimbot.app.Niimbot-Printer";
+				PRODUCT_BUNDLE_IDENTIFIER = cz.vookimedlo.app.d110.printer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
@@ -980,7 +984,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.Niimbot.app.Niimbot-Printer";
+				PRODUCT_BUNDLE_IDENTIFIER = cz.vookimedlo.app.d110.printer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
@@ -996,7 +1000,7 @@
 				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.Niimbot.app.Niimbot-PrinterTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.app.d110.printer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1013,7 +1017,7 @@
 				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.Niimbot.app.Niimbot-PrinterTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.app.d110.printer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;

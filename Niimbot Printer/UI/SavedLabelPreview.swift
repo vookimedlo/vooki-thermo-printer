@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SavedLabelPreview: View {
-    let savedLabelProperty: SDLabelProperty
+    let savedLabelProperty: any SDLabelProperty
     
     var body: some View {
         VStack {
@@ -25,7 +25,7 @@ struct SavedLabelPreview: View {
                         Text("\(PaperEAN(rawValue: self.savedLabelProperty.paperEANRawValue)?.description ?? "")")
                     }
                     LabeledContent("Layers:") {
-                        Text("\(self.savedLabelProperty.textProperties.count)")
+                        Text("\(self.savedLabelProperty.textProperties?.count ?? 0)")
                     }
                 })
             }

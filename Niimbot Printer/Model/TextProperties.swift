@@ -78,7 +78,7 @@ class TextProperties: ObservableObject {
     var properties: Array<TextProperty> = [TextProperty()]
 }
 
-struct SendableTextProperty: Sendable {
+struct SendableTextProperty: Sendable, Codable {
     @MainActor
     init(from: TextProperty) {
         self.whatToPrint = from.whatToPrint
@@ -88,6 +88,7 @@ struct SendableTextProperty: Sendable {
         self.image = from.image
         self.imageDecoration = from.imageDecoration
         self.text = from.text
+        self.fontFamily = from.fontDetails.family
         self.fontName = from.fontDetails.name
         self.fontSize = from.fontDetails.size
         self.margin = from.margin
@@ -103,6 +104,7 @@ struct SendableTextProperty: Sendable {
         property.image = self.image
         property.imageDecoration = self.imageDecoration
         property.text = self.text
+        property.fontDetails.family = self.fontFamily
         property.fontDetails.name = self.fontName
         property.fontDetails.size = self.fontSize
         property.margin = self.margin
@@ -117,6 +119,7 @@ struct SendableTextProperty: Sendable {
     let image: Data
     let imageDecoration: Decoration
     let text: String
+    let fontFamily: String
     let fontName: String
     let fontSize: Int
     let margin: Margins
@@ -125,7 +128,7 @@ struct SendableTextProperty: Sendable {
 @Model
 final class SDTextProperty {
     @MainActor
-    init(whatToPrint: TextProperty.WhatToPrint, horizontalAlignment: HorizontalTextAlignment.Alignment, verticalAlignment: VerticalTextAlignment.Alignment, squareCodeSize: Int, image: Data, imageDecoration: Decoration, text: String, fontName: String, fontSize: Int, margin: Margins) {
+    init(whatToPrint: TextProperty.WhatToPrint, horizontalAlignment: HorizontalTextAlignment.Alignment, verticalAlignment: VerticalTextAlignment.Alignment, squareCodeSize: Int, image: Data, imageDecoration: Decoration, text: String, fontFamily: String, fontName: String, fontSize: Int, margin: Margins) {
         self.whatToPrint = whatToPrint
         self.horizontalAlignment = horizontalAlignment
         self.verticalAlignment = verticalAlignment
@@ -133,6 +136,7 @@ final class SDTextProperty {
         self.image = image
         self.imageDecoration = imageDecoration
         self.text = text
+        self.fontFamily = fontFamily
         self.fontName = fontName
         self.fontSize = fontSize
         self.margin = margin
@@ -147,6 +151,7 @@ final class SDTextProperty {
         self.image = from.image
         self.imageDecoration = from.imageDecoration
         self.text = from.text
+        self.fontFamily = from.fontDetails.family
         self.fontName = from.fontDetails.name
         self.fontSize = from.fontDetails.size
         self.margin = from.margin
@@ -162,21 +167,26 @@ final class SDTextProperty {
         property.image = self.image
         property.imageDecoration = self.imageDecoration
         property.text = self.text
+        property.fontDetails.family = self.fontFamily
         property.fontDetails.name = self.fontName
         property.fontDetails.size = self.fontSize
         property.margin = self.margin
         
         return property
     }
+    
+    @Relationship(inverse:\SDHistoryLabelProperty.textProperties) var HistoryLabelTextProperties: [SDHistoryLabelProperty]?
+    @Relationship(inverse:\SDSavedLabelProperty.textProperties) var SavedLabelTextProperties: [SDSavedLabelProperty]?
 
-    @Attribute var whatToPrint: TextProperty.WhatToPrint
-    @Attribute var horizontalAlignment: HorizontalTextAlignment.Alignment
-    @Attribute var verticalAlignment: VerticalTextAlignment.Alignment
-    @Attribute var squareCodeSize: Int
-    @Attribute var image: Data
-    @Attribute var imageDecoration: Decoration
-    @Attribute var text: String
-    @Attribute var fontName: String
-    @Attribute var fontSize: Int
-    @Attribute var margin: Margins
+    @Attribute var whatToPrint: TextProperty.WhatToPrint = TextProperty.WhatToPrint.text
+    @Attribute var horizontalAlignment: HorizontalTextAlignment.Alignment =  HorizontalTextAlignment.Alignment.center
+    @Attribute var verticalAlignment: VerticalTextAlignment.Alignment = VerticalTextAlignment.Alignment.center
+    @Attribute var squareCodeSize: Int = 0
+    @Attribute var image: Data = Data()
+    @Attribute var imageDecoration: Decoration = Decoration.custom
+    @Attribute var text: String = ""
+    @Attribute var fontFamily: String = ""
+    @Attribute var fontName: String = ""
+    @Attribute var fontSize: Int = 0
+    @Attribute var margin: Margins = Margins(leading: 0, trailing: 0, top: 0, bottom: 0)
 }

@@ -1,22 +1,22 @@
 //
-//  HistoryView.swift
+//  SavedView.swift
 //  Niimbot Printer
 //
-//  Created by Michal Duda on 13.06.2024.
+//  Created by Michal Duda on 24.08.2024.
 //
 
 import SwiftUI
 import SwiftData
 
 
-struct HistoryView: View, StaticNotifiable {    
+struct SavedView: View, StaticNotifiable {
     @Environment(\.modelContext) var context
-    @Query(sort: \SDHistoryLabelProperty.date, order: SortOrder.reverse) var labelProperties: [SDHistoryLabelProperty]
+    @Query(sort: \SDSavedLabelProperty.date, order: SortOrder.reverse) var labelProperties: [SDSavedLabelProperty]
     
     struct Group: Identifiable {
         let id: String = UUID().uuidString
         var width: Double = 0
-        var group: [SDHistoryLabelProperty] = []
+        var group: [SDSavedLabelProperty] = []
         var type: String = ""
     }
     
@@ -36,11 +36,6 @@ struct HistoryView: View, StaticNotifiable {
                                                               userInfo: data)
                                             }) {
                                                 Label("Load", systemImage: "tray.and.arrow.up").labelStyle(.titleAndIcon)
-                                            }
-                                            Button(action: {
-                                                context.insert(SDSavedLabelProperty(from: item))
-                                            }) {
-                                                Label("Add to saved labels", systemImage: "tray").labelStyle(.titleAndIcon)
                                             }
                                             Button(action: {
                                                 guard let url = showSavePanel() else { return }
@@ -64,9 +59,9 @@ struct HistoryView: View, StaticNotifiable {
             }
             else {
                 ContentUnavailableView {
-                    Label("Printing history", systemImage: "book.closed")
+                    Label("Saved labels", systemImage: "tray")
                 } description: {
-                    Text("This secion contains all labels that have been printed so far.")
+                    Text("This secion contains all labels that have been manually saved so far.")
                 }
             }
         }
@@ -105,5 +100,5 @@ struct HistoryView: View, StaticNotifiable {
 
 #Preview {
     HistoryView()
-        .modelContainer(for: SDHistoryLabelProperty.self, inMemory: true, isAutosaveEnabled: false)
+        .modelContainer(for: SDSavedLabelProperty.self, inMemory: true, isAutosaveEnabled: false)
 }

@@ -13,6 +13,7 @@ struct ContentView: View, Notifiable {
     
     enum Views {
         case printerView
+        case savedView
         case historicalView
     }
     
@@ -29,17 +30,20 @@ struct ContentView: View, Notifiable {
     }
     
     let printerView = PrinterView()
+    let savedView = SavedView()
     let historicalView = HistoryView()
 
     @ViewBuilder
     func getView(id: Views) -> some View {
         switch id {
         case .printerView: printerView
+        case .savedView: savedView
         case .historicalView: historicalView
         }
     }
     
     let items: [LitsItem] = [LitsItem(id: .printerView, systemName: "printer", description: "D110 Printer"),
+                             LitsItem(id: .savedView, systemName: "tray", description: "Saved labels"),
                              LitsItem(id: .historicalView, systemName: "book.closed", description: "History")]
     
     @Environment(PrinterAvailability.self) private var printerAvailability
@@ -112,7 +116,7 @@ struct ContentView: View, Notifiable {
 
 #Preview {
     ContentView()
-        .modelContainer(for: SDLabelProperty.self, inMemory: true)
+        .modelContainer(for: SDHistoryLabelProperty.self, inMemory: true, isAutosaveEnabled: false)
         .environmentObject(BluetoothPeripherals())
         .environmentObject(PrinterDetails())
         .environmentObject(PaperDetails())

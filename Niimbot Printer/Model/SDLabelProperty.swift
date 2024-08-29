@@ -69,10 +69,10 @@ final class SDHistoryLabelProperty: SDLabelProperty {
         self.date = date
     }
     
-    var textProperties: [SDTextProperty]? = []
-    var pngImage: Data = Data()
-    var paperEANRawValue: String = ""
-    var date: Date = Date()
+    @Relationship(deleteRule: .cascade) var textProperties: [SDTextProperty]? = []
+    @Attribute var pngImage: Data = Data()
+    @Attribute var paperEANRawValue: String = ""
+    @Attribute var date: Date = Date()
 }
 
 @Model
@@ -121,9 +121,9 @@ final class SDSavedLabelProperty: SDLabelProperty {
         self.date = from.date
     }
     
-    var textProperties: [SDTextProperty]? = []
-    var pngImage: Data = Data()
-    var paperEANRawValue: String = ""
-    var date: Date = Date()
+    @Relationship(deleteRule: .cascade) var textProperties: [SDTextProperty]? = []
+    @Attribute var pngImage: Data = Data()
+    @Attribute var paperEANRawValue: String = ""
+    @Attribute var date: Date = Date()
 }
 

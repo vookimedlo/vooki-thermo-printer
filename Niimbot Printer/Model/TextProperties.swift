@@ -177,8 +177,8 @@ final class SDTextProperty {
         return property
     }
     
-    @Relationship(inverse:\SDHistoryLabelProperty.textProperties) var HistoryLabelTextProperties: [SDHistoryLabelProperty]?
-    @Relationship(inverse:\SDSavedLabelProperty.textProperties) var SavedLabelTextProperties: [SDSavedLabelProperty]?
+    @Relationship(deleteRule: .cascade, inverse:\SDHistoryLabelProperty.textProperties) var HistoryLabelTextProperty: SDHistoryLabelProperty?
+    @Relationship(deleteRule: .cascade, inverse:\SDSavedLabelProperty.textProperties) var SavedLabelTextProperty: SDSavedLabelProperty?
 
     @Attribute var orderId: Int = 0
     @Attribute var whatToPrint: TextProperty.WhatToPrint = TextProperty.WhatToPrint.text

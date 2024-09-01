@@ -292,9 +292,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     @PrinterActor
     @objc func receiveBluetoothNotification(_ notification: Notification) {
         let rawValue = notification.name.rawValue
-        Task { @MainActor in
-            Self.logger.info("Notification \(rawValue) received")
-        }
+        PrinterActor.onMain(Self.logger.info("Notification \(rawValue) received"))
         
         if Notification.Name.App.bluetoothPeripheralDiscovered ==  notification.name {
             let value = notification.userInfo?[Notification.Keys.peripheral] as! BluetoothPeripheral
@@ -304,7 +302,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             }
         }
         else if Notification.Name.App.bluetoothPeripheralDisconnected ==  notification.name {
-            Self.logger.info("Bluetooth peripheral disconnected")
+            PrinterActor.onMain(Self.logger.info("Bluetooth peripheral disconnected"))
             printerDevice?.close()
             uplinkProcessor?.stopProcessing()
             Task { @MainActor in
@@ -317,7 +315,8 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
     
     @PrinterActor
     @objc func receivePrinterNotification(_ notification: Notification) {
-        Self.logger.info("Notification \(notification.name.rawValue) received")
+        let rawValue = notification.name.rawValue
+        PrinterActor.onMain(Self.logger.info("Notification \(rawValue) received"))
         
         if Notification.Name.App.serialNumber ==  notification.name {
             let serial_number = notification.userInfo?[Notification.Keys.value] as! String
@@ -386,46 +385,31 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         }
         else if Notification.Name.App.startPrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Task { @MainActor in
-                Self.logger.info("StartPrint \(value)")
-            }
+            PrinterActor.onMain(Self.logger.info("StartPrint \(value)"))
         }
         else if Notification.Name.App.startPagePrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Task { @MainActor in
-                Self.logger.info("StartPagePrint \(value)")
-            }
+            PrinterActor.onMain(Self.logger.info("StartPagePrint \(value)"))
         }
         else if Notification.Name.App.endPrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Task { @MainActor in
-                Self.logger.info("EndPrint \(value)")
-            }
+            PrinterActor.onMain(Self.logger.info("EndPrint \(value)"))
         }
         else if Notification.Name.App.endPagePrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Task { @MainActor in
-                Self.logger.info("EndPagePrint \(value)")
-            }
+            PrinterActor.onMain(Self.logger.info("EndPagePrint \(value)"))
         }
         else if Notification.Name.App.setDimension == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Task { @MainActor in
-                Self.logger.info("SetDimension \(value)")
-            }
+            PrinterActor.onMain(Self.logger.info("SetDimension \(value)"))
         }
         else if Notification.Name.App.setLabelType == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Task { @MainActor in
-                Self.logger.info("SetLabelType \(value)")
-            }
+            PrinterActor.onMain(Self.logger.info("SetLabelType \(value)"))
         }
         else if Notification.Name.App.setLabelDensity == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
-            Task { @MainActor in
-                
-                Self.logger.info("SetLabelDensity \(value)")
-            }
+            PrinterActor.onMain(Self.logger.info("SetLabelDensity \(value)"))
         }
         else if Notification.Name.App.getPrintStatus == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! PrintStatus

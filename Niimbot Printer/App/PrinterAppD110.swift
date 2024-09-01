@@ -174,7 +174,7 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             ShowMenuCommands(uiSettingsProperties: uiSettingsProperties)
         }
     }
-    
+
     @MainActor
     @objc func receiveUINotification(_ notification: Notification) {
         Self.logger.info("Notification \(notification.name.rawValue) received")
@@ -230,8 +230,10 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
         }
         else if Notification.Name.App.paperDetect == notification.name {
             Self.logger.info("Print detection requested")
-            Task { @PrinterActor in
-                printer?.getRFIDData()
+            Task {
+                if await PrinterActor.printerOperation({try self.printer?.getRFIDData()}) == false {
+                    notifyUIAlert(alertType: .communicationError)
+                }
             }
         }
         else if Notification.Name.App.loadHistoricalItem == notification.name {
@@ -444,13 +446,13 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             }
             self.uplinkProcessor = UplinkProcessor(printerDevice: self.printerDevice!)
             self.uplinkProcessor?.startProcessing()
-            printer?.getBatteryInformation()
-            printer?.getSerialNumber()
-            printer?.getSoftwareVersion()
-            printer?.getHardwareVersion()
-            printer?.getDeviceType()
-            printer?.getRFIDData()
-            printer?.getPrintStatus()
+            try printer?.getBatteryInformation()
+            try printer?.getSerialNumber()
+            try printer?.getSoftwareVersion()
+            try printer?.getHardwareVersion()
+            try printer?.getDeviceType()
+            try printer?.getRFIDData()
+            try printer?.getPrintStatus()
         } catch IOError.open {
             Self.logger.error("Open failed")
         } catch {
@@ -566,26 +568,26 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             guard !data.isEmpty else { return }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
-                await self.printer?.setLabelDensity(density: 1)
+                try await self.printer?.setLabelDensity(density: 1)
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.startPrint) {
-                await self.printer?.startPrint()
+                try await self.printer?.startPrint()
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.startPagePrint) {
-                await self.printer?.startPagePrint()
+                try await self.printer?.startPagePrint()
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setDimension) {
-                await self.printer?.setDimension(width: UInt16(self.paperEAN.ean.printableSizeInPixels.width),
+                try await self.printer?.setDimension(width: UInt16(self.paperEAN.ean.printableSizeInPixels.width),
                                                  height: UInt16(self.paperEAN.ean.printableSizeInPixels.height))
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
-                await self.printer?.setLabelDensity(density: 1)
+                try await self.printer?.setLabelDensity(density: 1)
             }
             
             let max = data.count
             var currentStep = 1
             for packet in data {
-                printer?.setPrinterData(data: packet)
+                try printer?.setPrinterData(data: packet)
                 notifyUI(name: .App.UI.printSendingProgress,
                          userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, currentStep != max ? Double(currentStep) / Double(max) * 100.0 : 100.0)))
                 currentStep += 1
@@ -594,22 +596,22 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
             }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.endPagePrint) {
-                await self.printer?.endPagePrint()
+                try await self.printer?.endPagePrint()
             }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.printFinished,
                                                         timeout: .seconds(10)) {
                 while !Task.isCancelled {
-                    await self.printer?.getPrintStatus()
+                    try await self.printer?.getPrintStatus()
                     try await Task.sleep(for: .milliseconds(50))
                 }
             }
             
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.endPrint) {
-                await self.printer?.endPrint()
+                try await self.printer?.endPrint()
             }
             
-            printer?.getRFIDData()
+            try printer?.getRFIDData()
         }
         catch {
             Self.logger.error("Something went wrong when printing")

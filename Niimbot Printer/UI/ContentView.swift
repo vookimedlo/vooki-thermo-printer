@@ -51,7 +51,7 @@ struct ContentView: View, Notifiable {
     
     @State var selectedItem: Views = .printerView
     @State var showAlert: Bool = false
-    @State var alertType: AlertType = .printError
+    @State var alertType: AlertType = .none
     
     var body: some View {
         @Bindable var connectionViewProperties = connectionViewProperties

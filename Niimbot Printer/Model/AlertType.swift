@@ -9,17 +9,19 @@ import Foundation
 
 @MainActor
 public enum AlertType: Int, Sendable {
-    case none, printError
+    case none, printError, communicationError
     
     var title: String {
         switch self {
-        case .printError: return "Error"
-        case .none: return ""
+        case .communicationError: "Error"
+        case .printError: "Error"
+        case .none: ""
         }
     }
     var message: String {
         switch self {
-        case .printError: return "Cannot complete printing operation."
+        case .communicationError: return "Cannot communicate with the printer."
+        case .printError: return "Unable to complete the print operation."
         case .none: return ""
         }
     }

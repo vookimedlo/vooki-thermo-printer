@@ -50,7 +50,7 @@ extension Notification.Name {
         static public let historyRemoveAll = NSNotification.Name("notify-historical-item-remove-all")
         static public let historyKeepRecords = NSNotification.Name("notify-historical-item-keep")
         static public let historyRemoveOlderRecords = NSNotification.Name("notify-historical-item-remove-older")
-
+        static public let showView = NSNotification.Name("notify-view-show")
 
         struct UI {
             static public let printSendingProgress = NSNotification.Name("notify-ui-print-send-progress")

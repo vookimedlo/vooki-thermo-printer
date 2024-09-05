@@ -99,6 +99,12 @@ struct ContentView: View, Notifiable {
                 showAlert = true
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .App.showView)) { notification  in
+            let viewType = notification.userInfo?[Notification.Keys.value] as! Views
+            withAnimation {
+                selectedItem = viewType
+            }
+        }
         .toolbar {
             ToolbarItem(placement: .appBar) {
                 PrinterMenuCommands.connectMenu(printerAvailability: printerAvailability,

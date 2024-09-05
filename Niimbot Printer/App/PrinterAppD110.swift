@@ -244,6 +244,8 @@ class PrinterAppD110: App, Notifiable, NotificationObservable {
                 sdTextProperty.toTextProperty()
             })!
             notifyUI(name: .App.textPropertiesUpdated)
+            notifyUI(name: .App.showView,
+                     userInfo: [String : any Sendable] (dictionaryLiteral: (Notification.Keys.value, ContentView.Views.printerView)))
         }
         else if Notification.Name.App.historyRemoveAll == notification.name {
             Self.logger.info("Remove all historical records requested")

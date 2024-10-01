@@ -74,6 +74,7 @@
 		8D9639472C0B9C8B00374894 /* NotifiableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */; };
 		8D9639492C0B9EC600374894 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
 		8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
+		8DA5979F2CAC8E97002A7B99 /* AppLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */; };
 		8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */; };
 		8DAC16092C52A89F005FABB7 /* DataExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16082C52A896005FABB7 /* DataExtensionTests.swift */; };
 		8DAC160C2C543B1D005FABB7 /* FixedWidthIntegerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */; };
@@ -203,6 +204,7 @@
 		8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotifiableExtension.swift; sourceTree = "<group>"; };
 		8D9639482C0B9EC600374894 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		8D96394A2C0BA60800374894 /* PacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoder.swift; sourceTree = "<group>"; };
+		8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogic.swift; sourceTree = "<group>"; };
 		8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterLabelDetailView.swift; sourceTree = "<group>"; };
 		8DAC16082C52A896005FABB7 /* DataExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensionTests.swift; sourceTree = "<group>"; };
 		8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerTests.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 		8D38E71A2C5C3F0200EFA505 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */,
 				8D38E71B2C5C3F2900EFA505 /* AppDelegate.swift */,
 				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
 				8D38E7152C5B7D4100EFA505 /* TestHelper.swift */,
@@ -724,6 +727,7 @@
 				8D9639452C0B984F00374894 /* NotificationObservableExtension.swift in Sources */,
 				8DDC3CE82C1645B600296C72 /* CGImageExtension.swift in Sources */,
 				8D8AF3CD2C2756CD005E2F94 /* LevelIndicator.swift in Sources */,
+				8DA5979F2CAC8E97002A7B99 /* AppLogic.swift in Sources */,
 				8DDC3D442C1A45A900296C72 /* PrinterView.swift in Sources */,
 				8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */,
 				8D8AF3D22C28271B005E2F94 /* PaperDetails.swift in Sources */,

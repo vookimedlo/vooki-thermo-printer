@@ -8,8 +8,24 @@
 import SwiftUI
 import SwiftData
 
+@MainActor
+protocol AppStates: Sendable {
+    var bluetoothPepripherals: BluetoothPeripherals { get }
+    var paperDetails: PaperDetails { get }
+    var printerDetails: PrinterDetails { get }
+    var imagePreview: ImagePreview { get }
+    var paperEAN: ObservablePaperEAN { get }
+    var printerAvailability: PrinterAvailability { get }
+    var textProperties: TextProperties { get }
+    
+    var connectionViewProperties: ConnectionViewProperties { get }
+    var uiSettingsProperties: UISettingsProperties { get }
+    
+    var container: ModelContainer { get }
+}
+
 @main
-struct PrinterAppD110: App {
+struct PrinterAppD110: App, AppStates {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var appLogic: AppLogic?

@@ -337,8 +337,8 @@
 		8D38E71A2C5C3F0200EFA505 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */,
 				8D38E71B2C5C3F2900EFA505 /* AppDelegate.swift */,
+				8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */,
 				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
 				8D38E7152C5B7D4100EFA505 /* TestHelper.swift */,
 			);

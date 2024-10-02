@@ -36,8 +36,9 @@ final class AppLogic: Notifiable, NotificationObservable {
     
     var notificationListenerTask: Task<Void, Never>? = nil
     
-    var appRef: PrinterAppD110!
-    required init(appRef: inout PrinterAppD110) {
+    @MainActor
+    var appRef: AppStates!
+    init(appRef: inout PrinterAppD110) {
         self.appRef = appRef
         
         if TestHelper.isRunningTests {

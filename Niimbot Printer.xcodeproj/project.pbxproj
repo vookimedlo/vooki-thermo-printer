@@ -113,6 +113,7 @@
 		8DED511F2C3080F700B52F1E /* SegmentedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */; };
 		8DED51212C318E3100B52F1E /* HorizontalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */; };
 		8DED51232C31927200B52F1E /* VerticalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */; };
+		8DF962032CB1D17B009B2DCC /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF962022CB1D175009B2DCC /* ColorExtension.swift */; };
 		8DF9FE4F2C36A057004DAED2 /* PaperEAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */; };
 		8DF9FE512C36DD5D004DAED2 /* Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE502C36DD5D004DAED2 /* Margins.swift */; };
 		8DF9FE532C36DF97004DAED2 /* ObservablePaperEAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE522C36DF97004DAED2 /* ObservablePaperEAN.swift */; };
@@ -244,6 +245,7 @@
 		8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerView.swift; sourceTree = "<group>"; };
 		8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTextAlignment.swift; sourceTree = "<group>"; };
 		8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTextAlignment.swift; sourceTree = "<group>"; };
+		8DF962022CB1D175009B2DCC /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperEAN.swift; sourceTree = "<group>"; };
 		8DF9FE502C36DD5D004DAED2 /* Margins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Margins.swift; sourceTree = "<group>"; };
 		8DF9FE522C36DF97004DAED2 /* ObservablePaperEAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservablePaperEAN.swift; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 			children = (
 				8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */,
 				8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */,
+				8DF962022CB1D175009B2DCC /* ColorExtension.swift */,
 				8D96391E2C0A8E8B00374894 /* DataExtension.swift */,
 				8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */,
 				8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */,
@@ -715,6 +718,7 @@
 				8DEB85EC2C0E112C0028526B /* BluetoothAccessProtocol.swift in Sources */,
 				8D9639412C0B616D00374894 /* Notifiable.swift in Sources */,
 				8DED51212C318E3100B52F1E /* HorizontalTextAlignment.swift in Sources */,
+				8DF962032CB1D17B009B2DCC /* ColorExtension.swift in Sources */,
 				8D785DB42C470A9A00C25566 /* ImageActor.swift in Sources */,
 				8DF9FE4F2C36A057004DAED2 /* PaperEAN.swift in Sources */,
 				8DF9FE572C37FA8E004DAED2 /* PrinterAvailability.swift in Sources */,

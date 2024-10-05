@@ -12,6 +12,7 @@ import SwiftData
 struct ContentView: View, Notifiable {
     
     enum Views {
+        case emptyView
         case printerView
         case savedView
         case historicalView
@@ -36,6 +37,7 @@ struct ContentView: View, Notifiable {
     @ViewBuilder
     func getView(id: Views) -> some View {
         switch id {
+        case .emptyView: EmptyView()
         case .printerView: printerView
         case .savedView: savedView
         case .historicalView: historicalView
@@ -49,7 +51,7 @@ struct ContentView: View, Notifiable {
     @Environment(PrinterAvailability.self) private var printerAvailability
     @Environment(ConnectionViewProperties.self) private var connectionViewProperties
     
-    @State var selectedItem: Views = .printerView
+    @State var selectedItem: Views = .emptyView
     @State var showAlert: Bool = false
     @State var alertType: AlertType = .none
     
@@ -68,7 +70,7 @@ struct ContentView: View, Notifiable {
                                 .symbolRenderingMode(.monochrome)
                                 .symbolVariant(.fill)
                                 .fontWeight(.regular)
-                                .foregroundStyle(.green)
+                                .foregroundStyle(Color.lila)
                                 .frame(width: 18, height: 18)
                             VStack(alignment: .leading, spacing: 0) {
                                 Spacer()
@@ -116,6 +118,10 @@ struct ContentView: View, Notifiable {
             ToolbarItem(placement: .appBar) {
                 PrinterMenuCommands.disconnectMenu(printerAvailability: printerAvailability)
             }
+        }
+        .task {
+            try? await Task.sleep(nanoseconds: 10)
+            selectedItem = .printerView
         }
     }
 }

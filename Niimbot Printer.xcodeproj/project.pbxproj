@@ -654,6 +654,8 @@
 				Base,
 			);
 			mainGroup = 8D58DC092C052197001EBD95;
+			packageReferences = (
+			);
 			productRefGroup = 8D58DC132C052197001EBD95 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -959,6 +961,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cz.vookimedlo.app.d110.printer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -987,6 +990,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = cz.vookimedlo.app.d110.printer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1003,6 +1007,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
 				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.app.d110.printer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1020,6 +1025,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
 				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.app.d110.printer-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";

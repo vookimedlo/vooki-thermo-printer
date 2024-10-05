@@ -38,12 +38,20 @@ struct SavedView: View, StaticNotifiable {
                                                 Label("Load", systemImage: "tray.and.arrow.up").labelStyle(.titleAndIcon)
                                             }
                                             Button(action: {
-                                                guard let url = showSavePanel() else { return }
+                                                guard let url = showSavePNGPanel() else { return }
                                                 let imageRep = NSBitmapImageRep(data: item.pngImage)!
                                                 let pngData = imageRep.representation(using: .png, properties: [:])!
                                                 try! pngData.write(to: url)
                                             }) {
                                                 Label("Export as PNG", systemImage: "tray.and.arrow.down").labelStyle(.titleAndIcon)
+                                            }
+                                            Button(action: {
+                                                guard let url = showSaveJSONPanel() else { return }
+                                                let encodedData = encodeToJSON(item: item)
+                                                print("CBOR: \(encodedData.hexEncodedString())")
+                                                try! encodedData.write(to: url)
+                                            }) {
+                                                Label("Export as JSON", systemImage: "tray.and.arrow.down").labelStyle(.titleAndIcon)
                                             }
                                             Button(action: {
                                                 self.context.delete(item)
@@ -68,6 +76,18 @@ struct SavedView: View, StaticNotifiable {
         .navigationTitle("History")
     }
     
+    func encodeToJSON(item: SDSavedLabelProperty) -> Data {
+        guard let textProperties = item.orderedTextProperties else { return Data() }
+        var properties: [SendableTextProperty] = []
+        for textProperty in textProperties {
+            properties.append(SendableTextProperty(from: (textProperty.toTextProperty())))
+        }
+        
+        let encoder = JSONEncoder()
+        guard let encodedData = try? encoder.encode(properties) else { return Data() }
+        return encodedData
+    }
+    
     func processProperties(_ range: Range<Int>) -> [Group] {
         var dividedProperties: [Group] = []
         var lastImageWidth: Double = 0
@@ -85,12 +105,24 @@ struct SavedView: View, StaticNotifiable {
         return dividedProperties
     }
 
-    func showSavePanel() -> URL? {
+    func showSavePNGPanel() -> URL? {
         let savePanel = NSSavePanel()
         savePanel.allowedContentTypes  = [.png]
         savePanel.canCreateDirectories = true
         savePanel.isExtensionHidden    = false
         savePanel.title                = "Save a rendered image..."
+        savePanel.nameFieldLabel       = "Filename:"
+        
+        let response = savePanel.runModal()
+        return response == .OK ? savePanel.url : nil
+    }
+    
+    func showSaveJSONPanel() -> URL? {
+        let savePanel = NSSavePanel()
+        savePanel.allowedContentTypes  = [.json]
+        savePanel.canCreateDirectories = true
+        savePanel.isExtensionHidden    = false
+        savePanel.title                = "Save a JSON data..."
         savePanel.nameFieldLabel       = "Filename:"
         
         let response = savePanel.runModal()

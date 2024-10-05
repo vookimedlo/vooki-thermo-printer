@@ -78,6 +78,21 @@ struct LabelMenuCommands: Commands, StaticNotifiable {
             }) {
                 Text("Clear")
             }
+            
+            Button(action: {
+                guard let url = showOpenJSONPanel() else { return }
+                guard let data = loadJSON(url: url) else { return }
+                guard let textProperties = decodeFromJSON(data: data) else { return }
+                
+                withAnimation {
+                    self.textProperties.properties = textProperties
+                }
+                Self.notifyUI(name: .App.textPropertiesUpdated)
+            }) {
+                Text("Load a JSON data...")
+            }
+            
+            Divider()
 
             Menu(content: {
                 Button(action: {
@@ -163,5 +178,31 @@ struct LabelMenuCommands: Commands, StaticNotifiable {
             })
             
         }
+    }
+    
+    func showOpenJSONPanel() -> URL? {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes  = [.json]
+        panel.title                = "Load a JSON data..."
+        panel.nameFieldLabel       = "Filename:"
+        
+        let response = panel.runModal()
+        return response == .OK ? panel.url : nil
+    }
+    
+    func loadJSON(url: URL) -> Data? {
+        return try? Data(contentsOf: url)
+    }
+    
+    func decodeFromJSON(data: Data) -> [TextProperty]? {
+        let decoder = JSONDecoder()
+        guard let sendableTextProperties = try? decoder.decode([SendableTextProperty].self, from: data) else { return nil }
+        
+        var textProperties: [TextProperty] = []
+        for sendableTextProperty in sendableTextProperties {
+            textProperties.append(sendableTextProperty.toTextProperty())
+        }
+        
+        return textProperties
     }
 }

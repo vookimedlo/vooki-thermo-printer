@@ -83,7 +83,9 @@ final class AppLogic: Notifiable, NotificationObservable {
                      Notification.Name.App.historyRemoveAll,
                      Notification.Name.App.historyKeepRecords,
                      Notification.Name.App.historyRemoveOlderRecords,
-                     Notification.Name.App.loadHistoricalItem] {
+                     Notification.Name.App.loadHistoricalItem,
+                     Notification.Name.App.deleteHistoricalItem,
+                     Notification.Name.App.deleteSavedItem] {
             registerNotification(name: name,
                                  selector: #selector(receiveUINotification))
         }
@@ -187,6 +189,30 @@ final class AppLogic: Notifiable, NotificationObservable {
             notifyUI(name: .App.textPropertiesUpdated)
             notifyUI(name: .App.showView,
                      userInfo: [String : any Sendable] (dictionaryLiteral: (Notification.Keys.value, ContentView.Views.printerView)))
+        }
+        else if Notification.Name.App.deleteHistoricalItem == notification.name {
+            Self.logger.info("Delete data from history requested")
+            let identifier = notification.userInfo?[Notification.Keys.value] as! PersistentIdentifier
+            do {
+                try appRef.container.mainContext.delete(model: SDHistoryLabelProperty.self, where: #Predicate { input in
+                    input.persistentModelID == identifier
+                })
+            }
+            catch {
+                Self.logger.error("Cannot delete historical data")
+            }
+        }
+        else if Notification.Name.App.deleteSavedItem == notification.name {
+            Self.logger.info("Delete saved data requested")
+            let identifier = notification.userInfo?[Notification.Keys.value] as! PersistentIdentifier
+            do {
+                try appRef.container.mainContext.delete(model: SDSavedLabelProperty.self, where: #Predicate { input in
+                    input.persistentModelID == identifier
+                })
+            }
+            catch {
+                Self.logger.error("Cannot delete saved data")
+            }
         }
         else if Notification.Name.App.historyRemoveAll == notification.name {
             Self.logger.info("Remove all historical records requested")

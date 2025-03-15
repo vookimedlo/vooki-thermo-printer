@@ -47,6 +47,8 @@ extension Notification.Name {
         static public let paperDetect = NSNotification.Name("notify-paper-detect")
         
         static public let loadHistoricalItem = NSNotification.Name("notify-load-historical-item")
+        static public let deleteHistoricalItem = NSNotification.Name("notify-delete-historical-item")
+        static public let deleteSavedItem = NSNotification.Name("notify-delete-saved-item")
         static public let historyRemoveAll = NSNotification.Name("notify-historical-item-remove-all")
         static public let historyKeepRecords = NSNotification.Name("notify-historical-item-keep")
         static public let historyRemoveOlderRecords = NSNotification.Name("notify-historical-item-remove-older")

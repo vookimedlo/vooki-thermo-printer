@@ -54,7 +54,9 @@ struct SavedView: View, StaticNotifiable {
                                                 Label("Export as JSON", systemImage: "tray.and.arrow.down").labelStyle(.titleAndIcon)
                                             }
                                             Button(action: {
-                                                self.context.delete(item)
+                                                let data = [String: Sendable](dictionaryLiteral: (Notification.Keys.value, item.id))
+                                                Self.notifyUI(name: .App.deleteSavedItem,
+                                                              userInfo: data)
                                             }) {
                                                 Label("Delete", systemImage: "trash").labelStyle(.titleAndIcon)
                                             }

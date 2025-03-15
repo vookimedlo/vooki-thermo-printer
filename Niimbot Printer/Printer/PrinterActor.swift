@@ -18,7 +18,7 @@
     
     @MainActor
     static func printerOperation(_ operation: @escaping @Sendable @PrinterActor () throws -> Void?) async -> Bool {
-        var task = Task { @PrinterActor in
+        let task = Task { @PrinterActor in
             do {
                 try operation()
                 return true

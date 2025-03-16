@@ -75,7 +75,7 @@ struct SavedView: View, StaticNotifiable {
                 }
             }
         }
-        .navigationTitle("Ssved labels")
+        .navigationTitle("Saved labels")
     }
     
     func encodeToJSON(item: SDSavedLabelProperty) -> Data {

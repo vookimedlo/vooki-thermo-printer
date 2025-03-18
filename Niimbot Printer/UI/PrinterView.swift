@@ -28,6 +28,17 @@ struct PrinterView: View, Notifiable {
         VStack {
             GroupBox {
                 ZStack {
+                    VStack(alignment: .trailing) {
+                        Spacer()
+                        HStack(alignment: .center) {
+                            GroupBox(label: Text("Type")) {
+                                VStack(alignment: .leading) {
+                                    Text(paperEAN.ean.description)
+                                }
+                            }.padding(10)
+                            Spacer()
+                        }
+                    }
                     VStack {
                         Spacer()
                         HStack{

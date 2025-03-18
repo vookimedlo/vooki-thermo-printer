@@ -160,12 +160,12 @@
 		8D38E7272C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarItemPlacementExtension.swift; sourceTree = "<group>"; };
 		8D580E122C623FBC005B3FAB /* ShowMenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMenuCommands.swift; sourceTree = "<group>"; };
 		8D580E142C624380005B3FAB /* UISettingsProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISettingsProperties.swift; sourceTree = "<group>"; };
-		8D58DC122C052197001EBD95 /* Niimbot Printer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Niimbot Printer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D58DC122C052197001EBD95 /* VookiThermoPrinter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VookiThermoPrinter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC152C052197001EBD95 /* PrinterAppD110.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppD110.swift; sourceTree = "<group>"; };
 		8D58DC192C052198001EBD95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8D58DC1E2C052198001EBD95 /* Niimbot_Printer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Niimbot_Printer.entitlements; sourceTree = "<group>"; };
+		8D58DC1E2C052198001EBD95 /* VookiThermoPrinter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VookiThermoPrinter.entitlements; sourceTree = "<group>"; };
 		8D58DC242C052317001EBD95 /* Packet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
-		8D58DC2A2C05D460001EBD95 /* Niimbot PrinterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Niimbot PrinterTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D58DC2A2C05D460001EBD95 /* VookiThermoPrinterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VookiThermoPrinterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC2C2C05D460001EBD95 /* PacketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTests.swift; sourceTree = "<group>"; };
 		8D58DC332C064583001EBD95 /* PrinterDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDevice.swift; sourceTree = "<group>"; };
 		8D708D922C49BE8E006BF3BE /* PrinterActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterActor.swift; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 		8DDC3D412C1A290700296C72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DDC3D432C1A45A900296C72 /* PrinterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterView.swift; sourceTree = "<group>"; };
 		8DDC3D452C1A552800296C72 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		8DEB85E62C0CBFD40028526B /* Niimbot-Printer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Niimbot-Printer-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8DEB85E62C0CBFD40028526B /* VookiThermoPrinter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VookiThermoPrinter-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothIO.swift; sourceTree = "<group>"; };
 		8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSupport.swift; sourceTree = "<group>"; };
 		8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAccessProtocol.swift; sourceTree = "<group>"; };
@@ -350,8 +350,8 @@
 		8D58DC092C052197001EBD95 = {
 			isa = PBXGroup;
 			children = (
-				8D58DC142C052197001EBD95 /* Niimbot Printer */,
-				8D58DC2B2C05D460001EBD95 /* Niimbot PrinterTests */,
+				8D58DC142C052197001EBD95 /* VookiThermoPrinter */,
+				8D58DC2B2C05D460001EBD95 /* VookiThermoPrinterTests */,
 				8D58DC132C052197001EBD95 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -359,13 +359,13 @@
 		8D58DC132C052197001EBD95 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D58DC122C052197001EBD95 /* Niimbot Printer.app */,
-				8D58DC2A2C05D460001EBD95 /* Niimbot PrinterTests.xctest */,
+				8D58DC122C052197001EBD95 /* VookiThermoPrinter.app */,
+				8D58DC2A2C05D460001EBD95 /* VookiThermoPrinterTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8D58DC142C052197001EBD95 /* Niimbot Printer */ = {
+		8D58DC142C052197001EBD95 /* VookiThermoPrinter */ = {
 			isa = PBXGroup;
 			children = (
 				8D38E71A2C5C3F0200EFA505 /* App */,
@@ -374,17 +374,17 @@
 				8DDC3D1F2C19EBB800296C72 /* Extensions */,
 				8D1EFC2C2C40311100C25DEB /* Image */,
 				8D8AF3CE2C2826E2005E2F94 /* Model */,
-				8D58DC1E2C052198001EBD95 /* Niimbot_Printer.entitlements */,
-				8DEB85E62C0CBFD40028526B /* Niimbot-Printer-Info.plist */,
+				8D58DC1E2C052198001EBD95 /* VookiThermoPrinter.entitlements */,
+				8DEB85E62C0CBFD40028526B /* VookiThermoPrinter-Info.plist */,
 				8DDC3D202C19EC8E00296C72 /* Notifications */,
 				8DDC3D092C19C62D00296C72 /* Packet */,
 				8DDC3D222C19EDFC00296C72 /* Printer */,
 				8DDC3D232C19EE6100296C72 /* UI */,
 			);
-			path = "Niimbot Printer";
+			path = VookiThermoPrinter;
 			sourceTree = "<group>";
 		};
-		8D58DC2B2C05D460001EBD95 /* Niimbot PrinterTests */ = {
+		8D58DC2B2C05D460001EBD95 /* VookiThermoPrinterTests */ = {
 			isa = PBXGroup;
 			children = (
 				8DAC16102C544197005FABB7 /* Communication */,
@@ -394,7 +394,7 @@
 				8D036FB02C50528C00CADCCC /* Packet */,
 				8DAC160D2C543F83005FABB7 /* Printer */,
 			);
-			path = "Niimbot PrinterTests";
+			path = VookiThermoPrinterTests;
 			sourceTree = "<group>";
 		};
 		8D7371982C67F47D00695B2E /* Model */ = {
@@ -594,9 +594,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D58DC112C052197001EBD95 /* Niimbot Printer */ = {
+		8D58DC112C052197001EBD95 /* VookiThermoPrinter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8D58DC212C052198001EBD95 /* Build configuration list for PBXNativeTarget "Niimbot Printer" */;
+			buildConfigurationList = 8D58DC212C052198001EBD95 /* Build configuration list for PBXNativeTarget "VookiThermoPrinter" */;
 			buildPhases = (
 				8D58DC0E2C052197001EBD95 /* Sources */,
 				8D58DC0F2C052197001EBD95 /* Frameworks */,
@@ -606,14 +606,14 @@
 			);
 			dependencies = (
 			);
-			name = "Niimbot Printer";
+			name = VookiThermoPrinter;
 			productName = "Niimbot Printer";
-			productReference = 8D58DC122C052197001EBD95 /* Niimbot Printer.app */;
+			productReference = 8D58DC122C052197001EBD95 /* VookiThermoPrinter.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8D58DC292C05D460001EBD95 /* Niimbot PrinterTests */ = {
+		8D58DC292C05D460001EBD95 /* VookiThermoPrinterTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8D58DC302C05D460001EBD95 /* Build configuration list for PBXNativeTarget "Niimbot PrinterTests" */;
+			buildConfigurationList = 8D58DC302C05D460001EBD95 /* Build configuration list for PBXNativeTarget "VookiThermoPrinterTests" */;
 			buildPhases = (
 				8D58DC262C05D460001EBD95 /* Sources */,
 				8D58DC272C05D460001EBD95 /* Frameworks */,
@@ -624,9 +624,9 @@
 			dependencies = (
 				8D58DC2F2C05D460001EBD95 /* PBXTargetDependency */,
 			);
-			name = "Niimbot PrinterTests";
+			name = VookiThermoPrinterTests;
 			productName = "Niimbot PrinterTests";
-			productReference = 8D58DC2A2C05D460001EBD95 /* Niimbot PrinterTests.xctest */;
+			productReference = 8D58DC2A2C05D460001EBD95 /* VookiThermoPrinterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -648,7 +648,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8D58DC0D2C052197001EBD95 /* Build configuration list for PBXProject "Niimbot Printer" */;
+			buildConfigurationList = 8D58DC0D2C052197001EBD95 /* Build configuration list for PBXProject "VookiThermoPrinter" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -663,8 +663,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D58DC112C052197001EBD95 /* Niimbot Printer */,
-				8D58DC292C05D460001EBD95 /* Niimbot PrinterTests */,
+				8D58DC112C052197001EBD95 /* VookiThermoPrinter */,
+				8D58DC292C05D460001EBD95 /* VookiThermoPrinterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -821,7 +821,7 @@
 /* Begin PBXTargetDependency section */
 		8D58DC2F2C05D460001EBD95 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8D58DC112C052197001EBD95 /* Niimbot Printer */;
+			target = 8D58DC112C052197001EBD95 /* VookiThermoPrinter */;
 			targetProxy = 8D58DC2E2C05D460001EBD95 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -950,14 +950,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Niimbot Printer/Niimbot_Printer.entitlements";
+				CODE_SIGN_ENTITLEMENTS = VookiThermoPrinter/VookiThermoPrinter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Niimbot-Printer-Info.plist";
+				INFOPLIST_FILE = "VookiThermoPrinter-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -979,14 +979,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "Niimbot Printer/Niimbot_Printer.entitlements";
+				CODE_SIGN_ENTITLEMENTS = VookiThermoPrinter/VookiThermoPrinter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Niimbot-Printer-Info.plist";
+				INFOPLIST_FILE = "VookiThermoPrinter-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -1017,7 +1017,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Niimbot Printer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Niimbot Printer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VookiThermoPrinter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VookiThermoPrinter";
 			};
 			name = Debug;
 		};
@@ -1035,14 +1035,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Niimbot Printer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Niimbot Printer";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VookiThermoPrinter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VookiThermoPrinter";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8D58DC0D2C052197001EBD95 /* Build configuration list for PBXProject "Niimbot Printer" */ = {
+		8D58DC0D2C052197001EBD95 /* Build configuration list for PBXProject "VookiThermoPrinter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8D58DC1F2C052198001EBD95 /* Debug */,
@@ -1051,7 +1051,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8D58DC212C052198001EBD95 /* Build configuration list for PBXNativeTarget "Niimbot Printer" */ = {
+		8D58DC212C052198001EBD95 /* Build configuration list for PBXNativeTarget "VookiThermoPrinter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8D58DC222C052198001EBD95 /* Debug */,
@@ -1060,7 +1060,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8D58DC302C05D460001EBD95 /* Build configuration list for PBXNativeTarget "Niimbot PrinterTests" */ = {
+		8D58DC302C05D460001EBD95 /* Build configuration list for PBXNativeTarget "VookiThermoPrinterTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8D58DC312C05D460001EBD95 /* Debug */,

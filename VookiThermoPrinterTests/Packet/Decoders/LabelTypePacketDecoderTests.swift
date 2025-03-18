@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import Niimbot_Printer
+@testable import VookiThermoPrinter
 
 final class LabelTypePacketDecoderTests: XCTestCase {
     

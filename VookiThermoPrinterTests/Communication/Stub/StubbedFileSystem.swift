@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import Niimbot_Printer
+@testable import VookiThermoPrinter
 
 class StubbedFileSystem : FileSystemAccess {
     public var openResult: Int32 = -1

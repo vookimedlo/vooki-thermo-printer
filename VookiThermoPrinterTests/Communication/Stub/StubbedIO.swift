@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import Niimbot_Printer
+@testable import VookiThermoPrinter
 
 class StubbedIO : IO {
     public var openResultThrows: Bool = false

@@ -27,9 +27,6 @@ final class UplinkProcessorTests: XCTestCase {
     }
     
     func testMain_PassesPacketsToDecoders() {
-        let semaphoreStartPrintCount = DispatchSemaphore(value: 0)
-        let semaphorePrintStatusCount = DispatchSemaphore(value: 0)
-
         var startPrintCount = 0
         var printStatusCount = 0
         
@@ -46,39 +43,37 @@ final class UplinkProcessorTests: XCTestCase {
         }
         XCTAssertFalse(processor.isExecuting)
         processor.startProcessing()
-        
+
         let handler: (Notification) -> Bool = { notification in
             guard let result = notification.userInfo?[Notification.Keys.packet] as? Packet else {
                 return false
             }
+            var exceptionResult: Bool = false
+            
             switch (result.requestCode) {
             case .RESPONSE_START_PRINT:
                 XCTAssertEqual(Packet(requestCode: .RESPONSE_START_PRINT, data: [1]), result)
                 startPrintCount += 1
-                semaphoreStartPrintCount.signal()
                 break
             case .RESPONSE_GET_PRINT_STATUS:
                 XCTAssertEqual(Packet(requestCode: .RESPONSE_GET_PRINT_STATUS,
                                       data: [0, 0, 2, 0]),
                                result)
                 printStatusCount += 1
-                semaphorePrintStatusCount.signal()
-                break
+                exceptionResult = true
             default:
-                return false
+                break
             }
-            return true
+            return exceptionResult
         }
-        
+
         let expectation = expectation(forNotification: .App.uplinkedPacket,
                                       object: nil,
                                       handler: handler)
         
         wait(for: [expectation], timeout: 5)
         XCTAssertGreaterThan(io.readCalled, 0)
-        
-        _ = semaphoreStartPrintCount.wait(timeout: .now().advanced(by: .seconds(5)))
-        _ = semaphorePrintStatusCount.wait(timeout: .now().advanced(by: .seconds(5)))
+
         XCTAssertEqual(1, startPrintCount)
         XCTAssertEqual(1, printStatusCount)
     }

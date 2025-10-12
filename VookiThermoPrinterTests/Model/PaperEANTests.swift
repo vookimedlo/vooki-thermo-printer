@@ -9,32 +9,43 @@ import XCTest
 @testable import VookiThermoPrinter
 
 
-final class paperEANTests: XCTestCase {
-    let dpi = 203.0
-    
+final class paperEANTests: XCTestCase {    
     func testIntegrity() {
         XCTAssertTrue(PaperEAN.testIntegrity())
     }
     
+    func testDPI() {
+        let allDPI = PaperEAN.DPI.allCases
+        XCTAssertEqual(allDPI.count, 2)
+        XCTAssertTrue(allDPI.contains(.dpi203))
+        XCTAssertTrue(allDPI.contains(.dpi300))
+        XCTAssertEqual(PaperEAN.DPI.dpi203.rawValue, 203)
+        XCTAssertEqual(PaperEAN.DPI.dpi300.rawValue, 300)
+    }
+    
     func testPixels() {
-        for ean in PaperEAN.allCases {
-            XCTAssertEqual(ean.printableSizeInPixels.width,
-                           PixelCalculator.pixels(lengthInMM: ean.printableSizeInMillimeters.width, dpi: dpi),
-                           accuracy: 0.1)
-            XCTAssertEqual(ean.physicalSizeInPixels.width,
-                           PixelCalculator.pixels(lengthInMM: ean.physicalSizeInMillimeters.width, dpi: dpi),
-                           accuracy: 0.1)
-            XCTAssertGreaterThanOrEqual(ean.physicalSizeInPixels.width, ean.printableSizeInPixels.width)
-            XCTAssertGreaterThanOrEqual(ean.physicalSizeInMillimeters.width, ean.printableSizeInMillimeters.width)
-            
-            XCTAssertEqual(ean.printableSizeInPixels.height,
-                           PixelCalculator.pixels(lengthInMM: ean.printableSizeInMillimeters.height, dpi: dpi),
-                           accuracy: 0.1)            
-            XCTAssertEqual(ean.physicalSizeInPixels.height,
-                           PixelCalculator.pixels(lengthInMM: ean.physicalSizeInMillimeters.height, dpi: dpi),
-                           accuracy: 0.1)
-            XCTAssertGreaterThanOrEqual(ean.physicalSizeInPixels.height, ean.printableSizeInPixels.height)
-            XCTAssertGreaterThanOrEqual(ean.physicalSizeInMillimeters.height, ean.printableSizeInMillimeters.height)
-        }
+        PaperEAN.DPI.allCases.forEach({ dpi in
+            {
+                for ean in PaperEAN.allCases {
+                    XCTAssertEqual(ean.printableSizeInPixels(dpi: dpi).width,
+                                   PixelCalculator.pixels(lengthInMM: ean.printableSizeInMillimeters.width, dpi: dpi.rawValue),
+                                   accuracy: 0.1)
+                    XCTAssertEqual(ean.physicalSizeInPixels(dpi: dpi).width,
+                                   PixelCalculator.pixels(lengthInMM: ean.physicalSizeInMillimeters.width, dpi: dpi.rawValue),
+                                   accuracy: 0.1)
+                    XCTAssertGreaterThanOrEqual(ean.physicalSizeInPixels(dpi: dpi).width, ean.printableSizeInPixels(dpi: .dpi203).width)
+                    XCTAssertGreaterThanOrEqual(ean.physicalSizeInMillimeters.width, ean.printableSizeInMillimeters.width)
+                    
+                    XCTAssertEqual(ean.printableSizeInPixels(dpi: dpi).height,
+                                   PixelCalculator.pixels(lengthInMM: ean.printableSizeInMillimeters.height, dpi: dpi.rawValue),
+                                   accuracy: 0.1)
+                    XCTAssertEqual(ean.physicalSizeInPixels(dpi: dpi).height,
+                                   PixelCalculator.pixels(lengthInMM: ean.physicalSizeInMillimeters.height, dpi: dpi.rawValue),
+                                   accuracy: 0.1)
+                    XCTAssertGreaterThanOrEqual(ean.physicalSizeInPixels(dpi: dpi).height, ean.printableSizeInPixels(dpi: .dpi203).height)
+                    XCTAssertGreaterThanOrEqual(ean.physicalSizeInMillimeters.height, ean.printableSizeInMillimeters.height)
+                }
+            }()
+        })
     }
 }

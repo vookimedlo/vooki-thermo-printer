@@ -10,6 +10,7 @@ import SwiftData
 
 
 struct SavedView: View, StaticNotifiable {
+    @Environment(\.dpi) var dpi
     @Environment(\.modelContext) var context
     @Query(sort: \SDSavedLabelProperty.date, order: SortOrder.reverse) var labelProperties: [SDSavedLabelProperty]
     
@@ -96,7 +97,7 @@ struct SavedView: View, StaticNotifiable {
         
         for index in range {
             guard let ean = PaperEAN(rawValue: self.labelProperties[index].paperEANRawValue) else { continue }
-            let width = ean.printableSizeInPixels.width
+            let width = ean.printableSizeInPixels(dpi: dpi).width
 
             if lastImageWidth != width {
                 dividedProperties.append(Group(width: width, type: ean.description))

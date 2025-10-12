@@ -14,7 +14,7 @@ final class Printer {
         subsystem: Bundle.main.bundleIdentifier!,
         category: String(describing: Printer.self)
     )
-    
+
     let packetDecoder = PacketDecoder(decoders: [SerialNumberPacketDecoder(),
                                                  SoftwareVersionPacketDecoder(),
                                                  HardwareVersionPacketDecoder(),

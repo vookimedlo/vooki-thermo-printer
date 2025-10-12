@@ -28,10 +28,12 @@ protocol AppStates: Sendable {
 struct PrinterAppD110: App, AppStates {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
+    let dpi = PaperEAN.DPI.dpi203
+    
     var appLogic: AppLogic?
     init() {
         if !TestHelper.isRunningTests {
-            appLogic = AppLogic(appRef: &self)
+            appLogic = AppLogic(appRef: &self, dpi: dpi)
         }
     }
     
@@ -83,6 +85,7 @@ struct PrinterAppD110: App, AppStates {
                     .environmentObject(self.textProperties)
                     .environmentObject(self.connectionViewProperties)
                     .environmentObject(self.uiSettingsProperties)
+                    .environment(\.dpi, dpi)
             }
         }
         .modelContainer(container)

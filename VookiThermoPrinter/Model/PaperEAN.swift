@@ -27,8 +27,11 @@ enum PaperEAN: String, Sendable, CaseIterable {
          ean6972842743800 = "6972842743800", // 109*12.5 green cable - 12.5*74+7*35
          ean6972842743794 = "6972842743794", // 109*12.5 blue cable - 12.5*74+7*35
          ean6971501229778 = "6971501229778"  // 30*12 white
-
-
+    
+    enum DPI: CGFloat, Sendable, CaseIterable {
+        case dpi203 = 203,
+             dpi300 = 300
+    }
 
     private enum PaperDefinition: String, Sendable, CaseIterable {
         case unknown,
@@ -43,12 +46,22 @@ enum PaperEAN: String, Sendable, CaseIterable {
     
     struct Paper: Sendable, Equatable {
         let physicalSizeInMillimeters: CGSize
-        let physicalSizeInPixels: CGSize
         let printableSizeInMillimeters: CGSize
-        let printableSizeInPixels: CGSize
         let labelType: UInt8
         let margin: Margins
         let cornerRadius: Double
+        
+        func physicalSizeInPixels(dpi: DPI) -> CGSize {
+            let widthPixels = (physicalSizeInMillimeters.width / 25.4) * dpi.rawValue
+            let heightPixels = (physicalSizeInMillimeters.height / 25.4) * dpi.rawValue
+            return CGSize(width: widthPixels.rounded(), height: heightPixels.rounded())
+        }
+        
+        func printableSizeInPixels(dpi: DPI) -> CGSize {
+            let widthPixels = (printableSizeInMillimeters.width / 25.4) * dpi.rawValue
+            let heightPixels = (printableSizeInMillimeters.height / 25.4) * dpi.rawValue
+            return CGSize(width: widthPixels.rounded(), height: heightPixels.rounded())
+        }
     }
     
     enum ColorAttribute: Sendable, Equatable {
@@ -107,65 +120,49 @@ enum PaperEAN: String, Sendable, CaseIterable {
     
     static private let lutDefinitionToPaper: [PaperDefinition: Paper] = [.unknown:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 30, height: 15),
-                                                          physicalSizeInPixels: CGSize(width: 240, height: 120),
                                                           printableSizeInMillimeters: CGSize(width: 30, height: 10),
-                                                          printableSizeInPixels: CGSize(width: 240, height: 80),
                                                           labelType: 1,
                                                           margin: Margins(leading: 12, trailing: 10, top: 10, bottom: 10),
                                                           cornerRadius: 30),
                                                 .paper30x15:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 30, height: 15),
-                                                          physicalSizeInPixels: CGSize(width: 240, height: 120),
                                                           printableSizeInMillimeters: CGSize(width: 30, height: 10),
-                                                          printableSizeInPixels: CGSize(width: 240, height: 80),
                                                           labelType: 1,
                                                           margin: Margins(leading: 12, trailing: 10, top: 2, bottom: 2),
                                                           cornerRadius: 30),
                                                 .paper30x12:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 30, height: 12),
-                                                          physicalSizeInPixels: CGSize(width: 240, height: 96),
                                                           printableSizeInMillimeters: CGSize(width: 30, height: 12),
-                                                          printableSizeInPixels: CGSize(width: 240, height: 96),
                                                           labelType: 1,
                                                           margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
                                                           cornerRadius: 20),
                                                 .paper26x15:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 26, height: 15),
-                                                          physicalSizeInPixels: CGSize(width: 208, height: 120),
                                                           printableSizeInMillimeters: CGSize(width: 26, height: 10),
-                                                          printableSizeInPixels: CGSize(width: 208, height: 80),
                                                           labelType: 1,
                                                           margin: Margins(leading: 12, trailing: 10, top: 2, bottom: 2),
                                                           cornerRadius: 30),
                                                 .paper50x15:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 50, height: 15),
-                                                          physicalSizeInPixels: CGSize(width: 400, height: 120),
                                                           printableSizeInMillimeters: CGSize(width: 50, height: 10),
-                                                          printableSizeInPixels: CGSize(width: 400, height: 80),
                                                           labelType: 1,
                                                           margin: Margins(leading: 12, trailing: 10, top: 2, bottom: 2),
                                                           cornerRadius: 30),
                                                 .paper22x12:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 22, height: 12),
-                                                          physicalSizeInPixels: CGSize(width: 176, height: 96),
                                                           printableSizeInMillimeters: CGSize(width: 22, height: 12),
-                                                          printableSizeInPixels: CGSize(width: 176, height: 96),
                                                           labelType: 1,
                                                           margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
                                                           cornerRadius: 20),
                                                 .paper75x12:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 75, height: 12),
-                                                          physicalSizeInPixels: CGSize(width: 599, height: 96),
                                                           printableSizeInMillimeters: CGSize(width: 75, height: 12),
-                                                          printableSizeInPixels: CGSize(width: 599, height: 96),
                                                           labelType: 1,
                                                           margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
                                                           cornerRadius: 20),
                                                 .paper109x12_5:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 109, height: 12.5),
-                                                          physicalSizeInPixels: CGSize(width: 871, height: 100),
                                                           printableSizeInMillimeters: CGSize(width: 74, height: 12),
-                                                          printableSizeInPixels: CGSize(width: 591, height: 96),
                                                           labelType: 1,
                                                           margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
                                                           cornerRadius: 20),
@@ -177,8 +174,8 @@ enum PaperEAN: String, Sendable, CaseIterable {
     }
     
     nonisolated
-    var physicalSizeInPixels: CGSize {
-        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.physicalSizeInPixels
+    func physicalSizeInPixels(dpi: DPI) -> CGSize {
+        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.physicalSizeInPixels(dpi: dpi)
     }
     
     nonisolated
@@ -187,8 +184,8 @@ enum PaperEAN: String, Sendable, CaseIterable {
     }
     
     nonisolated
-    var printableSizeInPixels: CGSize {
-        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.printableSizeInPixels
+    func printableSizeInPixels(dpi: DPI) -> CGSize {
+        Self.lutDefinitionToPaper[Self.lutTypeToDefinition[self]!.0]!.printableSizeInPixels(dpi: dpi)
     }
     
     nonisolated
@@ -238,3 +235,4 @@ enum PaperEAN: String, Sendable, CaseIterable {
         return true
     }
 }
+

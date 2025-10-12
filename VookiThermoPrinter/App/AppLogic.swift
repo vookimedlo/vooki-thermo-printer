@@ -38,8 +38,10 @@ final class AppLogic: Notifiable, NotificationObservable {
     
     @MainActor
     var appRef: AppStates!
-    init(appRef: inout PrinterAppD110) {
+    var dpi: PaperEAN.DPI!
+    init(appRef: inout PrinterAppD110, dpi: PaperEAN.DPI) {
         self.appRef = appRef
+        self.dpi = dpi
         
         if TestHelper.isRunningTests {
             initForTesting()
@@ -57,7 +59,7 @@ final class AppLogic: Notifiable, NotificationObservable {
             for await _ in NotificationCenter.default.notifications(named: .App.textPropertiesUpdated) {
                 let properties = await self.toSendable(self.appRef.textProperties)
                 let paperEAN = await self.toSendable(self.appRef.paperEAN)
-                guard let cgImage = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: properties)?.cgImage else { return }
+                guard let cgImage = await self.generateImage(paperSize: paperEAN.printableSizeInPixels(dpi: self.dpi), margin: paperEAN.margin, from: properties)?.cgImage else { return }
                 await MainActor.run {
                     self.appRef.imagePreview.image = cgImage
                 }
@@ -492,7 +494,7 @@ final class AppLogic: Notifiable, NotificationObservable {
     private func generateImagePreview(propagate: Bool = true) async -> ImageGenerator? {
         let properties = toSendable(self.appRef.textProperties)
         let paperEAN = self.toSendable(self.appRef.paperEAN)
-        guard let preview = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: properties) else { return nil }
+        guard let preview = await self.generateImage(paperSize: paperEAN.printableSizeInPixels(dpi: self.dpi), margin: paperEAN.margin, from: properties) else { return nil }
         
         if (propagate) {
             guard let cgImage = await preview.cgImage else { return nil }
@@ -505,7 +507,7 @@ final class AppLogic: Notifiable, NotificationObservable {
     private func preparePrintData() async  -> [[UInt8]] {
         let properties = toSendable(self.appRef.textProperties)
         let paperEAN = self.toSendable(self.appRef.paperEAN)
-        guard let data = await self.generateImage(paperSize: paperEAN.printableSizeInPixels, margin: paperEAN.margin, from: properties)?.printerData else { return [] }
+        guard let data = await self.generateImage(paperSize: paperEAN.printableSizeInPixels(dpi: self.dpi), margin: paperEAN.margin, from: properties)?.printerData else { return [] }
         
         var peparedData: [[UInt8]] = []
         var rowNumber: UInt16 = 0
@@ -549,8 +551,8 @@ final class AppLogic: Notifiable, NotificationObservable {
                 try await self.printer?.startPagePrint()
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setDimension) {
-                try await self.printer?.setDimension(width: UInt16(self.appRef.paperEAN.ean.printableSizeInPixels.width),
-                                                     height: UInt16(self.appRef.paperEAN.ean.printableSizeInPixels.height))
+                try await self.printer?.setDimension(width: UInt16(self.dpi.rawValue) * UInt16(self.appRef.paperEAN.ean.printableSizeInPixels(dpi: self.dpi).width),
+                                                     height: UInt16(self.appRef.paperEAN.ean.printableSizeInPixels(dpi: self.dpi).height))
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
                 try await self.printer?.setLabelDensity(density: 1)

@@ -221,3 +221,4 @@ struct PrinterView: View, Notifiable {
         .environmentObject(TextProperties())
         .environmentObject(UISettingsProperties())
 }
+

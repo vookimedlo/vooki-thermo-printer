@@ -20,7 +20,7 @@ struct CommonLabelPreview {
     static let paperColor = Color.white
     static let physicalColor = Color.green
     static let printableColor = Color.red
-    
+        
     @ViewBuilder
     static func centerHorizontalDescription(color: Color, paperWidth: Double, description: String, descriptionLength: Double, descriptionThickness: Double) -> some View {
         VStack(spacing: 0) {
@@ -123,11 +123,11 @@ struct CommonLabelPreview {
     }
     
     @ViewBuilder
-    static func marginGuide(paperEAN: PaperEAN, horizontalMargin: any HorizontalMarginable, verticalMargin: any VerticalMarginable, marginColor: Color, marginThickness: Double) -> some View {
+    static func marginGuide(paperEAN: PaperEAN, horizontalMargin: any HorizontalMarginable, verticalMargin: any VerticalMarginable, marginColor: Color, marginThickness: Double, dpi: PaperEAN.DPI) -> some View {
         ZStack{
             HStack {
                 if (!horizontalMargin.isNone) {
-                    let paperHeight = paperEAN.printableSizeInPixels.height
+                    let paperHeight = paperEAN.printableSizeInPixels(dpi: dpi).height
                     
                     if (horizontalMargin.edge!.contains(.trailing)) {
                         Spacer()
@@ -146,7 +146,7 @@ struct CommonLabelPreview {
             
             VStack {
                 if (!verticalMargin.isNone) {
-                    let paperWidth = paperEAN.printableSizeInPixels.width
+                    let paperWidth = paperEAN.printableSizeInPixels(dpi: dpi).width
                     
                     if (verticalMargin.edge!.contains(.bottom)) {
                         Spacer()

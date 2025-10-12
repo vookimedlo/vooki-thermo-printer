@@ -10,7 +10,7 @@ import SwiftUI
 
 struct PrinterView: View, Notifiable {
     @Environment(PrinterAvailability.self) private var printerAvailability
-    @Environment(PrinterDetails.self) private var printeDetails
+    @Environment(PrinterDetails.self) private var printerDetails
     @Environment(UISettingsProperties.self) private var uiSettingsProperties
     @Environment(ObservablePaperEAN.self) private var paperEAN
 
@@ -122,7 +122,7 @@ struct PrinterView: View, Notifiable {
                         Section(header: Text("Printer")) {
                             PrinterDetailsView()
                         }
-                        if printerAvailability.isConnected && printeDetails.isPaperInserted {
+                        if printerAvailability.isConnected && printerDetails.isPaperInserted {
                             Section(header: Text("Paper")) {
                                 PrinterLabelDetailView()
                             }
@@ -132,7 +132,7 @@ struct PrinterView: View, Notifiable {
                     Spacer()
                 }
                 .animation(.easeInOut, value: printerAvailability.isConnected)
-                .animation(.easeInOut, value: printeDetails.isPaperInserted)
+                .animation(.easeInOut, value: printerDetails.isPaperInserted)
             }.onReceive(NotificationCenter.default.publisher(for: .App.UI.printStarted)) { _ in
                 withAnimation {
                     showingPrintingProgress = true

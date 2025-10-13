@@ -10,13 +10,13 @@ import SwiftUI
 struct CableLabelPreview: View {
     @Environment(ImagePreview.self) private var imagePreview
     @Environment(ObservablePaperEAN.self) private var paperEAN
-    @Environment(\.dpi) var dpi
+    @Environment(\.dpi) private var dpi
     
     @Binding var horizontalMargin: any HorizontalMarginable
     @Binding var verticalMargin: any VerticalMarginable
     
     private static let tailPhysicalHeightInMM = 8.0
-    private static let tailPhysicalHeightInPixels = PixelCalculator.pixels(lengthInMM: tailPhysicalHeightInMM, dpi: 203)
+    private var tailPhysicalHeightInPixels: Double { PixelCalculator.pixels(lengthInMM: Self.tailPhysicalHeightInMM, dpi: dpi.rawValue) }
     
     var body: some View {
         @Bindable var imagePreview = imagePreview
@@ -63,7 +63,7 @@ struct CableLabelPreview: View {
                                         radius: cornerRadius,
                                         x: cornerRadius + 2)
                                 .frame(width: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width - $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: dpi).width,
-                                       height: Self.tailPhysicalHeightInPixels)
+                                       height: tailPhysicalHeightInPixels)
                         }
                     }
                     Spacer()
@@ -87,7 +87,7 @@ struct CableLabelPreview: View {
                 
                 trailingVerticalDescription(color: CommonLabelPreview.physicalColor,
                                             paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
-                                            paperHeight: Self.tailPhysicalHeightInPixels,
+                                            paperHeight: tailPhysicalHeightInPixels,
                                             description: "\(Self.tailPhysicalHeightInMM)",
                                             offset: 25)
                 .help("The height of paper.")

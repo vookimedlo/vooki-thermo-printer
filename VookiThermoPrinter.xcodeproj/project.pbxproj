@@ -113,6 +113,100 @@
 		8DED511F2C3080F700B52F1E /* SegmentedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */; };
 		8DED51212C318E3100B52F1E /* HorizontalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */; };
 		8DED51232C31927200B52F1E /* VerticalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */; };
+		8DF5BEDA2E9D7C8000166B4C /* PrinterAppBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5BED92E9D7C8000166B4C /* PrinterAppBase.swift */; };
+		8DF5BEDF2E9D813800166B4C /* TextConstructionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE5A2C393E2D004DAED2 /* TextConstructionView.swift */; };
+		8DF5BEE02E9D813800166B4C /* AutoShutdownTimePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D112C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift */; };
+		8DF5BEE12E9D813800166B4C /* SerialNumberPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */; };
+		8DF5BEE22E9D813800166B4C /* ShowMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D580E122C623FBC005B3FAB /* ShowMenuCommands.swift */; };
+		8DF5BEE32E9D813800166B4C /* PrintingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC767132C2E0F0B00237C26 /* PrintingProgress.swift */; };
+		8DF5BEE42E9D813800166B4C /* PrintStatusPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */; };
+		8DF5BEE52E9D813800166B4C /* BluetoothSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */; };
+		8DF5BEE62E9D813800166B4C /* LabelTypePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D0F2C19C6BB00296C72 /* LabelTypePacketDecoder.swift */; };
+		8DF5BEE72E9D813800166B4C /* FontDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D32C288EA0005E2F94 /* FontDetails.swift */; };
+		8DF5BEE82E9D813800166B4C /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D452C1A552800296C72 /* HistoryView.swift */; };
+		8DF5BEE92E9D813800166B4C /* ToolbarItemPlacementExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7272C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift */; };
+		8DF5BEEA2E9D813800166B4C /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB860D2C1250BF0028526B /* ImageGenerator.swift */; };
+		8DF5BEEB2E9D813800166B4C /* DensityPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D0D2C19C69900296C72 /* DensityPacketDecoder.swift */; };
+		8DF5BEEC2E9D813800166B4C /* CableLabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73719B2C69704000695B2E /* CableLabelPreview.swift */; };
+		8DF5BEED2E9D813800166B4C /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC242C052317001EBD95 /* Packet.swift */; };
+		8DF5BEEE2E9D813800166B4C /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7252C5D6C6D00EFA505 /* AlertType.swift */; };
+		8DF5BEEF2E9D813800166B4C /* RFIDDataPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */; };
+		8DF5BEF02E9D813800166B4C /* BatteryInformationPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D172C19C72A00296C72 /* BatteryInformationPacketDecoder.swift */; };
+		8DF5BEF12E9D813800166B4C /* NotificationObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639422C0B927F00374894 /* NotificationObservable.swift */; };
+		8DF5BEF22E9D813800166B4C /* DataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96391E2C0A8E8B00374894 /* DataExtension.swift */; };
+		8DF5BEF32E9D813800166B4C /* BluetoothPeripheralsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35E3372C23828A00E8E2A9 /* BluetoothPeripheralsView.swift */; };
+		8DF5BEF42E9D813800166B4C /* SegmentedPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */; };
+		8DF5BEF52E9D813800166B4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D412C1A290700296C72 /* ContentView.swift */; };
+		8DF5BEF62E9D813800166B4C /* DpiEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF71A9E2E9C413900BC8491 /* DpiEnvironmentKey.swift */; };
+		8DF5BEF72E9D813800166B4C /* BluetoothAccessProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */; };
+		8DF5BEF82E9D813800166B4C /* Notifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639402C0B616D00374894 /* Notifiable.swift */; };
+		8DF5BEF92E9D813800166B4C /* HorizontalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */; };
+		8DF5BEFA2E9D813800166B4C /* PrinterAppD11H.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5BEDB2E9D7C8000166B4C /* PrinterAppD11H.swift */; };
+		8DF5BEFB2E9D813800166B4C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF962022CB1D175009B2DCC /* ColorExtension.swift */; };
+		8DF5BEFC2E9D813800166B4C /* ImageActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D785DB32C470A9A00C25566 /* ImageActor.swift */; };
+		8DF5BEFD2E9D813800166B4C /* PaperEAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */; };
+		8DF5BEFE2E9D813800166B4C /* PrinterAvailability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */; };
+		8DF5BEFF2E9D813800166B4C /* StaticNotifiableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7232C5D402500EFA505 /* StaticNotifiableExtension.swift */; };
+		8DF5BF002E9D813800166B4C /* FixedWidthIntegerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE92C179A4A00296C72 /* FixedWidthIntegerExtension.swift */; };
+		8DF5BF012E9D813800166B4C /* IOError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5362C08DA38005D7EEB /* IOError.swift */; };
+		8DF5BF022E9D813800166B4C /* PrinterDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC332C064583001EBD95 /* PrinterDevice.swift */; };
+		8DF5BF032E9D813800166B4C /* UISettingsProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D580E142C624380005B3FAB /* UISettingsProperties.swift */; };
+		8DF5BF042E9D813800166B4C /* NotifiableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639462C0B9C8B00374894 /* NotifiableExtension.swift */; };
+		8DF5BF052E9D813800166B4C /* ObservablePaperEAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE522C36DF97004DAED2 /* ObservablePaperEAN.swift */; };
+		8DF5BF062E9D813800166B4C /* BoolBytePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D1B2C19C77200296C72 /* BoolBytePacketDecoder.swift */; };
+		8DF5BF072E9D813800166B4C /* NotificationObservableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639442C0B984F00374894 /* NotificationObservableExtension.swift */; };
+		8DF5BF082E9D813800166B4C /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */; };
+		8DF5BF092E9D813800166B4C /* LevelIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3CC2C2756CD005E2F94 /* LevelIndicator.swift */; };
+		8DF5BF0A2E9D813800166B4C /* AppLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */; };
+		8DF5BF0B2E9D813800166B4C /* PrinterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D432C1A45A900296C72 /* PrinterView.swift */; };
+		8DF5BF0C2E9D813800166B4C /* ArrayExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */; };
+		8DF5BF0D2E9D813800166B4C /* PaperDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */; };
+		8DF5BF0E2E9D813800166B4C /* BluetoothIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */; };
+		8DF5BF0F2E9D813800166B4C /* StaticNotifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E71F2C5D3FEF00EFA505 /* StaticNotifiable.swift */; };
+		8DF5BF102E9D813800166B4C /* LabelMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBF74D42C6C0DB10012F875 /* LabelMenuCommands.swift */; };
+		8DF5BF112E9D813800166B4C /* IndicatorValueSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */; };
+		8DF5BF132E9D813800166B4C /* FileSystemAccessProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C53C2C091062005D7EEB /* FileSystemAccessProtocol.swift */; };
+		8DF5BF142E9D813800166B4C /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
+		8DF5BF152E9D813800166B4C /* PrinterDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */; };
+		8DF5BF162E9D813800166B4C /* BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D35E3352C236C7C00E8E2A9 /* BluetoothPeripheral.swift */; };
+		8DF5BF172E9D813800166B4C /* PrinterMenuCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7182C5C351000EFA505 /* PrinterMenuCommands.swift */; };
+		8DF5BF182E9D813800166B4C /* TextTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE582C38A669004DAED2 /* TextTabView.swift */; };
+		8DF5BF192E9D813800166B4C /* TextProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE5C2C394D8C004DAED2 /* TextProperties.swift */; };
+		8DF5BF1A2E9D813800166B4C /* Margins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE502C36DD5D004DAED2 /* Margins.swift */; };
+		8DF5BF1B2E9D813800166B4C /* PrinterAppBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF5BED92E9D7C8000166B4C /* PrinterAppBase.swift */; };
+		8DF5BF1C2E9D813800166B4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E71B2C5C3F2900EFA505 /* AppDelegate.swift */; };
+		8DF5BF1D2E9D813800166B4C /* DeviceTypePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D192C19C74800296C72 /* DeviceTypePacketDecoder.swift */; };
+		8DF5BF1E2E9D813800166B4C /* PixelCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7371A22C6B6AFE00695B2E /* PixelCalculator.swift */; };
+		8DF5BF1F2E9D813800166B4C /* RFIDData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312C092C4DA8A4006D0360 /* RFIDData.swift */; };
+		8DF5BF202E9D813800166B4C /* VerticalTextAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */; };
+		8DF5BF212E9D813800166B4C /* PrinterLabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */; };
+		8DF5BF222E9D813800166B4C /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1216062C7B833200608090 /* SavedView.swift */; };
+		8DF5BF232E9D813800166B4C /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E7152C5B7D4100EFA505 /* TestHelper.swift */; };
+		8DF5BF242E9D813800166B4C /* VerticalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7371A02C6AC4D700695B2E /* VerticalLine.swift */; };
+		8DF5BF252E9D813800166B4C /* AlignmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DED511C2C2FE14500B52F1E /* AlignmentView.swift */; };
+		8DF5BF262E9D813800166B4C /* SendAndWaitAsync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D92FBE02C2E075B0040747C /* SendAndWaitAsync.swift */; };
+		8DF5BF272E9D813800166B4C /* IOProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5342C08DA08005D7EEB /* IOProtocol.swift */; };
+		8DF5BF282E9D813800166B4C /* ImagePreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8AF3D72C28AE8A005E2F94 /* ImagePreview.swift */; };
+		8DF5BF292E9D813800166B4C /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
+		8DF5BF2A2E9D813800166B4C /* PrinterDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84EF9B2C20FA0D0070BA8A /* PrinterDetailsView.swift */; };
+		8DF5BF2B2E9D813800166B4C /* DataConsumerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB85ED2C0E5E610028526B /* DataConsumerProtocol.swift */; };
+		8DF5BF2C2E9D813800166B4C /* Decoration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D785DB52C4813AF00C25566 /* Decoration.swift */; };
+		8DF5BF2E2E9D813800166B4C /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96393E2C0B5E0600374894 /* Notifications.swift */; };
+		8DF5BF2F2E9D813800166B4C /* CommonLabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D73719D2C6AB53800695B2E /* CommonLabelPreview.swift */; };
+		8DF5BF302E9D813800166B4C /* ConnectionViewProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D38E71D2C5D221C00EFA505 /* ConnectionViewProperties.swift */; };
+		8DF5BF312E9D813800166B4C /* PrintStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312C0B2C4DA8EA006D0360 /* PrintStatus.swift */; };
+		8DF5BF322E9D813800166B4C /* HardwareVersionPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D152C19C71000296C72 /* HardwareVersionPacketDecoder.swift */; };
+		8DF5BF332E9D813800166B4C /* FileSystemIO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5322C08D9D1005D7EEB /* FileSystemIO.swift */; };
+		8DF5BF342E9D813800166B4C /* SDLabelProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9107FB2C753B1C00C2F7AF /* SDLabelProperty.swift */; };
+		8DF5BF352E9D813800166B4C /* SoftwareVersionPacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDC3D132C19C6F400296C72 /* SoftwareVersionPacketDecoder.swift */; };
+		8DF5BF362E9D813800166B4C /* UplinkProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C5612C0A21AD005D7EEB /* UplinkProcessor.swift */; };
+		8DF5BF372E9D813800166B4C /* PosixFileSystemAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D76C53A2C090B96005D7EEB /* PosixFileSystemAccess.swift */; };
+		8DF5BF382E9D813800166B4C /* SavedLabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD5683C2C72A03500DEB243 /* SavedLabelPreview.swift */; };
+		8DF5BF392E9D813800166B4C /* FontSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D84EF992C20F6090070BA8A /* FontSelectionView.swift */; };
+		8DF5BF3A2E9D813800166B4C /* PrinterActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D922C49BE8E006BF3BE /* PrinterActor.swift */; };
+		8DF5BF3B2E9D813800166B4C /* LabelPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE542C36E7F8004DAED2 /* LabelPreview.swift */; };
+		8DF5BF3E2E9D813800166B4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D58DC192C052198001EBD95 /* Assets.xcassets */; };
+		8DF5BF792E9D925700166B4C /* VookiThermoPrinter-D11H-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8DF5BF782E9D925700166B4C /* VookiThermoPrinter-D11H-Info.plist */; };
 		8DF71A9F2E9C413900BC8491 /* DpiEnvironmentKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF71A9E2E9C413900BC8491 /* DpiEnvironmentKey.swift */; };
 		8DF962032CB1D17B009B2DCC /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF962022CB1D175009B2DCC /* ColorExtension.swift */; };
 		8DF9FE4F2C36A057004DAED2 /* PaperEAN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */; };
@@ -161,10 +255,10 @@
 		8D38E7272C5D72A300EFA505 /* ToolbarItemPlacementExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarItemPlacementExtension.swift; sourceTree = "<group>"; };
 		8D580E122C623FBC005B3FAB /* ShowMenuCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMenuCommands.swift; sourceTree = "<group>"; };
 		8D580E142C624380005B3FAB /* UISettingsProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISettingsProperties.swift; sourceTree = "<group>"; };
-		8D58DC122C052197001EBD95 /* VookiThermoPrinter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VookiThermoPrinter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D58DC122C052197001EBD95 /* VookiThermoPrinter - D110.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VookiThermoPrinter - D110.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC152C052197001EBD95 /* PrinterAppD110.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppD110.swift; sourceTree = "<group>"; };
 		8D58DC192C052198001EBD95 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8D58DC1E2C052198001EBD95 /* VookiThermoPrinter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VookiThermoPrinter.entitlements; sourceTree = "<group>"; };
+		8D58DC1E2C052198001EBD95 /* VookiThermoPrinter-D110.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "VookiThermoPrinter-D110.entitlements"; sourceTree = "<group>"; };
 		8D58DC242C052317001EBD95 /* Packet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Packet.swift; sourceTree = "<group>"; };
 		8D58DC2A2C05D460001EBD95 /* VookiThermoPrinterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VookiThermoPrinterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC2C2C05D460001EBD95 /* PacketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTests.swift; sourceTree = "<group>"; };
@@ -236,7 +330,7 @@
 		8DDC3D412C1A290700296C72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DDC3D432C1A45A900296C72 /* PrinterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterView.swift; sourceTree = "<group>"; };
 		8DDC3D452C1A552800296C72 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
-		8DEB85E62C0CBFD40028526B /* VookiThermoPrinter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VookiThermoPrinter-Info.plist"; sourceTree = SOURCE_ROOT; };
+		8DEB85E62C0CBFD40028526B /* VookiThermoPrinter-D110-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VookiThermoPrinter-D110-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8DEB85E72C0CC6E00028526B /* BluetoothIO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothIO.swift; sourceTree = "<group>"; };
 		8DEB85E92C0E0A970028526B /* BluetoothSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothSupport.swift; sourceTree = "<group>"; };
 		8DEB85EB2C0E112C0028526B /* BluetoothAccessProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothAccessProtocol.swift; sourceTree = "<group>"; };
@@ -246,6 +340,11 @@
 		8DED511E2C3080F700B52F1E /* SegmentedPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedPickerView.swift; sourceTree = "<group>"; };
 		8DED51202C318E3100B52F1E /* HorizontalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTextAlignment.swift; sourceTree = "<group>"; };
 		8DED51222C31927200B52F1E /* VerticalTextAlignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalTextAlignment.swift; sourceTree = "<group>"; };
+		8DF5BED92E9D7C8000166B4C /* PrinterAppBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppBase.swift; sourceTree = "<group>"; };
+		8DF5BEDB2E9D7C8000166B4C /* PrinterAppD11H.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterAppD11H.swift; sourceTree = "<group>"; };
+		8DF5BF422E9D813800166B4C /* VookiThermoPrinter - D11_H.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VookiThermoPrinter - D11_H.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DF5BF712E9D86E300166B4C /* VookiThermoPrinter-D11H.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "VookiThermoPrinter-D11H.entitlements"; sourceTree = "<group>"; };
+		8DF5BF782E9D925700166B4C /* VookiThermoPrinter-D11H-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VookiThermoPrinter-D11H-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8DF71A9E2E9C413900BC8491 /* DpiEnvironmentKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DpiEnvironmentKey.swift; sourceTree = "<group>"; };
 		8DF962022CB1D175009B2DCC /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaperEAN.swift; sourceTree = "<group>"; };
@@ -267,6 +366,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8D58DC272C05D460001EBD95 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DF5BF3C2E9D813800166B4C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -343,6 +449,8 @@
 			children = (
 				8D38E71B2C5C3F2900EFA505 /* AppDelegate.swift */,
 				8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */,
+				8DF5BED92E9D7C8000166B4C /* PrinterAppBase.swift */,
+				8DF5BEDB2E9D7C8000166B4C /* PrinterAppD11H.swift */,
 				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
 				8D38E7152C5B7D4100EFA505 /* TestHelper.swift */,
 			);
@@ -361,8 +469,9 @@
 		8D58DC132C052197001EBD95 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D58DC122C052197001EBD95 /* VookiThermoPrinter.app */,
+				8D58DC122C052197001EBD95 /* VookiThermoPrinter - D110.app */,
 				8D58DC2A2C05D460001EBD95 /* VookiThermoPrinterTests.xctest */,
+				8DF5BF422E9D813800166B4C /* VookiThermoPrinter - D11_H.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -376,8 +485,10 @@
 				8DDC3D1F2C19EBB800296C72 /* Extensions */,
 				8D1EFC2C2C40311100C25DEB /* Image */,
 				8D8AF3CE2C2826E2005E2F94 /* Model */,
-				8D58DC1E2C052198001EBD95 /* VookiThermoPrinter.entitlements */,
-				8DEB85E62C0CBFD40028526B /* VookiThermoPrinter-Info.plist */,
+				8D58DC1E2C052198001EBD95 /* VookiThermoPrinter-D110.entitlements */,
+				8DF5BF712E9D86E300166B4C /* VookiThermoPrinter-D11H.entitlements */,
+				8DEB85E62C0CBFD40028526B /* VookiThermoPrinter-D110-Info.plist */,
+				8DF5BF782E9D925700166B4C /* VookiThermoPrinter-D11H-Info.plist */,
 				8DDC3D202C19EC8E00296C72 /* Notifications */,
 				8DDC3D092C19C62D00296C72 /* Packet */,
 				8DDC3D222C19EDFC00296C72 /* Printer */,
@@ -605,9 +716,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D58DC112C052197001EBD95 /* VookiThermoPrinter */ = {
+		8D58DC112C052197001EBD95 /* VookiThermoPrinter - D110 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8D58DC212C052198001EBD95 /* Build configuration list for PBXNativeTarget "VookiThermoPrinter" */;
+			buildConfigurationList = 8D58DC212C052198001EBD95 /* Build configuration list for PBXNativeTarget "VookiThermoPrinter - D110" */;
 			buildPhases = (
 				8D58DC0E2C052197001EBD95 /* Sources */,
 				8D58DC0F2C052197001EBD95 /* Frameworks */,
@@ -617,9 +728,9 @@
 			);
 			dependencies = (
 			);
-			name = VookiThermoPrinter;
+			name = "VookiThermoPrinter - D110";
 			productName = "Niimbot Printer";
-			productReference = 8D58DC122C052197001EBD95 /* VookiThermoPrinter.app */;
+			productReference = 8D58DC122C052197001EBD95 /* VookiThermoPrinter - D110.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8D58DC292C05D460001EBD95 /* VookiThermoPrinterTests */ = {
@@ -640,6 +751,23 @@
 			productReference = 8D58DC2A2C05D460001EBD95 /* VookiThermoPrinterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		8DF5BEDD2E9D813800166B4C /* VookiThermoPrinter - D11_H */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DF5BF3F2E9D813800166B4C /* Build configuration list for PBXNativeTarget "VookiThermoPrinter - D11_H" */;
+			buildPhases = (
+				8DF5BEDE2E9D813800166B4C /* Sources */,
+				8DF5BF3C2E9D813800166B4C /* Frameworks */,
+				8DF5BF3D2E9D813800166B4C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "VookiThermoPrinter - D11_H";
+			productName = "Niimbot Printer";
+			productReference = 8DF5BF422E9D813800166B4C /* VookiThermoPrinter - D11_H.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -647,7 +775,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1540;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					8D58DC112C052197001EBD95 = {
@@ -674,7 +802,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D58DC112C052197001EBD95 /* VookiThermoPrinter */,
+				8D58DC112C052197001EBD95 /* VookiThermoPrinter - D110 */,
+				8DF5BEDD2E9D813800166B4C /* VookiThermoPrinter - D11_H */,
 				8D58DC292C05D460001EBD95 /* VookiThermoPrinterTests */,
 			);
 		};
@@ -693,6 +822,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DF5BF3D2E9D813800166B4C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DF5BF3E2E9D813800166B4C /* Assets.xcassets in Resources */,
+				8DF5BF792E9D925700166B4C /* VookiThermoPrinter-D11H-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +900,7 @@
 				8DF9FE592C38A669004DAED2 /* TextTabView.swift in Sources */,
 				8DF9FE5D2C394D8C004DAED2 /* TextProperties.swift in Sources */,
 				8DF9FE512C36DD5D004DAED2 /* Margins.swift in Sources */,
+				8DF5BEDA2E9D7C8000166B4C /* PrinterAppBase.swift in Sources */,
 				8D38E71C2C5C3F2B00EFA505 /* AppDelegate.swift in Sources */,
 				8DDC3D1A2C19C74800296C72 /* DeviceTypePacketDecoder.swift in Sources */,
 				8D7371A32C6B6B0400695B2E /* PixelCalculator.swift in Sources */,
@@ -828,12 +967,110 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8DF5BEDE2E9D813800166B4C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DF5BEDF2E9D813800166B4C /* TextConstructionView.swift in Sources */,
+				8DF5BEE02E9D813800166B4C /* AutoShutdownTimePacketDecoder.swift in Sources */,
+				8DF5BEE12E9D813800166B4C /* SerialNumberPacketDecoder.swift in Sources */,
+				8DF5BEE22E9D813800166B4C /* ShowMenuCommands.swift in Sources */,
+				8DF5BEE32E9D813800166B4C /* PrintingProgress.swift in Sources */,
+				8DF5BEE42E9D813800166B4C /* PrintStatusPacketDecoder.swift in Sources */,
+				8DF5BEE52E9D813800166B4C /* BluetoothSupport.swift in Sources */,
+				8DF5BEE62E9D813800166B4C /* LabelTypePacketDecoder.swift in Sources */,
+				8DF5BEE72E9D813800166B4C /* FontDetails.swift in Sources */,
+				8DF5BEE82E9D813800166B4C /* HistoryView.swift in Sources */,
+				8DF5BEE92E9D813800166B4C /* ToolbarItemPlacementExtension.swift in Sources */,
+				8DF5BEEA2E9D813800166B4C /* ImageGenerator.swift in Sources */,
+				8DF5BEEB2E9D813800166B4C /* DensityPacketDecoder.swift in Sources */,
+				8DF5BEEC2E9D813800166B4C /* CableLabelPreview.swift in Sources */,
+				8DF5BEED2E9D813800166B4C /* Packet.swift in Sources */,
+				8DF5BEEE2E9D813800166B4C /* AlertType.swift in Sources */,
+				8DF5BEEF2E9D813800166B4C /* RFIDDataPacketDecoder.swift in Sources */,
+				8DF5BEF02E9D813800166B4C /* BatteryInformationPacketDecoder.swift in Sources */,
+				8DF5BEF12E9D813800166B4C /* NotificationObservable.swift in Sources */,
+				8DF5BEF22E9D813800166B4C /* DataExtension.swift in Sources */,
+				8DF5BEF32E9D813800166B4C /* BluetoothPeripheralsView.swift in Sources */,
+				8DF5BEF42E9D813800166B4C /* SegmentedPickerView.swift in Sources */,
+				8DF5BEF52E9D813800166B4C /* ContentView.swift in Sources */,
+				8DF5BEF62E9D813800166B4C /* DpiEnvironmentKey.swift in Sources */,
+				8DF5BEF72E9D813800166B4C /* BluetoothAccessProtocol.swift in Sources */,
+				8DF5BEF82E9D813800166B4C /* Notifiable.swift in Sources */,
+				8DF5BEF92E9D813800166B4C /* HorizontalTextAlignment.swift in Sources */,
+				8DF5BEFA2E9D813800166B4C /* PrinterAppD11H.swift in Sources */,
+				8DF5BEFB2E9D813800166B4C /* ColorExtension.swift in Sources */,
+				8DF5BEFC2E9D813800166B4C /* ImageActor.swift in Sources */,
+				8DF5BEFD2E9D813800166B4C /* PaperEAN.swift in Sources */,
+				8DF5BEFE2E9D813800166B4C /* PrinterAvailability.swift in Sources */,
+				8DF5BEFF2E9D813800166B4C /* StaticNotifiableExtension.swift in Sources */,
+				8DF5BF002E9D813800166B4C /* FixedWidthIntegerExtension.swift in Sources */,
+				8DF5BF012E9D813800166B4C /* IOError.swift in Sources */,
+				8DF5BF022E9D813800166B4C /* PrinterDevice.swift in Sources */,
+				8DF5BF032E9D813800166B4C /* UISettingsProperties.swift in Sources */,
+				8DF5BF042E9D813800166B4C /* NotifiableExtension.swift in Sources */,
+				8DF5BF052E9D813800166B4C /* ObservablePaperEAN.swift in Sources */,
+				8DF5BF062E9D813800166B4C /* BoolBytePacketDecoder.swift in Sources */,
+				8DF5BF072E9D813800166B4C /* NotificationObservableExtension.swift in Sources */,
+				8DF5BF082E9D813800166B4C /* CGImageExtension.swift in Sources */,
+				8DF5BF092E9D813800166B4C /* LevelIndicator.swift in Sources */,
+				8DF5BF0A2E9D813800166B4C /* AppLogic.swift in Sources */,
+				8DF5BF0B2E9D813800166B4C /* PrinterView.swift in Sources */,
+				8DF5BF0C2E9D813800166B4C /* ArrayExtension.swift in Sources */,
+				8DF5BF0D2E9D813800166B4C /* PaperDetails.swift in Sources */,
+				8DF5BF0E2E9D813800166B4C /* BluetoothIO.swift in Sources */,
+				8DF5BF0F2E9D813800166B4C /* StaticNotifiable.swift in Sources */,
+				8DF5BF102E9D813800166B4C /* LabelMenuCommands.swift in Sources */,
+				8DF5BF112E9D813800166B4C /* IndicatorValueSlider.swift in Sources */,
+				8DF5BF132E9D813800166B4C /* FileSystemAccessProtocol.swift in Sources */,
+				8DF5BF142E9D813800166B4C /* Printer.swift in Sources */,
+				8DF5BF152E9D813800166B4C /* PrinterDetails.swift in Sources */,
+				8DF5BF162E9D813800166B4C /* BluetoothPeripheral.swift in Sources */,
+				8DF5BF172E9D813800166B4C /* PrinterMenuCommands.swift in Sources */,
+				8DF5BF182E9D813800166B4C /* TextTabView.swift in Sources */,
+				8DF5BF192E9D813800166B4C /* TextProperties.swift in Sources */,
+				8DF5BF1A2E9D813800166B4C /* Margins.swift in Sources */,
+				8DF5BF1B2E9D813800166B4C /* PrinterAppBase.swift in Sources */,
+				8DF5BF1C2E9D813800166B4C /* AppDelegate.swift in Sources */,
+				8DF5BF1D2E9D813800166B4C /* DeviceTypePacketDecoder.swift in Sources */,
+				8DF5BF1E2E9D813800166B4C /* PixelCalculator.swift in Sources */,
+				8DF5BF1F2E9D813800166B4C /* RFIDData.swift in Sources */,
+				8DF5BF202E9D813800166B4C /* VerticalTextAlignment.swift in Sources */,
+				8DF5BF212E9D813800166B4C /* PrinterLabelDetailView.swift in Sources */,
+				8DF5BF222E9D813800166B4C /* SavedView.swift in Sources */,
+				8DF5BF232E9D813800166B4C /* TestHelper.swift in Sources */,
+				8DF5BF242E9D813800166B4C /* VerticalLine.swift in Sources */,
+				8DF5BF252E9D813800166B4C /* AlignmentView.swift in Sources */,
+				8DF5BF262E9D813800166B4C /* SendAndWaitAsync.swift in Sources */,
+				8DF5BF272E9D813800166B4C /* IOProtocol.swift in Sources */,
+				8DF5BF282E9D813800166B4C /* ImagePreview.swift in Sources */,
+				8DF5BF292E9D813800166B4C /* PacketDecoder.swift in Sources */,
+				8DF5BF2A2E9D813800166B4C /* PrinterDetailsView.swift in Sources */,
+				8DF5BF2B2E9D813800166B4C /* DataConsumerProtocol.swift in Sources */,
+				8DF5BF2C2E9D813800166B4C /* Decoration.swift in Sources */,
+				8DF5BF2E2E9D813800166B4C /* Notifications.swift in Sources */,
+				8DF5BF2F2E9D813800166B4C /* CommonLabelPreview.swift in Sources */,
+				8DF5BF302E9D813800166B4C /* ConnectionViewProperties.swift in Sources */,
+				8DF5BF312E9D813800166B4C /* PrintStatus.swift in Sources */,
+				8DF5BF322E9D813800166B4C /* HardwareVersionPacketDecoder.swift in Sources */,
+				8DF5BF332E9D813800166B4C /* FileSystemIO.swift in Sources */,
+				8DF5BF342E9D813800166B4C /* SDLabelProperty.swift in Sources */,
+				8DF5BF352E9D813800166B4C /* SoftwareVersionPacketDecoder.swift in Sources */,
+				8DF5BF362E9D813800166B4C /* UplinkProcessor.swift in Sources */,
+				8DF5BF372E9D813800166B4C /* PosixFileSystemAccess.swift in Sources */,
+				8DF5BF382E9D813800166B4C /* SavedLabelPreview.swift in Sources */,
+				8DF5BF392E9D813800166B4C /* FontSelectionView.swift in Sources */,
+				8DF5BF3A2E9D813800166B4C /* PrinterActor.swift in Sources */,
+				8DF5BF3B2E9D813800166B4C /* LabelPreview.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
 		8D58DC2F2C05D460001EBD95 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8D58DC112C052197001EBD95 /* VookiThermoPrinter */;
+			target = 8D58DC112C052197001EBD95 /* VookiThermoPrinter - D110 */;
 			targetProxy = 8D58DC2E2C05D460001EBD95 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -962,14 +1199,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = VookiThermoPrinter/VookiThermoPrinter.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "VookiThermoPrinter/VookiThermoPrinter-D110.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "VookiThermoPrinter-Info.plist";
+				INFOPLIST_FILE = "VookiThermoPrinter-D110-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -991,14 +1228,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = VookiThermoPrinter/VookiThermoPrinter.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "VookiThermoPrinter/VookiThermoPrinter-D110.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "VookiThermoPrinter-Info.plist";
+				INFOPLIST_FILE = "VookiThermoPrinter-D110-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer.";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -1029,7 +1266,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VookiThermoPrinter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VookiThermoPrinter";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VookiThermoPrinter - D110.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VookiThermoPrinter - D110";
 			};
 			name = Debug;
 		};
@@ -1047,7 +1284,65 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VookiThermoPrinter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VookiThermoPrinter";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VookiThermoPrinter - D110.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VookiThermoPrinter - D110";
+			};
+			name = Release;
+		};
+		8DF5BF402E9D813800166B4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "VookiThermoPrinter/VookiThermoPrinter-D11H.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VookiThermoPrinter-D11H-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.app.d11-h.printer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		8DF5BF412E9D813800166B4C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "VookiThermoPrinter/VookiThermoPrinter-D11H.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3HRQ8E2SZ4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "VookiThermoPrinter-D11H-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Bluetooth is required for communicating to Niimbot printer.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cz.vookimedlo.app.d11-h.printer";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -1063,7 +1358,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8D58DC212C052198001EBD95 /* Build configuration list for PBXNativeTarget "VookiThermoPrinter" */ = {
+		8D58DC212C052198001EBD95 /* Build configuration list for PBXNativeTarget "VookiThermoPrinter - D110" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8D58DC222C052198001EBD95 /* Debug */,
@@ -1077,6 +1372,15 @@
 			buildConfigurations = (
 				8D58DC312C05D460001EBD95 /* Debug */,
 				8D58DC322C05D460001EBD95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DF5BF3F2E9D813800166B4C /* Build configuration list for PBXNativeTarget "VookiThermoPrinter - D11_H" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DF5BF402E9D813800166B4C /* Debug */,
+				8DF5BF412E9D813800166B4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

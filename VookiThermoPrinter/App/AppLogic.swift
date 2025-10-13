@@ -15,7 +15,7 @@ final class AppLogic: Notifiable, NotificationObservable {
     nonisolated
     private static let logger = Logger(
         subsystem: Bundle.main.bundleIdentifier!,
-        category: String(describing: PrinterAppD110.self)
+        category: String(describing: PrinterAppBase.self)
     )
     
     @PrinterActor
@@ -39,7 +39,7 @@ final class AppLogic: Notifiable, NotificationObservable {
     @MainActor
     var appRef: AppStates!
     var dpi: PaperEAN.DPI!
-    init(appRef: inout PrinterAppD110, dpi: PaperEAN.DPI) {
+    init(appRef: inout PrinterAppBase, dpi: PaperEAN.DPI) {
         self.appRef = appRef
         self.dpi = dpi
         

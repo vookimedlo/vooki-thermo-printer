@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import VookiThermoPrinter
+@testable import VookiThermoPrinter___D110
 
 final class PrinterDeviceTests: XCTestCase {
     func testOpen_DontThrow() {

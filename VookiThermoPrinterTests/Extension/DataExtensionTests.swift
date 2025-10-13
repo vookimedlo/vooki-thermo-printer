@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import VookiThermoPrinter
+@testable import VookiThermoPrinter___D110
 
 final class DataExtensionTests: XCTestCase {
     func testToUint16_not2InputBytes() {

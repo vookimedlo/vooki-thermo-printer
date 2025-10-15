@@ -28,21 +28,21 @@ final class paperEANTests: XCTestCase {
             {
                 for ean in PaperEAN.allCases {
                     XCTAssertEqual(ean.printableSizeInPixels(dpi: dpi).width,
-                                   PixelCalculator.pixels(lengthInMM: ean.printableSizeInMillimeters.width, dpi: dpi.rawValue),
+                                   PixelCalculator.pixels(lengthInMM: ean.printableSizeInMillimeters.width, dpi: Double(dpi.rawValue)),
                                    accuracy: 0.1)
                     XCTAssertEqual(ean.physicalSizeInPixels(dpi: dpi).width,
-                                   PixelCalculator.pixels(lengthInMM: ean.physicalSizeInMillimeters.width, dpi: dpi.rawValue),
+                                   PixelCalculator.pixels(lengthInMM: ean.physicalSizeInMillimeters.width, dpi: Double(dpi.rawValue)),
                                    accuracy: 0.1)
-                    XCTAssertGreaterThanOrEqual(ean.physicalSizeInPixels(dpi: dpi).width, ean.printableSizeInPixels(dpi: .dpi203).width)
+                    XCTAssertGreaterThanOrEqual(ean.physicalSizeInPixels(dpi: dpi).width, ean.printableSizeInPixels(dpi: dpi).width)
                     XCTAssertGreaterThanOrEqual(ean.physicalSizeInMillimeters.width, ean.printableSizeInMillimeters.width)
                     
                     XCTAssertEqual(ean.printableSizeInPixels(dpi: dpi).height,
-                                   PixelCalculator.pixels(lengthInMM: ean.printableSizeInMillimeters.height, dpi: dpi.rawValue),
+                                   PixelCalculator.pixels(lengthInMM: ean.printableSizeInMillimeters.height, dpi: Double(dpi.rawValue)),
                                    accuracy: 0.1)
                     XCTAssertEqual(ean.physicalSizeInPixels(dpi: dpi).height,
-                                   PixelCalculator.pixels(lengthInMM: ean.physicalSizeInMillimeters.height, dpi: dpi.rawValue),
+                                   PixelCalculator.pixels(lengthInMM: ean.physicalSizeInMillimeters.height, dpi: Double(dpi.rawValue)),
                                    accuracy: 0.1)
-                    XCTAssertGreaterThanOrEqual(ean.physicalSizeInPixels(dpi: dpi).height, ean.printableSizeInPixels(dpi: .dpi203).height)
+                    XCTAssertGreaterThanOrEqual(ean.physicalSizeInPixels(dpi: dpi).height, ean.printableSizeInPixels(dpi: dpi).height)
                     XCTAssertGreaterThanOrEqual(ean.physicalSizeInMillimeters.height, ean.printableSizeInMillimeters.height)
                 }
             }()

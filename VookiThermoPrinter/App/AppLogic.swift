@@ -551,7 +551,7 @@ final class AppLogic: Notifiable, NotificationObservable {
                 try await self.printer?.startPagePrint()
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setDimension) {
-                try await self.printer?.setDimension(width: UInt16(self.dpi.rawValue) * UInt16(self.appRef.paperEAN.ean.printableSizeInPixels(dpi: self.dpi).width),
+                try await self.printer?.setDimension(width: UInt16(self.appRef.paperEAN.ean.printableSizeInPixels(dpi: self.dpi).width),
                                                      height: UInt16(self.appRef.paperEAN.ean.printableSizeInPixels(dpi: self.dpi).height))
             }
             try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {

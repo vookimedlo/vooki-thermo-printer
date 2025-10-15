@@ -28,7 +28,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
          ean6972842743794 = "6972842743794", // 109*12.5 blue cable - 12.5*74+7*35
          ean6971501229778 = "6971501229778"  // 30*12 white
     
-    enum DPI: CGFloat, Sendable, CaseIterable {
+    enum DPI: Int, Sendable, CaseIterable {
         case dpi203 = 203,
              dpi300 = 300
     }
@@ -52,14 +52,14 @@ enum PaperEAN: String, Sendable, CaseIterable {
         let cornerRadius: Double
         
         func physicalSizeInPixels(dpi: DPI) -> CGSize {
-            let widthPixels = (physicalSizeInMillimeters.width / 25.4) * dpi.rawValue
-            let heightPixels = (physicalSizeInMillimeters.height / 25.4) * dpi.rawValue
+            let widthPixels = physicalSizeInMillimeters.width * CGFloat(dpi.rawValue) / 25.4
+            let heightPixels = physicalSizeInMillimeters.height * CGFloat(dpi.rawValue) / 25.4
             return CGSize(width: widthPixels.rounded(), height: heightPixels.rounded())
         }
         
         func printableSizeInPixels(dpi: DPI) -> CGSize {
-            let widthPixels = (printableSizeInMillimeters.width / 25.4) * dpi.rawValue
-            let heightPixels = (printableSizeInMillimeters.height / 25.4) * dpi.rawValue
+            let widthPixels = printableSizeInMillimeters.width * CGFloat(dpi.rawValue) / 25.4
+            let heightPixels = printableSizeInMillimeters.height * CGFloat(dpi.rawValue) / 25.4
             return CGSize(width: widthPixels.rounded(), height: heightPixels.rounded())
         }
     }

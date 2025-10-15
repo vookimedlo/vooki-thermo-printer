@@ -16,7 +16,7 @@ struct CableLabelPreview: View {
     @Binding var verticalMargin: any VerticalMarginable
     
     private static let tailPhysicalHeightInMM = 8.0
-    private var tailPhysicalHeightInPixels: Double { PixelCalculator.pixels(lengthInMM: Self.tailPhysicalHeightInMM, dpi: dpi.rawValue) }
+    private var tailPhysicalHeightInPixels: Double { PixelCalculator.pixels(lengthInMM: Self.tailPhysicalHeightInMM, dpi: Double(dpi.rawValue)) }
     
     var body: some View {
         @Bindable var imagePreview = imagePreview

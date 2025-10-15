@@ -38,6 +38,8 @@
 		8D58DC252C052317001EBD95 /* Packet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC242C052317001EBD95 /* Packet.swift */; };
 		8D58DC2D2C05D460001EBD95 /* PacketTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC2C2C05D460001EBD95 /* PacketTests.swift */; };
 		8D58DC342C064583001EBD95 /* PrinterDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D58DC332C064583001EBD95 /* PrinterDevice.swift */; };
+		8D5B7F372EA03BC100C8F3BF /* AppLogic+D110.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5B7F352EA03BC100C8F3BF /* AppLogic+D110.swift */; };
+		8D5B7F392EA03BDA00C8F3BF /* AppLogic+D11H.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5B7F382EA03BDA00C8F3BF /* AppLogic+D11H.swift */; };
 		8D708D932C49BE8E006BF3BE /* PrinterActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D922C49BE8E006BF3BE /* PrinterActor.swift */; };
 		8D708D952C4C6099006BF3BE /* BoolBytePacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D708D942C4C6076006BF3BE /* BoolBytePacketDecoderTests.swift */; };
 		8D73719A2C67F4A200695B2E /* PaperEANTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7371992C67F49500695B2E /* PaperEANTests.swift */; };
@@ -263,6 +265,8 @@
 		8D58DC2A2C05D460001EBD95 /* VookiThermoPrinterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VookiThermoPrinterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D58DC2C2C05D460001EBD95 /* PacketTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketTests.swift; sourceTree = "<group>"; };
 		8D58DC332C064583001EBD95 /* PrinterDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterDevice.swift; sourceTree = "<group>"; };
+		8D5B7F352EA03BC100C8F3BF /* AppLogic+D110.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppLogic+D110.swift"; sourceTree = "<group>"; };
+		8D5B7F382EA03BDA00C8F3BF /* AppLogic+D11H.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppLogic+D11H.swift"; sourceTree = "<group>"; };
 		8D708D922C49BE8E006BF3BE /* PrinterActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterActor.swift; sourceTree = "<group>"; };
 		8D708D942C4C6076006BF3BE /* BoolBytePacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolBytePacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D708D962C4D0112006BF3BE /* SoftwareVersionPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareVersionPacketDecoderTests.swift; sourceTree = "<group>"; };
@@ -453,6 +457,8 @@
 				8DF5BEDB2E9D7C8000166B4C /* PrinterAppD11H.swift */,
 				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
 				8D38E7152C5B7D4100EFA505 /* TestHelper.swift */,
+				8D5B7F352EA03BC100C8F3BF /* AppLogic+D110.swift */,
+				8D5B7F382EA03BDA00C8F3BF /* AppLogic+D11H.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -895,6 +901,7 @@
 				8D76C53D2C091062005D7EEB /* FileSystemAccessProtocol.swift in Sources */,
 				8D9639492C0B9EC600374894 /* Printer.swift in Sources */,
 				8D8AF3D02C2826FD005E2F94 /* PrinterDetails.swift in Sources */,
+				8D5B7F372EA03BC100C8F3BF /* AppLogic+D110.swift in Sources */,
 				8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */,
 				8D38E7192C5C351700EFA505 /* PrinterMenuCommands.swift in Sources */,
 				8DF9FE592C38A669004DAED2 /* TextTabView.swift in Sources */,
@@ -1025,6 +1032,7 @@
 				8DF5BF132E9D813800166B4C /* FileSystemAccessProtocol.swift in Sources */,
 				8DF5BF142E9D813800166B4C /* Printer.swift in Sources */,
 				8DF5BF152E9D813800166B4C /* PrinterDetails.swift in Sources */,
+				8D5B7F392EA03BDA00C8F3BF /* AppLogic+D11H.swift in Sources */,
 				8DF5BF162E9D813800166B4C /* BluetoothPeripheral.swift in Sources */,
 				8DF5BF172E9D813800166B4C /* PrinterMenuCommands.swift in Sources */,
 				8DF5BF182E9D813800166B4C /* TextTabView.swift in Sources */,

@@ -89,8 +89,30 @@ final class BoolBytePacketDecoderTests: XCTestCase {
         }
     }
     
-    func testBoolByteDecoder_UnsuccessfulDecoding() throws {
+    func testBoolByteDecoder_UnsuccessfulDecoding2bytes() throws {
         let inputData: [UInt8] = [0x01, 0x02]
+        
+        for code in BoolBytePacketDecoder.codes.filter({ $0 != RequestCode.RESPONSE_SET_DIMENSION }) {
+            let packet = Packet(requestCode: code, data: inputData)
+            
+            let name = try XCTUnwrap(translate(code: code))
+
+            let e = expectation(forNotification: name,
+                        object: nil,
+                        handler: nil)
+            e.isInverted = true
+            
+            let decoder = BoolBytePacketDecoder()
+            let result = decoder.decode(packet: packet)
+            
+            XCTAssertFalse(result)
+            
+            wait(for: [e], timeout: 1)
+        }
+    }
+    
+    func testBoolByteDecoder_UnsuccessfulDecoding3bytes() throws {
+        let inputData: [UInt8] = [0x01, 0x02, 0x03]
         
         for code in BoolBytePacketDecoder.codes {
             let packet = Packet(requestCode: code, data: inputData)

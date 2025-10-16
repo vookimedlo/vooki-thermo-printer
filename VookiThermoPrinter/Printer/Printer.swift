@@ -87,6 +87,12 @@ final class Printer {
         let packet = Packet(requestCode: RequestCode.REQUEST_START_PRINT, data: [1])
         try send(packet: packet)
     }
+
+    public func startPrint(pagesCount: UInt16) throws {
+        let packet = Packet(requestCode: RequestCode.REQUEST_START_PRINT,
+                            data: pagesCount.bigEndian.bytes + [0, 0, 0, 0, 0])
+        try send(packet: packet)
+    }
     
     public func endPrint() throws {
         let packet = Packet(requestCode: RequestCode.REQUEST_END_PRINT, data: [1])
@@ -121,6 +127,12 @@ final class Printer {
     public func setDimension(width: UInt16, height: UInt16) throws {
         let packet = Packet(requestCode: RequestCode.REQUEST_SET_DIMENSION,
                             data: width.bigEndian.bytes + height.bigEndian.bytes)
+        try send(packet: packet)
+    }
+    
+    public func setDimension(width: UInt16, height: UInt16, copiesCount: UInt16) throws {
+        let packet = Packet(requestCode: RequestCode.REQUEST_SET_DIMENSION,
+                            data: width.bigEndian.bytes + height.bigEndian.bytes + copiesCount.bigEndian.bytes)
         try send(packet: packet)
     }
     

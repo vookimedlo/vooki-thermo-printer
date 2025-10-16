@@ -16,7 +16,7 @@ public class PrintStatusPacketDecoder: PacketDecoding {
         guard Self.code == packet.requestCode else {
             return false
         }
-        guard packet.payload.count == 4 else {
+        guard [4, 8, 10].contains(packet.payload.count) else {
             return false
         }
         

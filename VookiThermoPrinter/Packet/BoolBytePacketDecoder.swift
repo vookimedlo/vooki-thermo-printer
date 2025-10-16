@@ -21,7 +21,7 @@ public final class BoolBytePacketDecoder: PacketDecoding {
     
     public func decode(packet: Packet) -> Bool {
         guard Self.codes.contains(packet.requestCode) else { return false }
-        guard packet.payload.count == 1 else { return false }
+        guard packet.payload.count == 1 || (packet.requestCode == .RESPONSE_SET_DIMENSION && packet.payload.count == 2) else { return false }
         
         guard let name = { (code: RequestCode) -> NSNotification.Name? in
             switch packet.requestCode {

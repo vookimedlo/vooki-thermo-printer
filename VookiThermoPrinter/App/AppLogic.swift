@@ -322,7 +322,18 @@ final class AppLogic: Notifiable, NotificationObservable {
             let device_type = notification.userInfo?[Notification.Keys.value] as! UInt16
             Task { @MainActor in
                 Self.logger.info("Device type: \(device_type)")
-                self.appRef.printerDetails.deviceType = 2304 == device_type ? "D110" : String(device_type)
+                switch device_type {
+                case 2304:
+                    Self.logger.info("Device type: D110")
+                    self.appRef.printerDetails.deviceType = "D110"
+                case 528:
+                    Self.logger.info("Device type: D11_H")
+                    self.appRef.printerDetails.deviceType = "D11_H"
+                default:
+                    Self.logger.info("Device type: Unknown")
+                    self.appRef.printerDetails.deviceType = String(device_type)
+                }
+                
             }
         }
         else if Notification.Name.App.rfidData ==  notification.name {
@@ -542,13 +553,19 @@ final class AppLogic: Notifiable, NotificationObservable {
             defer {
                 self.notifyUI(name: .App.UI.printDone)
             }
-            await self.executePrintCommands()
+            do {
+                try await self.executePrintCommands()
+            }
+            catch {
+                Self.logger.error("Something went wrong when printing")
+                notifyUIAlert(alertType: .printError)
+            }
         }
     }
 }
 
 protocol AppLogicPrinting {
     @PrinterActor
-    func executePrintCommands() async
+    func executePrintCommands() async throws
 }
 

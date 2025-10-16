@@ -37,7 +37,7 @@ final class paperEANTests: XCTestCase {
                     XCTAssertGreaterThanOrEqual(ean.physicalSizeInMillimeters.width, ean.printableSizeInMillimeters.width)
                     
                     XCTAssertEqual(ean.printableSizeInPixels(dpi: dpi).height,
-                                   PixelCalculator.pixels(lengthInMM: ean.printableSizeInMillimeters.height, dpi: Double(dpi.rawValue)),
+                                   PixelCalculator.pixelsByteAligned(lengthInMM: ean.printableSizeInMillimeters.height, dpi: Double(dpi.rawValue)),
                                    accuracy: 0.1)
                     XCTAssertEqual(ean.physicalSizeInPixels(dpi: dpi).height,
                                    PixelCalculator.pixels(lengthInMM: ean.physicalSizeInMillimeters.height, dpi: Double(dpi.rawValue)),

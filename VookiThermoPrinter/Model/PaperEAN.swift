@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+private let inchInMM = 25.4
 
 enum PaperEAN: String, Sendable, CaseIterable {
     case unknown = "0",
@@ -26,7 +27,9 @@ enum PaperEAN: String, Sendable, CaseIterable {
          ean6972842743817 = "6972842743817", // 109*12.5 red cable - 12.5*74+7*35
          ean6972842743800 = "6972842743800", // 109*12.5 green cable - 12.5*74+7*35
          ean6972842743794 = "6972842743794", // 109*12.5 blue cable - 12.5*74+7*35
-         ean6971501229778 = "6971501229778"  // 30*12 white
+         ean6971501229778 = "6971501229778", // 30*12 white
+         ean01222281 = "01222281"            // 40*12 white - came with printer [D11_H]
+
     
     enum DPI: Int, Sendable, CaseIterable {
         case dpi203 = 203,
@@ -41,7 +44,8 @@ enum PaperEAN: String, Sendable, CaseIterable {
              paper50x15,
              paper22x12,
              paper75x12,
-             paper109x12_5
+             paper109x12_5,
+             paper40x12
     }
     
     struct Paper: Sendable, Equatable {
@@ -52,15 +56,19 @@ enum PaperEAN: String, Sendable, CaseIterable {
         let cornerRadius: Double
         
         func physicalSizeInPixels(dpi: DPI) -> CGSize {
-            let widthPixels = physicalSizeInMillimeters.width * CGFloat(dpi.rawValue) / 25.4
-            let heightPixels = physicalSizeInMillimeters.height * CGFloat(dpi.rawValue) / 25.4
+            let widthPixels = physicalSizeInMillimeters.width * CGFloat(dpi.rawValue) / inchInMM
+            let heightPixels = physicalSizeInMillimeters.height * CGFloat(dpi.rawValue) / inchInMM
             return CGSize(width: widthPixels.rounded(), height: heightPixels.rounded())
         }
         
         func printableSizeInPixels(dpi: DPI) -> CGSize {
-            let widthPixels = printableSizeInMillimeters.width * CGFloat(dpi.rawValue) / 25.4
-            let heightPixels = printableSizeInMillimeters.height * CGFloat(dpi.rawValue) / 25.4
-            return CGSize(width: widthPixels.rounded(), height: heightPixels.rounded())
+            let widthPixels = printableSizeInMillimeters.width * CGFloat(dpi.rawValue) / inchInMM
+            let heightPixels = printableSizeInMillimeters.height * CGFloat(dpi.rawValue) / inchInMM
+
+            // Align height to the nearest multiple of 8 pixels
+            let heightPixelsByteAligned = heightPixels.rounded(toMultipleOf: UInt8.bitWidth)
+
+            return CGSize(width: widthPixels.rounded(), height: CGFloat(heightPixelsByteAligned))
         }
     }
     
@@ -116,6 +124,7 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                                        .ean6972842743794: (.paper109x12_5, Attribute(color: .blue,
                                                                                                                      isCable: true)),
                                                                        .ean6971501229778: (.paper30x12, Attribute(color: .various)),
+                                                                       .ean01222281:      (.paper40x12, Attribute()),
     ]
     
     static private let lutDefinitionToPaper: [PaperDefinition: Paper] = [.unknown:
@@ -163,6 +172,12 @@ enum PaperEAN: String, Sendable, CaseIterable {
                                                 .paper109x12_5:
                                                     Paper(physicalSizeInMillimeters: CGSize(width: 109, height: 12.5),
                                                           printableSizeInMillimeters: CGSize(width: 74, height: 12),
+                                                          labelType: 1,
+                                                          margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
+                                                          cornerRadius: 20),
+                                                .paper40x12:
+                                                    Paper(physicalSizeInMillimeters: CGSize(width: 40, height: 12),
+                                                          printableSizeInMillimeters: CGSize(width: 40, height: 12),
                                                           labelType: 1,
                                                           margin: Margins(leading: 5, trailing: 5, top: 2, bottom: 1),
                                                           cornerRadius: 20),

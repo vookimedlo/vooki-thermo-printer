@@ -18,6 +18,10 @@ class PixelCalculator {
         round(dpi * lengthInMM / Self.inchInMM)
     }
     
+    static func pixelsByteAligned(lengthInMM: Double, dpi: Double) -> Double {
+        (dpi * lengthInMM / Self.inchInMM / Double(UInt8.bitWidth)).rounded(.down) * Double(UInt8.bitWidth)
+    }
+    
     static func bits(pixelWidth: Double, pixelHeight: Double, bitsPerPixel: UInt) -> Double {
         pixelWidth * pixelHeight * Double(bitsPerPixel)
     }

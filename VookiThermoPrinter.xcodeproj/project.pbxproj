@@ -77,6 +77,10 @@
 		8D9639492C0B9EC600374894 /* Printer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9639482C0B9EC600374894 /* Printer.swift */; };
 		8D96394B2C0BA60800374894 /* PacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D96394A2C0BA60800374894 /* PacketDecoder.swift */; };
 		8DA5979F2CAC8E97002A7B99 /* AppLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */; };
+		8DA60D8C2EA192BA009244D9 /* BinaryFloatingPointExtension.swift in Resources */ = {isa = PBXBuildFile; fileRef = 8DA60D8B2EA192BA009244D9 /* BinaryFloatingPointExtension.swift */; };
+		8DA60D8D2EA192BA009244D9 /* BinaryFloatingPointExtension.swift in Resources */ = {isa = PBXBuildFile; fileRef = 8DA60D8B2EA192BA009244D9 /* BinaryFloatingPointExtension.swift */; };
+		8DA60D8E2EA19496009244D9 /* BinaryFloatingPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA60D8B2EA192BA009244D9 /* BinaryFloatingPointExtension.swift */; };
+		8DA60D8F2EA1949E009244D9 /* BinaryFloatingPointExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA60D8B2EA192BA009244D9 /* BinaryFloatingPointExtension.swift */; };
 		8DA917C32C21E1A1004B90AC /* PrinterLabelDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */; };
 		8DAC16092C52A89F005FABB7 /* DataExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC16082C52A896005FABB7 /* DataExtensionTests.swift */; };
 		8DAC160C2C543B1D005FABB7 /* FixedWidthIntegerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */; };
@@ -305,6 +309,7 @@
 		8D9639482C0B9EC600374894 /* Printer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Printer.swift; sourceTree = "<group>"; };
 		8D96394A2C0BA60800374894 /* PacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PacketDecoder.swift; sourceTree = "<group>"; };
 		8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogic.swift; sourceTree = "<group>"; };
+		8DA60D8B2EA192BA009244D9 /* BinaryFloatingPointExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryFloatingPointExtension.swift; sourceTree = "<group>"; };
 		8DA917C22C21E1A1004B90AC /* PrinterLabelDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterLabelDetailView.swift; sourceTree = "<group>"; };
 		8DAC16082C52A896005FABB7 /* DataExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExtensionTests.swift; sourceTree = "<group>"; };
 		8DAC160B2C543B1A005FABB7 /* FixedWidthIntegerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedWidthIntegerTests.swift; sourceTree = "<group>"; };
@@ -453,12 +458,12 @@
 			children = (
 				8D38E71B2C5C3F2900EFA505 /* AppDelegate.swift */,
 				8DA5979E2CAC8E94002A7B99 /* AppLogic.swift */,
+				8D5B7F382EA03BDA00C8F3BF /* AppLogic+D11H.swift */,
+				8D5B7F352EA03BC100C8F3BF /* AppLogic+D110.swift */,
 				8DF5BED92E9D7C8000166B4C /* PrinterAppBase.swift */,
 				8DF5BEDB2E9D7C8000166B4C /* PrinterAppD11H.swift */,
 				8D58DC152C052197001EBD95 /* PrinterAppD110.swift */,
 				8D38E7152C5B7D4100EFA505 /* TestHelper.swift */,
-				8D5B7F352EA03BC100C8F3BF /* AppLogic+D110.swift */,
-				8D5B7F382EA03BDA00C8F3BF /* AppLogic+D11H.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -638,6 +643,7 @@
 			isa = PBXGroup;
 			children = (
 				8D76C5122C078BF1005D7EEB /* ArrayExtension.swift */,
+				8DA60D8B2EA192BA009244D9 /* BinaryFloatingPointExtension.swift */,
 				8DDC3CE72C1645B600296C72 /* CGImageExtension.swift */,
 				8DF962022CB1D175009B2DCC /* ColorExtension.swift */,
 				8D96391E2C0A8E8B00374894 /* DataExtension.swift */,
@@ -820,6 +826,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DA60D8D2EA192BA009244D9 /* BinaryFloatingPointExtension.swift in Resources */,
 				8D58DC1A2C052198001EBD95 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -837,6 +844,7 @@
 			files = (
 				8DF5BF3E2E9D813800166B4C /* Assets.xcassets in Resources */,
 				8DF5BF792E9D925700166B4C /* VookiThermoPrinter-D11H-Info.plist in Resources */,
+				8DA60D8C2EA192BA009244D9 /* BinaryFloatingPointExtension.swift in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -847,6 +855,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DA60D8E2EA19496009244D9 /* BinaryFloatingPointExtension.swift in Sources */,
 				8DF9FE5B2C393E2D004DAED2 /* TextConstructionView.swift in Sources */,
 				8DDC3D122C19C6D800296C72 /* AutoShutdownTimePacketDecoder.swift in Sources */,
 				8DDC3D0C2C19C68000296C72 /* SerialNumberPacketDecoder.swift in Sources */,
@@ -978,6 +987,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DA60D8F2EA1949E009244D9 /* BinaryFloatingPointExtension.swift in Sources */,
 				8DF5BEDF2E9D813800166B4C /* TextConstructionView.swift in Sources */,
 				8DF5BEE02E9D813800166B4C /* AutoShutdownTimePacketDecoder.swift in Sources */,
 				8DF5BEE12E9D813800166B4C /* SerialNumberPacketDecoder.swift in Sources */,

@@ -1,9 +1,12 @@
-//
-//  StubbedFileSystem.swift
-//  VookiThermoPrinterTests
-//
-//  Created by Michal Duda on 30.05.2024.
-//
+/****************************************************************************
+VookiThermoPrinter - A lightweight macOS tool for printing to Niimbot label printers.
+- https://github.com/vookimedlo/vooki-thermo-printer
+
+  SPDX-FileCopyrightText: 2024 Michal Duda <github@vookimedlo.cz>
+  SPDX-License-Identifier: GPL-3.0-or-later
+  SPDX-FileType: SOURCE
+
+****************************************************************************/
 
 import Foundation
 @testable import VookiThermoPrinter___D110
@@ -49,3 +52,4 @@ class StubbedFileSystem : FileSystemAccess {
         return self.writeResult
     }
 }
+

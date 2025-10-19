@@ -1,9 +1,12 @@
-//
-//  AppDetailsEnvironmentKey.swift
-//  VookiThermoPrinter
-//
-//  Created by Michal Duda on 12.10.2025.
-//
+/****************************************************************************
+VookiThermoPrinter - A lightweight macOS tool for printing to Niimbot label printers.
+- https://github.com/vookimedlo/vooki-thermo-printer
+
+  SPDX-FileCopyrightText: 2025 Michal Duda <github@vookimedlo.cz>
+  SPDX-License-Identifier: GPL-3.0-or-later
+  SPDX-FileType: SOURCE
+
+****************************************************************************/
 
 import SwiftUI
 
@@ -19,3 +22,4 @@ extension EnvironmentValues {
         set { self[AppDetailsEnvironmentKey.self] = newValue }
     }
 }
+

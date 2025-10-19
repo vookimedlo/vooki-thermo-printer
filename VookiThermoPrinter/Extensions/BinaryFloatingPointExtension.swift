@@ -1,9 +1,12 @@
-//
-//  BinaryFloatingPointExtension.swift
-//  VookiThermoPrinter
-//
-//  Created by Michal Duda on 16.10.2025.
-//
+/****************************************************************************
+VookiThermoPrinter - A lightweight macOS tool for printing to Niimbot label printers.
+- https://github.com/vookimedlo/vooki-thermo-printer
+
+  SPDX-FileCopyrightText: 2025 Michal Duda <github@vookimedlo.cz>
+  SPDX-License-Identifier: GPL-3.0-or-later
+  SPDX-FileType: SOURCE
+
+****************************************************************************/
 
 extension BinaryFloatingPoint {
     func rounded(toMultipleOf multiple: Int) -> Self {

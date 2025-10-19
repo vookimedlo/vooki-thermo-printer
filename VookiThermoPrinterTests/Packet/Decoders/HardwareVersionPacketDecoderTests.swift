@@ -1,9 +1,12 @@
-//
-//  HardwareVersionPacketDecoderTests.swift
-//  VookiThermoPrinter
-//
-//  Created by Michal Duda on 21.07.2024.
-//
+/****************************************************************************
+VookiThermoPrinter - A lightweight macOS tool for printing to Niimbot label printers.
+- https://github.com/vookimedlo/vooki-thermo-printer
+
+  SPDX-FileCopyrightText: 2024 Michal Duda <github@vookimedlo.cz>
+  SPDX-License-Identifier: GPL-3.0-or-later
+  SPDX-FileType: SOURCE
+
+****************************************************************************/
 
 import XCTest
 @testable import VookiThermoPrinter___D110
@@ -51,3 +54,4 @@ final class HardwareVersionPacketDecoderTests: XCTestCase {
         wait(for: [e], timeout: 1)
     }
 }
+

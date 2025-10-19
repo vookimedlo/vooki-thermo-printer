@@ -10,7 +10,7 @@ import SwiftUI
 struct LabelPreview: View {
     @Environment(ImagePreview.self) private var imagePreview
     @Environment(ObservablePaperEAN.self) private var paperEAN
-    @Environment(\.dpi) var dpi
+    @Environment(\.appDetails) var appDetails
     
     @Binding var horizontalMargin: any HorizontalMarginable
     @Binding var verticalMargin: any VerticalMarginable
@@ -25,13 +25,13 @@ struct LabelPreview: View {
                     Spacer()
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
                         let cornerRadius = paperEAN.ean.cornerRadius
-                        let printableCornerRadius = paperEAN.ean.printableSizeInPixels(dpi: dpi) == paperEAN.ean.physicalSizeInPixels(dpi: dpi) ? cornerRadius : 0
+                        let printableCornerRadius = paperEAN.ean.printableSizeInPixels(dpi: appDetails.dpi) == paperEAN.ean.physicalSizeInPixels(dpi: appDetails.dpi) ? cornerRadius : 0
                         
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .fill(CommonLabelPreview.paperColor)
                             .shadow(color: .accentColor, radius: cornerRadius)
-                            .frame(width: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
-                                   height: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).height)
+                            .frame(width: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width,
+                                   height: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).height)
                         if (imagePreview.image != nil) {
                             let size = NSSize(width: imagePreview.image!.width,
                                               height: imagePreview.image!.height)
@@ -48,27 +48,27 @@ struct LabelPreview: View {
                 }
                 
                 trailingVerticalDescription(color: CommonLabelPreview.printableColor,
-                                            paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: dpi).width,
-                                            paperHeight: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: dpi).height,
+                                            paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: appDetails.dpi).width,
+                                            paperHeight: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: appDetails.dpi).height,
                                             description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.height)",
                                             offset: 40)
                 .help("The height of printable area.")
                 
                 trailingVerticalDescription(color: CommonLabelPreview.physicalColor,
-                                            paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
-                                            paperHeight: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).height,
+                                            paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width,
+                                            paperHeight: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).height,
                                             description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.height)",
                                             offset: 95)
                 .help("The height of paper.")
             }
             
             centerHorizontalDescription(color: CommonLabelPreview.printableColor,
-                                        paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: dpi).width,
+                                        paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: appDetails.dpi).width,
                                         description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.width)")
             .help("The width of printable area.")
             
             centerHorizontalDescription(color: CommonLabelPreview.physicalColor,
-                                        paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
+                                        paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width,
                                         description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.width)")
             .help("The width of paper.")
         }
@@ -81,7 +81,7 @@ struct LabelPreview: View {
                                        verticalMargin: verticalMargin,
                                        marginColor: CommonLabelPreview.marginColor,
                                        marginThickness: CommonLabelPreview.marginThickness,
-                                       dpi: dpi)
+                                       dpi: appDetails.dpi)
     }
     
     @ViewBuilder

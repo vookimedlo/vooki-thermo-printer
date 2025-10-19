@@ -51,9 +51,11 @@ final class BluetoothPeripherals : ObservableObject {
         _peripherals.removeAll()
     }
 
-    var printersBasedOnName: [BluetoothPeripheral] {
-        peripherals.filter({ peripheral in
-            return peripheral.peripheral?.name?.starts(with: "D110-") ?? false }
-        )
+    var printersBasedOnName: (_ startsWith: String) -> [BluetoothPeripheral] {
+        { startsWith in
+            self.peripherals.filter { peripheral in
+                peripheral.peripheral?.name?.starts(with: startsWith) ?? false
+            }
+        }
     }
 }

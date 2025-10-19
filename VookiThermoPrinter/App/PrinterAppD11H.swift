@@ -8,18 +8,27 @@
 import SwiftUI
 import SwiftData
 
+
+struct AppDetailsD11H: AppDetails {
+    var dpi: PaperEAN.DPI = .dpi300
+    var printerVariant: String = "D11_H"
+    var peripheralFilter: String = "D11_H_"
+}
+
 @main
 struct PrinterAppD11H: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    // Variant-specific base with 203 DPI
+    // Variant-specific base with 300 DPI
     @StateObject private var base: PrinterAppBase
-
+    
+    let appDetails = AppDetailsD11H()
+    
     init() {
         // Build the base instance locally so we can pass it as inout before assigning to @StateObject
-        var baseRef = PrinterAppBase(dpi: .dpi300)
+        var baseRef = PrinterAppBase(appDetails: appDetails)
         if !TestHelper.isRunningTests {
-            baseRef.appLogic = AppLogic(appRef: &baseRef, dpi: .dpi300)
+            baseRef.appLogic = AppLogic(appRef: &baseRef, appDetails: appDetails)
         }
         _base = StateObject(wrappedValue: baseRef)
     }

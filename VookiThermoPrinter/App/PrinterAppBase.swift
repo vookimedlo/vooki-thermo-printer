@@ -31,7 +31,7 @@ protocol AppStates: Sendable {
 @MainActor
 class PrinterAppBase: ObservableObject, AppStates {
     // MARK: - Variant configuration
-    let dpi: PaperEAN.DPI
+    let appDetails: AppDetails
 
     // MARK: - Optional logic owned by variants
     var appLogic: AppLogic?
@@ -69,8 +69,8 @@ class PrinterAppBase: ObservableObject, AppStates {
     @State public var uiSettingsProperties = UISettingsProperties()
 
     // MARK: - Init
-    init(dpi: PaperEAN.DPI) {
-        self.dpi = dpi
+    init(appDetails: AppDetails) {
+        self.appDetails = appDetails
     }
 
     // MARK: - Root scene content used by variants
@@ -89,7 +89,7 @@ class PrinterAppBase: ObservableObject, AppStates {
                 .environmentObject(self.textProperties)
                 .environmentObject(self.connectionViewProperties)
                 .environmentObject(self.uiSettingsProperties)
-                .environment(\.dpi, dpi)
+                .environment(\.appDetails, appDetails)
         }
     }
 

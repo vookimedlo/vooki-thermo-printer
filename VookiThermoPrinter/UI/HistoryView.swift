@@ -10,7 +10,7 @@ import SwiftData
 
 
 struct HistoryView: View, StaticNotifiable {
-    @Environment(\.dpi) var dpi
+    @Environment(\.appDetails) var appDetails
     @Environment(\.modelContext) var context
     @Query(sort: \SDHistoryLabelProperty.date, order: SortOrder.reverse) var labelProperties: [SDHistoryLabelProperty]
     
@@ -103,7 +103,7 @@ struct HistoryView: View, StaticNotifiable {
         
         for index in range {
             guard let ean = PaperEAN(rawValue: self.labelProperties[index].paperEANRawValue) else { continue }
-            let width = ean.printableSizeInPixels(dpi: dpi).width
+            let width = ean.printableSizeInPixels(dpi: appDetails.dpi).width
 
             if lastImageWidth != width {
                 dividedProperties.append(Group(width: width, type: ean.description))

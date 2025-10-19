@@ -16,8 +16,8 @@ extension AppLogic: AppLogicPrinting {
             try await self.printer?.startPagePrint()
         }
         try await SendAndWaitAsync.waitOnBoolResult(name: .App.setDimension) {
-            try await self.printer?.setDimension(width: UInt16(self.appRef.paperEAN.ean.printableSizeInPixels(dpi: self.dpi).width),
-                                                 height: UInt16(self.appRef.paperEAN.ean.printableSizeInPixels(dpi: self.dpi).height))
+            try await self.printer?.setDimension(width: UInt16(self.appRef.paperEAN.ean.printableSizeInPixels(dpi: self.appDetails.dpi).width),
+                                                 height: UInt16(self.appRef.paperEAN.ean.printableSizeInPixels(dpi: self.appDetails.dpi).height))
         }
         try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelDensity) {
             try await self.printer?.setLabelDensity(density: 1)

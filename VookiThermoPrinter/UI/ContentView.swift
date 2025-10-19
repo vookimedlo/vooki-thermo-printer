@@ -44,9 +44,15 @@ struct ContentView: View, Notifiable {
         }
     }
     
-    let items: [LitsItem] = [LitsItem(id: .printerView, systemName: "printer", description: "D110 Printer"),
-                             LitsItem(id: .savedView, systemName: "tray", description: "Saved labels"),
-                             LitsItem(id: .historicalView, systemName: "book.closed", description: "History")]
+    @Environment(\.appDetails) private var appDetails
+    
+    var items: [LitsItem] {
+        [
+            LitsItem(id: .printerView, systemName: "printer", description: appDetails.printerVariant + " Printer"),
+            LitsItem(id: .savedView, systemName: "tray", description: "Saved labels"),
+            LitsItem(id: .historicalView, systemName: "book.closed", description: "History")
+        ]
+    }
     
     @Environment(PrinterAvailability.self) private var printerAvailability
     @Environment(ConnectionViewProperties.self) private var connectionViewProperties
@@ -138,3 +144,4 @@ struct ContentView: View, Notifiable {
         .environmentObject(TextProperties())
         .environmentObject(ConnectionViewProperties())
 }
+

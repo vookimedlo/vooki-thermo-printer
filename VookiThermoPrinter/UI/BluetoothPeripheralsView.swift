@@ -10,9 +10,11 @@ import SwiftUI
 
 struct BluetoothPeripheralsView: View, Notifiable {
     @Environment(BluetoothPeripherals.self) private var peripherals
+    @Environment(\.appDetails) private var appDetails
+
     
     @State private var selection: UUID?
-    @State private var onlyD110: Bool = false
+    @State private var onlyPrinterModel: Bool = false
     @Binding var isPresented: Bool
     
     @State private var rowHovered: UUID? = nil
@@ -26,7 +28,7 @@ struct BluetoothPeripheralsView: View, Notifiable {
                 Spacer()
             }.scenePadding(Edge.Set(arrayLiteral: [.horizontal, .top]))
             
-            List(onlyD110 ? peripherals.printersBasedOnName : peripherals.peripherals,
+            List(onlyPrinterModel ? peripherals.printersBasedOnName(appDetails.peripheralFilter) : peripherals.peripherals,
                  id: \.identifier,
                  selection: $selection) { peripheral in
                 HStack {
@@ -45,7 +47,7 @@ struct BluetoothPeripheralsView: View, Notifiable {
             }
             .padding(.all)
             
-            Toggle("Filter D110 named devices", isOn: $onlyD110)
+            Toggle("Filter " + appDetails.printerVariant + " named devices", isOn: $onlyPrinterModel)
                 .toggleStyle(SwitchToggleStyle(tint: .accentColor)).padding(.horizontal).padding(.bottom)
         }.onAppear() {
             peripherals.removeAll()

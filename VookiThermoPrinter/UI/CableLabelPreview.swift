@@ -10,13 +10,13 @@ import SwiftUI
 struct CableLabelPreview: View {
     @Environment(ImagePreview.self) private var imagePreview
     @Environment(ObservablePaperEAN.self) private var paperEAN
-    @Environment(\.dpi) private var dpi
+    @Environment(\.appDetails) private var appDetails
     
     @Binding var horizontalMargin: any HorizontalMarginable
     @Binding var verticalMargin: any VerticalMarginable
     
     private static let tailPhysicalHeightInMM = 8.0
-    private var tailPhysicalHeightInPixels: Double { PixelCalculator.pixels(lengthInMM: Self.tailPhysicalHeightInMM, dpi: Double(dpi.rawValue)) }
+    private var tailPhysicalHeightInPixels: Double { PixelCalculator.pixels(lengthInMM: Self.tailPhysicalHeightInMM, dpi: Double(appDetails.dpi.rawValue)) }
     
     var body: some View {
         @Bindable var imagePreview = imagePreview
@@ -28,14 +28,14 @@ struct CableLabelPreview: View {
                     Spacer()
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .center)) {
                         let cornerRadius = paperEAN.ean.cornerRadius
-                        let printableCornerRadius = paperEAN.ean.printableSizeInPixels(dpi: dpi) == paperEAN.ean.physicalSizeInPixels(dpi: dpi) ? cornerRadius : 0
+                        let printableCornerRadius = paperEAN.ean.printableSizeInPixels(dpi: appDetails.dpi) == paperEAN.ean.physicalSizeInPixels(dpi: appDetails.dpi) ? cornerRadius : 0
                         HStack(spacing: 0) {
                             ZStack {
                                 RoundedRectangle(cornerRadius: cornerRadius)
                                     .fill(CommonLabelPreview.paperColor)
                                     .shadow(color: .accentColor, radius: cornerRadius)
-                                    .frame(width: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: dpi).width,
-                                           height: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).height)
+                                    .frame(width: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: appDetails.dpi).width,
+                                           height: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).height)
                                 
                                 if (imagePreview.image != nil) {
                                     let size = NSSize(width: imagePreview.image!.width,
@@ -52,9 +52,9 @@ struct CableLabelPreview: View {
                                 VerticalLine()
                                     .stroke(style: .init(lineWidth: 2, dash: [12]))
                                     .foregroundStyle(.orange)
-                                    .padding(.leading, paperEAN.ean.printableSizeInPixels(dpi: dpi).width / 2)
-                                    .frame(width: paperEAN.ean.printableSizeInPixels(dpi: dpi).width,
-                                           height: paperEAN.ean.physicalSizeInPixels(dpi: dpi).height)
+                                    .padding(.leading, paperEAN.ean.printableSizeInPixels(dpi: appDetails.dpi).width / 2)
+                                    .frame(width: paperEAN.ean.printableSizeInPixels(dpi: appDetails.dpi).width,
+                                           height: paperEAN.ean.physicalSizeInPixels(dpi: appDetails.dpi).height)
                             }
                             
                             UnevenRoundedRectangle(cornerRadii: .init(topLeading: 0, bottomLeading: 0, bottomTrailing: 10, topTrailing: 10), style: .continuous)
@@ -62,7 +62,7 @@ struct CableLabelPreview: View {
                                 .shadow(color: .accentColor,
                                         radius: cornerRadius,
                                         x: cornerRadius + 2)
-                                .frame(width: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width - $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: dpi).width,
+                                .frame(width: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width - $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: appDetails.dpi).width,
                                        height: tailPhysicalHeightInPixels)
                         }
                     }
@@ -70,23 +70,23 @@ struct CableLabelPreview: View {
                 }
 
                 leadingVerticalDescription(color: CommonLabelPreview.printableColor,
-                                           paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: dpi).width,
-                                           physicalPaperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
-                                           paperHeight: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: dpi).height,
+                                           paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: appDetails.dpi).width,
+                                           physicalPaperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width,
+                                           paperHeight: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: appDetails.dpi).height,
                                            description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.height)",
                                            offset: 5)
                 .help("The height of printable area.")
                 
                 leadingVerticalDescription(color: CommonLabelPreview.physicalColor,
-                                           paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
-                                           physicalPaperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
-                                           paperHeight: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).height,
+                                           paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width,
+                                           physicalPaperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width,
+                                           paperHeight: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).height,
                                            description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.height)",
                                            offset: 25)
                 .help("The height of paper.")
                 
                 trailingVerticalDescription(color: CommonLabelPreview.physicalColor,
-                                            paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
+                                            paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width,
                                             paperHeight: tailPhysicalHeightInPixels,
                                             description: "\(Self.tailPhysicalHeightInMM)",
                                             offset: 25)
@@ -94,13 +94,13 @@ struct CableLabelPreview: View {
             }
             
             leadingHorizontalDescription(color: CommonLabelPreview.printableColor,
-                                         paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: dpi).width,
-                                         physicalPaperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
+                                         paperWidth: $paperEAN.wrappedValue.ean.printableSizeInPixels(dpi: appDetails.dpi).width,
+                                         physicalPaperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width,
                                          description: "\($paperEAN.wrappedValue.ean.printableSizeInMillimeters.width)")
             .help("The width of printable area.")
             
             centerHorizontalDescription(color: CommonLabelPreview.physicalColor,
-                                        paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: dpi).width,
+                                        paperWidth: $paperEAN.wrappedValue.ean.physicalSizeInPixels(dpi: appDetails.dpi).width,
                                         description: "\($paperEAN.wrappedValue.ean.physicalSizeInMillimeters.width)")
             .help("The width of paper.")
         }
@@ -113,7 +113,7 @@ struct CableLabelPreview: View {
                                        verticalMargin: verticalMargin,
                                        marginColor: CommonLabelPreview.marginColor,
                                        marginThickness: CommonLabelPreview.marginThickness,
-                                       dpi: dpi)
+                                       dpi: appDetails.dpi)
     }
     
     @ViewBuilder

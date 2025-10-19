@@ -13,6 +13,7 @@ struct PrinterView: View, Notifiable {
     @Environment(PrinterDetails.self) private var printerDetails
     @Environment(UISettingsProperties.self) private var uiSettingsProperties
     @Environment(ObservablePaperEAN.self) private var paperEAN
+    @Environment(\.appDetails) private var appDetails
 
 
     @State private var showingInspector: Bool = true
@@ -115,7 +116,7 @@ struct PrinterView: View, Notifiable {
             }
             .padding(.horizontal, 250).padding(.bottom)
         }
-        .navigationTitle("D110 Printer")
+        .navigationTitle(appDetails.printerVariant + " Printer")
             .inspector(isPresented: $showingInspector) {
                 VStack {
                     List {

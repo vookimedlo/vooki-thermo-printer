@@ -1,6 +1,6 @@
 //
 //  SendAndWaitAsyncTests.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 29.07.2024.
 //

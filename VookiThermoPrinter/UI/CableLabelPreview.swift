@@ -1,6 +1,6 @@
 //
 //  CableLabelPreview.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 12.08.2024.
 //

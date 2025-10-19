@@ -1,6 +1,6 @@
 //
 //  PrinterAppBase.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Refactor on 13.10.2025.
 //

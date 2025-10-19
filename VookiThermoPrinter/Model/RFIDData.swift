@@ -1,6 +1,6 @@
 //
 //  RFIDData.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 21.07.2024.
 //

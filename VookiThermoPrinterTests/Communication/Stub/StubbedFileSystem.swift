@@ -1,6 +1,6 @@
 //
 //  StubbedFileSystem.swift
-//  Niimbot PrinterTests
+//  VookiThermoPrinterTests
 //
 //  Created by Michal Duda on 30.05.2024.
 //

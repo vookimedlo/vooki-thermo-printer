@@ -1,6 +1,6 @@
 //
 //  NotificationObservable.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 01.06.2024.
 //

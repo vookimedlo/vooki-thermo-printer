@@ -1,6 +1,6 @@
 //
 //  PrinterAppD110.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 27.05.2024.
 //

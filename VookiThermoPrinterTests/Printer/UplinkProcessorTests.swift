@@ -1,6 +1,6 @@
 //
 //  UplinkProcessorTests.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 27.07.2024.
 //

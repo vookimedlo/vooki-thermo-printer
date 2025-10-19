@@ -1,6 +1,6 @@
 //
 //  ConnectionViewProperties.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 02.08.2024.
 //

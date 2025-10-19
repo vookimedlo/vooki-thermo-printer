@@ -1,6 +1,6 @@
 //
 //  PrinterDetails.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 18.06.2024.
 //

@@ -1,6 +1,6 @@
 //
 //  FileSystemIO.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 30.05.2024.
 //

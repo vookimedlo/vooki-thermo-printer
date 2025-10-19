@@ -1,6 +1,6 @@
 //
 //  CGImageExtension.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 09.06.2024.
 //

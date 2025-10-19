@@ -1,6 +1,6 @@
 //
 //  PacketTests.swift
-//  Niimbot PrinterTests
+//  VookiThermoPrinterTests
 //
 //  Created by Michal Duda on 28.05.2024.
 //

@@ -1,6 +1,6 @@
 //
 //  ArrayExtensionTests.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 23.07.2024.
 //

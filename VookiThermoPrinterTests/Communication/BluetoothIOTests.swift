@@ -1,6 +1,6 @@
 //
 //  BluetoothIOTests.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 30.07.2024.
 //

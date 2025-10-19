@@ -1,6 +1,6 @@
 //
 //  TestHelper.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 01.08.2024.
 //

@@ -1,6 +1,6 @@
 //
 //  Decoration.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 17.07.2024.
 //

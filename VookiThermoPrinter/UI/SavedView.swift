@@ -1,6 +1,6 @@
 //
 //  SavedView.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 24.08.2024.
 //

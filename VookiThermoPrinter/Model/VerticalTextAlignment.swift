@@ -1,6 +1,6 @@
 //
 //  VerticalTextAlignment.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 30.06.2024.
 //

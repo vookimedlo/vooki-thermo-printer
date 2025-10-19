@@ -1,6 +1,6 @@
 //
 //  TextTabView.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 06.07.2024.
 //

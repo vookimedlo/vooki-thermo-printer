@@ -1,6 +1,6 @@
 //
 //  AppLogic.swift
-//  Niimbot Printer
+//  VookiThermoPrinter
 //
 //  Created by Michal Duda on 01.10.2024.
 //

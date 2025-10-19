@@ -99,3 +99,8 @@ Created by **Michal Duda**
 
 This project is licensed under the **GNU General Public License v3.0 (GPLv3)**.  
 See the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgements
+
+Special thanks to the project **[niimbluelib](https://printers.niim.blue/)**  
+for providing an excellent reference implementation and documentation for Niimbot printer communication.

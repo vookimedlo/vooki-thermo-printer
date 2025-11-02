@@ -145,6 +145,8 @@ final class AppLogic: Notifiable, NotificationObservable {
             let uuid = notification.userInfo?[Notification.Keys.value] as! UUID
             Self.logger.info("Selected peripheral \(uuid.uuidString)")
             guard let peripheral = appRef.bluetoothPepripherals.find(identifier: uuid)?.peripheral else { return }
+            notifyUI(name: .App.showView,
+                     userInfo: [String : any Sendable] (dictionaryLiteral: (Notification.Keys.value, ContentView.Views.printerView)))
             Task { @PrinterActor in
                 printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport(peripheral: peripheral)))
                 printer = Printer(printerDevice: printerDevice!)
@@ -153,6 +155,8 @@ final class AppLogic: Notifiable, NotificationObservable {
         }
         else if Notification.Name.App.lastSelectedPeripheral == notification.name {
             Self.logger.info("Last selected peripheral")
+            notifyUI(name: .App.showView,
+                     userInfo: [String : any Sendable] (dictionaryLiteral: (Notification.Keys.value, ContentView.Views.printerView)))
             Task { @PrinterActor in
                 connect()
             }

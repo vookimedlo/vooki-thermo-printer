@@ -1,0 +1,78 @@
+name: Build and Test (macOS / Xcode)
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: src
+
+jobs:
+  build:
+    name: Build macOS apps
+    runs-on: macos-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Build
+        env:
+          # CI-friendly flags (disable signing/hardened runtime to avoid codesign issues)
+          XCODEFLAGS: >-
+            -configuration Release
+            CODE_SIGNING_REQUIRED=NO
+            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGN_IDENTITY=""
+            ENABLE_HARDENED_RUNTIME=NO
+            DEBUG_INFORMATION_FORMAT=dwarf-with-dsym
+
+        run: |
+          xcodebuild clean build analyze -scheme "VookiThermoPrinter - D110" $XCODEFLAGS -project VookiThermoPrinter.xcodeproj | xcpretty && exit ${PIPESTATUS[0]}
+          xcodebuild clean build analyze -scheme "VookiThermoPrinter - D111" $XCODEFLAGS -project VookiThermoPrinter.xcodeproj | xcpretty && exit ${PIPESTATUS[0]}
+
+  test:
+    name: Test macOS app
+    runs-on: macos-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Xcode version
+        run: xcodebuild -version
+
+      - name: Test
+        env:
+          XCODEFLAGS: >-
+            -configuration Release
+            CODE_SIGNING_REQUIRED=NO
+            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGN_IDENTITY=""
+            ENABLE_HARDENED_RUNTIME=NO
+            DEBUG_INFORMATION_FORMAT=dwarf-with-dsym
+
+        run: |
+          xcodebuild clean build test -scheme "VookiThermoPrinter - D110" ENABLE_TESTABILITY=YES $XCODEFLAGS -project VookiThermoPrinter.xcodeproj -resultBundlePath TestResults.xcresult
+
+      - name: Upload .xcresult
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestResults.xcresult
+          path: src/TestResults.xcresult
+          if-no-files-found: error

@@ -86,6 +86,11 @@ final class Printer {
         try send(packet: packet)
     }
     
+    public func cancelPrint() throws {
+        let packet = Packet(requestCode: RequestCode.REQUEST_CANCEL_PRINT, data: [])
+        try send(packet: packet)
+    }
+    
     public func startPrint() throws {
         let packet = Packet(requestCode: RequestCode.REQUEST_START_PRINT, data: [1])
         try send(packet: packet)

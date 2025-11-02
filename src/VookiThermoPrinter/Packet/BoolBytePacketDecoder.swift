@@ -10,6 +10,7 @@ import Foundation
 public final class BoolBytePacketDecoder: PacketDecoding {
     public static let codes = [RequestCode.RESPONSE_START_PRINT,
                         RequestCode.RESPONSE_END_PRINT,
+                        RequestCode.RESPONSE_CANCEL_PRINT,
                         RequestCode.RESPONSE_START_PAGE_PRINT,
                         RequestCode.RESPONSE_END_PAGE_PRINT,
                         RequestCode.RESPONSE_ALLOW_PRINT_CLEAR,
@@ -29,6 +30,8 @@ public final class BoolBytePacketDecoder: PacketDecoding {
                 return Notification.Name.App.startPrint
             case RequestCode.RESPONSE_END_PRINT:
                 return Notification.Name.App.endPrint
+            case RequestCode.RESPONSE_CANCEL_PRINT:
+                return Notification.Name.App.cancelPrint
             case RequestCode.RESPONSE_START_PAGE_PRINT:
                 return Notification.Name.App.startPagePrint
             case RequestCode.RESPONSE_END_PAGE_PRINT:

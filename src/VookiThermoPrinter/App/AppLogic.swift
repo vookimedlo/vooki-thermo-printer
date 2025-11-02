@@ -106,6 +106,7 @@ final class AppLogic: Notifiable, NotificationObservable {
                      Notification.Name.App.startPagePrint,
                      Notification.Name.App.endPrint,
                      Notification.Name.App.endPagePrint,
+                     Notification.Name.App.cancelPrint,
                      Notification.Name.App.setDimension,
                      Notification.Name.App.setLabelType,
                      Notification.Name.App.setLabelDensity,
@@ -408,6 +409,10 @@ final class AppLogic: Notifiable, NotificationObservable {
         else if Notification.Name.App.endPagePrint == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
             PrinterActor.onMain(Self.logger.info("EndPagePrint \(value)"))
+        }
+        else if Notification.Name.App.cancelPrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
+            PrinterActor.onMain(Self.logger.info("CancelPrint \(value)"))
         }
         else if Notification.Name.App.setDimension == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool

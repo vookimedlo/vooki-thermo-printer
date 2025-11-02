@@ -32,6 +32,7 @@ extension Notification.Name {
         static public let noPaper = NSNotification.Name("notify-no-paper")
         static public let startPrint = NSNotification.Name("notify-start-print")
         static public let endPrint = NSNotification.Name("notify-end-print")
+        static public let cancelPrint = NSNotification.Name("notify-cancel-print")
         static public let startPagePrint = NSNotification.Name("notify-start-page-print")
         static public let endPagePrint = NSNotification.Name("notify-end-page-print")
         static public let allowPrintClear = NSNotification.Name("notify-allow-print-clear")

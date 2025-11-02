@@ -22,6 +22,9 @@ extension AppLogic: AppLogicPrinting {
         try await SendAndWaitAsync.waitOnBoolResult(name: .App.setLabelType) {
             try await self.printer?.setLabelType(type: self.appRef.paperEAN.ean.labelType)
         }
+        try await SendAndWaitAsync.waitOnBoolResult(name: .App.cancelPrint) {
+            try await self.printer?.cancelPrint()
+        }
         try await SendAndWaitAsync.waitOnBoolResult(name: .App.startPrint) {
             try await self.printer?.startPrint(pagesCount: 1)
         }

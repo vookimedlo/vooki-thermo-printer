@@ -30,6 +30,7 @@ public enum RequestCode: UInt8, Sendable {
     case REQUEST_HEARTBEAT = 0xDC
     case REQUEST_SET_LABEL_TYPE = 0x23
     case REQUEST_SET_LABEL_DENSITY = 0x21
+    case REQUEST_CANCEL_PRINT = 0xDA
     case REQUEST_START_PRINT = 0x01
     case REQUEST_END_PRINT = 0xF3
     case REQUEST_START_PAGE_PRINT = 0x03
@@ -49,6 +50,7 @@ public enum RequestCode: UInt8, Sendable {
     case RESPONSE_GET_INFO_DEVICE_SERIAL = 0x4B           // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_SERIAL
     case RESPONSE_GET_INFO_HARDWARE_VERSION = 0x4C        // RequestCode.REQUEST_GET_INFO + InfoCode.HARDWARE_VERSION
     case RESPONSE_GET_RFID = 0x1B                         // RequestCode.GET_RFID + 1
+    case RESPONSE_CANCEL_PRINT = 0xD0                     // RequestCode.REQUEST_CANCEL_PRINT - 1
     case RESPONSE_START_PRINT = 0x02                      // RequestCode.REQUEST_START_PRINT + 1
     case RESPONSE_END_PRINT = 0xF4                        // RequestCode.REQUEST_END_PAGE_PRINT + 1
     case RESPONSE_START_PAGE_PRINT = 0x04                 // RequestCode.REQUEST_START_PAGE_PRINT + 1

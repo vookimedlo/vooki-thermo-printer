@@ -13,6 +13,10 @@ import SwiftData
 
 
 struct ContentView: View, Notifiable {
+    @Environment(PrinterDetails.self) private var printerDetails
+    
+    @State private var showingInspector: Bool = true
+    @State private var showingPrintingProgress: Bool = false
     
     enum Views {
         case emptyView
@@ -92,6 +96,53 @@ struct ContentView: View, Notifiable {
             }
             .listRowSeparator(.hidden)
         } detail: {
+        }.inspector(isPresented: $showingInspector) {
+            VStack {
+                List {
+                    Section(header: Text("Printer")) {
+                        PrinterDetailsView()
+                    }
+                    if printerAvailability.isConnected && printerDetails.isPaperInserted {
+                        Section(header: Text("Paper")) {
+                            PrinterLabelDetailView()
+                        }
+                    }
+                }
+                .listStyle(.sidebar)
+                Spacer()
+            }
+            .animation(.easeInOut, value: printerAvailability.isConnected)
+            .animation(.easeInOut, value: printerDetails.isPaperInserted)
+        }.onReceive(NotificationCenter.default.publisher(for: .App.UI.printStarted)) { _ in
+            withAnimation {
+                showingPrintingProgress = true
+            }
+        }.onReceive(NotificationCenter.default.publisher(for: .App.UI.printDone)) { _ in
+            withAnimation {
+                showingPrintingProgress = false
+            }
+        }
+        .sheet(isPresented: $showingPrintingProgress) {
+            VStack {
+                Text("Printing ...").padding(.top)
+                Divider()
+                HStack {
+                    Spacer()
+                    PrintingProgress()
+                    Spacer()
+                }.padding()}
+            .frame(minWidth: 600)
+            .interactiveDismissDisabled()
+        }.toolbar {
+            ToolbarItem() {
+                Button {
+                    withAnimation {
+                        showingInspector = !showingInspector
+                    }
+                } label: {
+                    SwiftUI.Image(systemName: "sidebar.right")
+                }
+            }
         }
         .alert(Text(alertType.title),
                 isPresented: $showAlert,

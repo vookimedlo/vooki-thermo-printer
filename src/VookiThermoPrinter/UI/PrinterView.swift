@@ -13,14 +13,9 @@ import SwiftUI
 
 struct PrinterView: View, Notifiable {
     @Environment(PrinterAvailability.self) private var printerAvailability
-    @Environment(PrinterDetails.self) private var printerDetails
     @Environment(UISettingsProperties.self) private var uiSettingsProperties
     @Environment(ObservablePaperEAN.self) private var paperEAN
     @Environment(\.appDetails) private var appDetails
-
-
-    @State private var showingInspector: Bool = true
-    @State private var showingPrintingProgress: Bool = false
     
     @State private var selectedTextProperty: TextProperty?
     @State var horizontalMargin: any HorizontalMarginable = Margin.none
@@ -120,54 +115,7 @@ struct PrinterView: View, Notifiable {
             .padding(.horizontal, 250).padding(.bottom)
         }
         .navigationTitle(appDetails.printerVariant + " Printer")
-            .inspector(isPresented: $showingInspector) {
-                VStack {
-                    List {
-                        Section(header: Text("Printer")) {
-                            PrinterDetailsView()
-                        }
-                        if printerAvailability.isConnected && printerDetails.isPaperInserted {
-                            Section(header: Text("Paper")) {
-                                PrinterLabelDetailView()
-                            }
-                        }
-                    }
-                    .listStyle(.sidebar)
-                    Spacer()
-                }
-                .animation(.easeInOut, value: printerAvailability.isConnected)
-                .animation(.easeInOut, value: printerDetails.isPaperInserted)
-            }.onReceive(NotificationCenter.default.publisher(for: .App.UI.printStarted)) { _ in
-                withAnimation {
-                    showingPrintingProgress = true
-                }
-            }.onReceive(NotificationCenter.default.publisher(for: .App.UI.printDone)) { _ in
-                withAnimation {
-                    showingPrintingProgress = false
-                }
-            }
-            .sheet(isPresented: $showingPrintingProgress) {
-                VStack {
-                    Text("Printing ...").padding(.top)
-                    Divider()
-                    HStack {
-                        Spacer()
-                        PrintingProgress()
-                        Spacer()
-                    }.padding()}
-                .frame(minWidth: 600)
-                .interactiveDismissDisabled()
-            }.toolbar {
-                ToolbarItem() {
-                    Button {
-                        withAnimation {
-                            showingInspector = !showingInspector
-                        }
-                    } label: {
-                        SwiftUI.Image(systemName: "sidebar.right")
-                    }
-                }
-            }
+            
     }
     
     private func computeHorizontalMargin() {

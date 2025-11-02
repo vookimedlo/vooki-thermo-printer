@@ -356,9 +356,32 @@ final class AppLogic: Notifiable, NotificationObservable {
                 self.appRef.paperDetails.printedCount = String(rfidData.usedLength)
                 self.appRef.paperDetails.barcode = rfidData.barcode
                 self.appRef.paperDetails.serialNumber = rfidData.serial
-                self.appRef.paperDetails.type = String(rfidData.type)
                 self.appRef.paperDetails.color = self.appRef.paperEAN.ean.color
                 self.appRef.paperDetails.colorName = self.appRef.paperEAN.ean.colorName
+                
+                let typeDescription: String = {
+                    switch rfidData.type {
+                    case 1:
+                        return "With gaps"
+                    case 2:
+                        return "Black"
+                    case 3:
+                        return "Continuous"
+                    case 4:
+                        return "Perforated"
+                    case 5:
+                        return "Transparent"
+                    case 6:
+                        return "PVC tag"
+                    case 10:
+                        return "Black mark gap"
+                    case 11:
+                        return "Heat-shrink tube"
+                    default:
+                        return String(rfidData.type)
+                    }
+                }()
+                self.appRef.paperDetails.type = typeDescription
                 
                 self.appRef.printerDetails.isPaperInserted = true
                 await generateImagePreview()

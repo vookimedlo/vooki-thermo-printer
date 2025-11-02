@@ -110,7 +110,8 @@ final class AppLogic: Notifiable, NotificationObservable {
                      Notification.Name.App.setDimension,
                      Notification.Name.App.setLabelType,
                      Notification.Name.App.setLabelDensity,
-                     Notification.Name.App.getPrintStatus] {
+                     Notification.Name.App.getPrintStatus,
+                     Notification.Name.App.printerCheckLine] {
             registerNotification(name: name,
                                  selector: #selector(receivePrinterNotification))
         }
@@ -440,6 +441,13 @@ final class AppLogic: Notifiable, NotificationObservable {
                     notify(name: .App.printFinished,
                            userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, true)))
                 }
+            }
+        }
+        else if Notification.Name.App.printerCheckLine == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! PrinterCheckLine
+            Task { @MainActor in
+                Self.logger.info("PrinterCheckLine - line number: \(value.lineNumber)")
+                Self.logger.info("PrinterCheckLine - something: \(value.something)")
             }
         }
     }

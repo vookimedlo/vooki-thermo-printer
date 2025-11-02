@@ -40,6 +40,7 @@ extension Notification.Name {
         static public let setLabelDensity = NSNotification.Name("notify-set-label-density")
         static public let setDimension = NSNotification.Name("notify-set-dimension")
         static public let getPrintStatus = NSNotification.Name("notify-get-print-status")
+        static public let printerCheckLine = NSNotification.Name("notify-printer-check-line")
 
         static public let printFinished = NSNotification.Name("notify-print-finished")
         static public let printOpsTimedOut = NSNotification.Name("notify-print-ops-timeout")

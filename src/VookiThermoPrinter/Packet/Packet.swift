@@ -40,6 +40,7 @@ public enum RequestCode: UInt8, Sendable {
     case REQUEST_SET_QUANTITY = 0x15
     case REQUEST_GET_PRINT_STATUS = 0xA3
     case REQUEST_SET_PRINTER_DATA = 0x85
+    case REQUEST_PRINTER_CHECK_LINE = 0x86
     
     case RESPONSE_GET_INFO_DENSITY = 0x41                 // RequestCode.REQUEST_GET_INFO + InfoCode.DENSITY
     case RESPONSE_GET_INFO_LABEL_TYPE = 0x43              // RequestCode.REQUEST_GET_INFO + InfoCode.LABEL_TYPE
@@ -60,9 +61,7 @@ public enum RequestCode: UInt8, Sendable {
     case RESPONSE_SET_LABEL_DENSITY = 0x31                // RequestCode.REQUEST_SET_LABEL_DENSITY + 16
     case RESPONSE_SET_DIMENSION = 0x14                    // RequestCode.REQUEST_SET_DIMENSION + 1
     case RESPONSE_GET_PRINT_STATUS = 0xB3                 // RequestCode.REQUEST_GET_PRINT_STATUS + 16
-
-    
-    case RESPONSE_SOMETHING = 0xD3          //TODO: What this type stands for?
+    case RESPONSE_PRINTER_CHECK_LINE = 0xD3    
 }
 
 public final class Packet: Sendable {

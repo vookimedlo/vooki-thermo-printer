@@ -106,10 +106,12 @@ final class AppLogic: Notifiable, NotificationObservable {
                      Notification.Name.App.startPagePrint,
                      Notification.Name.App.endPrint,
                      Notification.Name.App.endPagePrint,
+                     Notification.Name.App.cancelPrint,
                      Notification.Name.App.setDimension,
                      Notification.Name.App.setLabelType,
                      Notification.Name.App.setLabelDensity,
-                     Notification.Name.App.getPrintStatus] {
+                     Notification.Name.App.getPrintStatus,
+                     Notification.Name.App.printerCheckLine] {
             registerNotification(name: name,
                                  selector: #selector(receivePrinterNotification))
         }
@@ -143,6 +145,8 @@ final class AppLogic: Notifiable, NotificationObservable {
             let uuid = notification.userInfo?[Notification.Keys.value] as! UUID
             Self.logger.info("Selected peripheral \(uuid.uuidString)")
             guard let peripheral = appRef.bluetoothPepripherals.find(identifier: uuid)?.peripheral else { return }
+            notifyUI(name: .App.showView,
+                     userInfo: [String : any Sendable] (dictionaryLiteral: (Notification.Keys.value, ContentView.Views.printerView)))
             Task { @PrinterActor in
                 printerDevice = PrinterDevice(io: BluetoothIO(bluetoothAccess: BluetoothSupport(peripheral: peripheral)))
                 printer = Printer(printerDevice: printerDevice!)
@@ -151,6 +155,8 @@ final class AppLogic: Notifiable, NotificationObservable {
         }
         else if Notification.Name.App.lastSelectedPeripheral == notification.name {
             Self.logger.info("Last selected peripheral")
+            notifyUI(name: .App.showView,
+                     userInfo: [String : any Sendable] (dictionaryLiteral: (Notification.Keys.value, ContentView.Views.printerView)))
             Task { @PrinterActor in
                 connect()
             }
@@ -356,9 +362,32 @@ final class AppLogic: Notifiable, NotificationObservable {
                 self.appRef.paperDetails.printedCount = String(rfidData.usedLength)
                 self.appRef.paperDetails.barcode = rfidData.barcode
                 self.appRef.paperDetails.serialNumber = rfidData.serial
-                self.appRef.paperDetails.type = String(rfidData.type)
                 self.appRef.paperDetails.color = self.appRef.paperEAN.ean.color
                 self.appRef.paperDetails.colorName = self.appRef.paperEAN.ean.colorName
+                
+                let typeDescription: String = {
+                    switch rfidData.type {
+                    case 1:
+                        return "With gaps"
+                    case 2:
+                        return "Black"
+                    case 3:
+                        return "Continuous"
+                    case 4:
+                        return "Perforated"
+                    case 5:
+                        return "Transparent"
+                    case 6:
+                        return "PVC tag"
+                    case 10:
+                        return "Black mark gap"
+                    case 11:
+                        return "Heat-shrink tube"
+                    default:
+                        return String(rfidData.type)
+                    }
+                }()
+                self.appRef.paperDetails.type = typeDescription
                 
                 self.appRef.printerDetails.isPaperInserted = true
                 await generateImagePreview()
@@ -386,6 +415,10 @@ final class AppLogic: Notifiable, NotificationObservable {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
             PrinterActor.onMain(Self.logger.info("EndPagePrint \(value)"))
         }
+        else if Notification.Name.App.cancelPrint == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! Bool
+            PrinterActor.onMain(Self.logger.info("CancelPrint \(value)"))
+        }
         else if Notification.Name.App.setDimension == notification.name {
             let value = notification.userInfo?[Notification.Keys.value] as! Bool
             PrinterActor.onMain(Self.logger.info("SetDimension \(value)"))
@@ -412,6 +445,13 @@ final class AppLogic: Notifiable, NotificationObservable {
                     notify(name: .App.printFinished,
                            userInfo: [String : Sendable](dictionaryLiteral: (Notification.Keys.value, true)))
                 }
+            }
+        }
+        else if Notification.Name.App.printerCheckLine == notification.name {
+            let value = notification.userInfo?[Notification.Keys.value] as! PrinterCheckLine
+            Task { @MainActor in
+                Self.logger.info("PrinterCheckLine - line number: \(value.lineNumber)")
+                Self.logger.info("PrinterCheckLine - something: \(value.something)")
             }
         }
     }

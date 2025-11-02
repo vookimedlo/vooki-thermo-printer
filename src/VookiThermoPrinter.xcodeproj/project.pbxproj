@@ -10,6 +10,10 @@
 		8D036FB32C50536800CADCCC /* ArrayExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D036FB22C50535D00CADCCC /* ArrayExtensionTests.swift */; };
 		8D1216072C7B833200608090 /* SavedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1216062C7B833200608090 /* SavedView.swift */; };
 		8D1F59BB2C20EAF8002A037F /* IndicatorValueSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */; };
+		8D2F81C12EB7E8F0000F71FC /* PrinterCheckLinePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F81C02EB7E8D9000F71FC /* PrinterCheckLinePacketDecoder.swift */; };
+		8D2F81C22EB7E8F0000F71FC /* PrinterCheckLinePacketDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F81C02EB7E8D9000F71FC /* PrinterCheckLinePacketDecoder.swift */; };
+		8D2F81C42EB7EC4E000F71FC /* PrinterCheckLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F81C32EB7EC47000F71FC /* PrinterCheckLine.swift */; };
+		8D2F81C52EB7EC4E000F71FC /* PrinterCheckLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F81C32EB7EC47000F71FC /* PrinterCheckLine.swift */; };
 		8D312BFB2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312BFA2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift */; };
 		8D312BFD2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312BFC2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift */; };
 		8D312BFF2C4D99D3006D0360 /* LabelTypePacketDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D312BFE2C4D99D3006D0360 /* LabelTypePacketDecoderTests.swift */; };
@@ -238,6 +242,8 @@
 		8D036FB22C50535D00CADCCC /* ArrayExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensionTests.swift; sourceTree = "<group>"; };
 		8D1216062C7B833200608090 /* SavedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedView.swift; sourceTree = "<group>"; };
 		8D1F59BA2C20EAF8002A037F /* IndicatorValueSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndicatorValueSlider.swift; sourceTree = "<group>"; };
+		8D2F81C02EB7E8D9000F71FC /* PrinterCheckLinePacketDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterCheckLinePacketDecoder.swift; sourceTree = "<group>"; };
+		8D2F81C32EB7EC47000F71FC /* PrinterCheckLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrinterCheckLine.swift; sourceTree = "<group>"; };
 		8D312BFA2C4D9698006D0360 /* HardwareVersionPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardwareVersionPacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D312BFC2C4D97AA006D0360 /* BatteryInformationPacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInformationPacketDecoderTests.swift; sourceTree = "<group>"; };
 		8D312BFE2C4D99D3006D0360 /* LabelTypePacketDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTypePacketDecoderTests.swift; sourceTree = "<group>"; };
@@ -553,6 +559,7 @@
 				8D8AF3D12C28271B005E2F94 /* PaperDetails.swift */,
 				8DF9FE4E2C36A057004DAED2 /* PaperEAN.swift */,
 				8DF9FE562C37FA8E004DAED2 /* PrinterAvailability.swift */,
+				8D2F81C32EB7EC47000F71FC /* PrinterCheckLine.swift */,
 				8D8AF3CF2C2826FD005E2F94 /* PrinterDetails.swift */,
 				8D312C0B2C4DA8EA006D0360 /* PrintStatus.swift */,
 				8D312C092C4DA8A4006D0360 /* RFIDData.swift */,
@@ -632,6 +639,7 @@
 				8DDC3D152C19C71000296C72 /* HardwareVersionPacketDecoder.swift */,
 				8DDC3D0F2C19C6BB00296C72 /* LabelTypePacketDecoder.swift */,
 				8D96394A2C0BA60800374894 /* PacketDecoder.swift */,
+				8D2F81C02EB7E8D9000F71FC /* PrinterCheckLinePacketDecoder.swift */,
 				8D92FBDE2C2CBE460040747C /* PrintStatusPacketDecoder.swift */,
 				8DDC3D1D2C19C79000296C72 /* RFIDDataPacketDecoder.swift */,
 				8DDC3D0B2C19C68000296C72 /* SerialNumberPacketDecoder.swift */,
@@ -900,6 +908,7 @@
 				8DDC3D442C1A45A900296C72 /* PrinterView.swift in Sources */,
 				8D76C5132C078BF1005D7EEB /* ArrayExtension.swift in Sources */,
 				8D8AF3D22C28271B005E2F94 /* PaperDetails.swift in Sources */,
+				8D2F81C22EB7E8F0000F71FC /* PrinterCheckLinePacketDecoder.swift in Sources */,
 				8DEB85E82C0CC6E00028526B /* BluetoothIO.swift in Sources */,
 				8D38E7202C5D3FEF00EFA505 /* StaticNotifiable.swift in Sources */,
 				8DBF74D52C6C0DB80012F875 /* LabelMenuCommands.swift in Sources */,
@@ -911,6 +920,7 @@
 				8D5B7F372EA03BC100C8F3BF /* AppLogic+D110.swift in Sources */,
 				8D35E3362C236C7C00E8E2A9 /* BluetoothPeripheral.swift in Sources */,
 				8D38E7192C5C351700EFA505 /* PrinterMenuCommands.swift in Sources */,
+				8D2F81C42EB7EC4E000F71FC /* PrinterCheckLine.swift in Sources */,
 				8DF9FE592C38A669004DAED2 /* TextTabView.swift in Sources */,
 				8DF9FE5D2C394D8C004DAED2 /* TextProperties.swift in Sources */,
 				8DF9FE512C36DD5D004DAED2 /* Margins.swift in Sources */,
@@ -1033,6 +1043,7 @@
 				8DF5BF0A2E9D813800166B4C /* AppLogic.swift in Sources */,
 				8DF5BF0B2E9D813800166B4C /* PrinterView.swift in Sources */,
 				8DF5BF0C2E9D813800166B4C /* ArrayExtension.swift in Sources */,
+				8D2F81C12EB7E8F0000F71FC /* PrinterCheckLinePacketDecoder.swift in Sources */,
 				8DF5BF0D2E9D813800166B4C /* PaperDetails.swift in Sources */,
 				8DF5BF0E2E9D813800166B4C /* BluetoothIO.swift in Sources */,
 				8DF5BF0F2E9D813800166B4C /* StaticNotifiable.swift in Sources */,
@@ -1044,6 +1055,7 @@
 				8D5B7F392EA03BDA00C8F3BF /* AppLogic+D11H.swift in Sources */,
 				8DF5BF162E9D813800166B4C /* BluetoothPeripheral.swift in Sources */,
 				8DF5BF172E9D813800166B4C /* PrinterMenuCommands.swift in Sources */,
+				8D2F81C52EB7EC4E000F71FC /* PrinterCheckLine.swift in Sources */,
 				8DF5BF182E9D813800166B4C /* TextTabView.swift in Sources */,
 				8DF5BF192E9D813800166B4C /* TextProperties.swift in Sources */,
 				8DF5BF1A2E9D813800166B4C /* Margins.swift in Sources */,

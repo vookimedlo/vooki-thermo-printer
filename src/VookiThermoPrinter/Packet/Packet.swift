@@ -30,6 +30,7 @@ public enum RequestCode: UInt8, Sendable {
     case REQUEST_HEARTBEAT = 0xDC
     case REQUEST_SET_LABEL_TYPE = 0x23
     case REQUEST_SET_LABEL_DENSITY = 0x21
+    case REQUEST_CANCEL_PRINT = 0xDA
     case REQUEST_START_PRINT = 0x01
     case REQUEST_END_PRINT = 0xF3
     case REQUEST_START_PAGE_PRINT = 0x03
@@ -39,6 +40,7 @@ public enum RequestCode: UInt8, Sendable {
     case REQUEST_SET_QUANTITY = 0x15
     case REQUEST_GET_PRINT_STATUS = 0xA3
     case REQUEST_SET_PRINTER_DATA = 0x85
+    case REQUEST_PRINTER_CHECK_LINE = 0x86
     
     case RESPONSE_GET_INFO_DENSITY = 0x41                 // RequestCode.REQUEST_GET_INFO + InfoCode.DENSITY
     case RESPONSE_GET_INFO_LABEL_TYPE = 0x43              // RequestCode.REQUEST_GET_INFO + InfoCode.LABEL_TYPE
@@ -49,6 +51,7 @@ public enum RequestCode: UInt8, Sendable {
     case RESPONSE_GET_INFO_DEVICE_SERIAL = 0x4B           // RequestCode.REQUEST_GET_INFO + InfoCode.DEVICE_SERIAL
     case RESPONSE_GET_INFO_HARDWARE_VERSION = 0x4C        // RequestCode.REQUEST_GET_INFO + InfoCode.HARDWARE_VERSION
     case RESPONSE_GET_RFID = 0x1B                         // RequestCode.GET_RFID + 1
+    case RESPONSE_CANCEL_PRINT = 0xD0                     // RequestCode.REQUEST_CANCEL_PRINT - 1
     case RESPONSE_START_PRINT = 0x02                      // RequestCode.REQUEST_START_PRINT + 1
     case RESPONSE_END_PRINT = 0xF4                        // RequestCode.REQUEST_END_PAGE_PRINT + 1
     case RESPONSE_START_PAGE_PRINT = 0x04                 // RequestCode.REQUEST_START_PAGE_PRINT + 1
@@ -58,9 +61,7 @@ public enum RequestCode: UInt8, Sendable {
     case RESPONSE_SET_LABEL_DENSITY = 0x31                // RequestCode.REQUEST_SET_LABEL_DENSITY + 16
     case RESPONSE_SET_DIMENSION = 0x14                    // RequestCode.REQUEST_SET_DIMENSION + 1
     case RESPONSE_GET_PRINT_STATUS = 0xB3                 // RequestCode.REQUEST_GET_PRINT_STATUS + 16
-
-    
-    case RESPONSE_SOMETHING = 0xD3          //TODO: What this type stands for?
+    case RESPONSE_PRINTER_CHECK_LINE = 0xD3    
 }
 
 public final class Packet: Sendable {

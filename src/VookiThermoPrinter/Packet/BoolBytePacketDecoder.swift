@@ -1,15 +1,19 @@
-//
-//  BoolBytePacketDecoder.swift
-//  VookiThermoPrinter
-//
-//  Created by Michal Duda on 12.06.2024.
-//
+/****************************************************************************
+VookiThermoPrinter - A lightweight macOS tool for printing to Niimbot label printers.
+- https://github.com/vookimedlo/vooki-thermo-printer
+
+  SPDX-FileCopyrightText: 2024 Michal Duda <github@vookimedlo.cz>
+  SPDX-License-Identifier: GPL-3.0-or-later
+  SPDX-FileType: SOURCE
+
+****************************************************************************/
 
 import Foundation
 
 public final class BoolBytePacketDecoder: PacketDecoding {
     public static let codes = [RequestCode.RESPONSE_START_PRINT,
                         RequestCode.RESPONSE_END_PRINT,
+                        RequestCode.RESPONSE_CANCEL_PRINT,
                         RequestCode.RESPONSE_START_PAGE_PRINT,
                         RequestCode.RESPONSE_END_PAGE_PRINT,
                         RequestCode.RESPONSE_ALLOW_PRINT_CLEAR,
@@ -29,6 +33,8 @@ public final class BoolBytePacketDecoder: PacketDecoding {
                 return Notification.Name.App.startPrint
             case RequestCode.RESPONSE_END_PRINT:
                 return Notification.Name.App.endPrint
+            case RequestCode.RESPONSE_CANCEL_PRINT:
+                return Notification.Name.App.cancelPrint
             case RequestCode.RESPONSE_START_PAGE_PRINT:
                 return Notification.Name.App.startPagePrint
             case RequestCode.RESPONSE_END_PAGE_PRINT:

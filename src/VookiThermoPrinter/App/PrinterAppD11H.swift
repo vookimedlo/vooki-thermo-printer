@@ -15,7 +15,7 @@ import SwiftData
 struct AppDetailsD11H: AppDetails {
     var dpi: PaperEAN.DPI = .dpi300
     var printerVariant: String = "D11_H"
-    var peripheralFilter: String = "D11_H_"
+    var peripheralFilter: String = "D11_H-"
 }
 
 @main

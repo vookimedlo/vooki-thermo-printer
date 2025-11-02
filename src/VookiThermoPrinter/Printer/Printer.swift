@@ -28,7 +28,8 @@ final class Printer {
                                                  AutoShutdownTimePacketDecoder(),
                                                  DensityPacketDecoder(),
                                                  LabelTypePacketDecoder(),
-                                                 PrintStatusPacketDecoder()])
+                                                 PrintStatusPacketDecoder(),
+                                                 PrinterCheckLinePacketDecoder()])
     let printerDevice: PrinterDevice
     
     init(printerDevice: PrinterDevice) {
@@ -83,6 +84,11 @@ final class Printer {
         
     public func getRFIDData() throws {
         let packet = Packet(requestCode: RequestCode.REQUEST_GET_RFID, data: [1])
+        try send(packet: packet)
+    }
+    
+    public func cancelPrint() throws {
+        let packet = Packet(requestCode: RequestCode.REQUEST_CANCEL_PRINT, data: [])
         try send(packet: packet)
     }
     
@@ -147,6 +153,12 @@ final class Printer {
     public func setPrinterData(data: [UInt8]) throws {
         let packet = Packet(requestCode: RequestCode.REQUEST_SET_PRINTER_DATA,
                             data: data)
+        try send(packet: packet)
+    }
+    
+    public func printerCheckLine(line: UInt16) throws {
+        let packet = Packet(requestCode: RequestCode.REQUEST_PRINTER_CHECK_LINE,
+                            data: line.bigEndian.bytes + [1])
         try send(packet: packet)
     }
 

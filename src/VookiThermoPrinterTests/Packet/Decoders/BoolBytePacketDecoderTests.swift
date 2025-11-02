@@ -19,6 +19,8 @@ final class BoolBytePacketDecoderTests: XCTestCase {
             return Notification.Name.App.startPrint
         case RequestCode.RESPONSE_END_PRINT:
             return Notification.Name.App.endPrint
+        case RequestCode.RESPONSE_CANCEL_PRINT:
+            return Notification.Name.App.cancelPrint
         case RequestCode.RESPONSE_START_PAGE_PRINT:
             return Notification.Name.App.startPagePrint
         case RequestCode.RESPONSE_END_PAGE_PRINT:
@@ -68,6 +70,7 @@ final class BoolBytePacketDecoderTests: XCTestCase {
         let inputData: [UInt8] = [0x00]
         
         for code in BoolBytePacketDecoder.codes {
+            
             let packet = Packet(requestCode: code, data: inputData)
             
             let handler: (Notification) -> Bool = { notification in

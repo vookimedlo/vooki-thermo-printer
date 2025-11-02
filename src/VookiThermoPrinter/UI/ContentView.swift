@@ -11,31 +11,47 @@ VookiThermoPrinter - A lightweight macOS tool for printing to Niimbot label prin
 import SwiftUI
 import SwiftData
 
-
 struct ContentView: View, Notifiable {
-    
-    enum Views {
+    @Environment(PrinterDetails.self) private var printerDetails
+    @Environment(PrinterAvailability.self) private var printerAvailability
+    @Environment(ConnectionViewProperties.self) private var connectionViewProperties
+    @Environment(\.appDetails) private var appDetails
+
+    @State private var showingInspector: Bool = true
+    @State private var showingPrintingProgress: Bool = false
+
+    enum Views: Hashable {
         case emptyView
         case printerView
         case savedView
         case historicalView
     }
-    
-    struct LitsItem : Identifiable {
+
+    struct LitsItem: Identifiable {
         let id: Views
         let systemName: String
         let description: String
-        
-        init(id: Views, systemName: String, description: String) {
-            self.id = id
-            self.systemName = systemName
-            self.description = description
-        }
     }
-    
+
     let printerView = PrinterView()
     let savedView = SavedView()
     let historicalView = HistoryView()
+
+    @State private var selectedItem: Views? = .emptyView
+
+    @State private var showAlert: Bool = false
+    @State private var alertType: AlertType = .none
+
+    // přidáme, ať vidíš, kdy je sidebar schovaný
+    @State private var columnVisibility: NavigationSplitViewVisibility = .automatic
+
+    var items: [LitsItem] {
+        [
+            LitsItem(id: .printerView, systemName: "printer", description: appDetails.printerVariant + " Printer"),
+            LitsItem(id: .savedView, systemName: "tray", description: "Saved labels"),
+            LitsItem(id: .historicalView, systemName: "book.closed", description: "History")
+        ]
+    }
 
     @ViewBuilder
     func getView(id: Views) -> some View {
@@ -46,105 +62,128 @@ struct ContentView: View, Notifiable {
         case .historicalView: historicalView
         }
     }
-    
-    @Environment(\.appDetails) private var appDetails
-    
-    var items: [LitsItem] {
-        [
-            LitsItem(id: .printerView, systemName: "printer", description: appDetails.printerVariant + " Printer"),
-            LitsItem(id: .savedView, systemName: "tray", description: "Saved labels"),
-            LitsItem(id: .historicalView, systemName: "book.closed", description: "History")
-        ]
-    }
-    
-    @Environment(PrinterAvailability.self) private var printerAvailability
-    @Environment(ConnectionViewProperties.self) private var connectionViewProperties
-    
-    @State var selectedItem: Views = .emptyView
-    @State var showAlert: Bool = false
-    @State var alertType: AlertType = .none
-    
+
     var body: some View {
         @Bindable var connectionViewProperties = connectionViewProperties
-        
-        NavigationSplitView {
-            List(selection: $selectedItem) {
-                ForEach(items) { item in
-                    NavigationLink {
-                        getView(id: item.id)
-                    } label: {
-                        HStack {
-                            SwiftUI.Image(systemName: item.systemName)
-                                .resizable()
-                                .symbolRenderingMode(.monochrome)
-                                .symbolVariant(.fill)
-                                .fontWeight(.regular)
-                                .foregroundStyle(Color.lila)
-                                .frame(width: 18, height: 18)
-                            VStack(alignment: .leading, spacing: 0) {
-                                Spacer()
-                                Text(item.description).padding(.bottom, 10)
-                                Divider()
+
+        ZStack {
+            NavigationSplitView(columnVisibility: $columnVisibility) {
+                List(items, selection: $selectedItem) { item in
+                    HStack {
+                        Image(systemName: item.systemName)
+                            .resizable()
+                            .symbolRenderingMode(.monochrome)
+                            .symbolVariant(.fill)
+                            .fontWeight(.regular)
+                            .foregroundStyle(Color.lila)
+                            .frame(width: 18, height: 18)
+                        VStack(alignment: .leading, spacing: 0) {
+                            Spacer()
+                            Text(item.description)
+                                .padding(.bottom, 10)
+                            Divider()
+                        }
+                    }
+                    .tag(item.id as Views?)
+                }
+                .listRowSeparator(.hidden)
+            } detail: {
+                if let selectedItem {
+                    getView(id: selectedItem)
+                } else {
+                    EmptyView()
+                }
+            }
+            .inspector(isPresented: $showingInspector) {
+                VStack {
+                    List {
+                        Section(header: Text("Printer")) {
+                            PrinterDetailsView()
+                        }
+                        if printerAvailability.isConnected && printerDetails.isPaperInserted {
+                            Section(header: Text("Paper")) {
+                                PrinterLabelDetailView()
                             }
                         }
-                    }.tag(item.id)
-                }
-            }
-            .listRowSeparator(.hidden)
-        } detail: {
-        }
-        .alert(Text(alertType.title),
-                isPresented: $showAlert,
-                actions: {
-                    Button("OK") {
-                        showAlert = false;
-                        alertType = .none
                     }
-                }, message: {
-                    Text(alertType.message)
+                    .listStyle(.sidebar)
+                    Spacer()
                 }
-            )
-        .onReceive(NotificationCenter.default.publisher(for: .App.UI.alert)) { notification  in
-            alertType = notification.userInfo?[Notification.Keys.value] as! AlertType
-            withAnimation {
-                showAlert = true
+                .animation(.easeInOut, value: printerAvailability.isConnected)
+                .animation(.easeInOut, value: printerDetails.isPaperInserted)
             }
+            .sheet(isPresented: $showingPrintingProgress) {
+                VStack {
+                    Text("Printing ...").padding(.top)
+                    Divider()
+                    HStack {
+                        Spacer()
+                        PrintingProgress()
+                        Spacer()
+                    }.padding()
+                }
+                .frame(minWidth: 600)
+                .interactiveDismissDisabled()
+            }
+            .toolbar {
+                ToolbarItem() {
+                    Button {
+                        withAnimation {
+                            showingInspector.toggle()
+                        }
+                    } label: {
+                        SwiftUI.Image(systemName: "sidebar.right")
+                    }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .appBar) {
+                    PrinterMenuCommands.connectMenu(printerAvailability: printerAvailability,
+                                                    connectionViewProperties: connectionViewProperties)
+                        .popover(isPresented: $connectionViewProperties.show) {
+                            BluetoothPeripheralsView(isPresented: $connectionViewProperties.show)
+                        }
+                }
+                ToolbarItem(placement: .appBar) {
+                    PrinterMenuCommands.disconnectMenu(printerAvailability: printerAvailability)
+                }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .App.UI.printStarted)) { _ in
+            withAnimation { showingPrintingProgress = true }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .App.UI.printDone)) { _ in
+            withAnimation { showingPrintingProgress = false }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .App.UI.alert)) { notification  in
+            let alert = notification.userInfo?[Notification.Keys.value] as! AlertType
+            alertType = alert
+            withAnimation { showAlert = true }
         }
         .onReceive(NotificationCenter.default.publisher(for: .App.showView)) { notification  in
-            let viewType = notification.userInfo?[Notification.Keys.value] as! Views
+            guard let viewType = notification.userInfo?[Notification.Keys.value] as? Views else {
+                return
+            }
             withAnimation {
                 selectedItem = viewType
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .appBar) {
-                PrinterMenuCommands.connectMenu(printerAvailability: printerAvailability,
-                                                connectionViewProperties: connectionViewProperties)
-                .popover(isPresented: $connectionViewProperties.show) {
-                    BluetoothPeripheralsView(isPresented: $connectionViewProperties.show)
-                }
-            }
-            ToolbarItem(placement: .appBar) {
-                PrinterMenuCommands.disconnectMenu(printerAvailability: printerAvailability)
-            }
-        }
+        .alert(Text(alertType.title),
+               isPresented: $showAlert,
+               actions: {
+                    Button("OK") {
+                        showAlert = false
+                        alertType = .none
+                    }
+               }, message: {
+                    Text(alertType.message)
+               }
+        )
         .task {
-            try? await Task.sleep(nanoseconds: 10)
-            selectedItem = .printerView
+            try? await Task.sleep(for: .nanoseconds(50))
+            await MainActor.run {
+                selectedItem = .printerView
+            }
         }
     }
 }
-
-#Preview {
-    ContentView()
-        .modelContainer(for: SDHistoryLabelProperty.self, inMemory: true, isAutosaveEnabled: false)
-        .environmentObject(BluetoothPeripherals())
-        .environmentObject(PrinterDetails())
-        .environmentObject(PaperDetails())
-        .environmentObject(ImagePreview())
-        .environmentObject(ObservablePaperEAN())
-        .environmentObject(PrinterAvailability())
-        .environmentObject(TextProperties())
-        .environmentObject(ConnectionViewProperties())
-}
-

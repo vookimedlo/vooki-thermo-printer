@@ -87,6 +87,9 @@ struct ContentView: View, Notifiable {
                     .tag(item.id as Views?)
                 }
                 .listRowSeparator(.hidden)
+                // Explicit bounds keep the sidebar's min size stable while resizing,
+                // otherwise AppKit can end up in an endless constraint update loop.
+                .navigationSplitViewColumnWidth(min: 180, ideal: 220, max: 350)
             } detail: {
                 if let selectedItem {
                     getView(id: selectedItem)
